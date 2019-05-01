@@ -1,21 +1,55 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div *ngIf="selectedEvent" fxLayout="column" [style.padding]="'0px'">
+  <div class="container" fxLayout="row" fxLayout.xs="column" *ngIf="backgroundImage" [style.background]="backgroundImage"
+      [style.background-color]="'black'" [style.background-size]="'cover'"
+      [style.background-position]="'center'" [style.padding]="'20px'">
+    <div class="container" fxLayout="column" fxFlex="1 1 auto">
+      <span>
+        <img src="assets/gd_logo1.png" height="60">
+        <h1>{{ selectedEvent.location.name }}</h1>
+        <h2>{{ selectedEvent.date }}</h2>
+      </span>
+    </div>
+    <div fxFlex="5 1 auto"></div>
+    <div class="container" fxLayout="column" fxFlex="1 1 auto">
+      <h2>Historical Weather:</h2>
+      <p>
+        max. temperature: {{ selectedEvent.weather.maxTemperature }} °F<br>
+        precipitation: {{ selectedEvent.weather.precipitation }} in<br>
+        wind: {{ selectedEvent.weather.wind }} mph {{ selectedEvent.weather.wind_direction }}
+      </p>
+    </div>
+  </div>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
+    <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
+      <div fxFlex="1 1 auto">Location: {{ selectedEvent.location.name }}</div>
+      <img class="image" *ngIf="selectedEvent.location.thumbnail" src="{{ selectedEvent.location.thumbnail }}" fxFlex="1 1 auto">
+    </div>
+    <div fxFlex="5 1 auto"></div>
+    <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
+      <div fxFlex="1 1 auto">Venue: {{ selectedEvent.venue.name }}</div>
+      <img class="image" *ngIf="selectedEvent.venue.thumbnail" src="{{ selectedEvent.venue.thumbnail }}" fxFlex="1 1 auto">
+    </div>
+  </div>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
+    <div class="container" fxLayout="column" fxFlex="2 1 auto" [style.padding]="'20px'">
+      <p>Setlist:</p>
+      <li *ngFor="let s of selectedEvent.setlist" style="list-style-type:none;">
+        {{ s.name }}
+      </li>
+    </div>
+    <div class="container" fxLayout="column" fxFlex="1 1 auto">
+      <iframe [src]="selectedRec.url" [style.min-width]="'350px'"[style.height]="'100%'" frameborder="0"></iframe>
+    </div>
+    <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
+      <div *ngFor="let p of selectedEvent.performers">
+        <div fxFlex="1 1 auto" fxLayout="row" class="gallery">
+          <img class="img-click" src="{{ p.thumbnail }}" [style.max-height]="'70px'" (click)="openDialog(p.image)">
+          <div class="desc">{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="height: 40px"></footer>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
 <router-outlet></router-outlet>
