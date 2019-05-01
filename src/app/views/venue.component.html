@@ -1,0 +1,20 @@
+<div *ngIf="venue" fxLayout="column" [style.padding]="'0px'">
+  <div class="container" fxLayout="row" fxLayout.xs="column" [style.background]="backgroundImage"
+      [style.background-color]="'black'" [style.background-size]="'cover'"
+      [style.background-position]="'center'" [style.padding]="'20px'">
+    <div class="container" fxLayout="column" fxFlex="1 1 auto">
+      <span>
+        <img src="assets/gd_logo1.png" height="60">
+        <h1>{{ venue.name }}</h1>
+        <h2>{{ venue.events[0].location }}</h2>
+      </span>
+    </div>
+  </div>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
+    <div class="container" fxLayout="column" fxFlex="2 1 auto" [style.padding]="'20px'">
+      <p>Shows:</p>
+      <li *ngFor="let s of venue.events" style="list-style-type:none;">
+        {{ s.date }}
+      </li>
+    </div>
+</div>
