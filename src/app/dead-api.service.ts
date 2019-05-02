@@ -20,7 +20,8 @@ export interface DeadEventInfo {
 interface Location {
   name: string,
   image: string,
-  thumbnail: string
+  thumbnail: string,
+  events: any
 }
 
 export interface Recording {
@@ -46,8 +47,7 @@ export class DeadApiService {
 
   async getEventInfo(event: DeadEvent): Promise<DeadEventInfo> {
     return {
-      date: new Date(event.date).toLocaleDateString("en-US",
-        { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+      date: event.date,
       location: this.cleanName(await this.getLocation(event.id)),
       venue: this.cleanName(await this.getVenue(event.id)),
       setlist: await this.getSetlist(event.id),
