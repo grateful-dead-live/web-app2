@@ -37,6 +37,7 @@ export class DataService {
     this.recording = this.event.recordings[0];
     this.formatDates(this.event.venue.events);
     this.formatDates(this.event.location.events);
+    console.log(this.event.venue.events.length, this.event.location.events.length)
     await Promise.all([this.addArtifacts(this.event.venue.events),
       this.addArtifacts(this.event.location.events)]);
     /*this.numberOfTracks =
@@ -59,8 +60,8 @@ export class DataService {
   
   private async addArtifacts(events) {
     await Promise.all(_.concat(
-      events.map(async e => e.tickets = await this.apiService.getTickets(e.id)),
-      events.map(async e => e.posters = await this.apiService.getPosters(e.id))));
+      events.map(e => e.tickets = this.apiService.getTickets(e.id)),
+      events.map(e => e.posters = this.apiService.getPosters(e.id))));
   }
 
 }
