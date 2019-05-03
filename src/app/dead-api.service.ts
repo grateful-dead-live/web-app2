@@ -46,14 +46,22 @@ export class DeadApiService {
   }
 
   async getEventInfo(event: DeadEvent): Promise<DeadEventInfo> {
+    const data = await Promise.all([
+      this.getLocation(event.id),
+      this.getVenue(event.id),
+      this.getSetlist(event.id),
+      this.getWeather(event.id),
+      this.getRecordings(event.id),
+      this.getPerformers(event.id)
+    ]);
     return {
       date: event.date,
-      location: this.cleanName(await this.getLocation(event.id)),
-      venue: this.cleanName(await this.getVenue(event.id)),
-      setlist: await this.getSetlist(event.id),
-      weather: await this.getWeather(event.id),
-      recordings: await this.getRecordings(event.id),
-      performers: await this.getPerformers(event.id)
+      location: this.cleanName(data[0]),
+      venue: this.cleanName(data[1]),
+      setlist: data[2],
+      weather: data[3],
+      recordings: data[4],
+      performers: data[5]
     };
   }
   

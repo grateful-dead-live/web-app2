@@ -1,9 +1,11 @@
+import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService, DeadEvent, Recording, DeadEventInfo } from './dead-api.service';
 
 @Injectable()
 export class DataService {
 
+  private loading: Promise<any>;
   private events: DeadEvent[];
   private event: DeadEventInfo;
   private recording: Recording;
@@ -12,7 +14,11 @@ export class DataService {
   
   async getEvent() {
     if (!this.event) {
-      await this.selectRandomEvent();
+      if (!this.loading) {
+        this.loading = this.selectRandomEvent();
+      }
+      await this.loading;
+      this.loading = null;
     }
     return this.event;
   }
@@ -21,7 +27,7 @@ export class DataService {
     return (await this.getEvent()).venue;
   }
   
-  async selectRandomEvent() {
+  private async selectRandomEvent() {
     await this.initEvents();
     await this.eventSelected(this.events[Math.floor(Math.random()*this.events.length)]);
   }
@@ -29,10 +35,11 @@ export class DataService {
   private async eventSelected(event: DeadEvent) {
     this.event = await this.apiService.getEventInfo(event);
     this.recording = this.event.recordings[0];
-    await this.formatDates(this.event.venue.events);
-    await this.formatDates(this.event.location.events);
-    await this.addArtifacts(this.event.venue.events);
-    await this.addArtifacts(this.event.location.events);
+    this.formatDates(this.event.venue.events);
+    this.formatDates(this.event.location.events);
+    console.log(this.event.venue.events.length, this.event.location.events.length)
+    await Promise.all([this.addArtifacts(this.event.venue.events),
+      this.addArtifacts(this.event.location.events)]);
     /*this.numberOfTracks =
       (await this.apiService.getEtreeInfo(this.selectedRec.id)).tracks.length;*/
   }
@@ -46,16 +53,15 @@ export class DataService {
     }
   }
   
-  private async formatDates(objects: {date: string}[]) {
+  private formatDates(objects: {date: string}[]) {
     objects.forEach(o => o.date = new Date(o.date).toLocaleDateString("en-US",
       { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
   }
   
   private async addArtifacts(events) {
-    await Promise.all(events.map(async e =>
-      e.tickets = await this.apiService.getTickets(e.id)));
-    await Promise.all(events.map(async e =>
-      e.posters = await this.apiService.getPosters(e.id)));
+    await Promise.all(_.concat(
+      events.map(e => e.tickets = this.apiService.getTickets(e.id)),
+      events.map(e => e.posters = this.apiService.getPosters(e.id))));
   }
 
 }
