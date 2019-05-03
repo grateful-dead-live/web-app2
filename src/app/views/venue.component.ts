@@ -8,7 +8,6 @@ import { DataService } from '../data.service';
   styleUrls: ['./venue.component.sass']
 })
 export class VenueComponent {
-  
   protected venue;
   protected backgroundImage: SafeStyle;
   
@@ -16,9 +15,7 @@ export class VenueComponent {
   
   async ngOnInit() {
     this.venue = await this.data.getVenue();
-    console.log(this.venue)
     const imageUrl = 'url('+this.venue.image+')';
     this.backgroundImage = this.sanitizer.bypassSecurityTrustStyle(imageUrl);
   }
-
 }

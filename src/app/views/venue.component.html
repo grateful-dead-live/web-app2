@@ -11,12 +11,6 @@
     </div>
   </div>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
-    <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
-      <iframe fxFlex="1 1 auto"
-        src="https://maps.google.com/maps?hl=en&amp;q={{ venue.events[0].location }};ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
-        frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-      </iframe>
-    </div>
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
       <h2>{{ venue.name }}, {{ venue.events[0].location }}</h2>
       <p>The Band played on {{ data.event.date }}</p>
@@ -24,6 +18,10 @@
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
       <img class="image" src="{{ venue.thumbnail }}" fxFlex="1 1 auto">
+    </div>
+    <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
+      <app-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
+        latitude="{{venue.geoloc.lat}}" longitude="{{venue.geoloc.long}}"></app-map>
     </div>
   </div>
   <p [style.padding]="'20px'">All shows at the {{ venue.name }}:</p>
