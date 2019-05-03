@@ -36,8 +36,8 @@ export interface EtreeInfo {
 @Injectable()
 export class DeadApiService {
 
-  private API_URL = "https://grateful-dead-api.herokuapp.com/";
-  //private API_URL = "http://localhost:8060/";
+  //private API_URL = "https://grateful-dead-api.herokuapp.com/";
+  private API_URL = "http://localhost:8060/";
 
   constructor(private sanitizer: DomSanitizer) {}
 
