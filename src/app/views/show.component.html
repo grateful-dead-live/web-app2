@@ -10,12 +10,17 @@
       </span>
     </div>
     <div fxFlex="5 1 auto"></div>
-    <div class="container" fxLayout="column" fxFlex="1 1 auto">
-      <h2>Historical Weather:</h2>
+    <div class="container transbox" fxLayout="column" fxFlex="1 1 auto">
+      <!-- <h2>Historical Weather:</h2> -->
+      <h1>
+        <i class="wi {{ event.weather.conditionIcon }}"></i>
+        <i class="wi {{ event.weather.windDirectionIcon }}"></i>
+      </h1>
+      <p>{{ event.weather.condition }}</p>
       <p>
         max. temperature: {{ event.weather.maxTemperature }} °F<br>
         precipitation: {{ event.weather.precipitation }} in<br>
-        wind: {{ event.weather.wind }} mph {{ event.weather.wind_direction }}
+        wind: {{ event.weather.wind }} mph {{ event.weather.windDirection }}
       </p>
     </div>
   </div>
