@@ -33,7 +33,8 @@
             ],
             "styles": [
               "src/styles.sass",
-              "./node_modules/leaflet/dist/leaflet.css"
+              "./node_modules/leaflet/dist/leaflet.css",
+              "src/weathericons/css/weather-icons.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

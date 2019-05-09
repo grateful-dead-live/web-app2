@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { tileLayer, latLng, marker, icon } from 'leaflet';
 
 @Component({
-  selector: 'app-map',
+  selector: 'gd-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.sass']
 })

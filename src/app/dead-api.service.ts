@@ -46,7 +46,7 @@ export class DeadApiService {
   }
 
   async getEventInfo(event: DeadEvent): Promise<DeadEventInfo> {
-    const data = await Promise.all([
+    const [loc, ven, set, wea, rec, per] = await Promise.all([
       this.getLocation(event.id),
       this.getVenue(event.id),
       this.getSetlist(event.id),
@@ -56,13 +56,14 @@ export class DeadApiService {
     ]);
     return {
       date: event.date,
-      location: this.cleanName(data[0]),
-      venue: this.cleanName(data[1]),
-      setlist: data[2],
-      weather: data[3],
-      recordings: data[4],
-      performers: data[5]
+      location: this.cleanName(loc),
+      venue: this.cleanName(ven),
+      setlist: set,
+      weather: wea,
+      recordings: rec,
+      performers: per
     };
+    //return this.getJsonFromApi('details?event='+encodeURIComponent(event.id));
   }
   
   private cleanName(location: Location): Location {

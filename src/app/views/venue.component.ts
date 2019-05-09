@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { SafeStyle } from '@angular/platform-browser';
 import { DataService } from '../data.service';
 
 @Component({
-  selector: 'venue-root',
+  selector: 'gd-venue',
   templateUrl: './venue.component.html',
   styleUrls: ['./venue.component.sass']
 })
@@ -11,11 +11,9 @@ export class VenueComponent {
   protected venue;
   protected backgroundImage: SafeStyle;
   
-  constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
+  constructor(protected data: DataService) {}
   
   async ngOnInit() {
     this.venue = await this.data.getVenue();
-    const imageUrl = 'url('+this.venue.image+')';
-    this.backgroundImage = this.sanitizer.bypassSecurityTrustStyle(imageUrl);
   }
 }
