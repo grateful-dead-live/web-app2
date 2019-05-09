@@ -8,7 +8,7 @@ export class DataService {
   private loading: Promise<any>;
   private events: DeadEvent[];
   private event: DeadEventInfo;
-  private recording: Recording;
+  private selectedRec: Recording;
 
   constructor(private apiService: DeadApiService) { }
   
@@ -39,7 +39,8 @@ export class DataService {
 
   private async eventSelected(event: DeadEvent) {
     this.event = await this.apiService.getEventInfo(event);
-    this.recording = this.event.recordings[0];
+    console.log("SELECTED", this.event)
+    this.selectedRec = this.event.recordings[0];
     this.formatDates(this.event.venue.events);
     this.formatDates(this.event.location.events);
     await Promise.all([this.addArtifacts(this.event.venue.events),
@@ -64,8 +65,8 @@ export class DataService {
   
   private async addArtifacts(events) {
     await Promise.all(_.concat(
-      events.map(e => e.tickets = this.apiService.getTickets(e.id)),
-      events.map(e => e.posters = this.apiService.getPosters(e.id))));
+      events.map(async e => e.tickets = await this.apiService.getTickets(e.id)),
+      events.map(async e => e.posters = await this.apiService.getPosters(e.id))));
   }
 
 }

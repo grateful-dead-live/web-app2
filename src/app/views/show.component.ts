@@ -15,6 +15,7 @@ export class ShowComponent {
   
   async ngOnInit() {
     this.event = await this.data.getEvent();
+    console.log(this.event)
   }
 
 }
