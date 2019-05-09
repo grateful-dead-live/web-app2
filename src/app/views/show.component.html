@@ -6,11 +6,11 @@
         <i class="wi {{ event.weather.conditionIcon }}"></i>
         <i class="wi {{ event.weather.windDirectionIcon }}"></i>
       </h1>
-      <p>{{ event.weather.condition }}</p>
-      <p>
+      <p class="small">
+        <span *ngIf="event.weather.condition">{{ event.weather.condition }}<br><br></span>
         max. temperature: {{ event.weather.maxTemperature }} °F<br>
         precipitation: {{ event.weather.precipitation }} in<br>
-        wind: {{ event.weather.wind }} mph {{ event.weather.windDirection }}
+        wind: {{ event.weather.wind }} mph
       </p>
     </div>
   </gd-header>
