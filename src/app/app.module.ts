@@ -7,6 +7,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShowComponent } from './views/show.component';
+import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
 import { MapComponent } from './shared/map.component';
 import { HeaderComponent } from './shared/header.component';
@@ -18,6 +19,7 @@ import { DataService } from './data.service';
   declarations: [
     AppComponent,
     ShowComponent,
+    LocationComponent,
     VenueComponent,
     HeaderComponent,
     MapComponent

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SafeStyle } from '@angular/platform-browser';
 import { DataService } from '../data.service';
 
 @Component({
@@ -9,7 +8,6 @@ import { DataService } from '../data.service';
 })
 export class VenueComponent {
   protected venue;
-  protected backgroundImage: SafeStyle;
   
   constructor(protected data: DataService) {}
   

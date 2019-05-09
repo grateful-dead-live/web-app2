@@ -23,6 +23,10 @@ export class DataService {
     return this.event;
   }
   
+  async getLocation() {
+    return (await this.getEvent()).location;
+  }
+  
   async getVenue() {
     return (await this.getEvent()).venue;
   }

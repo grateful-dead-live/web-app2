@@ -15,7 +15,7 @@
     </div>
   </gd-header>
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
-    <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
+    <div routerLink="/location" class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
       <div fxFlex="1 1 auto">Location: {{ event.location.name }}</div>
       <img class="image" *ngIf="event.location.thumbnail" src="{{ event.location.thumbnail }}" fxFlex="1 1 auto">
     </div>
