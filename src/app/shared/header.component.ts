@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SafeStyle } from '@angular/platform-browser';
+import { Component, Input } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-header',
+  selector: 'gd-header',
   templateUrl: './header.component.html'
 })
-export class ShowComponent {
+export class HeaderComponent {
+  @Input() imageUrl: string;
+  @Input() title: string;
+  @Input() subtitle: string;
   protected image: SafeStyle;
-  protected title: string;
-  protected subtitle: string;
   
-  constructor(private route: ActivatedRoute) {
-    this.image = this.route.snapshot.paramMap.get('image');
-    this.title = this.route.snapshot.paramMap.get('title');
-    this.subtitle = this.route.snapshot.paramMap.get('subtitle');
+  constructor(private sanitizer: DomSanitizer) {}
+  
+  ngOnInit() {
+    this.image =
+      this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
   }
 
 }

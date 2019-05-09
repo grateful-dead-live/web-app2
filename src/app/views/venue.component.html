@@ -1,15 +1,7 @@
 <div *ngIf="venue" fxLayout="column" [style.padding]="'0px'">
-  <div class="container" fxLayout="row" fxLayout.xs="column" [style.background]="backgroundImage"
-      [style.background-color]="'black'" [style.background-size]="'cover'"
-      [style.background-position]="'center'" [style.padding]="'20px'">
-    <div class="container" fxLayout="column" fxFlex="1 1 auto">
-      <span>
-        <img src="assets/gd_logo1.png" height="60">
-        <h1>{{ venue.name }}</h1>
-        <h2>{{ venue.events[0].location }}</h2>
-      </span>
-    </div>
-  </div>
+  <gd-header *ngIf="venue" title='{{ venue.name }}'
+    subtitle='{{ venue.events[0].location }}' imageUrl="{{ venue.image }}">
+  </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
       <h2>{{ venue.name }}, {{ venue.events[0].location }}</h2>
@@ -20,8 +12,8 @@
       <img class="image" src="{{ venue.thumbnail }}" fxFlex="1 1 auto">
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
-      <app-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
-        latitude="{{venue.geoloc.lat}}" longitude="{{venue.geoloc.long}}"></app-map>
+      <gd-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
+        latitude="{{venue.geoloc.lat}}" longitude="{{venue.geoloc.long}}"></gd-map>
     </div>
   </div>
   <p [style.padding]="'20px'">All shows at the {{ venue.name }}:</p>

@@ -1,7 +1,7 @@
-<div class="container" *ngIf="backgroundImage" fxLayout="row" fxLayout.xs="column"
-    [style.background]="backgroundImage" [style.background-color]="'black'"
-    [style.background-size]="'cover'" [style.background-position]="'center'"
-    [style.padding]="'20px'">
+<div *ngIf="title" fxLayout="row" fxLayout.xs="column"
+    [style.background]="image"
+    [style.background-color]="'black'" [style.background-size]="'cover'"
+    [style.background-position]="'center'" [style.padding]="'20px'">
   <div class="container" fxLayout="column" fxFlex="1 1 auto">
     <span>
       <img src="assets/gd_logo1.png" height="60">
@@ -10,12 +10,5 @@
     </span>
   </div>
   <div fxFlex="5 1 auto"></div>
-  <div class="container" fxLayout="column" fxFlex="1 1 auto">
-    <h2>Historical Weather:</h2>
-    <p>
-      max. temperature: {{ selectedEvent.weather.maxTemperature }} °F<br>
-      precipitation: {{ selectedEvent.weather.precipitation }} in<br>
-      wind: {{ selectedEvent.weather.wind }} mph {{ selectedEvent.weather.wind_direction }}
-    </p>
-  </div>
+  <ng-content></ng-content>
 </div>

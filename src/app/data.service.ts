@@ -29,7 +29,8 @@ export class DataService {
   
   private async selectRandomEvent() {
     await this.initEvents();
-    await this.eventSelected(this.events[Math.floor(Math.random()*this.events.length)]);
+    const random = Math.floor(Math.random()*this.events.length);
+    await this.eventSelected(this.events[random]);
   }
 
   private async eventSelected(event: DeadEvent) {
@@ -37,7 +38,6 @@ export class DataService {
     this.recording = this.event.recordings[0];
     this.formatDates(this.event.venue.events);
     this.formatDates(this.event.location.events);
-    console.log(this.event.venue.events.length, this.event.location.events.length)
     await Promise.all([this.addArtifacts(this.event.venue.events),
       this.addArtifacts(this.event.location.events)]);
     /*this.numberOfTracks =
