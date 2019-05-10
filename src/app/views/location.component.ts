@@ -13,6 +13,5 @@ export class LocationComponent {
   
   async ngOnInit() {
     this.location = await this.data.getLocation();
-    console.log(this.location)
   }
 }

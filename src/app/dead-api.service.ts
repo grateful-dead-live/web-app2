@@ -14,7 +14,13 @@ export interface DeadEventInfo {
   setlist: any,
   weather: any,
   recordings: any,
-  performers: any
+  performers: any,
+  artifacts: Artifact[]
+}
+
+interface Artifact {
+  type: string,
+  image: string
 }
 
 interface Location {
@@ -46,14 +52,19 @@ export class DeadApiService {
   }
 
   async getEventInfo(event: DeadEvent): Promise<DeadEventInfo> {
-    const [loc, ven, set, wea, rec, per] = await Promise.all([
+    const [loc, ven, set, wea, rec, per, tic, pos] = await Promise.all([
       this.getLocation(event.id),
       this.getVenue(event.id),
       this.getSetlist(event.id),
       this.getWeather(event.id),
       this.getRecordings(event.id),
-      this.getPerformers(event.id)
+      this.getPerformers(event.id),
+      this.getTickets(event.id),
+      this.getPosters(event.id),
     ]);
+    const artifacts = [];
+    tic.forEach(t => artifacts.push({type: 'ticket', image: t}));
+    pos.forEach(p => artifacts.push({type: 'poster', image: p}));
     return {
       date: event.date,
       location: this.cleanName(loc),
@@ -61,7 +72,8 @@ export class DeadApiService {
       setlist: set,
       weather: wea,
       recordings: rec,
-      performers: per
+      performers: per,
+      artifacts: artifacts
     };
     //return this.getJsonFromApi('details?event='+encodeURIComponent(event.id));
   }
@@ -87,11 +99,11 @@ export class DeadApiService {
     return this.getJsonFromApi('venue?event='+encodeURIComponent(eventId));
   }
 
-  async getPosters(eventId: string): Promise<string> {
+  async getPosters(eventId: string): Promise<string[]> {
     return this.getJsonFromApi('posters?event='+encodeURIComponent(eventId));
   }
 
-  getTickets(eventId: string): Promise<string> {
+  getTickets(eventId: string): Promise<string[]> {
     return this.getJsonFromApi('tickets?event='+encodeURIComponent(eventId));
   }
 

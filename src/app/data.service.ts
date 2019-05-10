@@ -39,7 +39,7 @@ export class DataService {
 
   private async eventSelected(event: DeadEvent) {
     this.event = await this.apiService.getEventInfo(event);
-    console.log("SELECTED", this.event)
+    console.log("SELECTED", this.event);
     this.selectedRec = this.event.recordings[0];
     this.formatDates(this.event.venue.events);
     this.formatDates(this.event.location.events);
