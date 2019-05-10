@@ -47,7 +47,7 @@
   <p [style.padding]="'40px'">Artifacts from the show:</p>
   <div class="container" fxLayout="row wrap" [style.padding]="'20px'">
     <div *ngFor="let a of event.artifacts" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'" fxFlex.xs="1 1 50%">
-      <div fxFlex="1 1 auto">{{ a.type }}</div>
+      <div fxFlex="1 1 auto" fxLayoutAlign="center center">{{ a.type }}</div>
       <img class="image" fxFlex="1 1 auto" src="{{ a.image }}" [style.object-fit]="'contain'">
     </div>
   </div>

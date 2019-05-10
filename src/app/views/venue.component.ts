@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { DataService } from '../data.service';
 
 @Component({
@@ -9,9 +10,10 @@ import { DataService } from '../data.service';
 export class VenueComponent {
   protected venue;
   
-  constructor(protected data: DataService) {}
+  constructor(protected data: DataService, private titleService: Title) {}
   
   async ngOnInit() {
     this.venue = await this.data.getVenue();
+    this.titleService.setTitle(this.venue.name);
   }
 }

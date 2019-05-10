@@ -37,7 +37,7 @@ export class DataService {
     await this.eventSelected(this.events[random]);
   }
 
-  private async eventSelected(event: DeadEvent) {
+  async eventSelected(event: DeadEvent) {
     this.event = await this.apiService.getEventInfo(event);
     console.log("SELECTED", this.event);
     this.selectedRec = this.event.recordings[0];
