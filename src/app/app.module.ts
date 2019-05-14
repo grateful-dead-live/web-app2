@@ -12,8 +12,8 @@ import { VenueComponent } from './views/venue.component';
 import { MapComponent } from './shared/map.component';
 import { HeaderComponent } from './shared/header.component';
 
-import { DeadApiService } from './dead-api.service';
-import { DataService } from './data.service';
+import { DeadApiService } from './services/dead-api.service';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [

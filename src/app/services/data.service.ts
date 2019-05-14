@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
-import { DeadApiService, DeadEvent, Recording, DeadEventInfo } from './dead-api.service';
+import { DeadApiService, Recording } from './dead-api.service';
+import { DeadEvent, DeadEventInfo } from './types';
 
 @Injectable()
 export class DataService {

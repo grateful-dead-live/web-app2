@@ -1,42 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
-export interface DeadEvent {
-  id: string,
-  date: string,
-  location: string
-}
-
-export interface DeadEventInfo {
-  date: string,
-  location: Location,
-  venue: any,
-  setlist: any,
-  weather: any,
-  recordings: any,
-  performers: any,
-  artifacts: Artifact[]
-}
-
-interface Artifact {
-  type: string,
-  image: string
-}
-
-interface Location {
-  name: string,
-  image: string,
-  thumbnail: string,
-  events: any
-}
+import { DeadEvent, DeadEventInfo, Location, EtreeInfo } from './types';
 
 export interface Recording {
   id: string,
   url: SafeResourceUrl
-}
-
-export interface EtreeInfo {
-  tracks: string[]
 }
 
 @Injectable()
@@ -52,7 +20,7 @@ export class DeadApiService {
   }
 
   async getEventInfo(event: DeadEvent): Promise<DeadEventInfo> {
-    const [loc, ven, set, wea, rec, per, tic, pos] = await Promise.all([
+    const [loc, ven, set, wea, rec, per, tic, pos, pas] = await Promise.all([
       this.getLocation(event.id),
       this.getVenue(event.id),
       this.getSetlist(event.id),
@@ -61,10 +29,12 @@ export class DeadApiService {
       this.getPerformers(event.id),
       this.getTickets(event.id),
       this.getPosters(event.id),
+      this.getPasses(event.id)
     ]);
     const artifacts = [];
     tic.forEach(t => artifacts.push({type: 'ticket', image: t}));
     pos.forEach(p => artifacts.push({type: 'poster', image: p}));
+    pas.forEach(p => artifacts.push({type: 'pass', image: p}));
     return {
       date: event.date,
       location: this.cleanName(loc),
@@ -105,6 +75,10 @@ export class DeadApiService {
 
   getTickets(eventId: string): Promise<string[]> {
     return this.getJsonFromApi('tickets?event='+encodeURIComponent(eventId));
+  }
+  
+  getPasses(eventId: string): Promise<string[]> {
+    return this.getJsonFromApi('passes?event='+encodeURIComponent(eventId));
   }
 
   getWeather(eventId: string): Promise<string> {

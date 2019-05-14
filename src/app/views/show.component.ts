@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { DeadEventInfo } from '../dead-api.service';
-import { DataService } from '../data.service';
+import { DeadEventInfo } from '../services/types';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'gd-show',
