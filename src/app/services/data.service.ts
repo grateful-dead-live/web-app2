@@ -65,7 +65,8 @@ export class DataService {
   private async addArtifacts(events: DeadEventInfo[]) {
     await Promise.all(_.concat(
       events.map(async e => e["tickets"] = await this.apiService.getTickets(e.id)),
-      events.map(async e => e["posters"] = await this.apiService.getPosters(e.id))));
+      events.map(async e => e["posters"] = await this.apiService.getPosters(e.id)),
+      events.map(async e => e["envelopes"] = await this.apiService.getEnvelopes(e.id))));
   }
 
 }
