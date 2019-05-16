@@ -1,6 +1,6 @@
 <div *ngIf="location" fxLayout="column" [style.padding]="'0px'">
   <gd-header *ngIf="location" title='{{ location.name }}'
-    subtitle='ADD STATE/COUNTRY' imageUrl="{{ location.image }}">
+    subtitle='{{ location.state }}' imageUrl="{{ location.image }}">
   </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
