@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { DeadEventInfo } from '../services/types';
+import { Router, ActivatedRoute } from '@angular/router';
+import { DeadEventDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -10,14 +11,20 @@ import { DataService } from '../services/data.service';
 })
 export class ShowComponent {
   
-  protected event: DeadEventInfo;
+  protected event: DeadEventDetails;
   
-  constructor(private data: DataService, private titleService: Title) {}
+  constructor(private data: DataService, private router: Router,
+    private route: ActivatedRoute, private titleService: Title) {}
   
   async ngOnInit() {
-    this.event = await this.data.getEvent();
-    console.log(this.event)
-    this.titleService.setTitle(this.event.location.name + ", " + this.event.date);
+    this.route.paramMap.subscribe(async params => {
+      if (params.has('id')) {
+        this.event = await this.data.getEvent(params.get('id'));
+        this.titleService.setTitle(this.event.location.name + ", " + this.event.date);
+      } else {
+        this.router.navigate(['/show', await this.data.getRandomEventId()]);
+      }
+    });
   }
 
 }

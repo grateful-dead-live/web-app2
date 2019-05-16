@@ -8,8 +8,9 @@ import { VenueComponent } from './views/venue.component';
 const routes: Routes = [
   { path: '', redirectTo: '/show', pathMatch: 'full' },
   { path: 'show', component: ShowComponent },
-  { path: 'location', component: LocationComponent },
-  { path: 'venue', component: VenueComponent }
+  { path: 'show/:id', component: ShowComponent },
+  { path: 'location/:id', component: LocationComponent },
+  { path: 'venue/:id', component: VenueComponent }
 ];
 
 @NgModule({

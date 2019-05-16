@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { DeadEvent, DeadEventInfo, Location, EtreeInfo } from './types';
+import { DeadEventInfo, DeadEventDetails, Location, Venue, EtreeInfo } from './types';
 
 export interface Recording {
   id: string,
@@ -15,42 +15,12 @@ export class DeadApiService {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  async getEvents(): Promise<DeadEvent[]> {
+  async getEvents(): Promise<DeadEventInfo[]> {
     return this.getJsonFromApi('events');
   }
 
-  async getEventInfo(event: DeadEvent): Promise<DeadEventInfo> {
-    const [loc, ven, set, wea, rec, per, tic, pos, pas] = await Promise.all([
-      this.getLocation(event.id),
-      this.getVenue(event.id),
-      this.getSetlist(event.id),
-      this.getWeather(event.id),
-      this.getRecordings(event.id),
-      this.getPerformers(event.id),
-      this.getTickets(event.id),
-      this.getPosters(event.id),
-      this.getPasses(event.id)
-    ]);
-    const artifacts = [];
-    tic.forEach(t => artifacts.push({type: 'ticket', image: t}));
-    pos.forEach(p => artifacts.push({type: 'poster', image: p}));
-    pas.forEach(p => artifacts.push({type: 'pass', image: p}));
-    return {
-      date: event.date,
-      location: this.cleanName(loc),
-      venue: this.cleanName(ven),
-      setlist: set,
-      weather: wea,
-      recordings: rec,
-      performers: per,
-      artifacts: artifacts
-    };
-    //return this.getJsonFromApi('details?event='+encodeURIComponent(event.id));
-  }
-  
-  private cleanName(location: Location): Location {
-    location.name = location.name.split('_').join(' ');
-    return location;
+  async getEventDetails(eventId: string): Promise<DeadEventDetails> {
+    return this.getJsonFromApi('details?event='+encodeURIComponent(eventId))
   }
 
   getNews(eventId: string): Promise<string> {
@@ -61,15 +31,15 @@ export class DeadApiService {
     return this.getJsonFromApi('news2?event='+encodeURIComponent(eventId));
   }
   
-  getLocation(eventId: string): Promise<Location> {
-    return this.getJsonFromApi('location?event='+encodeURIComponent(eventId));
+  getLocation(locationId: string): Promise<Location> {
+    return this.getJsonFromApi('location?id='+encodeURIComponent(locationId));
   }
   
-  async getVenue(eventId: string): Promise<Location> {
-    return this.getJsonFromApi('venue?event='+encodeURIComponent(eventId));
+  getVenue(venueId: string): Promise<Venue> {
+    return this.getJsonFromApi('venue?id='+encodeURIComponent(venueId));
   }
 
-  async getPosters(eventId: string): Promise<string[]> {
+  getPosters(eventId: string): Promise<string[]> {
     return this.getJsonFromApi('posters?event='+encodeURIComponent(eventId));
   }
 

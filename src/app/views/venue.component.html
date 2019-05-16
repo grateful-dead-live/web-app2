@@ -10,7 +10,7 @@
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
       <img class="image" src="{{ venue.thumbnail }}" fxFlex="1 1 auto">
     </div>
-    <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
+    <div *ngIf="venue.geoloc" class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
       <gd-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
         latitude="{{venue.geoloc.lat}}" longitude="{{venue.geoloc.long}}"></gd-map>
     </div>

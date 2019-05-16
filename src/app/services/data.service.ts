@@ -1,62 +1,60 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
-import { DeadApiService, Recording } from './dead-api.service';
-import { DeadEvent, DeadEventInfo } from './types';
+import { DeadApiService } from './dead-api.service';
+import { DeadEventInfo, DeadEventDetails } from './types';
 
 @Injectable()
 export class DataService {
 
   private loading: Promise<any>;
-  private events: DeadEvent[];
-  private event: DeadEventInfo;
-  private selectedRec: Recording;
+  private events: DeadEventInfo[];
+  public event: DeadEventDetails;
 
-  constructor(private apiService: DeadApiService) { }
+  constructor(private apiService: DeadApiService) {
+    this.loading = this.initEvents();
+  }
   
-  async getEvent() {
-    if (!this.event) {
-      if (!this.loading) {
-        this.loading = this.selectRandomEvent();
-      }
-      await this.loading;
-      this.loading = null;
-    }
+  async getEvent(eventId: string) {
+    this.event = await this.apiService.getEventDetails(eventId);
     return this.event;
   }
   
-  async getLocation() {
-    return (await this.getEvent()).location;
+  async getLocation(locationId: string) {
+    const location = await this.apiService.getLocation(locationId);
+    this.formatDates(location.events);
+    await this.addArtifacts(location.events);
+    return location;
   }
   
-  async getVenue() {
-    return (await this.getEvent()).venue;
+  async getVenue(venueId: string) {
+    const venue = await this.apiService.getVenue(venueId);
+    this.formatDates(venue.events);
+    await this.addArtifacts(venue.events);
+    return venue;
   }
   
-  private async selectRandomEvent() {
-    await this.initEvents();
-    const random = Math.floor(Math.random()*this.events.length);
-    await this.eventSelected(this.events[random]);
+  async getRandomEvent() {
+    return (await this.getEvent(await this.getRandomEventId()));
   }
-
-  async eventSelected(event: DeadEvent) {
-    this.event = await this.apiService.getEventInfo(event);
-    console.log("SELECTED", this.event);
-    this.selectedRec = this.event.recordings[0];
-    this.formatDates(this.event.venue.events);
-    this.formatDates(this.event.location.events);
-    await Promise.all([this.addArtifacts(this.event.venue.events),
-      this.addArtifacts(this.event.location.events)]);
-    /*this.numberOfTracks =
-      (await this.apiService.getEtreeInfo(this.selectedRec.id)).tracks.length;*/
+  
+  async getRandomEventId() {
+    await this.loading;
+    return this.events[Math.floor(Math.random()*this.events.length)].id;
+  }
+  
+  async getRandomVenue() {
+    return (await this.getRandomEvent()).venue;
+  }
+  
+  async getRandomLocation() {
+    return (await this.getRandomEvent()).location;
   }
   
   private async initEvents() {
-    if (!this.events) {
-      this.events = await this.apiService.getEvents();
-      this.events.sort((a, b) => parseFloat(a.date.replace(/-/g, ''))
-        - parseFloat(b.date.replace(/-/g, '')));
-      this.formatDates(this.events);
-    }
+    this.events = await this.apiService.getEvents();
+    this.events.sort((a, b) => parseFloat(a.date.replace(/-/g, ''))
+      - parseFloat(b.date.replace(/-/g, '')));
+    this.formatDates(this.events);
   }
   
   private formatDates(objects: {date: string}[]) {
@@ -64,10 +62,10 @@ export class DataService {
       { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
   }
   
-  private async addArtifacts(events) {
+  private async addArtifacts(events: DeadEventInfo[]) {
     await Promise.all(_.concat(
-      events.map(async e => e.tickets = await this.apiService.getTickets(e.id)),
-      events.map(async e => e.posters = await this.apiService.getPosters(e.id))));
+      events.map(async e => e["tickets"] = await this.apiService.getTickets(e.id)),
+      events.map(async e => e["posters"] = await this.apiService.getPosters(e.id))));
   }
 
 }

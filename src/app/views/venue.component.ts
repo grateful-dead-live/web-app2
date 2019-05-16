@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DataService } from '../services/data.service';
+import { Venue } from '../services/types';
 
 @Component({
   selector: 'gd-venue',
@@ -8,12 +10,28 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./venue.component.sass']
 })
 export class VenueComponent {
-  protected venue;
+  protected venue: Venue;
   
-  constructor(protected data: DataService, private titleService: Title) {}
+  constructor(protected data: DataService, private router: Router,
+    private route: ActivatedRoute, private titleService: Title) {}
   
   async ngOnInit() {
-    this.venue = await this.data.getVenue();
-    this.titleService.setTitle(this.venue.name);
+    this.route.paramMap.subscribe(async params => {
+      if (!params.has('id')) {
+        this.navigateToRandomVenue();
+      } else {
+        this.venue = await this.data.getVenue(params.get('id'));
+        console.log(this.venue)
+        if (!this.venue) {
+          this.navigateToRandomVenue();
+        } else {
+          this.titleService.setTitle(this.venue.name);
+        }
+      }
+    });
+  }
+  
+  private async navigateToRandomVenue() {
+    this.router.navigate(['/venue', (await this.data.getRandomVenue()).id]);
   }
 }
