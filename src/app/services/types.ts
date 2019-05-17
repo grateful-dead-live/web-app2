@@ -2,6 +2,7 @@ export interface DeadEventInfo {
   id: string,
   date: string,
   locationName: string,
+  state: string,
   venueName: string,
   tickets: string[]
 }
@@ -13,7 +14,7 @@ export interface DeadEventDetails {
   venue: Venue,
   setlist: any,
   weather: any,
-  recordings: any,
+  recordings: string[],
   performers: any,
   artifacts: Artifact[]
 }

@@ -39,14 +39,6 @@ export class DeadApiService {
     return this.getJsonFromApi('news2?event='+encodeURIComponent(eventId));
   }
 
-  async getRecordings(eventId: string): Promise<Recording[]> {
-    const ids: string[] = await this.getJsonFromApi('recordings?event='+encodeURIComponent(eventId));
-    return ids.map(i => ({
-      id: i,
-      url: this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+i+"&playlist=1")
-    }));
-  }
-
   getEtreeInfo(recordingId: string): Promise<EtreeInfo> {
     return this.getJsonFromApi('etreeinfo?recording='+encodeURIComponent(recordingId));
   }
