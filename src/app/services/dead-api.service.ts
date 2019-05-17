@@ -22,14 +22,6 @@ export class DeadApiService {
   async getEventDetails(eventId: string): Promise<DeadEventDetails> {
     return this.getJsonFromApi('details?event='+encodeURIComponent(eventId))
   }
-
-  getNews(eventId: string): Promise<string> {
-    return this.getJsonFromApi('news?event='+encodeURIComponent(eventId));
-  }
-  
-  getNews2(eventId: string): Promise<string> {
-    return this.getJsonFromApi('news2?event='+encodeURIComponent(eventId));
-  }
   
   getLocation(locationId: string): Promise<Location> {
     return this.getJsonFromApi('location?id='+encodeURIComponent(locationId));
@@ -39,28 +31,12 @@ export class DeadApiService {
     return this.getJsonFromApi('venue?id='+encodeURIComponent(venueId));
   }
 
-  getPosters(eventId: string): Promise<string[]> {
-    return this.getJsonFromApi('posters?event='+encodeURIComponent(eventId));
-  }
-
-  getTickets(eventId: string): Promise<string[]> {
-    return this.getJsonFromApi('tickets?event='+encodeURIComponent(eventId));
+  getNews(eventId: string): Promise<string> {
+    return this.getJsonFromApi('news?event='+encodeURIComponent(eventId));
   }
   
-  getPasses(eventId: string): Promise<string[]> {
-    return this.getJsonFromApi('passes?event='+encodeURIComponent(eventId));
-  }
-
-  getEnvelopes(eventId: string): Promise<string[]> {
-    return this.getJsonFromApi('envelopes?event='+encodeURIComponent(eventId));
-  }
-
-  getWeather(eventId: string): Promise<string> {
-    return this.getJsonFromApi('weather?event='+encodeURIComponent(eventId));
-  }
-
-  getSetlist(eventId: string): Promise<string[]> {
-    return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
+  getNews2(eventId: string): Promise<string> {
+    return this.getJsonFromApi('news2?event='+encodeURIComponent(eventId));
   }
 
   async getRecordings(eventId: string): Promise<Recording[]> {
@@ -69,10 +45,6 @@ export class DeadApiService {
       id: i,
       url: this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+i+"&playlist=1")
     }));
-  }
-
-  getPerformers(eventId: string): Promise<{}[]> {
-    return this.getJsonFromApi('performers?event='+encodeURIComponent(eventId));
   }
 
   getEtreeInfo(recordingId: string): Promise<EtreeInfo> {

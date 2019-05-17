@@ -4,7 +4,7 @@
   </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
-      <p>The Band played on {{ data.event.date }}</p>
+      <p *ngIf="data.event">The Band played on {{ data.event.date }}</p>
       <p>{{ location.comment }}</p>
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
@@ -12,15 +12,9 @@
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
       <gd-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
-        latitude="{{location.geoloc.lat}}" longitude="{{location.geoloc.long}}"></gd-map>
+        latitude="{{ location.geoloc.lat }}" longitude="{{ location.geoloc.long }}"></gd-map>
     </div>
   </div>
   <p [style.padding]="'20px'">All shows in {{ location.name }}:</p>
-  <div class="container" fxLayout="row wrap" [style.padding]="'20px'">
-    <div *ngFor="let e of location.events" fxLayout="column" fxFlex="1 1 25%" [style.height]="'100px'" [style.padding]="'20px'" fxFlex.xs="1 1 50%">
-      <div fxFlex="1 1 auto">{{ e.date }}</div>
-      <img *ngIf="e.tickets.length" class="image" fxFlex="1 1 auto" src="{{ e.tickets }}" [style.object-fit]="'cover'">
-      <img *ngIf="!e.tickets.length" class="image" fxFlex="1 1 auto" src="assets/gd_logo1.png" [style.object-fit]="'cover'">
-    </div>
-  </div>
+  <gd-shows [events]="location.events"></gd-shows>
 </div>

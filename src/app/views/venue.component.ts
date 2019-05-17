@@ -21,7 +21,6 @@ export class VenueComponent {
         this.navigateToRandomVenue();
       } else {
         this.venue = await this.data.getVenue(params.get('id'));
-        console.log(this.venue)
         if (!this.venue) {
           this.navigateToRandomVenue();
         } else {

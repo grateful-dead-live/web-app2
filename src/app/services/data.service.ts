@@ -22,14 +22,12 @@ export class DataService {
   async getLocation(locationId: string) {
     const location = await this.apiService.getLocation(locationId);
     this.formatDates(location.events);
-    await this.addArtifacts(location.events);
     return location;
   }
   
   async getVenue(venueId: string) {
     const venue = await this.apiService.getVenue(venueId);
     this.formatDates(venue.events);
-    await this.addArtifacts(venue.events);
     return venue;
   }
   
@@ -60,13 +58,6 @@ export class DataService {
   private formatDates(objects: {date: string}[]) {
     objects.forEach(o => o.date = new Date(o.date).toLocaleDateString("en-US",
       { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
-  }
-  
-  private async addArtifacts(events: DeadEventInfo[]) {
-    await Promise.all(_.concat(
-      events.map(async e => e["tickets"] = await this.apiService.getTickets(e.id)),
-      events.map(async e => e["posters"] = await this.apiService.getPosters(e.id)),
-      events.map(async e => e["envelopes"] = await this.apiService.getEnvelopes(e.id))));
   }
 
 }

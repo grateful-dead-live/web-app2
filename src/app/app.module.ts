@@ -9,8 +9,10 @@ import { AppComponent } from './app.component';
 import { ShowComponent } from './views/show.component';
 import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
-import { MapComponent } from './shared/map.component';
+
 import { HeaderComponent } from './shared/header.component';
+import { MapComponent } from './shared/map.component';
+import { ShowsComponent } from './shared/shows.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
@@ -22,7 +24,8 @@ import { DataService } from './services/data.service';
     LocationComponent,
     VenueComponent,
     HeaderComponent,
-    MapComponent
+    MapComponent,
+    ShowsComponent
   ],
   imports: [
     BrowserModule,
