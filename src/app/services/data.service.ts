@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
-import { DeadEventInfo, DeadEventDetails } from './types';
+import { DeadEventInfo, DeadEventDetails, Song } from './types';
 
 @Injectable()
 export class DataService {
@@ -29,6 +29,16 @@ export class DataService {
     const venue = await this.apiService.getVenue(venueId);
     this.formatDates(venue.events);
     return venue;
+  }
+  
+  async getSong(songId: string): Promise<Song> {
+    let song: Song;
+    if (this.event) {
+      song = this.event.setlist.filter(s => s.id === songId)[0];
+    }
+    if (!song) song = await this.apiService.getSong(songId);
+    this.formatDates(song.events);
+    return song;
   }
   
   async getRandomEvent() {

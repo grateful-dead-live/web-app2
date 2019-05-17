@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ShowComponent } from './views/show.component';
 import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
+import { SongComponent } from './views/song.component';
 
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
@@ -23,6 +24,7 @@ import { DataService } from './services/data.service';
     ShowComponent,
     LocationComponent,
     VenueComponent,
+    SongComponent,
     HeaderComponent,
     MapComponent,
     ShowsComponent

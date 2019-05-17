@@ -13,7 +13,7 @@ import { DataService } from '../services/data.service';
 export class ShowComponent {
   
   protected event: DeadEventDetails;
-  protected recordingUrls: SafeStyle;
+  protected recordingUrls: SafeStyle[];
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute, private titleService: Title) {}

@@ -28,7 +28,7 @@
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
     <div class="container" fxLayout="column" fxFlex="2 1 auto" [style.padding]="'20px'">
       <p>Setlist:</p>
-      <li *ngFor="let s of event.setlist" style="list-style-type:none;">
+      <li *ngFor="let s of event.setlist" [routerLink]="['/song', s.id]" style="list-style-type:none;">
         {{ s.name }}
       </li>
     </div>

@@ -1,0 +1,4 @@
+<div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
+  <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
+  <gd-shows [events]="song.events"></gd-shows>
+</div>
