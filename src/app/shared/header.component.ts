@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'gd-header',
@@ -11,11 +11,11 @@ export class HeaderComponent {
   @Input() subtitle: string;
   protected image: SafeStyle;
   
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer, private titleService: Title) {}
   
   ngOnInit() {
-    this.image =
-      this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
+    this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
+    this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
   }
 
 }

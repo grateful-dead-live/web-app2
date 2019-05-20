@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { DataService } from '../services/data.service';
 import { Location } from '../services/types';
 
@@ -13,24 +12,17 @@ export class LocationComponent {
   protected location: Location;
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute, private titleService: Title) {}
+    private route: ActivatedRoute) {}
   
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
-      if (!params.has('id')) {
-        this.navigateToRandomLocation();
-      } else {
+      if (params.has('id')) {
         this.location = await this.data.getLocation(params.get('id'));
-        if (!this.location) {
-          this.navigateToRandomLocation();
-        } else {
-          this.titleService.setTitle(this.location.name);
-        }
+      }
+      if (!this.location) {
+        this.router.navigate(['/location',
+          (await this.data.getRandomLocation()).id]);
       }
     });
-  }
-  
-  private async navigateToRandomLocation() {
-    this.router.navigate(['/location', (await this.data.getRandomLocation()).id]);
   }
 }
