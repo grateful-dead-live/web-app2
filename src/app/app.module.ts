@@ -14,6 +14,7 @@ import { SongComponent } from './views/song.component';
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
 import { ShowsComponent } from './shared/shows.component';
+import { SongsComponent } from './shared/songs.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
@@ -27,7 +28,8 @@ import { DataService } from './services/data.service';
     SongComponent,
     HeaderComponent,
     MapComponent,
-    ShowsComponent
+    ShowsComponent,
+    SongsComponent
   ],
   imports: [
     BrowserModule,
