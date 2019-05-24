@@ -1,0 +1,34 @@
+<script src="https://archive.org/jw/8/jwplayer.js"></script>
+<div class="container" fxLayout="row wrap" [style.padding]="'10px'">
+
+  <!--
+<ng-container *ngFor="let e of events">
+    {{ e.date2 }} {{ e.venue }}, {{ e.location }}<br />
+  </ng-container>
+-->
+
+
+  <div *ngFor="let e of events" fxLayout="column" fxFlex="1 1 25%"
+      [style.height]="'250px'" [style.padding]="'20px'" fxFlex.xs="1 1 50%">
+    <div [style.font-size]="'80%'" [routerLink]="['/show', e.id]">{{ e.date2 }}</div>
+    <div [style.font-size]="'80%'" [routerLink]="['/show', e.id]">{{ e.venue }}, {{ e.location }}</div>
+   <!-- <img *ngIf="e.tickets.length" class="ticket" fxFlex="1 1 auto"
+      [routerLink]="['/show', e.id]"
+      src="{{ e.tickets[0] }}" [style.object-fit]="'cover'">
+
+    <img *ngIf="!e.tickets.length" class="ticket" fxFlex="1 1 auto"
+      [routerLink]="['/show', e.id]"
+      src="assets/gd_logo1.png" [style.object-fit]="'cover'">-->
+  <!--  
+      <div controls *ngFor="let a of audio[e.date2]" [style.font-size]="'70%'">
+          {{a.recording}}
+      </div>
+-->
+      <audio controls *ngFor="let a of audio[e.date2]">
+        <source *ngIf="audio[e.date2]" src='https://archive.org/download/{{a.recording}}/{{a.filename}}' type="audio/mpeg">
+      </audio>
+
+  </div>
+  
+ 
+
