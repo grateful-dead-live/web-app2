@@ -7,5 +7,5 @@ import { DeadEventInfo } from '../services/types';
 })
 export class SongsComponent {
   @Input() events: DeadEventInfo[];
-  @Input() audio: DeadEventInfo[];
+  @Input() audio: [];
 }
