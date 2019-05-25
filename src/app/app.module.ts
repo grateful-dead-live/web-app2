@@ -14,10 +14,10 @@ import { SongComponent } from './views/song.component';
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
 import { ShowsComponent } from './shared/shows.component';
-import { SongsComponent } from './shared/songs.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
+//import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,14 +28,14 @@ import { DataService } from './services/data.service';
     SongComponent,
     HeaderComponent,
     MapComponent,
-    ShowsComponent,
-    SongsComponent
+    ShowsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot()//,
+    //ReactiveFormsModule
   ],
   providers: [DeadApiService, DataService],
   bootstrap: [AppComponent]
