@@ -1,4 +1,24 @@
 <div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
   <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
-  <gd-songs [events]="song.events" [audio]="song.audio"></gd-songs>
+  <!-- <gd-songs [events]="song.events" [audio]="song.audio"></gd-songs> -->
+  <div fxLayout="row" fxLayoutAlign="start start" [style.padding]="'10px'">
+  
+      <div [style.font-size]="'80%'">
+        EVENTS <br />
+      <ng-container *ngFor="let e of song.events">
+          {{ e.date2 }} {{ e.venue }}, {{ e.location }} <br />
+      </ng-container>
+    </div>
+  
+    <div [style.font-size]="'80%'">
+        RECORDINGS <br /> 
+          <select (change)="selectChangeHandler($event)" >
+            <option value = "{{a.recording}}" *ngFor=" let a of song.audio[song.events[0].date2]">{{a.recording}}</option>
+          </select> <br />
+          {{ selectedRec }}
+    </div>
+
+    <div>Audio Player</div> 
+  
+    </div>
 </div>
