@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Song, DeadEventDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DeadApiService } from '../services/dead-api.service';
+import { Track } from 'ngx-audio-player'; 
 
 @Component({
   selector: 'gd-song',
@@ -17,7 +18,12 @@ export class SongComponent {
   protected selectedEvent;
   protected selectedRecording;
  
-  
+  // Material Style Advance Audio Player Playlist
+  msaapDisplayTitle = true;
+  msaapDisplayPlayList = true;
+  msaapPageSizeOptions = [2,4,6];
+  msaapPlaylist: Track[] = [];
+
   constructor(private data: DataService, private apiService: DeadApiService,
     private router: Router, private route: ActivatedRoute) {}
   
@@ -31,10 +37,7 @@ export class SongComponent {
       }
     this.selectedEvent = this.song.events[0];
     this.selectedRecording = this.song.audio[this.selectedEvent.recordings[0]] || null;
-    });
-    
-    
-    
+    });   
   }
 
   eventsClick(event: any) {
@@ -46,6 +49,19 @@ export class SongComponent {
   recordingsClick(recording: any) {
     console.log('Click!', recording);
     this.selectedRecording = recording;
+    this.msaapPlaylist = [];
+
+    if (this.song.audio[this.selectedRecording]) {
+
+    this.song.audio[this.selectedRecording].forEach((obj, index) => {
+    this.msaapPlaylist.push(
+      {
+          title: this.selectedRecording + ", Track " + this.song.audio[this.selectedRecording][index].track,
+          link: 'https://archive.org/download/' + this.selectedRecording + '/' + this.song.audio[this.selectedRecording][index].filename
+    })
+    });
+  } 
+    console.log(this.msaapPlaylist);                                            
   }
 
 }

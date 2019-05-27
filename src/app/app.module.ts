@@ -18,6 +18,9 @@ import { ShowsComponent } from './shared/shows.component';
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
 
+import { NgxAudioPlayerModule } from 'ngx-audio-player';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,9 @@ import { DataService } from './services/data.service';
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    NgxAudioPlayerModule,
+    BrowserAnimationsModule
   ],
   providers: [DeadApiService, DataService],
   bootstrap: [AppComponent]

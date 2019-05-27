@@ -20,12 +20,8 @@
 
     <div fxFlex="33%" [style.font-size]="'80%'">
         AUDIO <br /> <br /> 
-      <div  *ngFor="let a of song.audio[selectedRecording]">
-        {{ a.filename }}
-        <audio controls>
-            <source src='https://archive.org/download/{{selectedRecording}}/{{a.filename}}' type="audio/mpeg">
-          </audio>
-      </div>
+      <mat-advanced-audio-player *ngIf="msaapPlaylist[0]" [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [displayPlaylist]="msaapDisplayPlayList" [pageSizeOptions]="msaapPageSizeOptions" [expanded]="true"></mat-advanced-audio-player>   
+
     </div>
 
     </div>
