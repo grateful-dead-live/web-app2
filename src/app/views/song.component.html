@@ -2,7 +2,7 @@
   <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
   <div fxLayout="row" fxLayoutAlign="start start" [style.padding]="'10px'">
   
-      <div [style.font-size]="'80%'">
+      <div fxFlex="33%" [style.font-size]="'80%'">
         EVENTS <br /> <br /> 
       <ng-container *ngFor="let e of song.events">
           <div (click)="eventsClick(e)">{{ e.date }} {{ e.venue }}, {{ e.location }}</div>
@@ -10,7 +10,7 @@
     </div>
 
 
-    <div [style.font-size]="'80%'">
+    <div fxFlex="33%" [style.font-size]="'80%'">
         RECORDINGS <br /> <br /> 
       <ng-container *ngFor="let r of selectedEvent.recordings">
          <div (click)="recordingsClick(r)"> {{ r }}</div>
@@ -18,7 +18,7 @@
     </div>
     
 
-    <div [style.font-size]="'80%'">
+    <div fxFlex="33%" [style.font-size]="'80%'">
         AUDIO <br /> <br /> 
       <div  *ngFor="let a of song.audio[selectedRecording]">
         {{ a.filename }}
