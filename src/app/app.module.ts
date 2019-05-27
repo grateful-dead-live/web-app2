@@ -17,7 +17,6 @@ import { ShowsComponent } from './shared/shows.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
-//import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { DataService } from './services/data.service';
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
-    LeafletModule.forRoot()//,
-    //ReactiveFormsModule
+    LeafletModule.forRoot()
   ],
   providers: [DeadApiService, DataService],
   bootstrap: [AppComponent]

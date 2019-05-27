@@ -1,32 +1,32 @@
 <div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
   <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
-  <!-- <gd-songs [events]="song.events" [audio]="song.audio"></gd-songs> -->
   <div fxLayout="row" fxLayoutAlign="start start" [style.padding]="'10px'">
   
       <div [style.font-size]="'80%'">
         EVENTS <br /> <br /> 
       <ng-container *ngFor="let e of song.events">
-          <div (click)="handleClick(e)">{{ e.date2 }} {{ e.venue }}, {{ e.location }}</div>
+          <div (click)="eventsClick(e)">{{ e.date }} {{ e.venue }}, {{ e.location }}</div>
       </ng-container>
     </div>
-  
+
+
     <div [style.font-size]="'80%'">
         RECORDINGS <br /> <br /> 
-          <select (change)="selectChangeHandler($event)" >
-            <option value="{{a.recording}}" *ngFor=" let a of song.audio[selectedEvent.date2]">{{a.recording}}</option>
-          </select> <br /><br />
-        Source: <br />
-        {{ etreeinfo.source }}<br /><br />
-        Lineage: <br />
-        {{ etreeinfo.lineage }}<br /><br />
-        Notes: <br />
-        {{ etreeinfo.notes }}<br /><br />
-        <a href="https://archive.org/details/{{etreeinfo.id}}" target="_blank">Open at Live Music Archive</a>
-        
+      <ng-container *ngFor="let r of selectedEvent.recordings">
+         <div (click)="recordingsClick(r)"> {{ r }}</div>
+      </ng-container>
+    </div>
+    
 
+    <div [style.font-size]="'80%'">
+        AUDIO <br /> <br /> 
+      <div  *ngFor="let a of song.audio[selectedRecording]">
+        {{ a.filename }}
+        <audio controls>
+            <source src='https://archive.org/download/{{selectedRecording}}/{{a.filename}}' type="audio/mpeg">
+          </audio>
+      </div>
     </div>
 
-    <div>AUDIO PLAYER</div> <br />  
-  
     </div>
 </div>

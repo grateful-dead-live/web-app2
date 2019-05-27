@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Song } from '../services/types';
+import { Song, DeadEventDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DeadApiService } from '../services/dead-api.service';
 
@@ -11,9 +11,11 @@ import { DeadApiService } from '../services/dead-api.service';
 export class SongComponent {
   
   protected song: Song;
-  private selectedRec ;
-  private etreeinfo;
-  private selectedEvent;
+  protected event: DeadEventDetails;
+  protected selectedRec ;
+  protected etreeinfo;
+  protected selectedEvent;
+  protected selectedRecording;
  
   
   constructor(private data: DataService, private apiService: DeadApiService,
@@ -27,20 +29,23 @@ export class SongComponent {
       if (!this.song) {
         this.router.navigate(['/show', await this.data.getRandomEventId()]);
       }
+    this.selectedEvent = this.song.events[0];
+    this.selectedRecording = this.song.audio[this.selectedEvent.recordings[0]] || null;
     });
-    this.selectedEvent = { date2: null }
+    
+    
     
   }
 
- selectChangeHandler (event: any) {
-    this.selectedRec = event.target.value;
-    this.apiService.getEtreeInfo(this.selectedRec).then(e => this.etreeinfo = e);
+  eventsClick(event: any) {
+    console.log('Click!', event.id);
+    this.selectedEvent = event;
   }
 
 
-  handleClick(event: any) {
-    console.log('Click!', event.id);
-    this.selectedEvent = event;
+  recordingsClick(recording: any) {
+    console.log('Click!', recording);
+    this.selectedRecording = recording;
   }
 
 }
