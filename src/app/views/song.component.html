@@ -20,9 +20,16 @@
 
     <div fxFlex="33%" [style.font-size]="'80%'">
         AUDIO <br /> <br /> 
-      <mat-advanced-audio-player *ngIf="msaapPlaylist[0]" [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [displayPlaylist]="msaapDisplayPlayList" [pageSizeOptions]="msaapPageSizeOptions" [expanded]="true"></mat-advanced-audio-player>   
-
+      <div *ngIf="msaapPlaylist[0] else noAudio">
+      <mat-advanced-audio-player [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [displayPlaylist]="msaapDisplayPlayList" [pageSizeOptions]="msaapPageSizeOptions" [expanded]="true"></mat-advanced-audio-player>   
+      <button (click)="resetClick(event)" type="button">reset player</button>
     </div>
 
+    <ng-template #noAudio>
+      no audio available
+    </ng-template>
+
+    </div>
+    
     </div>
 </div>

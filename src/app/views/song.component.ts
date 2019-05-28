@@ -19,14 +19,14 @@ export class SongComponent {
   protected selectedRecording;
  
   // Material Style Advance Audio Player Playlist
-  msaapDisplayTitle = true;
-  msaapDisplayPlayList = true;
-  msaapPageSizeOptions = [2,4,6];
-  msaapPlaylist: Track[] = [];
+  protected msaapDisplayTitle = true;
+  protected msaapDisplayPlayList = true;
+  protected msaapPageSizeOptions = [2,4,6];
+  protected msaapPlaylist: Track[] = [];
 
   constructor(private data: DataService, private apiService: DeadApiService,
-    private router: Router, private route: ActivatedRoute) {}
-  
+              private router: Router, private route: ActivatedRoute) {}
+
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
@@ -35,8 +35,8 @@ export class SongComponent {
       if (!this.song) {
         this.router.navigate(['/show', await this.data.getRandomEventId()]);
       }
-    this.selectedEvent = this.song.events[0];
-    this.selectedRecording = this.song.audio[this.selectedEvent.recordings[0]] || null;
+      this.selectedEvent = this.song.events[0];
+      this.selectedRecording = this.song.audio[this.selectedEvent.recordings[0]] || null;
     });   
   }
 
@@ -45,23 +45,24 @@ export class SongComponent {
     this.selectedEvent = event;
   }
 
+  resetClick() {
+    this.msaapPlaylist = [];
+  }
 
   recordingsClick(recording: any) {
     console.log('Click!', recording);
     this.selectedRecording = recording;
     this.msaapPlaylist = [];
-
     if (this.song.audio[this.selectedRecording]) {
-
-    this.song.audio[this.selectedRecording].forEach((obj, index) => {
-    this.msaapPlaylist.push(
+      this.song.audio[this.selectedRecording].forEach((obj, index) => {
+      this.msaapPlaylist.push(
       {
           title: this.selectedRecording + ", Track " + this.song.audio[this.selectedRecording][index].track,
           link: 'https://archive.org/download/' + this.selectedRecording + '/' + this.song.audio[this.selectedRecording][index].filename
-    })
+      })
     });
   } 
-    console.log(this.msaapPlaylist);                                            
+    console.log(this.msaapPlaylist);
   }
 
 }
