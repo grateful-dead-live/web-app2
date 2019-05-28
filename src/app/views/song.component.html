@@ -12,9 +12,12 @@
 
     <div fxFlex="33%" [style.font-size]="'80%'">
         RECORDINGS <br /> <br /> 
+        <div *ngIf="selectedEvent else noEvent">
       <ng-container *ngFor="let r of selectedEvent.recordings">
          <div (click)="recordingsClick(r)"> {{ r }}</div>
       </ng-container>
+    </div>  <br />
+    {{ checkAudio }}  
     </div>
     
 
@@ -22,11 +25,15 @@
         AUDIO <br /> <br /> 
       <div *ngIf="msaapPlaylist[0] else noAudio">
       <mat-advanced-audio-player [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [displayPlaylist]="msaapDisplayPlayList" [pageSizeOptions]="msaapPageSizeOptions" [expanded]="true"></mat-advanced-audio-player>   
-      <button (click)="resetClick(event)" type="button">reset player</button>
-    </div>
+      <button (click)="resetClick(e)" type="button">reset player</button>
+    </div> 
 
     <ng-template #noAudio>
-      no audio available
+      click recording to add track to playlist.
+    </ng-template>
+
+    <ng-template #noEvent>
+      Click event to get list of recordings.
     </ng-template>
 
     </div>

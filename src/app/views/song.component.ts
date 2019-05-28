@@ -17,11 +17,12 @@ export class SongComponent {
   protected etreeinfo;
   protected selectedEvent;
   protected selectedRecording;
+  protected checkAudio: string;
  
   // Material Style Advance Audio Player Playlist
   protected msaapDisplayTitle = true;
   protected msaapDisplayPlayList = true;
-  protected msaapPageSizeOptions = [2,4,6];
+  protected msaapPageSizeOptions = [5,10,15];
   protected msaapPlaylist: Track[] = [];
 
   constructor(private data: DataService, private apiService: DeadApiService,
@@ -35,9 +36,8 @@ export class SongComponent {
       if (!this.song) {
         this.router.navigate(['/show', await this.data.getRandomEventId()]);
       }
-      this.selectedEvent = this.song.events[0];
-      this.selectedRecording = this.song.audio[this.selectedEvent.recordings[0]] || null;
-    });   
+    }); 
+    this.checkAudio = '';  
   }
 
   eventsClick(event: any) {
@@ -47,22 +47,40 @@ export class SongComponent {
 
   resetClick() {
     this.msaapPlaylist = [];
+    this.checkAudio = '';
   }
 
   recordingsClick(recording: any) {
     console.log('Click!', recording);
     this.selectedRecording = recording;
-    this.msaapPlaylist = [];
     if (this.song.audio[this.selectedRecording]) {
       this.song.audio[this.selectedRecording].forEach((obj, index) => {
-      this.msaapPlaylist.push(
-      {
-          title: this.selectedRecording + ", Track " + this.song.audio[this.selectedRecording][index].track,
-          link: 'https://archive.org/download/' + this.selectedRecording + '/' + this.song.audio[this.selectedRecording][index].filename
-      })
-    });
+        let track = { title: this.selectedRecording + ", Track " + this.song.audio[this.selectedRecording][index].track,
+                      link: 'https://archive.org/download/' + this.selectedRecording + '/' + this.song.audio[this.selectedRecording][index].filename
+        };
+    if (this.containsObject(track, this.msaapPlaylist) == false) {
+      this.msaapPlaylist.push(track);
+      this.msaapPlaylist = [...this.msaapPlaylist];
+      this.checkAudio = 'track added to playlist';
+    }
+    else {
+      this.checkAudio = 'track already in playlist';
+    }
+  });
   } 
-    console.log(this.msaapPlaylist);
+  else {
+    this.checkAudio = 'no audio available'
+  }
+  }
+
+
+containsObject(obj, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].title == obj.title) {
+            return true;
+        }
+    }
+    return false;
   }
 
 }
