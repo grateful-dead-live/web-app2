@@ -55,7 +55,7 @@ export class SongComponent {
     this.selectedRecording = recording;
     if (this.song.audio[this.selectedRecording]) {
       this.song.audio[this.selectedRecording].forEach((obj, index) => {
-        let track = { title: this.selectedRecording + ", Track " + this.song.audio[this.selectedRecording][index].track,
+        let track = { title: this.selectedRecording + ', Title: "' + this.song.audio[this.selectedRecording][index].title + '"',
                       link: 'https://archive.org/download/' + this.selectedRecording + '/' + this.song.audio[this.selectedRecording][index].filename
         };
     if (this.containsObject(track, this.msaapPlaylist) == false) {
