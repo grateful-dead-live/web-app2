@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Song, DeadEventDetails } from '../services/types';
+import { Song, DeadEventDetails, DeadEventInfo } from '../services/types';
 import { DataService } from '../services/data.service';
-import { DeadApiService } from '../services/dead-api.service';
-import { Track } from 'ngx-audio-player'; 
+import { PlayerService } from '../services/player.service';
 
 @Component({
   selector: 'gd-song',
@@ -13,20 +12,10 @@ export class SongComponent {
   
   protected song: Song;
   protected event: DeadEventDetails;
-  protected selectedRec ;
-  protected etreeinfo;
-  protected selectedEvent;
-  protected selectedRecording;
-  protected checkAudio: string;
- 
-  // Material Style Advance Audio Player Playlist
-  protected msaapDisplayTitle = true;
-  protected msaapDisplayPlayList = true;
-  protected msaapPageSizeOptions = [5,10,15];
-  protected msaapPlaylist: Track[] = [];
+  protected selectedEvent: DeadEventInfo;
 
-  constructor(private data: DataService, private apiService: DeadApiService,
-              private router: Router, private route: ActivatedRoute) {}
+  constructor(private data: DataService, private player: PlayerService,
+    private router: Router, private route: ActivatedRoute) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
@@ -36,51 +25,25 @@ export class SongComponent {
       if (!this.song) {
         this.router.navigate(['/show', await this.data.getRandomEventId()]);
       }
-    }); 
-    this.checkAudio = '';  
+    });
   }
 
   eventsClick(event: any) {
-    console.log('Click!', event.id);
     this.selectedEvent = event;
   }
 
-  resetClick() {
-    this.msaapPlaylist = [];
-    this.checkAudio = '';
-  }
-
   recordingsClick(recording: any) {
-    console.log('Click!', recording);
-    this.selectedRecording = recording;
-    if (this.song.audio[this.selectedRecording]) {
-      this.song.audio[this.selectedRecording].forEach((obj, index) => {
-        let track = { title: this.selectedRecording + ', Title: "' + this.song.audio[this.selectedRecording][index].title + '"',
-                      link: 'https://archive.org/download/' + this.selectedRecording + '/' + this.song.audio[this.selectedRecording][index].filename
-        };
-    if (this.containsObject(track, this.msaapPlaylist) == false) {
-      this.msaapPlaylist.push(track);
-      this.msaapPlaylist = [...this.msaapPlaylist];
-      this.checkAudio = 'track added to playlist';
+    if (this.song.audio) {
+      this.song.audio.filter(a => a.recording === recording).forEach(r => {
+        const uri = 'https://archive.org/download/'+recording+'/'+r.filename;
+        this.player.addToPlaylist({
+          title: this.song.name + " at the " + this.selectedEvent.venue + ", "
+            + this.selectedEvent.location + ", " + this.selectedEvent.date,
+          uri: uri,
+          waveform: uri.replace('.mp3', '.png')
+        });
+      });
     }
-    else {
-      this.checkAudio = 'track already in playlist';
-    }
-  });
-  } 
-  else {
-    this.checkAudio = 'no audio available'
-  }
-  }
-
-
-containsObject(obj, list) {
-    for (var i = 0; i < list.length; i++) {
-        if (list[i].title == obj.title) {
-            return true;
-        }
-    }
-    return false;
   }
 
 }

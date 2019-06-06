@@ -1,0 +1,15 @@
+<div fxLayout="column">
+  <img *ngIf="player.currentTrack.waveform" class="image" fxFlex="1 1 25%"
+    src="{{ player.currentTrack.waveform }}" [style.width]="'100%'">
+  <input fxFlex="1 1 80%" type="range" min="0" max="{{player.maxTime}}"
+    [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
+</div>
+<div fxLayout="row">
+  <button fxFlex="1 1" (click)="player.play()">Play</button>
+  <button fxFlex="1 1" (click)="player.pause()">Pause</button>
+  <button fxFlex="1 1" (click)="player.stop()">Stop</button>
+</div>
+<div fxLayout="column" [style.padding]="'10px'">
+  <div *ngFor="let s of player.playlist" (click)="player.selectTrack(s)"
+    [style.color]="s === player.currentTrack ? 'white' : 'grey'">{{s.title}}</div>
+</div>
