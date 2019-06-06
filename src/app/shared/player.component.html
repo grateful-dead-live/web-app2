@@ -1,7 +1,9 @@
-<div fxLayout="column">
-  <img *ngIf="player.currentTrack.waveform" class="image" fxFlex="1 1 25%"
-    src="{{ player.currentTrack.waveform }}" [style.width]="'100%'">
-  <input fxFlex="1 1 80%" type="range" min="0" max="{{player.maxTime}}"
+<div fxLayout="column" [style.height]="'210px'">
+  <img *ngIf="player.currentTrack.waveform" class="image"
+    src="{{ player.currentTrack.waveform }}" [style.width]="'100%'"
+    [style.background-image]="'linear-gradient(to bottom right, red, yellow, blue)'">
+  <div *ngIf="!player.currentTrack.waveform" [style.height]="'200px'"></div>
+  <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
 <div fxLayout="row">
