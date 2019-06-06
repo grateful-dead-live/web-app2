@@ -1,8 +1,8 @@
-<div fxLayout="column" [style.height]="'210px'">
+<div fxLayout="column" [style.height]="loaded ? '120px' : '20px'">
   <img *ngIf="player.currentTrack.waveform" class="image"
-    src="{{ player.currentTrack.waveform }}" [style.width]="'100%'"
-    [style.background-image]="'linear-gradient(to bottom right, red, yellow, blue)'">
-  <div *ngIf="!player.currentTrack.waveform" [style.height]="'200px'"></div>
+    src="{{player.currentTrack.waveform}}" [style.height]="'100px'"
+    [class.flashy]="loaded" (load)="loaded = true">
+  <!--div *ngIf="!player.currentTrack.waveform" [style.height]="'100px'"></div-->
   <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
@@ -12,6 +12,9 @@
   <button fxFlex="1 1" (click)="player.stop()">Stop</button>
 </div>
 <div fxLayout="column" [style.padding]="'10px'">
-  <div *ngFor="let s of player.playlist" (click)="player.selectTrack(s)"
-    [style.color]="s === player.currentTrack ? 'white' : 'grey'">{{s.title}}</div>
+  <div class="playlist" *ngFor="let s of player.playlist"
+      [style.color]="s === player.currentTrack ? 'white' : 'grey'"
+      (click)="player.selectTrack(s)">
+    {{s.title}}
+  </div>
 </div>
