@@ -1,5 +1,5 @@
 <div *ngIf="event" fxLayout="column" [style.padding]="'0px'">
-  <gd-header *ngIf="event" title='{{event.location.name}}' subtitle='{{event.date}}'
+  <gd-header *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
     imageUrl="{{event.location.image}}">
     <div class="container transbox" fxLayout="column" fxFlex="1 1 auto">
       <h1>
