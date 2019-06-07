@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PlayerService } from '../services/player.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'gd-player',
@@ -8,5 +9,10 @@ import { PlayerService } from '../services/player.service';
 })
 export class PlayerComponent {
   protected minimized = false;
-  constructor(protected player: PlayerService) {}
+  
+  constructor(protected player: PlayerService, private data: DataService) {}
+  
+  async addRandomTrack() {
+    this.player.addToPlaylist(await this.data.getRandomTrack());
+  }
 }

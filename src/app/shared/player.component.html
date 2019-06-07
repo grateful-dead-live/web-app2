@@ -13,6 +13,7 @@
   <button fxFlex="1 1" (click)="player.nextTrack()">Next</button>
   <button fxFlex="1 1" (click)="player.toggleMute()">
     {{player.muted ? 'Unmute' : 'Mute'}}</button>
+  <button fxFlex="1 1" (click)="addRandomTrack()">Add Random Track</button>
   <button fxFlex="1 1" (click)="minimized = !minimized">
     {{minimized ? 'Maximize' : 'Minimize'}}</button>
 </div>

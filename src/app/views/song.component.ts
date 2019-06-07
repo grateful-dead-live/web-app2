@@ -33,17 +33,8 @@ export class SongComponent {
   }
 
   recordingsClick(recording: any) {
-    if (this.song.audio) {
-      this.song.audio.filter(a => a.recording === recording).forEach(r => {
-        const uri = 'https://archive.org/download/'+recording+'/'+r.filename;
-        this.player.addToPlaylist({
-          title: this.song.name + " at the " + this.selectedEvent.venue + ", "
-            + this.selectedEvent.location + ", " + this.selectedEvent.date,
-          uri: uri,
-          waveform: uri.replace('.mp3', '.png')
-        });
-      });
-    }
+    this.data.getTracks(this.song, this.selectedEvent, recording).forEach(t =>
+      this.player.addToPlaylist(t));
   }
 
 }

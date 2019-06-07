@@ -16,6 +16,8 @@ export class PlayerService {
   private currentTrackIndex = 0;
   private muted = false;
   
+  constructor() {}
+  
   addToPlaylist(track: Track) {
     this.playlist.push(track);
   }
