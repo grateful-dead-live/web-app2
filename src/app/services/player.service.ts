@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { mapSeries } from './util';
 
 export interface Track {
   title: string,
@@ -14,26 +13,27 @@ export class PlayerService {
   public currentTime: number = 0;
   private currentAudio: HTMLAudioElement;
   private playlist: Track[] = [];
-  public currentTrack: Track = {title:"", uri:"", waveform:""};
+  private currentTrackIndex = 0;
+  private muted = false;
   
   addToPlaylist(track: Track) {
     this.playlist.push(track);
-    if (!this.currentTrack.title) this.currentTrack = track;
   }
   
-  selectTrack(track: Track) {
-    const index = this.playlist.indexOf(track);
-    if (index >= 0) {
-      this.stop();
-      this.play(index);
-    }
+  getCurrentTrack() {
+    return this.playlist[this.currentTrackIndex]
+      || {title:"", uri:"", waveform:""};
+  }
+  
+  skipToTrack(track: Track) {
+    this.skipToTrackAtIndex(this.playlist.indexOf(track));
   }
 
-  play(fromIndex = 0) {
+  play() {
     if (this.currentAudio) {
       this.currentAudio.paused ? this.pause() : null;
     } else {
-      mapSeries(this.playlist.slice(fromIndex), this.playTrack.bind(this));
+      this.playPlaylist();
     }
   }
   
@@ -59,9 +59,46 @@ export class PlayerService {
     }
   }
   
-  private async playTrack(track: Track) {
-    this.currentTrack = track;
-    const audio = new Audio(track.uri);
+  toggleMute() {
+    this.muted = !this.muted;
+    if (this.currentAudio) {
+      this.currentAudio.muted = this.muted;
+    }
+  }
+  
+  isMuted() {
+    return this.muted;
+  }
+  
+  nextTrack() {
+    if (this.playlist.length) {
+      this.skipToTrackAtIndex((this.currentTrackIndex+1) % this.playlist.length);
+    }
+  }
+  
+  previousTrack() {
+    if (this.playlist.length) {
+      this.skipToTrackAtIndex((this.currentTrackIndex-1) % this.playlist.length);
+    }
+  }
+  
+  private skipToTrackAtIndex(index: number) {
+    this.currentTrackIndex = index;
+    if (this.currentAudio) {
+      this.stop();
+      this.play();
+    }
+  }
+  
+  private async playPlaylist() {
+    await this.playCurrentTrack();
+    this.currentTrackIndex++;
+    this.playPlaylist();
+  }
+  
+  private async playCurrentTrack() {
+    const audio = new Audio(this.playlist[this.currentTrackIndex].uri);
+    audio.muted = this.muted;
     audio.play();
     this.currentAudio = audio;
     audio.ontimeupdate = () => {
