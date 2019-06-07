@@ -7,5 +7,6 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./player.component.sass']
 })
 export class PlayerComponent {
+  protected minimized = false;
   constructor(protected player: PlayerService) {}
 }

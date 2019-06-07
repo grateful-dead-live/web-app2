@@ -1,8 +1,7 @@
-<div fxLayout="column" [style.height]="loaded ? '120px' : '20px'">
+<div fxLayout="column" [style.height]="loaded && !minimized ? '120px' : '20px'">
   <img *ngIf="player.currentTrack.waveform" class="image"
     src="{{player.currentTrack.waveform}}" [style.height]="'100px'"
-    [class.flashy]="loaded" (load)="loaded = true">
-  <!--div *ngIf="!player.currentTrack.waveform" [style.height]="'100px'"></div-->
+    [class.flashy]="loaded" (load)="loaded = true" [hidden]="minimized">
   <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
@@ -10,9 +9,12 @@
   <button fxFlex="1 1" (click)="player.play()">Play</button>
   <button fxFlex="1 1" (click)="player.pause()">Pause</button>
   <button fxFlex="1 1" (click)="player.stop()">Stop</button>
+  <button fxFlex="1 1" (click)="minimized = !minimized">
+    {{minimized ? 'Maximize' : 'Minimize'}}</button>
 </div>
 <div fxLayout="column" [style.padding]="'10px'">
   <div class="playlist" *ngFor="let s of player.playlist"
+      [hidden]="minimized && s !== player.currentTrack"
       [style.color]="s === player.currentTrack ? 'white' : 'grey'"
       (click)="player.selectTrack(s)">
     {{s.title}}
