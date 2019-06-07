@@ -1,7 +1,10 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
-import { DeadEventInfo, DeadEventDetails, Song } from './types';
+import { DeadEventInfo, DeadEventDetails, Song, Audio } from './types';
+import { Track } from './player.service';
+
+const ARCHIVE_URI = 'https://archive.org/download/';
 
 @Injectable()
 export class DataService {
@@ -41,7 +44,34 @@ export class DataService {
     return song;
   }
   
-  async getRandomEvent() {
+  getTracks(song: Song, event: DeadEventInfo, recording: string): Track[] {
+    if (song.audio) {
+      return song.audio.filter(a => a.recording === recording)
+        .map(a => this.toTrack(song, event, a));
+    }
+  }
+  
+  async getRandomTrack(): Promise<Track> {
+    const event = await this.loadRandomEvent();
+    const randomSong = _.sample(event.setlist.filter(s => s.audio));
+    const randomAudio = _.sample(randomSong.audio);
+    this.formatDates(randomSong.events);
+    const correspondingEvent = randomSong.events.filter(e =>
+      e.recordings.indexOf(randomAudio.recording) >= 0)[0];
+    return this.toTrack(randomSong, correspondingEvent, randomAudio);
+  }
+  
+  toTrack(song: Song, event: DeadEventInfo, audio: Audio): Track {
+    const uri = ARCHIVE_URI+audio.recording+'/'+audio.filename;
+    return {
+      title: song.name + " at the " + event.venue + ", "
+        + event.location + ", " + event.date,
+      uri: uri,
+      waveform: uri.replace('.mp3', '.png')
+    };
+  }
+  
+  async loadRandomEvent() {
     return (await this.getEvent(await this.getRandomEventId()));
   }
   
@@ -51,11 +81,11 @@ export class DataService {
   }
   
   async getRandomVenue() {
-    return (await this.getRandomEvent()).venue;
+    return (await this.loadRandomEvent()).venue;
   }
   
   async getRandomLocation() {
-    return (await this.getRandomEvent()).location;
+    return (await this.loadRandomEvent()).location;
   }
   
   private async initEvents() {

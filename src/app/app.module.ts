@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
@@ -14,12 +15,11 @@ import { SongComponent } from './views/song.component';
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
 import { ShowsComponent } from './shared/shows.component';
+import { PlayerComponent } from './shared/player.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
-
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlayerService } from './services/player.service';
 
 @NgModule({
   declarations: [
@@ -30,17 +30,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SongComponent,
     HeaderComponent,
     MapComponent,
-    ShowsComponent
+    ShowsComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
-    LeafletModule.forRoot(),
-    NgxAudioPlayerModule,
-    BrowserAnimationsModule
+    FormsModule,
+    LeafletModule.forRoot()
   ],
-  providers: [DeadApiService, DataService],
+  providers: [
+    DeadApiService,
+    DataService,
+    PlayerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

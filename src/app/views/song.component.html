@@ -2,15 +2,14 @@
   <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
   <div fxLayout="row" fxLayoutAlign="start start" [style.padding]="'10px'">
   
-      <div fxFlex="33%" [style.font-size]="'80%'">
+      <div fxFlex="50%" [style.font-size]="'80%'">
         EVENTS <br /> <br /> 
       <ng-container *ngFor="let e of song.events">
           <div (click)="eventsClick(e)">{{ e.date }} {{ e.venue }}, {{ e.location }}</div>
       </ng-container>
     </div>
 
-
-    <div fxFlex="33%" [style.font-size]="'80%'">
+    <div fxFlex="50%" [style.font-size]="'80%'">
         RECORDINGS <br /> <br /> 
         <div *ngIf="selectedEvent else noEvent">
       <ng-container *ngFor="let r of selectedEvent.recordings">
@@ -20,23 +19,5 @@
     {{ checkAudio }}  
     </div>
     
-
-    <div fxFlex="33%" [style.font-size]="'80%'">
-        AUDIO <br /> <br /> 
-      <div *ngIf="msaapPlaylist[0] else noAudio">
-      <mat-advanced-audio-player [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [displayPlaylist]="msaapDisplayPlayList" [pageSizeOptions]="msaapPageSizeOptions" [expanded]="true"></mat-advanced-audio-player>   
-      <button (click)="resetClick(e)" type="button">reset player</button>
-    </div> 
-
-    <ng-template #noAudio>
-      click recording to add track to playlist.
-    </ng-template>
-
-    <ng-template #noEvent>
-      Click event to get list of recordings.
-    </ng-template>
-
-    </div>
-    
-    </div>
+  </div>
 </div>
