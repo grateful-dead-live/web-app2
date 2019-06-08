@@ -1,6 +1,6 @@
 <div fxLayout="column" [style.height]="loaded && !minimized ? '120px' : '20px'">
   <img *ngIf="player.getCurrentTrack().waveform" class="image"
-    src="{{player.getCurrentTrack().waveform}}" [style.height]="'100px'"
+    [lazyLoad]="player.getCurrentTrack().waveform" [style.height]="'100px'"
     [class.flashy]="loaded" (load)="loaded = true" [hidden]="minimized">
   <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>

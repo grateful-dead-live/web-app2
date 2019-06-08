@@ -3,11 +3,10 @@
       [style.height]="'130px'" [style.padding]="'20px'" fxFlex.xs="1 1 50%">
     <div fxFlex="1 1 auto" [style.font-size]="'80%'">{{ e.date }}</div>
     <div fxFlex="1 1 auto" [style.font-size]="'80%'">{{ e.venue }}, {{ e.location }}</div>
-    <img *ngIf="e.tickets.length" class="image" fxFlex="1 1 auto"
+    <img class="image" fxFlex="1 1 auto"
       [routerLink]="['/show', e.id]"
-      src="{{ e.tickets[0] }}" [style.object-fit]="'cover'">
-    <img *ngIf="!e.tickets.length" class="image" fxFlex="1 1 auto"
-      [routerLink]="['/show', e.id]"
-      src="assets/gd_placeholder.png" [style.object-fit]="'cover'">
+      [defaultImage]="'assets/gd_placeholder.png'"
+      [lazyLoad]="e.tickets[0]"
+      [style.object-fit]="'cover'">
   </div>
 </div>

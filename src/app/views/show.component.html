@@ -17,17 +17,17 @@
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
     <div [routerLink]="['/location', event.location.id]" class="container" fxLayout="column" fxFlex="1 1 30%" [style.padding]="'20px'">
       <div fxFlex="1 1 auto">Location: {{ event.location.name }}</div>
-      <img class="image" *ngIf="event.location.thumbnail" src="{{ event.location.thumbnail }}" fxFlex="1 1 auto">
+      <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
     <div [routerLink]="['/location', event.location.id]" class="container" fxLayout="column" fxFlex="1 1 40%" [style.padding]="'20px'">
       <div *ngIf="showPhotos.length" fxFlex="1 1 auto">Live photos</div>
       <div *ngIf="showPhotos.length" fxFlex="1 1 auto" class="container" fxLayout="row">
-        <img class="image" *ngFor="let s of showPhotos" src="{{ s }}" fxFlex="1 1 33%">
+        <img class="image" *ngFor="let s of showPhotos" [lazyLoad]="s" fxFlex="1 1 33%">
       </div>
     </div>
     <div [routerLink]="['/venue', event.venue.id]" class="container" fxLayout="column" fxFlex="1 1 30%" [style.padding]="'20px'">
       <div fxFlex="1 1 auto">Venue: {{ event.venue.name }}</div>
-      <img class="image" *ngIf="event.venue.thumbnail" src="{{ event.venue.thumbnail }}" fxFlex="1 1 auto">
+      <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
   </div>
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
@@ -42,7 +42,7 @@
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
       <div *ngFor="let p of event.performers" fxFlex="1 1 auto" fxLayout="row">
-        <img class="image" fxFlex="1 1 25%" src="{{ p.thumbnail }}" [style.height]="'70px'">
+        <img class="image" fxFlex="1 1 25%" [lazyLoad]="p.thumbnail" [style.height]="'70px'">
         <div>{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
       </div>
     </div>
@@ -51,8 +51,7 @@
   <div class="container" fxLayout="row wrap" [style.padding]="'10px'">
     <div *ngFor="let a of event.artifacts" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'10px'" fxFlex.xs="1 1 50%">
       <div fxFlex="1 1 auto" fxLayoutAlign="center center">{{ a.type }}</div>
-      <img class="image" fxFlex="1 1 auto" src="{{ a.image }}" [style.object-fit]="'contain'">
+      <img class="image" fxFlex="1 1 auto" [lazyLoad]="a.image" [style.object-fit]="'contain'">
     </div>
   </div>
-  <footer style="height: 40px"></footer>
 </div>

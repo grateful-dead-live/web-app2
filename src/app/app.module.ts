@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ import { PlayerService } from './services/player.service';
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
+    LazyLoadImageModule,
     LeafletModule.forRoot()
   ],
   providers: [

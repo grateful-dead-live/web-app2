@@ -8,6 +8,7 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./player.component.sass']
 })
 export class PlayerComponent {
+  protected loaded = false;
   protected minimized = false;
   
   constructor(protected player: PlayerService, private data: DataService) {}
