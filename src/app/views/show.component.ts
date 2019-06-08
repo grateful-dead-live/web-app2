@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { DeadEventDetails } from '../services/types';
 import { DataService } from '../services/data.service';
+import { formatDate } from '../services/util';
 
 @Component({
   selector: 'gd-show',
@@ -22,6 +23,7 @@ export class ShowComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.event = await this.data.getEvent(params.get('id'));
+        this.event.date = formatDate(this.event.date);
         this.recordingUrls = this.event.recordings.map(i => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+i+"&playlist=1")
         );

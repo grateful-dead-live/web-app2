@@ -23,15 +23,11 @@ export class DataService {
   }
   
   async getLocation(locationId: string) {
-    const location = await this.apiService.getLocation(locationId);
-    this.formatDates(location.events);
-    return location;
+    return await this.apiService.getLocation(locationId);
   }
   
   async getVenue(venueId: string) {
-    const venue = await this.apiService.getVenue(venueId);
-    this.formatDates(venue.events);
-    return venue;
+    return await this.apiService.getVenue(venueId);
   }
   
   async getSong(songId: string): Promise<Song> {
@@ -40,7 +36,6 @@ export class DataService {
       song = this.event.setlist.filter(s => s.id === songId)[0];
     }
     if (!song) song = await this.apiService.getSong(songId);
-    this.formatDates(song.events);
     return song;
   }
   
@@ -55,7 +50,6 @@ export class DataService {
     const randomSong = _.sample(await this.getRandomSetlist());
     const randomRecordingId = _.sample(_.keys(randomSong.audio));
     const randomAudio = _.sample(randomSong.audio[randomRecordingId]);
-    this.formatDates(randomSong.events);
     const correspondingEvent = randomSong.events.filter(e =>
       e.recordings.indexOf(randomRecordingId) >= 0)[0];
     return this.toTrack(correspondingEvent, randomRecordingId, randomAudio);
@@ -96,12 +90,6 @@ export class DataService {
     this.events = await this.apiService.getEvents();
     this.events.sort((a, b) => parseFloat(a.date.replace(/-/g, ''))
       - parseFloat(b.date.replace(/-/g, '')));
-    this.formatDates(this.events);
-  }
-  
-  private formatDates(objects: {date: string}[]) {
-    objects.forEach(o => o.date = new Date(o.date).toLocaleDateString("en-US",
-      { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
   }
 
 }

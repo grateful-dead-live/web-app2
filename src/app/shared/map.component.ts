@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { tileLayer, latLng, marker, icon } from 'leaflet';
+import { tileLayer, latLng, marker, icon, MapOptions } from 'leaflet';
 
 @Component({
   selector: 'gd-map',
@@ -11,7 +11,7 @@ export class MapComponent {
   @Input() latitude: number;
   @Input() longitude: number;
   @Input() zoom: number;
-  protected options;
+  protected options: MapOptions;
   
   ngOnInit() {
     this.options = {

@@ -16,7 +16,7 @@ export class VenueComponent {
   
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
-      if (!params.has('id')) {
+      if (params.has('id')) {
         this.venue = await this.data.getVenue(params.get('id'));
       }
       if (!this.venue) {
