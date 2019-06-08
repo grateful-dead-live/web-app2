@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
-import { DeadEventInfo, DeadEventDetails, Song, Audio } from './types';
+import { DeadEventInfo, DeadEventDetails, Song, AudioTrack } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
@@ -45,26 +45,26 @@ export class DataService {
   }
   
   getTracks(song: Song, event: DeadEventInfo, recording: string): Track[] {
-    if (song.audio) {
-      return song.audio.filter(a => a.recording === recording)
-        .map(a => this.toTrack(song, event, a));
+    if (song.audio && song.audio[recording]) {
+      return song.audio[recording].map(a => this.toTrack(event, recording, a));
     }
+    return [];
   }
   
   async getRandomTrack(): Promise<Track> {
-    const event = await this.loadRandomEvent();
-    const randomSong = _.sample(event.setlist.filter(s => s.audio));
-    const randomAudio = _.sample(randomSong.audio);
+    const randomSong = _.sample(await this.getRandomSetlist());
+    const randomRecordingId = _.sample(_.keys(randomSong.audio));
+    const randomAudio = _.sample(randomSong.audio[randomRecordingId]);
     this.formatDates(randomSong.events);
     const correspondingEvent = randomSong.events.filter(e =>
-      e.recordings.indexOf(randomAudio.recording) >= 0)[0];
-    return this.toTrack(randomSong, correspondingEvent, randomAudio);
+      e.recordings.indexOf(randomRecordingId) >= 0)[0];
+    return this.toTrack(correspondingEvent, randomRecordingId, randomAudio);
   }
   
-  toTrack(song: Song, event: DeadEventInfo, audio: Audio): Track {
-    const uri = ARCHIVE_URI+audio.recording+'/'+audio.filename;
+  private toTrack(event: DeadEventInfo, recordingId: string, audio: AudioTrack): Track {
+    const uri = ARCHIVE_URI+recordingId+'/'+audio.filename;
     return {
-      title: song.name + " at the " + event.venue + ", "
+      title: audio.title + " at the " + event.venue + ", "
         + event.location + ", " + event.date,
       uri: uri,
       waveform: uri.replace('.mp3', '.png')
@@ -86,6 +86,10 @@ export class DataService {
   
   async getRandomLocation() {
     return (await this.loadRandomEvent()).location;
+  }
+  
+  async getRandomSetlist() {
+    return this.apiService.getSetlist(await this.getRandomEventId());
   }
   
   private async initEvents() {

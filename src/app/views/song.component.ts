@@ -32,9 +32,9 @@ export class SongComponent {
     this.selectedEvent = event;
   }
 
-  recordingsClick(recording: any) {
-    this.data.getTracks(this.song, this.selectedEvent, recording).forEach(t =>
-      this.player.addToPlaylist(t));
+  recordingsClick(recordingId: string) {
+    this.data.getTracks(this.song, this.selectedEvent, recordingId)
+      .forEach(t => this.player.addToPlaylist(t));
   }
 
 }

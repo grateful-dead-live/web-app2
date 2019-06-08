@@ -34,6 +34,10 @@ export class DeadApiService {
   getSong(songId: string): Promise<Song> {
     return this.getJsonFromApi('song?id='+encodeURIComponent(songId));
   }
+  
+  getSetlist(eventId: string): Promise<Song[]> {
+    return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
+  }
 
   getNews(eventId: string): Promise<string> {
     return this.getJsonFromApi('news?event='+encodeURIComponent(eventId));
