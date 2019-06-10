@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from '../services/data.service';
 import { DeadEventInfo } from '../services/types';
 
 @Component({
@@ -6,5 +7,12 @@ import { DeadEventInfo } from '../services/types';
   templateUrl: './shows.component.html'
 })
 export class ShowsComponent {
-  @Input() events: DeadEventInfo[];
+  @Input() eventIds: string[];
+  protected events: DeadEventInfo[];
+  
+  constructor(private data: DataService) {}
+  
+  async ngOnInit() {
+    this.events = await this.data.getEventInfos(this.eventIds);
+  }
 }

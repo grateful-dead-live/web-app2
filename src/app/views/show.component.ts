@@ -22,7 +22,7 @@ export class ShowComponent {
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
-        this.event = await this.data.getEvent(params.get('id'));
+        this.event = await this.data.getEventDetails(params.get('id'));
         this.event.date = formatDate(this.event.date);
         this.recordingUrls = this.event.recordings.map(i => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+i+"&playlist=1")

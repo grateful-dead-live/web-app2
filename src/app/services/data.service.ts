@@ -17,9 +17,17 @@ export class DataService {
     this.loading = this.initEvents();
   }
   
-  async getEvent(eventId: string) {
+  async getEventInfo(eventId: string) {
+    return (await this.getEventInfos([eventId]))[0];
+  }
+  
+  async getEventInfos(eventIds: string[]) {
+    await this.loading;
+    return this.events.filter(e => eventIds.indexOf(e.id) >= 0);
+  }
+  
+  async getEventDetails(eventId: string) {
     this.event = await this.apiService.getEventDetails(eventId);
-    console.log(this.event)
     return this.event;
   }
   
@@ -63,7 +71,7 @@ export class DataService {
   }
   
   async loadRandomEvent() {
-    return (await this.getEvent(await this.getRandomEventId()));
+    return (await this.getEventDetails(await this.getRandomEventId()));
   }
   
   async getRandomEventId() {

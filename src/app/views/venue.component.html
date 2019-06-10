@@ -1,6 +1,6 @@
 <div *ngIf="venue" fxLayout="column" [style.padding]="'0px'">
   <gd-header *ngIf="venue" title='{{ venue.name }}'
-    subtitle='{{ venue.events[0].location }}' imageUrl="{{ venue.image }}">
+    subtitle='{{ location }}' imageUrl="{{ venue.image }}">
   </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
     <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
@@ -16,5 +16,5 @@
     </div>
   </div>
   <p [style.padding]="'20px'">All shows at the {{ venue.name }}:</p>
-  <gd-shows [events]="venue.events"></gd-shows>
+  <gd-shows [eventIds]="venue.eventIds"></gd-shows>
 </div>

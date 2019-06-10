@@ -3,7 +3,7 @@
   <div fxLayout="row" fxLayoutAlign="start start" [style.padding]="'10px'">
     <div fxFlex="50%" [style.font-size]="'80%'">
         Performances of {{song.name}}
-      <div *ngFor="let e of song.events" (click)="eventsClick(e)">
+      <div *ngFor="let e of events" (click)="eventsClick(e)">
         {{ e.date }} {{ e.venue }}, {{ e.location }}</div>
     </div>
     <div fxFlex="50%" [style.font-size]="'80%'">

@@ -12,6 +12,7 @@ export class SongComponent {
   
   protected song: SongWithAudio;
   protected event: DeadEventDetails;
+  protected events: DeadEventInfo[];
   protected selectedEvent: DeadEventInfo;
 
   constructor(private data: DataService, private player: PlayerService,
@@ -21,6 +22,7 @@ export class SongComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));
+        this.events = await this.data.getEventInfos(this.song.eventIds);
       }
       if (!this.song) {
         this.router.navigate(['/show', await this.data.getRandomEventId()]);
@@ -28,7 +30,7 @@ export class SongComponent {
     });
   }
 
-  eventsClick(event: any) {
+  eventsClick(event: DeadEventInfo) {
     this.selectedEvent = event;
   }
 
