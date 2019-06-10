@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Song, DeadEventDetails, DeadEventInfo } from '../services/types';
+import { SongWithAudio, DeadEventDetails, DeadEventInfo } from '../services/types';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 
@@ -10,7 +10,7 @@ import { PlayerService } from '../services/player.service';
 })
 export class SongComponent {
   
-  protected song: Song;
+  protected song: SongWithAudio;
   protected event: DeadEventDetails;
   protected selectedEvent: DeadEventInfo;
 

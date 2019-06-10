@@ -1,22 +1,17 @@
 <div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
   <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
   <div fxLayout="row" fxLayoutAlign="start start" [style.padding]="'10px'">
-  
-      <div fxFlex="50%" [style.font-size]="'80%'">
-        EVENTS <br /> <br /> 
-      <ng-container *ngFor="let e of song.events">
-          <div (click)="eventsClick(e)">{{ e.date }} {{ e.venue }}, {{ e.location }}</div>
-      </ng-container>
-    </div>
-
     <div fxFlex="50%" [style.font-size]="'80%'">
-        RECORDINGS <br /> <br /> 
-        <div *ngIf="selectedEvent else noEvent">
-      <ng-container *ngFor="let r of selectedEvent.recordings">
-         <div (click)="recordingsClick(r)"> {{ r }}</div>
-      </ng-container>
-    </div>  <br />
-    {{ checkAudio }}  
+        Performances of {{song.name}}
+      <div *ngFor="let e of song.events" (click)="eventsClick(e)">
+        {{ e.date }} {{ e.venue }}, {{ e.location }}</div>
+    </div>
+    <div fxFlex="50%" [style.font-size]="'80%'">
+        Recordings of {{song.name}} at {{selectedEvent.venue}} on {{selectedEvent.date}}
+      <div *ngIf="selectedEvent else noEvent">
+        <div *ngFor="let r of selectedEvent.recordings" (click)="recordingsClick(r)">
+          {{ r }}</div>
+      </div>
     </div>
     
   </div>

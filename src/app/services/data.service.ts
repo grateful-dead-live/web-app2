@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
-import { DeadEventInfo, DeadEventDetails, Song, AudioTrack } from './types';
+import { DeadEventInfo, DeadEventDetails, SongInfo, SongWithAudio, AudioTrack } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
@@ -19,6 +19,7 @@ export class DataService {
   
   async getEvent(eventId: string) {
     this.event = await this.apiService.getEventDetails(eventId);
+    console.log(this.event)
     return this.event;
   }
   
@@ -30,16 +31,11 @@ export class DataService {
     return await this.apiService.getVenue(venueId);
   }
   
-  async getSong(songId: string): Promise<Song> {
-    let song: Song;
-    if (this.event) {
-      song = this.event.setlist.filter(s => s.id === songId)[0];
-    }
-    if (!song) song = await this.apiService.getSong(songId);
-    return song;
+  async getSong(songId: string): Promise<SongWithAudio> {
+    return this.apiService.getSong(songId);
   }
   
-  getTracks(song: Song, event: DeadEventInfo, recording: string): Track[] {
+  getTracks(song: SongWithAudio, event: DeadEventInfo, recording: string): Track[] {
     if (song.audio && song.audio[recording]) {
       return song.audio[recording].map(a => this.toTrack(event, recording, a));
     }
@@ -47,10 +43,11 @@ export class DataService {
   }
   
   async getRandomTrack(): Promise<Track> {
-    const randomSong = _.sample(await this.getRandomSetlist());
+    const randomSongInfo = _.sample(await this.getRandomSetlist());
+    const randomSong = await this.apiService.getSong(randomSongInfo.id);
     const randomRecordingId = _.sample(_.keys(randomSong.audio));
     const randomAudio = _.sample(randomSong.audio[randomRecordingId]);
-    const correspondingEvent = randomSong.events.filter(e =>
+    const correspondingEvent = this.events.filter(e =>
       e.recordings.indexOf(randomRecordingId) >= 0)[0];
     return this.toTrack(correspondingEvent, randomRecordingId, randomAudio);
   }
