@@ -30,7 +30,8 @@ export class ShowComponent {
         this.showPhotos = this.event.artifacts
           .filter(a => a.type == 'photo').slice(0, 3).map(a => a.image);
       } else {
-        this.router.navigate(['/show', await this.data.getRandomEventId()]);
+        this.router.navigate(['/show', await this.data.getRandomEventId()],
+          { replaceUrl: true });
       }
     });
   }

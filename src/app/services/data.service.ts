@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
-import { DeadEventInfo, DeadEventDetails, SongInfo, SongWithAudio, AudioTrack } from './types';
+import { DeadEventInfo, DeadEventDetails, SongInfo, SongWithAudio, AudioTrack,
+  Location, Venue } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
@@ -44,15 +45,37 @@ export class DataService {
   }
   
   getTracks(song: SongWithAudio, event: DeadEventInfo, recording: string): Track[] {
-    if (song.audio && song.audio[recording]) {
-      return song.audio[recording].map(a => this.toTrack(event, recording, a));
-    }
-    return [];
+    return song.audio && song.audio[recording] ?
+      song.audio[recording].map(a => this.toTrack(event, recording, a)) : [];
+  }
+  
+  async loadRandomEvent(): Promise<DeadEventDetails> {
+    return (await this.getEventDetails(await this.getRandomEventId()));
+  }
+  
+  async getRandomEventId(): Promise<string> {
+    await this.loading;
+    return this.events[Math.floor(Math.random()*this.events.length)].id;
+  }
+  
+  async getRandomVenue(): Promise<Venue> {
+    return (await this.loadRandomEvent()).venue;
+  }
+  
+  async getRandomLocation(): Promise<Location> {
+    return (await this.loadRandomEvent()).location;
+  }
+  
+  async getRandomSetlist(): Promise<SongInfo[]> {
+    return this.apiService.getSetlist(await this.getRandomEventId());
+  }
+  
+  async getRandomSong(): Promise<SongWithAudio> {
+    return this.apiService.getSong(_.sample(await this.getRandomSetlist()).id);
   }
   
   async getRandomTrack(): Promise<Track> {
-    const randomSongInfo = _.sample(await this.getRandomSetlist());
-    const randomSong = await this.apiService.getSong(randomSongInfo.id);
+    const randomSong = await this.getRandomSong();
     const randomRecordingId = _.sample(_.keys(randomSong.audio));
     const randomAudio = _.sample(randomSong.audio[randomRecordingId]);
     const correspondingEvent = this.events.filter(e =>
@@ -68,27 +91,6 @@ export class DataService {
       uri: uri,
       waveform: uri.replace('.mp3', '.png')
     };
-  }
-  
-  async loadRandomEvent() {
-    return (await this.getEventDetails(await this.getRandomEventId()));
-  }
-  
-  async getRandomEventId() {
-    await this.loading;
-    return this.events[Math.floor(Math.random()*this.events.length)].id;
-  }
-  
-  async getRandomVenue() {
-    return (await this.loadRandomEvent()).venue;
-  }
-  
-  async getRandomLocation() {
-    return (await this.loadRandomEvent()).location;
-  }
-  
-  async getRandomSetlist() {
-    return this.apiService.getSetlist(await this.getRandomEventId());
   }
   
   private async initEvents() {

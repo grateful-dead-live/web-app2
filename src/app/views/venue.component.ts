@@ -22,7 +22,8 @@ export class VenueComponent {
         this.location = (await this.data.getEventInfo(this.venue.eventIds[0])).location;
       }
       if (!this.venue) {
-        this.router.navigate(['/venue', (await this.data.getRandomVenue()).id]);
+        this.router.navigate(['/venue', (await this.data.getRandomVenue()).id],
+          { replaceUrl: true });
       }
     });
   }

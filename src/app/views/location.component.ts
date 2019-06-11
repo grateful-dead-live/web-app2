@@ -21,7 +21,7 @@ export class LocationComponent {
       }
       if (!this.location) {
         this.router.navigate(['/location',
-          (await this.data.getRandomLocation()).id]);
+          (await this.data.getRandomLocation()).id], { replaceUrl: true });
       }
     });
   }

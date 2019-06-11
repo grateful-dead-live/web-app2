@@ -25,7 +25,8 @@ export class SongComponent {
         this.events = await this.data.getEventInfos(this.song.eventIds);
       }
       if (!this.song) {
-        this.router.navigate(['/show', await this.data.getRandomEventId()]);
+        this.router.navigate(['/song', (await this.data.getRandomSong())],
+          { replaceUrl: true });
       }
     });
   }
