@@ -1,7 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule, MatButtonModule } from '@angular/material';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -18,6 +20,7 @@ import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
 import { ShowsComponent } from './shared/shows.component';
 import { PlayerComponent } from './shared/player.component';
+import { ListDialogComponent } from './shared/list-dialog.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
@@ -34,13 +37,17 @@ import { PlayerService } from './services/player.service';
     HeaderComponent,
     MapComponent,
     ShowsComponent,
-    PlayerComponent
+    PlayerComponent,
+    ListDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
     LazyLoadImageModule,
     LeafletModule.forRoot()
   ],
@@ -49,6 +56,7 @@ import { PlayerService } from './services/player.service';
     DataService,
     PlayerService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ListDialogComponent]
 })
 export class AppModule { }
