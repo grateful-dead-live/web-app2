@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { DeadEventInfo, DeadEventDetails, Location, Venue, SongInfo,
   SongWithAudio, EtreeInfo } from './types';
 
@@ -14,7 +14,7 @@ export class DeadApiService {
   //private API_URL = "https://grateful-dead-api.herokuapp.com/";
   private API_URL = "http://localhost:8060/";
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor() {}
 
   async getEvents(): Promise<DeadEventInfo[]> {
     return this.getJsonFromApi('events');
@@ -38,18 +38,6 @@ export class DeadApiService {
   
   getSetlist(eventId: string): Promise<SongInfo[]> {
     return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
-  }
-
-  getNews(eventId: string): Promise<string> {
-    return this.getJsonFromApi('news?event='+encodeURIComponent(eventId));
-  }
-  
-  getNews2(eventId: string): Promise<string> {
-    return this.getJsonFromApi('news2?event='+encodeURIComponent(eventId));
-  }
-
-  getEtreeInfo(recordingId: string): Promise<EtreeInfo> {
-    return this.getJsonFromApi('etreeinfo?recording='+encodeURIComponent(recordingId));
   }
 
   getFeatureSummary(audioUri: string): Promise<{}> {

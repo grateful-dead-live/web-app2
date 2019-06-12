@@ -19,7 +19,7 @@
       <div fxFlex="1 1 auto">Location: {{ event.location.name }}</div>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
-    <div [routerLink]="['/location', event.location.id]" class="container" fxLayout="column" fxFlex="1 1 40%" [style.padding]="'20px'">
+    <div class="container" fxLayout="column" fxFlex="1 1 40%" [style.padding]="'20px'">
       <div *ngIf="showPhotos.length" fxFlex="1 1 auto">Photos from the show</div>
       <div *ngIf="showPhotos.length" fxFlex="1 1 auto" class="container" fxLayout="row">
         <img class="image" *ngFor="let s of showPhotos" [lazyLoad]="s" fxFlex="1 1 33%">
