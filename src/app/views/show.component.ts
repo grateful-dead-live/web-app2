@@ -15,6 +15,7 @@ export class ShowComponent {
   protected event: DeadEventDetails;
   protected recordingUrls: SafeStyle[];
   protected showPhotos: string[];
+  protected eventImage: string;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute) {}
@@ -29,6 +30,13 @@ export class ShowComponent {
         );
         this.showPhotos = this.event.artifacts
           .filter(a => a.type == 'photo').slice(0, 3).map(a => a.image);
+        const poster = this.event.artifacts.filter(a => a.type == 'poster')[0];
+        const pass = this.event.artifacts.filter(a => a.type == 'pass')[0];
+        const ticket = this.event.artifacts.filter(a => a.type == 'ticket')[0];
+        this.eventImage = this.showPhotos.length ? this.showPhotos[0]
+          : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
+          : this.event.location.thumbnail;
+        console.log(this.event.performers)
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
           { replaceUrl: true });

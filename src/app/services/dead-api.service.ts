@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DeadEventInfo, DeadEventDetails, Location, Venue, SongInfo,
-  SongWithAudio, EtreeInfo } from './types';
+  SongWithAudio, Performer } from './types';
 
 export interface Recording {
   id: string,
@@ -32,12 +32,16 @@ export class DeadApiService {
     return this.getJsonFromApi('venue?id='+encodeURIComponent(venueId));
   }
   
+  getSetlist(eventId: string): Promise<SongInfo[]> {
+    return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
+  }
+  
   getSong(songId: string): Promise<SongWithAudio> {
     return this.getJsonFromApi('song?id='+encodeURIComponent(songId));
   }
   
-  getSetlist(eventId: string): Promise<SongInfo[]> {
-    return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
+  getPerformer(performerSameAs: string): Promise<Performer> {
+    return this.getJsonFromApi('performer?sameAs='+encodeURIComponent(performerSameAs));
   }
 
   getFeatureSummary(audioUri: string): Promise<{}> {
