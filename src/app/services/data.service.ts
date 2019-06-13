@@ -86,7 +86,7 @@ export class DataService {
   private toTrack(event: DeadEventInfo, recordingId: string, audio: AudioTrack): Track {
     const uri = ARCHIVE_URI+recordingId+'/'+audio.filename;
     return {
-      title: audio.title + " at the " + event.venue + ", "
+      title: audio.title + ", " + event.venue + ", "
         + event.location + ", " + event.date,
       uri: uri,
       waveform: uri.replace('.mp3', '.png')

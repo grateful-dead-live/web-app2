@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatButtonModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatIconModule } from '@angular/material';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -48,6 +48,7 @@ import { PlayerService } from './services/player.service';
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
+    MatIconModule,
     LazyLoadImageModule,
     LeafletModule.forRoot()
   ],

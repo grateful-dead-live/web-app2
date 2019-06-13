@@ -8,10 +8,32 @@
       Number of performances: {{ timesPlayed }}<br>
       Total number of recordings: {{ totalRecordings }}<br>
     </div>
-    <div fxLayout="column" fxFlex [style.padding]="'10px'">
+    <div fxLayout="row" [style.padding]="'10px'">
       All performances of {{song.name}}:<br><br>
-      <div *ngFor="let e of events" (click)="eventsClick(e)">
-        {{ e.date }} {{ e.venue }}, {{ e.location }}
+    </div>
+    <div fxLayout="column" [style.padding]="'0px'">
+      <div fxLayout="row" *ngFor="let e of events">
+        <img fxLayout="column" class="image field" fxFlex="1 1 15%"
+          [style.width]="'80px'" [style.height]="'60px'"
+          [defaultImage]="'assets/gd_placeholder.png'"
+          [lazyLoad]="e.photo || e.ticket"
+          [style.object-fit]="'cover'" >
+        <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
+            [ngStyle.xs]="{'font-size': '80%'}" class="field">
+          {{ e.date }}
+        </div>
+        <div fxLayout="column" fxFlex="1 1 30%" fxLayoutAlign="center"
+            [ngStyle.xs]="{'font-size': '80%'}" class="field">
+          {{ e.venue }}
+        </div>
+        <div fxLayout="column" fxFlex="1 1 20%" fxLayoutAlign="center"
+            [ngStyle.xs]="{'font-size': '80%'}" class="field">
+          {{ e.location }}
+        </div>
+        <button mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%">
+          <mat-icon [style.vertical-align]="'middle'" (click)="onOptionsClick(e)"
+            [style.horizontal-align]="'right'">more_horiz</mat-icon>
+        </button>
       </div>
     </div>
   </div>

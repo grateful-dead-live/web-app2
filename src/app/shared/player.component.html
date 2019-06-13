@@ -6,16 +6,22 @@
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
 <div fxLayout="row">
-  <button fxFlex="1 1" (click)="player.play()">Play</button>
-  <button fxFlex="1 1" (click)="player.pause()">Pause</button>
-  <button fxFlex="1 1" (click)="player.stop()">Stop</button>
-  <button fxFlex="1 1" (click)="player.previousTrack()">Previous</button>
-  <button fxFlex="1 1" (click)="player.nextTrack()">Next</button>
-  <button fxFlex="1 1" (click)="player.toggleMute()">
-    {{player.muted ? 'Unmute' : 'Mute'}}</button>
-  <button fxFlex="1 1" (click)="addRandomTrack()">Add Random Track</button>
-  <button fxFlex="1 1" (click)="minimized = !minimized">
-    {{minimized ? 'Maximize' : 'Minimize'}}</button>
+  <button mat-icon-button fxFlex (click)="player.play()">
+    <mat-icon>play_arrow</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="player.pause()">
+    <mat-icon>pause</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="player.stop()">
+    <mat-icon>stop</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="player.previousTrack()">
+    <mat-icon>skip_previous</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="player.nextTrack()">
+    <mat-icon>skip_next</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="player.toggleMute()">
+    <mat-icon>{{player.muted ? 'volume_up' : 'volume_off'}}</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="addRandomTrack()">
+    <mat-icon>playlist_add</mat-icon></button>
+  <button mat-icon-button fxFlex (click)="minimized = !minimized">
+    <mat-icon>{{minimized ? 'visibility' : 'visibility_off'}}</mat-icon></button>
 </div>
 <div fxLayout="column" [style.padding]="'10px'">
   <div class="playlist" *ngFor="let s of player.playlist"
