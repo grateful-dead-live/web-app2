@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DeadEventDetails } from '../services/types';
+import { DeadEventDetails, Artifact } from '../services/types';
 import { DataService } from '../services/data.service';
 import { formatDate } from '../services/util';
 
@@ -13,7 +13,8 @@ export class ShowComponent {
   
   protected event: DeadEventDetails;
   protected recordingUrls: SafeStyle[];
-  protected showPhotos: string[];
+  protected photos: string[];
+  protected artifacts: Artifact[];
   protected eventImage: string;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
@@ -27,14 +28,16 @@ export class ShowComponent {
         this.recordingUrls = this.event.recordings.map(i => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+i+"&playlist=1")
         );
-        this.showPhotos = this.event.artifacts
-          .filter(a => a.type == 'photo').slice(0, 3).map(a => a.image);
+        this.photos = this.event.artifacts
+          .filter(a => a.type === 'photo').map(a => a.image);
+        this.artifacts = this.event.artifacts.filter(a => a.type !== 'photo');
         const poster = this.event.artifacts.filter(a => a.type == 'poster')[0];
         const pass = this.event.artifacts.filter(a => a.type == 'pass')[0];
         const ticket = this.event.artifacts.filter(a => a.type == 'ticket')[0];
-        this.eventImage = this.showPhotos.length ? this.showPhotos[0]
+        this.eventImage = this.photos.length ? this.photos[0]
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
+        console.log(this.event)
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
           { replaceUrl: true });
