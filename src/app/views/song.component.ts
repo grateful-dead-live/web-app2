@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SongWithAudio, DeadEventInfo } from '../services/types';
+import { SongDetails, DeadEventInfo } from '../services/types';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { ListDialogComponent } from '../shared/list-dialog.component';
@@ -19,7 +19,7 @@ enum OPTIONS {
 })
 export class SongComponent {
   
-  protected song: SongWithAudio;
+  protected song: SongDetails;
   protected firstPlayed: string;
   protected lastPlayed: string;
   protected timesPlayed: number;
@@ -35,8 +35,10 @@ export class SongComponent {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));
         this.events = await this.data.getEventInfos(this.song.eventIds);
-        this.firstPlayed = this.events[0].date;
-        this.lastPlayed = this.events[this.events.length-1].date;
+        if (this.events.length) {
+          this.firstPlayed = this.events[0].date;
+          this.lastPlayed = this.events[this.events.length-1].date;
+        }
         this.timesPlayed = this.events.length;
         this.totalRecordings = _.sum(this.events.map(e => e.recordings.length));
         console.log(this.song)

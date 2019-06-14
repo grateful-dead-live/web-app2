@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
-import { DeadEventInfo, DeadEventDetails, SongInfo, SongWithAudio, AudioTrack,
+import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
   Location, Venue } from './types';
 import { Track } from './player.service';
 
@@ -40,11 +40,11 @@ export class DataService {
     return await this.apiService.getVenue(venueId);
   }
   
-  async getSong(songId: string): Promise<SongWithAudio> {
+  async getSong(songId: string): Promise<SongDetails> {
     return this.apiService.getSong(songId);
   }
   
-  getTracks(song: SongWithAudio, event: DeadEventInfo, recording: string): Track[] {
+  getTracks(song: SongDetails, event: DeadEventInfo, recording: string): Track[] {
     return song.audio && song.audio[recording] ?
       song.audio[recording].map(a => this.toTrack(event, recording, a)) : [];
   }
@@ -70,7 +70,7 @@ export class DataService {
     return this.apiService.getSetlist(await this.getRandomEventId());
   }
   
-  async getRandomSong(): Promise<SongWithAudio> {
+  async getRandomSong(): Promise<SongDetails> {
     return this.apiService.getSong(_.sample(await this.getRandomSetlist()).id);
   }
   

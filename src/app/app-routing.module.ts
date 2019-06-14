@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'location/:id', component: LocationComponent },
   { path: 'venue/:id', component: VenueComponent },
   { path: 'song/:id', component: SongComponent },
-  { path: 'musician/:sameAs', component: MusicianComponent }
+  { path: 'musician/:id', component: MusicianComponent }
 ];
 
 @NgModule({

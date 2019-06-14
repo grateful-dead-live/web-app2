@@ -1,5 +1,6 @@
 <div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
-  <gd-header *ngIf="song" title='{{song.name}}'></gd-header>
+  <gd-header *ngIf="song" title='{{song.name}}'
+    subtitle='{{song.originalArtist.name}}'></gd-header>
   <div fxLayout="column" [style.padding]="'10px'">
     <div fxLayout="row" fxFlex [style.padding]="'10px'">
       Song Stats:<br><br>

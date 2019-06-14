@@ -36,7 +36,6 @@ export class ShowComponent {
         this.eventImage = this.showPhotos.length ? this.showPhotos[0]
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
-        console.log(this.event.performers)
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
           { replaceUrl: true });

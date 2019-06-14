@@ -32,16 +32,18 @@
   </div>
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
     <div class="container" fxLayout="column" fxFlex="2 1 auto" [style.padding]="'20px'">
-      <p>Setlist:</p>
-      <li *ngFor="let s of event.setlist" [routerLink]="['/song', s.id]" style="list-style-type:none;">
-        {{ s.name }}
-      </li>
+      <div *ngFor="let set of event.setlist">
+        <p>{{ set.name }}</p>
+        <li *ngFor="let song of set.songs" [routerLink]="['/song', song.id]" style="list-style-type:none;">
+          {{ song.name }}
+        </li>
+      </div>
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 auto">
       <iframe [src]="recordingUrls[0]" [style.min-width]="'350px'" [style.height]="'100%'" frameborder="0"></iframe>
     </div>
     <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
-      <div *ngFor="let p of event.performers" [routerLink]="['/musician', p.sameAs]" fxFlex="1 1 auto" fxLayout="row">
+      <div *ngFor="let p of event.performers" [routerLink]="['/musician', p.id]" fxFlex="1 1 auto" fxLayout="row">
         <img class="image" fxFlex="1 1 25%" [lazyLoad]="p.thumbnail" [style.height]="'70px'">
         <div>{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
       </div>

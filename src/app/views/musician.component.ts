@@ -16,8 +16,8 @@ export class MusicianComponent {
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       console.log(params)
-      if (params.has('sameAs')) {
-        this.musician = await this.data.getPerformer(params.get('sameAs'));
+      if (params.has('id')) {
+        this.musician = await this.data.getPerformer(params.get('id'));
         console.log(this.musician);
       }
     });

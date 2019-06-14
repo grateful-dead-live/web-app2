@@ -4,7 +4,10 @@ export interface DeadEventInfo {
   location: string,
   state: string,
   venue: string,
-  tickets: string[],
+  ticket: string,
+  pass: string,
+  poster: string,
+  photo: string,
   recordings: string[]
 }
 
@@ -13,7 +16,7 @@ export interface DeadEventDetails {
   date: string,
   location: Location,
   venue: Venue,
-  setlist: SongInfo[],
+  setlist: Set[],
   weather: any,
   recordings: string[],
   performers: any,
@@ -25,15 +28,22 @@ interface Artifact {
   image: string
 }
 
-export type Venue = GdObject;
+export type Venue = GdEventsObject;
 
-export interface Location extends GdObject {
+export interface Location extends GdEventsObject {
   state: string
 }
 
-export type SongInfo = GdObject;
+export interface Set {
+  name: string,
+  songs: SongInfo[]
+}
 
-export interface SongWithAudio extends SongInfo {
+export interface SongInfo extends GdObject {
+  originalArtist: Artist
+};
+
+export interface SongDetails extends SongInfo, GdEventsObject {
   audio?: AudioTrackMap
 }
 
@@ -48,10 +58,22 @@ export interface AudioTrack {
   track: string
 }
 
+export interface GdEventsObject extends GdObject {
+  eventIds: string[]
+}
+
+export interface Performer extends Artist {
+  instruments: string[]
+}
+
+export interface Artist extends GdObject {
+  musicbrainzId: string,
+  dbpediaId?: string
+}
+
 export interface GdObject extends DbpediaObject {
   id: string,
-  name: string,
-  eventIds: string[]
+  name: string
 }
 
 export interface DbpediaObject {
@@ -59,12 +81,6 @@ export interface DbpediaObject {
   thumbnail?: string,
   comment?: string,
   geoloc?: Geolocation
-}
-
-export interface Performer {
-  name: string,
-  instrument: string,
-  sameAs: string
 }
 
 export interface Geolocation {
