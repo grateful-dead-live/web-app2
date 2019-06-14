@@ -1,37 +1,26 @@
 <div *ngIf="event" fxLayout="column" [style.padding]="'0px'">
   <gd-header *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
     imageUrl="{{eventImage}}">
-    <div class="container transbox" fxLayout="column" fxFlex="1 1 auto">
-      <h1>
-        <i class="wi {{ event.weather.conditionIcon }}"></i>
-        <i class="wi {{ event.weather.windDirectionIcon }}"></i>
-      </h1>
-      <p class="small">
-        <span *ngIf="event.weather.condition">{{ event.weather.condition }}<br><br></span>
-        max. temperature: {{ event.weather.maxTemperature }} °F<br>
-        precipitation: {{ event.weather.precipitation }} in<br>
-        wind: {{ event.weather.wind }} mph
-      </p>
-    </div>
+    <gd-weather [weather]="event.weather"></gd-weather>
   </gd-header>
-  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
-    <div [routerLink]="['/location', event.location.id]" class="container" fxLayout="column" fxFlex="1 1 30%" [style.padding]="'20px'">
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" [style.padding]="'10px'">
+    <div [routerLink]="['/location', event.location.id]" class="container" fxLayout="column" fxFlex="1 1 30%" [style.padding]="'10px'">
       <div fxFlex="1 1 auto">Location: {{ event.location.name }}</div>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
-    <div class="container" fxLayout="column" fxFlex="1 1 40%" [style.padding]="'20px'">
+    <div class="container" fxLayout="column" fxFlex="1 1 40%" [style.padding]="'10px'">
       <div *ngIf="showPhotos.length" fxFlex="1 1 auto">Photos from the show</div>
       <div *ngIf="showPhotos.length" fxFlex="1 1 auto" class="container" fxLayout="row">
         <img class="image" *ngFor="let s of showPhotos" [lazyLoad]="s" fxFlex="1 1 33%">
       </div>
     </div>
-    <div [routerLink]="['/venue', event.venue.id]" class="container" fxLayout="column" fxFlex="1 1 30%" [style.padding]="'20px'">
+    <div [routerLink]="['/venue', event.venue.id]" class="container" fxLayout="column" fxFlex="1 1 30%" [style.padding]="'10px'">
       <div fxFlex="1 1 auto">Venue: {{ event.venue.name }}</div>
       <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
   </div>
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlex="100" >
-    <div class="container" fxLayout="column" fxFlex="2 1 auto" [style.padding]="'20px'">
+    <div class="container" fxLayout="column" fxFlex="2 1 auto" [style.padding]="'10px'">
       <div *ngFor="let set of event.setlist">
         <p>{{ set.name }}</p>
         <li *ngFor="let song of set.songs" [routerLink]="['/song', song.id]" style="list-style-type:none;">
@@ -42,7 +31,7 @@
     <div class="container" fxLayout="column" fxFlex="1 1 auto">
       <iframe [src]="recordingUrls[0]" [style.min-width]="'350px'" [style.height]="'100%'" frameborder="0"></iframe>
     </div>
-    <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'20px'">
+    <div class="container" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'10px'">
       <div *ngFor="let p of event.performers" [routerLink]="['/musician', p.id]" fxFlex="1 1 auto" fxLayout="row">
         <img class="image" fxFlex="1 1 25%" [lazyLoad]="p.thumbnail" [style.height]="'70px'">
         <div>{{ p.name }} ({{ p.instruments.join(', ') }}) </div>

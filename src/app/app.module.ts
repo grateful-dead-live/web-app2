@@ -18,6 +18,7 @@ import { MusicianComponent } from './views/musician.component';
 
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
+import { WeatherComponent } from './shared/weather.component';
 import { ShowsComponent } from './shared/shows.component';
 import { PlayerComponent } from './shared/player.component';
 import { ListDialogComponent } from './shared/list-dialog.component';
@@ -36,6 +37,7 @@ import { PlayerService } from './services/player.service';
     MusicianComponent,
     HeaderComponent,
     MapComponent,
+    WeatherComponent,
     ShowsComponent,
     PlayerComponent,
     ListDialogComponent
