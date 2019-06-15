@@ -7,11 +7,6 @@ import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { ListDialogComponent } from '../shared/list-dialog.component';
 
-enum OPTIONS {
-  ADD = "Add to playlist",
-  GO = "Go to show"
-}
-
 @Component({
   selector: 'gd-song',
   templateUrl: './song.component.html',
@@ -20,6 +15,8 @@ enum OPTIONS {
 export class SongComponent {
   
   protected song: SongDetails;
+  protected composedBy: string;
+  protected lyricsBy: string;
   protected firstPlayed: string;
   protected lastPlayed: string;
   protected timesPlayed: number;
@@ -35,12 +32,14 @@ export class SongComponent {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));
         this.events = await this.data.getEventInfos(this.song.eventIds);
+        this.composedBy = this.song.composedBy.map(a => a.name).join(', ');
+        this.lyricsBy = this.song.lyricsBy.map(a => a.name).join(', ');
         if (this.events.length) {
           this.firstPlayed = this.events[0].date;
           this.lastPlayed = this.events[this.events.length-1].date;
+          this.timesPlayed = this.events.length;
+          this.totalRecordings = _.sum(this.events.map(e => e.recordings.length));
         }
-        this.timesPlayed = this.events.length;
-        this.totalRecordings = _.sum(this.events.map(e => e.recordings.length));
         console.log(this.song)
       }
       if (!this.song) {
@@ -51,6 +50,10 @@ export class SongComponent {
   }
 
   onOptionsClick(event: DeadEventInfo) {
+    enum OPTIONS {
+      ADD = "Add to playlist",
+      GO = "Go to show"
+    }
     this.dialog.open(ListDialogComponent, this.getDialogConfig(
       this.song.name+"', "+event.venue+", "+event.date,
       [OPTIONS.ADD, OPTIONS.GO]
@@ -63,7 +66,7 @@ export class SongComponent {
   openRecordingsDialog(event: DeadEventInfo) {
     this.dialog.open(ListDialogComponent, this.getDialogConfig(
       "Recordings of '"+this.song.name+"', "+event.venue+", "+event.date,
-      event.recordings
+      event.recordings.map(r => r.id)
     )).afterClosed().subscribe(result =>
       this.recordingSelected(result, event));
   }

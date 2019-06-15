@@ -8,7 +8,7 @@ export interface DeadEventInfo {
   pass: string,
   poster: string,
   photo: string,
-  recordings: string[]
+  recordings: Recording[]
 }
 
 export interface DeadEventDetails {
@@ -18,12 +18,12 @@ export interface DeadEventDetails {
   venue: Venue,
   setlist: Set[],
   weather: any,
-  recordings: string[],
+  recordings: Recording[],
   performers: any,
   artifacts: Artifact[]
 }
 
-interface Artifact {
+export interface Artifact {
   type: string,
   image: string
 }
@@ -40,7 +40,8 @@ export interface Set {
 }
 
 export interface SongInfo extends GdObject {
-  originalArtist: Artist
+  composedBy: Artist[],
+  lyricsBy: Artist[]
 };
 
 export interface SongDetails extends SongInfo, GdEventsObject {
@@ -49,6 +50,11 @@ export interface SongDetails extends SongInfo, GdEventsObject {
 
 export interface AudioTrackMap {
   [recordingId: string]: AudioTrack[]
+}
+
+export interface Recording {
+  id: string,
+  isSoundboard: boolean
 }
 
 export interface AudioTrack {

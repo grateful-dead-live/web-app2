@@ -16,11 +16,15 @@
     </div>
     
     <div fxLayout="column" fxFlex="50" [style.padding]="'10px'">
-      <div *ngFor="let set of event.setlist">
+      <div fxLayout="column" *ngFor="let set of event.setlist">
         <p>{{ set.name }}</p>
-        <li *ngFor="let song of set.songs" [routerLink]="['/song', song.id]" style="list-style-type:none;">
+        <div fxLayout="row" *ngFor="let song of set.songs" [routerLink]="['/song', song.id]">
           {{ song.name }}
-        </li>
+          <button mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%">
+            <mat-icon [style.vertical-align]="'middle'" (click)="onSongOptionsClick(s)"
+              [style.horizontal-align]="'right'">more_horiz</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
     

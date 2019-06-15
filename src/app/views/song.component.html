@@ -1,13 +1,15 @@
 <div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
-  <gd-header *ngIf="song" title='{{song.name}}'
-    subtitle='{{song.originalArtist.name}}'></gd-header>
+  <gd-header *ngIf="song" title='{{ song.name }}'
+    subtitle='{{ composedBy }}'></gd-header>
   <div fxLayout="column" [style.padding]="'10px'">
     <div fxLayout="row" fxFlex [style.padding]="'10px'">
-      Song Stats:<br><br>
-      First played on: {{ firstPlayed }}<br>
-      Last played on: {{ lastPlayed }}<br>
-      Number of performances: {{ timesPlayed }}<br>
-      Total number of recordings: {{ totalRecordings }}<br>
+      Song Info:<br><br>
+      <ng-container *ngIf="composedBy">Composed by: {{ composedBy }}<br/></ng-container>
+      <ng-container *ngIf="lyricsBy">Lyrics by: {{ lyricsBy }}<br/></ng-container>
+      <ng-container *ngIf="firstPlayed">First played on: {{ firstPlayed }}<br/></ng-container>
+      <ng-container *ngIf="lastPlayed">Last played on: {{ lastPlayed }}<br/></ng-container>
+      <ng-container *ngIf="timesPlayed">Number of performances: {{ timesPlayed }}<br/></ng-container>
+      <ng-container *ngIf="totalRecordings">Total number of recordings: {{ totalRecordings }}<br/></ng-container>
     </div>
     <div fxLayout="row" [style.padding]="'10px'">
       All performances of {{song.name}}:<br><br>
