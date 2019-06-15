@@ -26,7 +26,7 @@ export class ShowComponent {
         this.event = await this.data.getEventDetails(params.get('id'));
         this.event.date = formatDate(this.event.date);
         this.recordingUrls = this.event.recordings.map(r => 
-          this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.id+"&playlist=1")
+          this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
         this.photos = this.event.artifacts
           .filter(a => a.type === 'photo').map(a => a.image);
@@ -37,7 +37,6 @@ export class ShowComponent {
         this.eventImage = this.photos.length ? this.photos[0]
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
-        console.log(this.event);
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
           { replaceUrl: true });

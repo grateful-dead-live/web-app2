@@ -79,7 +79,7 @@ export class DataService {
     const randomRecordingId = _.sample(_.keys(randomSong.audio));
     const randomAudio = _.sample(randomSong.audio[randomRecordingId]);
     const correspondingEvent = this.events.filter(e =>
-      e.recordings.map(r => r.id).indexOf(randomRecordingId) >= 0)[0];
+      e.recordings.map(r => r.etreeId).indexOf(randomRecordingId) >= 0)[0];
     return this.toTrack(correspondingEvent, randomRecordingId, randomAudio);
   }
   

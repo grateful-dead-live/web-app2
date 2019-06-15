@@ -26,6 +26,7 @@ import { ListDialogComponent } from './shared/list-dialog.component';
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
 import { PlayerService } from './services/player.service';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { PlayerService } from './services/player.service';
   providers: [
     DeadApiService,
     DataService,
-    PlayerService
+    PlayerService,
+    DialogService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent]

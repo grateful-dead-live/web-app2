@@ -1,11 +1,10 @@
 import * as _ from 'lodash';
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SongDetails, DeadEventInfo } from '../services/types';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
-import { ListDialogComponent } from '../shared/list-dialog.component';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'gd-song',
@@ -25,7 +24,7 @@ export class SongComponent {
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
-    private dialog: MatDialog) {}
+    private dialog: DialogService) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
@@ -40,7 +39,6 @@ export class SongComponent {
           this.timesPlayed = this.events.length;
           this.totalRecordings = _.sum(this.events.map(e => e.recordings.length));
         }
-        console.log(this.song)
       }
       if (!this.song) {
         this.router.navigate(['/song', (await this.data.getRandomSong())],
@@ -49,38 +47,26 @@ export class SongComponent {
     });
   }
 
-  onOptionsClick(event: DeadEventInfo) {
-    enum OPTIONS {
-      ADD = "Add to playlist",
-      GO = "Go to show"
-    }
-    this.dialog.open(ListDialogComponent, this.getDialogConfig(
+  openOptionsDialog(event: DeadEventInfo) {
+    this.dialog.openMultiFunction(
       this.song.name+"', "+event.venue+", "+event.date,
-      [OPTIONS.ADD, OPTIONS.GO]
-    )).afterClosed().subscribe(result =>
-      result === OPTIONS.ADD ? this.openRecordingsDialog(event)
-      : result === OPTIONS.GO ? this.router.navigate(['/show', event.id])
-      : null);
+      ["Add to playlist", "Go to show"],
+      [() => this.openRecordingsDialog(event),
+        () => this.router.navigate(['/show', event.id])]
+    );
   }
 
   openRecordingsDialog(event: DeadEventInfo) {
-    this.dialog.open(ListDialogComponent, this.getDialogConfig(
+    this.dialog.openSingleFunction(
       "Recordings of '"+this.song.name+"', "+event.venue+", "+event.date,
-      event.recordings.map(r => r.id)
-    )).afterClosed().subscribe(result =>
-      this.recordingSelected(result, event));
+      event.recordings.map(r => r.etreeId),
+      r => this.recordingSelected(r, event)
+    );
   }
 
   recordingSelected(recordingId: string, event: DeadEventInfo) {
     this.data.getTracks(this.song, event, recordingId)
       .forEach(t => this.player.addToPlaylist(t));
-  }
-  
-  private getDialogConfig(title: string, items: string[]) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { title: title, items: items };
-    return dialogConfig;
   }
 
 }

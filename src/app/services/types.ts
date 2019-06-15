@@ -53,7 +53,7 @@ export interface AudioTrackMap {
 }
 
 export interface Recording {
-  id: string,
+  etreeId: string,
   isSoundboard: boolean
 }
 
