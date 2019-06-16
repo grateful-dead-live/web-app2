@@ -29,8 +29,10 @@
     
     <div class="gd-container" fxLayout="column" fxFlex="50">
       <p>Lineup</p>
-      <div *ngFor="let p of event.performers" [routerLink]="['/musician', p.id]" fxFlex="1 1 auto" fxLayout="row">
-        <img class="image" fxFlex="1 1 25%" [lazyLoad]="p.thumbnail" [style.height]="'70px'">
+      <div *ngFor="let p of event.performers" fxLayout="row"
+          fxLayoutAlign="space-between center" [routerLink]="['/musician', p.id]" >
+        <img class="image" [lazyLoad]="p.thumbnail"
+          [style.width]="'70px'" [style.height]="'70px'">
         <div>{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
       </div>
     </div>

@@ -48,10 +48,7 @@ export class PlayerService {
   
   stop() {
     if (this.currentAudio) {
-      this.currentAudio.ontimeupdate = null;
-      this.currentAudio.pause();
-      this.currentAudio = null;
-      this.currentTime = 0;
+      this.reset();
     }
   }
   
@@ -93,9 +90,13 @@ export class PlayerService {
   }
   
   private async playPlaylist() {
-    await this.playCurrentTrack();
-    this.currentTrackIndex++;
-    this.playPlaylist();
+    if (this.currentTrackIndex < this.playlist.length) {
+      await this.playCurrentTrack();
+      this.currentTrackIndex++;
+      this.playPlaylist();
+    } else {
+      this.reset();
+    }
   }
   
   private async playCurrentTrack() {
@@ -108,6 +109,13 @@ export class PlayerService {
       this.currentTime = audio.currentTime;
     };
     return new Promise(resolve => audio.onended = resolve);
+  }
+  
+  private reset() {
+    this.currentAudio.ontimeupdate = null;
+    this.currentAudio.pause();
+    this.currentAudio = null;
+    this.currentTime = 0;
   }
 
 }
