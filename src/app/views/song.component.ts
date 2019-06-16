@@ -47,7 +47,7 @@ export class SongComponent {
     });
   }
 
-  openOptionsDialog(event: DeadEventInfo) {
+  protected openOptionsDialog(event: DeadEventInfo) {
     this.dialog.openMultiFunction(
       this.song.name+"', "+event.venue+", "+event.date,
       ["Add to playlist", "Go to show"],
@@ -56,15 +56,15 @@ export class SongComponent {
     );
   }
 
-  openRecordingsDialog(event: DeadEventInfo) {
+  private openRecordingsDialog(event: DeadEventInfo) {
     this.dialog.openSingleFunction(
       "Recordings of '"+this.song.name+"', "+event.venue+", "+event.date,
       event.recordings.map(r => r.etreeId),
-      r => this.recordingSelected(r, event)
+      r => this.addRecordingToPlaylist(r, event)
     );
   }
 
-  recordingSelected(recordingId: string, event: DeadEventInfo) {
+  private addRecordingToPlaylist(recordingId: string, event: DeadEventInfo) {
     this.data.getTracks(this.song, event, recordingId)
       .forEach(t => this.player.addToPlaylist(t));
   }

@@ -18,9 +18,9 @@
     <div class="gd-container" fxLayout="column" fxFlex="50">
       <div fxLayout="column" *ngFor="let set of event.setlist">
         <p>{{ set.name }}</p>
-        <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center" [routerLink]="['/song', song.id]">
-          <ng-container>{{ song.name }}</ng-container>
-          <button mat-icon-button (click)="onSongOptionsClick(s)">
+        <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center">
+          <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
+          <button mat-icon-button (click)="openSongOptionsDialog(song)">
             <mat-icon>more_horiz</mat-icon>
           </button>
         </div>

@@ -44,6 +44,15 @@ export class DataService {
     return this.apiService.getSong(songId);
   }
   
+  async getTrack(song: SongInfo, event: DeadEventInfo, recording?: string) {
+    const songDetails = await this.apiService.getSong(song.id);
+    if (!recording) {
+      const sbd = event.recordings.filter(r => r.isSoundboard);
+      recording = sbd.length ? sbd[0].etreeId : _.sample(event.recordings).etreeId;
+    }
+    return this.getTracks(songDetails, event, recording)[0];
+  }
+  
   getTracks(song: SongDetails, event: DeadEventInfo, recording: string): Track[] {
     return song.audio && song.audio[recording] ?
       song.audio[recording].map(a => this.toTrack(event, recording, a)) : [];
@@ -97,6 +106,15 @@ export class DataService {
     this.events = await this.apiService.getEvents();
     this.events.sort((a, b) => parseFloat(a.date.replace(/-/g, ''))
       - parseFloat(b.date.replace(/-/g, '')));
+  }
+  
+  formatDate(date: string) {
+    return new Date(date).toLocaleDateString("en-US",
+      { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  formatDates(objects: {date: string}[]) {
+    objects.forEach(o => o.date = this.formatDate(o.date));
   }
 
 }

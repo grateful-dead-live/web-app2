@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DeadEventDetails, Artifact } from '../services/types';
+import { DeadEventDetails, Artifact, SongInfo } from '../services/types';
 import { DataService } from '../services/data.service';
-import { formatDate } from '../services/util';
+import { DialogService } from '../services/dialog.service';
+import { PlayerService } from '../services/player.service';
 
 @Component({
   selector: 'gd-show',
@@ -18,13 +19,14 @@ export class ShowComponent {
   protected eventImage: string;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
-    private router: Router, private route: ActivatedRoute) {}
+    private router: Router, private route: ActivatedRoute,
+    private dialog: DialogService, private player: PlayerService) {}
   
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.event = await this.data.getEventDetails(params.get('id'));
-        this.event.date = formatDate(this.event.date);
+        this.event.date = this.data.formatDate(this.event.date);
         this.recordingUrls = this.event.recordings.map(r => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
@@ -42,6 +44,21 @@ export class ShowComponent {
           { replaceUrl: true });
       }
     });
+  }
+  
+  protected openSongOptionsDialog(song: SongInfo) {
+    this.dialog.openMultiFunction(
+      song.name+"', "+this.event.venue.name+", "+this.event.date,
+      ["Add to playlist", "Go to song"],
+      [() => this.addSongToPlaylist(song),
+        () => this.router.navigate(['/song', song.id])]
+    );
+  }
+  
+  private async addSongToPlaylist(song: SongInfo) {
+    const info = await this.data.getEventInfo(this.event.id);
+    const track = await this.data.getTrack(song, info);
+    if (track) this.player.addToPlaylist(track);
   }
 
 }
