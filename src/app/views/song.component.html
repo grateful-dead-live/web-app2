@@ -1,21 +1,21 @@
-<div *ngIf="song" fxLayout="column" [style.padding]="'0px'">
-  <gd-header *ngIf="song" title='{{ song.name }}'
-    subtitle='{{ composedBy }}'></gd-header>
-  <div fxLayout="column" [style.padding]="'10px'">
-    <div fxLayout="row" fxFlex [style.padding]="'10px'">
+<div *ngIf="song" fxLayout="column">
+  <gd-header *ngIf="song" title="{{ song.name }}"
+    subtitle="{{ composedBy.concat(lyricsBy).join(', ') }}"></gd-header>
+  <div fxLayout="column" class="gd-container">
+    <div fxLayout="row" fxFlex class="gd-container">
       Song Info:<br><br>
-      <ng-container *ngIf="composedBy">Composed by: {{ composedBy }}<br/></ng-container>
-      <ng-container *ngIf="lyricsBy">Lyrics by: {{ lyricsBy }}<br/></ng-container>
+      <ng-container *ngIf="composedBy">Composed by: {{ composedBy.join(', ') }}<br/></ng-container>
+      <ng-container *ngIf="lyricsBy">Lyrics by: {{ lyricsBy.join(', ') }}<br/></ng-container>
       <ng-container *ngIf="firstPlayed">First played on: {{ firstPlayed }}<br/></ng-container>
       <ng-container *ngIf="lastPlayed">Last played on: {{ lastPlayed }}<br/></ng-container>
       <ng-container *ngIf="timesPlayed">Number of performances: {{ timesPlayed }}<br/></ng-container>
       <ng-container *ngIf="totalRecordings">Total number of recordings: {{ totalRecordings }}<br/></ng-container>
     </div>
-    <div fxLayout="row" [style.padding]="'10px'">
+    <div fxLayout="row" class="gd-container">
       All performances of {{song.name}}:<br><br>
     </div>
-    <div fxLayout="column" [style.padding]="'0px'">
-      <div fxLayout="row" *ngFor="let e of events">
+    <div fxLayout="column" class="gd-container">
+      <div fxLayout="row" fxLayoutAlign=" center" *ngFor="let e of events">
         <img fxLayout="column" class="image field" fxFlex="1 1 15%"
           [style.width]="'80px'" [style.height]="'60px'"
           [defaultImage]="'assets/gd_placeholder.png'"
@@ -33,9 +33,8 @@
             [ngStyle.xs]="{'font-size': '80%'}" class="field">
           {{ e.location }}
         </div>
-        <button mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%">
-          <mat-icon [style.vertical-align]="'middle'" (click)="openOptionsDialog(e)"
-            [style.horizontal-align]="'right'">more_horiz</mat-icon>
+        <button mat-icon-button fxLayout="column" fxFlex="1 1 10%" (click)="openOptionsDialog(s)">
+          <mat-icon>more_horiz</mat-icon>
         </button>
       </div>
     </div>

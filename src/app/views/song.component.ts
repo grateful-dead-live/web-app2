@@ -14,8 +14,8 @@ import { DialogService } from '../services/dialog.service';
 export class SongComponent {
   
   protected song: SongDetails;
-  protected composedBy: string;
-  protected lyricsBy: string;
+  protected composedBy: string[] = [];
+  protected lyricsBy: string[] = [];
   protected firstPlayed: string;
   protected lastPlayed: string;
   protected timesPlayed: number;
@@ -31,8 +31,8 @@ export class SongComponent {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));
         this.events = await this.data.getEventInfos(this.song.eventIds);
-        this.composedBy = this.song.composedBy.map(a => a.name).join(', ');
-        this.lyricsBy = this.song.lyricsBy.map(a => a.name).join(', ');
+        this.composedBy = this.song.composedBy.map(a => a.name);
+        this.lyricsBy = this.song.lyricsBy.map(a => a.name);
         if (this.events.length) {
           this.firstPlayed = this.events[0].date;
           this.lastPlayed = this.events[this.events.length-1].date;

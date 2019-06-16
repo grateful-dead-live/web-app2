@@ -23,7 +23,7 @@
   <button mat-icon-button fxFlex (click)="minimized = !minimized">
     <mat-icon>{{minimized ? 'visibility' : 'visibility_off'}}</mat-icon></button>
 </div>
-<div fxLayout="column" [style.padding]="'10px'">
+<div class="gd-container" fxLayout="column">
   <div class="playlist" *ngFor="let s of player.playlist"
       [hidden]="minimized && s !== player.getCurrentTrack()"
       [style.color]="s === player.getCurrentTrack() ? 'white' : 'grey'"

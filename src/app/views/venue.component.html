@@ -1,20 +1,22 @@
-<div *ngIf="venue" fxLayout="column" [style.padding]="'0px'">
+<div *ngIf="venue" fxLayout="column">
   <gd-header *ngIf="venue" title='{{ venue.name }}'
     subtitle='{{ location }}' imageUrl="{{ venue.image }}">
   </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
-    <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
+    <div class="gd-container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%">
       <p *ngIf="data.event">The Band played on {{ data.event.date }}</p>
       <p>{{ venue.comment }}</p>
     </div>
-    <div class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%" [style.padding]="'20px'">
+    <div class="gd-container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%">
       <img class="image" [lazyLoad]="venue.thumbnail" fxFlex="1 1 auto">
     </div>
-    <div *ngIf="venue.geoloc" class="container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%" [style.padding]="'20px'">
+    <div *ngIf="venue.geoloc" class="gd-container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 100%">
       <gd-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
         latitude="{{ venue.geoloc.lat }}" longitude="{{ venue.geoloc.long }}"></gd-map>
     </div>
   </div>
-  <p [style.padding]="'20px'">All shows at the {{ venue.name }}:</p>
+  
+  <p class="gd-section">All shows at the {{ venue.name }}:</p>
+  
   <gd-shows [eventIds]="venue.eventIds"></gd-shows>
 </div>

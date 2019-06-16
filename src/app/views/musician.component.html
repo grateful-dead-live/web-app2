@@ -1,12 +1,12 @@
-<div *ngIf="musician" fxLayout="column" [style.padding]="'0px'">
+<div *ngIf="musician" fxLayout="column">
   <gd-header *ngIf="musician" title="{{ musician.name }}"
     subtitle="{{ musician.instruments.join(', ').split('_').join(' ') }}"
     imageUrl="{{musician.thumbnail}}"></gd-header>
-  <div fxLayout="column" fxLayoutAlign="start start" [style.padding]="'10px'">
-    <div [style.padding]="'10px'">
+  <div class="gd-container" fxLayout="column" fxLayoutAlign="start start">
+    <div class="gd-container">
       {{ musician.comment }}
     </div>
-    <div [style.padding]="'10px'">
+    <div class="gd-container">
       {{musician.name}} played with the Dead on:
       <div *ngFor="let e of events" (click)="eventsClick(e)">
         {{ e.date }} {{ e.venue }}, {{ e.location }}
