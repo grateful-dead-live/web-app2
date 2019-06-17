@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Performer } from '../services/types';
+import { ArtistDetails } from '../services/types';
 import { DeadApiService } from '../services/dead-api.service';
 
 @Component({
-  selector: 'gd-musician',
-  templateUrl: './musician.component.html',
+  selector: 'gd-artist',
+  templateUrl: './artist.component.html',
 })
-export class MusicianComponent {
+export class ArtistComponent {
   
-  protected musician: Performer;
+  protected artist: ArtistDetails;
 
   constructor(private data: DeadApiService, private route: ActivatedRoute) {}
 
@@ -17,8 +17,8 @@ export class MusicianComponent {
     this.route.paramMap.subscribe(async params => {
       console.log(params)
       if (params.has('id')) {
-        this.musician = await this.data.getPerformer(params.get('id'));
-        console.log(this.musician);
+        this.artist = await this.data.getArtistDetails(params.get('id'));
+        console.log(this.artist);
       }
     });
   }

@@ -5,7 +5,7 @@ import { ShowComponent } from './views/show.component';
 import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
 import { SongComponent } from './views/song.component';
-import { MusicianComponent } from './views/musician.component';
+import { ArtistComponent } from './views/artist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/show', pathMatch: 'full' },
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'location/:id', component: LocationComponent },
   { path: 'venue/:id', component: VenueComponent },
   { path: 'song/:id', component: SongComponent },
-  { path: 'musician/:id', component: MusicianComponent }
+  { path: 'artist/:id', component: ArtistComponent }
 ];
 
 @NgModule({

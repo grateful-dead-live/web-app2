@@ -1,42 +1,31 @@
 <div *ngIf="song" fxLayout="column">
   <gd-header *ngIf="song" title="{{ song.name }}"
-    subtitle="{{ composedBy.concat(lyricsBy).join(', ') }}"></gd-header>
+    subtitle="{{ subtitle }}"></gd-header>
   <div fxLayout="column" class="gd-container">
-    <div fxLayout="row" fxFlex class="gd-container">
-      Song Info:<br><br>
-      <ng-container *ngIf="composedBy">Composed by: {{ composedBy.join(', ') }}<br/></ng-container>
-      <ng-container *ngIf="lyricsBy">Lyrics by: {{ lyricsBy.join(', ') }}<br/></ng-container>
-      <ng-container *ngIf="firstPlayed">First played on: {{ firstPlayed }}<br/></ng-container>
-      <ng-container *ngIf="lastPlayed">Last played on: {{ lastPlayed }}<br/></ng-container>
-      <ng-container *ngIf="timesPlayed">Number of performances: {{ timesPlayed }}<br/></ng-container>
-      <ng-container *ngIf="totalRecordings">Total number of recordings: {{ totalRecordings }}<br/></ng-container>
+    
+    <div fxLayout="column" fxFlex class="gd-container">
+      <ng-container *ngIf="song.composedBy && song.composedBy.length">
+        Composed by:
+        <div *ngFor="let a of song.composedBy"
+          [routerLink]="['/artist', a.id]">{{a.name}}</div><br/>
+      </ng-container>
+      <ng-container *ngIf="song.lyricsBy && song.lyricsBy.length">
+        Lyrics by:
+        <div *ngFor="let a of song.lyricsBy"
+          [routerLink]="['/artist', a.id]">{{a.name}}</div><br/>
+      </ng-container>
+      <ng-container *ngIf="firstPlayed">
+        First played on: {{ firstPlayed }}<br/></ng-container>
+      <ng-container *ngIf="lastPlayed">
+        Last played on: {{ lastPlayed }}<br/></ng-container>
+      <ng-container *ngIf="timesPlayed">
+        Number of performances: {{ timesPlayed }}<br/></ng-container>
+      <ng-container *ngIf="totalRecordings">
+        Total number of recordings: {{ totalRecordings }}<br/></ng-container>
     </div>
-    <div fxLayout="row" class="gd-container">
-      All performances of {{song.name}}:<br><br>
-    </div>
-    <div fxLayout="column" class="gd-container">
-      <div fxLayout="row" fxLayoutAlign=" center" *ngFor="let e of events">
-        <img fxLayout="column" class="image field" fxFlex="1 1 15%"
-          [style.width]="'80px'" [style.height]="'60px'"
-          [defaultImage]="'assets/gd_placeholder.png'"
-          [lazyLoad]="e.photo || e.ticket"
-          [style.object-fit]="'cover'" >
-        <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
-            [ngStyle.xs]="{'font-size': '80%'}" class="field">
-          {{ e.date }}
-        </div>
-        <div fxLayout="column" fxFlex="1 1 30%" fxLayoutAlign="center"
-            [ngStyle.xs]="{'font-size': '80%'}" class="field">
-          {{ e.venue }}
-        </div>
-        <div fxLayout="column" fxFlex="1 1 20%" fxLayoutAlign="center"
-            [ngStyle.xs]="{'font-size': '80%'}" class="field">
-          {{ e.location }}
-        </div>
-        <button mat-icon-button fxLayout="column" fxFlex="1 1 10%" (click)="openOptionsDialog(s)">
-          <mat-icon>more_horiz</mat-icon>
-        </button>
-      </div>
-    </div>
+    
+    <p class="gd-container">All performances of {{song.name}}:</p>
+    
+    <gd-shows [eventIds]="song.eventIds"></gd-shows>
   </div>
 </div>

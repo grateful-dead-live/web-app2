@@ -8,14 +8,12 @@ import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'gd-song',
-  templateUrl: './song.component.html',
-  styleUrls: ['./song.component.sass']
+  templateUrl: './song.component.html'
 })
 export class SongComponent {
   
   protected song: SongDetails;
-  protected composedBy: string[] = [];
-  protected lyricsBy: string[] = [];
+  protected subtitle: string;
   protected firstPlayed: string;
   protected lastPlayed: string;
   protected timesPlayed: number;
@@ -30,9 +28,9 @@ export class SongComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));
+        this.subtitle = _.uniq(this.song.composedBy.concat(this.song.lyricsBy)
+          .map(a => a.name)).join(', ');
         this.events = await this.data.getEventInfos(this.song.eventIds);
-        this.composedBy = this.song.composedBy.map(a => a.name);
-        this.lyricsBy = this.song.lyricsBy.map(a => a.name);
         if (this.events.length) {
           this.firstPlayed = this.events[0].date;
           this.lastPlayed = this.events[this.events.length-1].date;

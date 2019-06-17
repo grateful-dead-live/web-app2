@@ -1,0 +1,32 @@
+<div *ngIf="artist" fxLayout="column">
+  <gd-header *ngIf="artist" title="{{ artist.name }}"
+    subtitle="{{ artist.instruments.join(', ').split('_').join(' ') }}">
+  </gd-header>
+  
+  <div class="gd-container" fxLayout="row" fxLayout.xs="column">
+    <img *ngIf="artist.thumbnail" class="image gd-container"
+      [defaultImage]="'assets/gd_placeholder.png'"
+      [lazyLoad]="artist.thumbnail" [style.object-fit]="'contain'"
+      fxFlex="50">
+    <div class="gd-container" fxFlex="50">
+      {{ artist.comment }}
+    </div>
+  </div>
+  
+  <p class="gd-section">Songs composed by {{artist.name}}:</p>
+  
+  <div class="gd-container" fxLayout="column">
+    <div class="gd-container" fxLayout="column">
+      <div *ngFor="let song of artist.compositions" fxLayout="row" fxLayoutAlign="space-between center">
+        <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
+        <button mat-icon-button (click)="openSongOptionsDialog(song)">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <p *ngIf="artist.eventIds.length" class="gd-section">{{artist.name}} played with the Dead on:</p>
+  
+  <gd-shows [eventIds]="artist.eventIds"></gd-shows>
+</div>

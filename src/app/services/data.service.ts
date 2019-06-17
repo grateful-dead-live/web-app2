@@ -23,8 +23,10 @@ export class DataService {
   }
   
   async getEventInfos(eventIds: string[]) {
-    await this.loading;
-    return this.events.filter(e => eventIds.indexOf(e.id) >= 0);
+    if (eventIds) {
+      await this.loading;
+      return this.events.filter(e => eventIds.indexOf(e.id) >= 0);
+    }
   }
   
   async getEventDetails(eventId: string) {

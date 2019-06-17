@@ -1,12 +1,24 @@
-<div class="gd-container" fxLayout="row wrap">
-  <div *ngFor="let e of events" fxLayout="column" fxFlex="1 1 25%"
-      [style.height]="'130px'" [style.padding]="'20px'" fxFlex.xs="1 1 50%">
-    <div fxFlex="1 1 auto" [style.font-size]="'80%'">{{ e.date }}</div>
-    <div fxFlex="1 1 auto" [style.font-size]="'80%'">{{ e.venue }}, {{ e.location }}</div>
-    <img class="image" fxFlex="1 1 auto"
-      [routerLink]="['/show', e.id]"
+<div fxLayout="column" class="gd-container">
+  <div *ngFor="let e of events" fxLayout="row" fxLayoutAlign=" center">
+    <img fxLayout="column" class="image field" fxFlex="1 1 15%"
+      [style.width]="'80px'" [style.height]="'60px'"
       [defaultImage]="'assets/gd_placeholder.png'"
-      [lazyLoad]="e.tickets[0]"
-      [style.object-fit]="'cover'">
+      [lazyLoad]="e.photo || e.ticket"
+      [style.object-fit]="'cover'" >
+    <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
+        [ngStyle.xs]="{'font-size': '80%'}" class="field">
+      {{ e.date }}
+    </div>
+    <div fxLayout="column" fxFlex="1 1 30%" fxLayoutAlign="center"
+        [ngStyle.xs]="{'font-size': '80%'}" class="field">
+      {{ e.venue }}
+    </div>
+    <div fxLayout="column" fxFlex="1 1 20%" fxLayoutAlign="center"
+        [ngStyle.xs]="{'font-size': '80%'}" class="field">
+      {{ e.location }}
+    </div>
+    <button mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%"
+      (click)="openOptionsDialog(s)"><mat-icon>more_horiz</mat-icon>
+    </button>
   </div>
 </div>
