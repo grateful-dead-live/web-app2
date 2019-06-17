@@ -26,6 +26,6 @@
     
     <p class="gd-container">All performances of {{song.name}}:</p>
     
-    <gd-shows [eventIds]="song.eventIds"></gd-shows>
+    <gd-shows [eventIds]="song.eventIds" [onOptions]="openOptionsDialog.bind(this)"></gd-shows>
   </div>
 </div>
