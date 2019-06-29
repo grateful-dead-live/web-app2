@@ -15,7 +15,6 @@ export class ArtistComponent {
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
-      console.log(params)
       if (params.has('id')) {
         this.artist = await this.data.getArtistDetails(params.get('id'));
         console.log(this.artist);

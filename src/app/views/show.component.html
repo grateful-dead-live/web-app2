@@ -47,16 +47,18 @@
   
   <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
     <div *ngFor="let s of photos" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">
-      <img class="image" [lazyLoad]="s">
+      <img class="image" [lazyLoad]="s" [style.object-fit]="'contain'">
     </div>
   </div>
   
   <p *ngIf="artifacts.length" class="gd-section">Artifacts from psilo</p>
   
-  <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
-    <div *ngFor="let a of artifacts" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">
+  <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap"
+      fxLayout.xs="column" fxLayoutAlign="start start">
+    <div *ngFor="let a of artifacts" class="gd-container" fxLayout="column" fxFlex>
       <p>{{ a.type }}</p>
-      <img class="image" [lazyLoad]="a.image">
+      <img class="image" [lazyLoad]="a.image" 
+        [style.object-fit]="'contain'">
     </div>
   </div>
 </div>
