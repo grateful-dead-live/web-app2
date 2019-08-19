@@ -3,7 +3,8 @@ import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'gd-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent {
   @Input() imageUrl: string;

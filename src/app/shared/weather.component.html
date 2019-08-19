@@ -1,12 +1,17 @@
-<div class="gd-container transbox" fxLayout="row" fxFlex>
-  <div fxLayout="column">
-    <div fxLayout="row" fxFlex fxLayoutAlign="center center" [style.font-size]="'250%'">
-      <i class="wi {{ weather.conditionIcon }}"></i>
+
+  <div fxLayout="row" >
+      
+    <div fxLayout="column" fxFlex fxLayoutAlign="center center" [style.font-size]="'150%'"[style.padding]="'4px'">
+      <i class="wi wc {{ weather.conditionIcon }}"></i>
     </div>
-    <div fxLayout="row" fxFlex fxLayoutAlign="center center" [style.font-size]="'400%'">
-      <i class="wi {{ weather.windDirectionIcon }}"></i>
+    <div fxLayout="column" fxFlex fxLayoutAlign="center center" [style.font-size]="'150%'">
+      <i class="wi wc wpadleft {{ weather.windDirectionIcon }}"></i>
     </div>
+    <div fxLayout="column" class="wf wc wpadleft wpadright" fxFlex fxLayoutAlign="center center" >
+        {{ weather.maxTemperature }}°F
+      </div>
   </div>
+  <!--
   <div fxLayout="column" fxFlex fxLayoutAlign="center" [style.padding-left]="'30px'">
     <span *ngIf="weather.condition">
       <b>{{ weather.condition }}</b>
@@ -15,4 +20,4 @@
     precipitation: {{ weather.precipitation }} in<br>
     wind: {{ weather.wind }} mph
   </div>
-</div>
+-->
