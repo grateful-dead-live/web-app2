@@ -1,23 +1,24 @@
 <div *ngIf="event" fxLayout="column">
-  <gd-header *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
+  <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
     imageUrl="{{eventImage}}">
     <gd-weather [weather]="event.weather"></gd-weather>
   </gd-header>
-  <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
+  <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin">
     
-    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
-      <p>Location: {{ event.location.name }}</p>
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
+      <h2>Location: {{ event.location.name }}</h2>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
-      <p>Venue: {{ event.venue.name }}</p>
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
+      <h2>Venue: {{ event.venue.name }}</h2>
       <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50">
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+        <h2>Setlist</h2>
       <div fxLayout="column" *ngFor="let set of event.setlist">
-        <p>{{ set.name }}</p>
+        <h3>{{ set.name }}</h3>
         <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center">
           <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
           <button mat-icon-button (click)="openSongOptionsDialog(song)">
@@ -27,8 +28,8 @@
       </div>
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50">
-      <p>Lineup</p>
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+      <h2>Lineup</h2>
       <div *ngFor="let p of event.performers" fxLayout="row"
           fxLayoutAlign="space-between center" [routerLink]="['/artist', p.id]" >
         <img class="image" [lazyLoad]="p.thumbnail"
@@ -43,7 +44,7 @@
     
   </div>
   
-  <p *ngIf="photos.length" class="gd-section">Photos from the show</p>
+  <h2 *ngIf="photos.length" class="gd-section">Photos from the show</h2>
   
   <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
     <div *ngFor="let s of photos" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">
@@ -51,14 +52,17 @@
     </div>
   </div>
   
-  <p *ngIf="artifacts.length" class="gd-section">Artifacts from psilo</p>
+  <h2 *ngIf="artifacts.length" class="gd-section">Artifacts from psilo</h2>
   
   <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap"
       fxLayout.xs="column" fxLayoutAlign="start start">
     <div *ngFor="let a of artifacts" class="gd-container" fxLayout="column" fxFlex>
-      <p>{{ a.type }}</p>
+        <figure>
       <img class="image" [lazyLoad]="a.image" 
         [style.object-fit]="'contain'">
+        <figcaption class="p1">{{ a.type }}</figcaption>
+        </figure>
+        <!--<span class="p1">{{ a.type }}</span>-->
     </div>
   </div>
 </div>
