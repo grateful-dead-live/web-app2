@@ -6,17 +6,17 @@
   <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin">
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
-      <h2>Location: {{ event.location.name }}</h2>
+      <h2 class="titlef">Location: {{ event.location.name }}</h2>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
-      <h2>Venue: {{ event.venue.name }}</h2>
+      <h2 class="titlef">Venue: {{ event.venue.name }}</h2>
       <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
-        <h2>Setlist</h2>
+        <h2 class="titlef">Setlist </h2>
       <div fxLayout="column" *ngFor="let set of event.setlist">
         <h3>{{ set.name }}</h3>
         <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
@@ -30,7 +30,7 @@
     </div>
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
-      <h2>Lineup</h2>
+      <h2 class="titlef">Lineup</h2>
         <div *ngFor="let p of event.performers" [routerLink]="['/artist', p.id]"> 
           <img class="image" [lazyLoad]="p.thumbnail"
           [style.width]="'70px'" [style.height]="'70px'"> 
@@ -43,7 +43,7 @@
     
   </div>
   
-  <h2 *ngIf="photos.length" class="gd-section">Photos from the show</h2>
+  <h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos from the show</span></h2>
   
   <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
     <div *ngFor="let s of photos" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">
@@ -51,7 +51,7 @@
     </div>
   </div>
   
-  <h2 *ngIf="artifacts.length" class="gd-section">Artifacts from psilo</h2>
+  <h2 *ngIf="artifacts.length" class="gd-section"><span class="titlef">Artifacts from psilo</span></h2>
   
   <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap"
       fxLayout.xs="column" fxLayoutAlign="start start">
