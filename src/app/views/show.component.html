@@ -19,8 +19,9 @@
         <h2>Setlist</h2>
       <div fxLayout="column" *ngFor="let set of event.setlist">
         <h3>{{ set.name }}</h3>
-        <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center">
-          <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
+        <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
+        <div *ngFor="let song of set.songs, let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+          <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }}. {{ song.name }}</span>
           <button mat-icon-button (click)="openSongOptionsDialog(song)">
             <mat-icon>more_horiz</mat-icon>
           </button>
@@ -30,14 +31,12 @@
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
       <h2>Lineup</h2>
-      <div *ngFor="let p of event.performers" fxLayout="row"
-          fxLayoutAlign="space-between center" [routerLink]="['/artist', p.id]" >
-        <img class="image" [lazyLoad]="p.thumbnail"
-          [style.width]="'70px'" [style.height]="'70px'">
-        <div>{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
-      </div>
-    </div>
-    
+        <div *ngFor="let p of event.performers" [routerLink]="['/artist', p.id]"> 
+          <img class="image" [lazyLoad]="p.thumbnail"
+          [style.width]="'70px'" [style.height]="'70px'"> 
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ p.name }} ({{ p.instruments.join(', ') }})</span>
+        </div>
+ 
     <!--div fxLayout="column" fxFlex="1 1 auto">
       <iframe [src]="recordingUrls[0]" [style.min-width]="'350px'" [style.height]="'100%'" frameborder="0"></iframe>
     </div-->
