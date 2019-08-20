@@ -21,7 +21,7 @@
         <h3>{{ set.name }}</h3>
         <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
         <div *ngFor="let song of set.songs, let i = index" fxLayout="row" fxLayoutAlign="space-between center">
-          <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }}. {{ song.name }}</span>
+          <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }} {{ song.name }}</span>
           <button mat-icon-button (click)="openSongOptionsDialog(song)">
             <mat-icon>more_horiz</mat-icon>
           </button>
