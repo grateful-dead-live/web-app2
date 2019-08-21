@@ -46,10 +46,11 @@ export class ShowComponent {
     });
   }
   
-  protected openSongOptionsDialog(song: SongInfo) {
+  protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
     this.dialog.openMultiFunction(
-      song.name+"', "+this.event.venue.name+", "+this.event.date,
-      ["Add to playlist", "Go to song"],
+      //song.name+"', "+this.event.venue.name+", "+this.event.date,
+      set + "/Track " + idx + ": " + '"'+song.name+'"',
+      ["add to playlist", "go to song"],
       [() => this.addSongToPlaylist(song),
         () => this.router.navigate(['/song', song.id])]
     );

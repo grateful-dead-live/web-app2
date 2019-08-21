@@ -6,12 +6,12 @@
   <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin">
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
-      <h2 class="titlef">Location: {{ event.location.name }}</h2>
+      <h2 class="titlef">Location: <span class="normweight">{{ event.location.name }}</span></h2>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
     
     <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
-      <h2 class="titlef">Venue: {{ event.venue.name }}</h2>
+      <h2 class="titlef">Venue: <span class="normweight">{{ event.venue.name }}</span></h2>
       <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
     
@@ -22,7 +22,7 @@
         <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
         <div *ngFor="let song of set.songs, let i = index" fxLayout="row" fxLayoutAlign="space-between center">
           <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }} {{ song.name }}</span>
-          <button mat-icon-button (click)="openSongOptionsDialog(song)">
+          <button mat-icon-button (click)="openSongOptionsDialog(song, set.name, i+1)">
             <mat-icon>more_horiz</mat-icon>
           </button>
         </div>
