@@ -1,49 +1,49 @@
 <div *ngIf="event" fxLayout="column">
-  <gd-header *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
+  <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
     imageUrl="{{eventImage}}">
     <gd-weather [weather]="event.weather"></gd-weather>
   </gd-header>
-  <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
+  <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin">
     
-    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
-      <p>Location: {{ event.location.name }}</p>
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
+      <h2 class="titlef">Location: <span class="normweight">{{ event.location.name }}</span></h2>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
-      <p>Venue: {{ event.venue.name }}</p>
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
+      <h2 class="titlef">Venue: <span class="normweight">{{ event.venue.name }}</span></h2>
       <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50">
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+        <h2 class="titlef">Setlist </h2>
       <div fxLayout="column" *ngFor="let set of event.setlist">
-        <p>{{ set.name }}</p>
-        <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center">
-          <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
-          <button mat-icon-button (click)="openSongOptionsDialog(song)">
+        <h3>{{ set.name }}</h3>
+        <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
+        <div *ngFor="let song of set.songs, let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+          <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }} {{ song.name }}</span>
+          <button mat-icon-button (click)="openSongOptionsDialog(song, set.name, i+1)">
             <mat-icon>more_horiz</mat-icon>
           </button>
         </div>
       </div>
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50">
-      <p>Lineup</p>
-      <div *ngFor="let p of event.performers" fxLayout="row"
-          fxLayoutAlign="space-between center" [routerLink]="['/artist', p.id]" >
-        <img class="image" [lazyLoad]="p.thumbnail"
-          [style.width]="'70px'" [style.height]="'70px'">
-        <div>{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
-      </div>
-    </div>
-    
+    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+      <h2 class="titlef">Lineup</h2>
+        <div *ngFor="let p of event.performers" [routerLink]="['/artist', p.id]"> 
+          <img class="image" [lazyLoad]="p.thumbnail"
+          [style.width]="'70px'" [style.height]="'70px'"> 
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ p.name }} ({{ p.instruments.join(', ') }})</span>
+        </div>
+ 
     <!--div fxLayout="column" fxFlex="1 1 auto">
       <iframe [src]="recordingUrls[0]" [style.min-width]="'350px'" [style.height]="'100%'" frameborder="0"></iframe>
     </div-->
     
   </div>
   
-  <p *ngIf="photos.length" class="gd-section">Photos from the show</p>
+  <h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos from the show</span></h2>
   
   <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
     <div *ngFor="let s of photos" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">
@@ -51,14 +51,17 @@
     </div>
   </div>
   
-  <p *ngIf="artifacts.length" class="gd-section">Artifacts from psilo</p>
+  <h2 *ngIf="artifacts.length" class="gd-section"><span class="titlef">Artifacts from psilo</span></h2>
   
   <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap"
       fxLayout.xs="column" fxLayoutAlign="start start">
     <div *ngFor="let a of artifacts" class="gd-container" fxLayout="column" fxFlex>
-      <p>{{ a.type }}</p>
+        <figure>
       <img class="image" [lazyLoad]="a.image" 
         [style.object-fit]="'contain'">
+        <figcaption class="p1">{{ a.type }}</figcaption>
+        </figure>
+        <!--<span class="p1">{{ a.type }}</span>-->
     </div>
   </div>
 </div>

@@ -1,14 +1,16 @@
 <div *ngIf="title" fxLayout="row" fxLayout.xs="column"
-    [style.background]="image"
-    [style.background-color]="'black'" [style.background-size]="'cover'"
-    [style.background-position]="'center'" [style.padding]="'10px'">
+    [style.background-color]="'#a8a886'" [style.background-size]="'cover'"
+    [style.background-position]="'center'" [style.padding]="'3px'">
   <div class="container" fxLayout="column" fxFlex="1 1 auto">
     <span>
-      <img src="assets/gd_logo1.png" height="50" [routerLink]="['/show']">
-      <h1>{{ title }}</h1>
-      <h2>{{ subtitle }}</h2>
+      <img src="assets/gd_logo2.png" height="25" [routerLink]="['/show']">
     </span>
   </div>
-  <div fxFlex="5 1 auto"></div>
+  <div class="container hf1" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'4px'">
+    <span>
+      {{ title }} – {{ subtitle }}
+    </span>
+  </div>
+  <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
 </div>
