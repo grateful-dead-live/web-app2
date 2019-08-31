@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DeadEventInfo, DeadEventDetails, Location, Venue, SongInfo,
-  SongDetails, ArtistDetails } from './types';
+  SongDetails, ArtistDetails, VenueDetails } from './types';
 
 export interface Recording {
   id: string,
@@ -18,6 +18,10 @@ export class DeadApiService {
 
   async getEvents(): Promise<DeadEventInfo[]> {
     return this.getJsonFromApi('events');
+  }
+
+  async getVenueCoordinates(): Promise<VenueDetails[]> {
+    return this.getJsonFromApi('coordinates');
   }
 
   async getEventDetails(eventId: string): Promise<DeadEventDetails> {
