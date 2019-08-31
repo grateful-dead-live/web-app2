@@ -43,7 +43,7 @@ async ngOnInit() {
           iconAnchor: [ 8, 22 ],
           iconUrl: 'assets/bearmap.png',
         })
-      }).bindPopup('<b> <a href="http://127.0.0.1:4200/venue/' + v.id + '">' + v.name + '</a></b>');
+      }).bindPopup('<b> <a href="/venue/' + v.id + '">' + v.name + '</a></b>');
       l.push(m)      
     });
     this.layers = l;
