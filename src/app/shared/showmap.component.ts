@@ -39,17 +39,22 @@ async ngOnInit() {
 
     
     this.venues = await this.data.getVenueCoordinates();
+    const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png', 
+                    'bear_green_100a.png', 'bear_orange_100.png', 'bear_orange_100a.png', 
+                    'bear_pink_100.png', 'bear_pink_100a.png', 'bear_yellow_100.png',
+                    'bear_yellow_100a.png' ]
 
     var l = [];
     this.venues.forEach(v => {
       if (v.long != undefined) {
         const venuehtml = this.venueHtml(v.shows);
+        var bear = bears[Math.floor(Math.random()*bears.length)];
         var m = marker([v.long, v.lat], {
           riseOnHover: true,
           icon: icon({
-            iconSize: [ 15, 23 ],
-            iconAnchor: [ 8, 22 ],
-            iconUrl: 'assets/bearmap.png',
+            iconSize: [ null, 20 ],
+            iconAnchor: [ 9, 19 ],
+            iconUrl: 'assets/' + bear //bearmap.png',
         })
       }).bindPopup('<b> <a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml);
       l.push(m) }   
@@ -57,10 +62,6 @@ async ngOnInit() {
     this.layers = l;
 
     //console.log(this.map);
-
-
-
-    
 
     }
     
