@@ -60,13 +60,17 @@ ngOnInit() {
     this.venues.forEach(v => {
       if (v.long != undefined) {
         const venuehtml = this.venueHtml(v.shows);
-        var datestring = " ";
-        v.shows.forEach(e => {
-          datestring = datestring +  (e.date) + " ";
+        var datestring = "<br>";
+        var c = 0;
+        v.shows.forEach((e: {date: string}) => {
+          c += 1;
+          datestring = datestring +  e.date ;
+          if (c % 3 == 0) { datestring += "<br>"; }
+          else { datestring += " "; }
         });
         var bear = bears[Math.floor(Math.random()*bears.length)];
         var m = L.marker([v.long, v.lat], {
-          title: v.name , //+ datestring,
+          title: v.name + datestring,
           riseOnHover: true,
           icon: L.icon({
             iconSize: [ null, 20 ],
@@ -79,7 +83,6 @@ ngOnInit() {
 
     });
     this.layers = l;
-    //this.markersLayer = new L.LayerGroup(this.layers);
     this.markersLayer = new L.LayerGroup(this.layers);
 
     }
@@ -91,7 +94,9 @@ onMapReady(map: L.Map) {
 
   //console.log(this.map);
   console.log(this.markersLayer)
-  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false }) );
+  const searchMarker = L.circleMarker([0, 0],{radius:15, color: 'red', fillOpacity: 0, pane: 'markerPane' });
+  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker }) );
+  
 
 }
 
