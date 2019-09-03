@@ -1,8 +1,9 @@
 hello there
 <!-- <div class="map" leaflet [leafletOptions]="mapOptions" [leafletLayers]="layers"></div> -->
+
 <div id="MapContainer" 
     leaflet
     [leafletOptions]="mapOptions"
-    [leafletLayers]="layers" 
+    [leafletLayers]="layers"
     (leafletMapReady)="onMapReady($event)">
 </div>

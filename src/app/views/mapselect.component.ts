@@ -22,10 +22,10 @@ export class MapSelectComponent {
   async ngOnInit() {
 
 
-    
-    //this.venues = await this.data.getVenueCoordinates();
+
+    this.venues = await this.data.getVenueCoordinates();
     //console.log(this.venues);
-     
+
 
 
 
