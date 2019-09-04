@@ -31,6 +31,9 @@ import { DataService } from './services/data.service';
 import { PlayerService } from './services/player.service';
 import { DialogService } from './services/dialog.service';
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +61,7 @@ import { DialogService } from './services/dialog.service';
     MatButtonModule,
     MatIconModule,
     LazyLoadImageModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
   ],
   providers: [
     DeadApiService,
