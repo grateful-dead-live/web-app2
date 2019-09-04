@@ -105,12 +105,11 @@ onMapReady(map: L.Map) {
 }
 
 searchMarkers(text, records){
-  var ret = {};
+  var res = {};
   this.fuse.search(text).forEach(e => {
-    var key = e.title;
-    ret[key] = records[key];
+    res[e.title] = records[e.title];
   })
-  return ret
+  return res
 }
 
 venueHtml(s) {
