@@ -72,7 +72,9 @@ ngOnInit() {
         var bear = bears[Math.floor(Math.random()*bears.length)];
         var m = L.marker([v.long, v.lat], {
           title: v.name + datestring,
+          alt: "hello",
           riseOnHover: true,
+          pane: 'overlayPane',
           icon: L.icon({
             iconSize: [ null, 20 ],
             iconAnchor: [ 9, 19 ],
@@ -96,8 +98,8 @@ onMapReady(map: L.Map) {
   //console.log(this.map);
   console.log(this.markersLayer)
   const pulsingIcon = L.icon.pulse({iconSize:[10,10], color:'blue'});
-  const searchMarker = L.marker([0, 0],{icon: pulsingIcon, pane: 'popupPane' });
-  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker, filterData: function() {return "hello"} }) );
+  const searchMarker = L.marker([0, 0],{icon: pulsingIcon, pane: 'markerPane' });
+  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker }) ); // filterData: (text, records) => records[0] }
   
 
 }
