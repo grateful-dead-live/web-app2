@@ -7,6 +7,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 declare const L: any;
 import 'leaflet';
 import 'leaflet-search';
+import '@ansur/leaflet-pulse-icon'
 
 
 
@@ -94,8 +95,9 @@ onMapReady(map: L.Map) {
 
   //console.log(this.map);
   console.log(this.markersLayer)
-  const searchMarker = L.circleMarker([0, 0],{radius:15, color: 'red', fillOpacity: 0, pane: 'markerPane' });
-  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker }) );
+  const pulsingIcon = L.icon.pulse({iconSize:[10,10], color:'blue'});
+  const searchMarker = L.marker([0, 0],{icon: pulsingIcon, pane: 'popupPane' });
+  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker, filterData: function() {return "hello"} }) );
   
 
 }
