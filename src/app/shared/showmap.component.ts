@@ -99,8 +99,13 @@ onMapReady(map: L.Map) {
   this.map = map;
   const pulsingIcon = L.icon.pulse({iconSize:[10,10], color:'blue'});
   const searchMarker = L.marker([0, 0],{icon: pulsingIcon, pane: 'markerPane' });
-  this.map.addControl( new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker, 
-                      filterData: (text, records) => this.searchMarkers(text, records) }) ); 
+  var searchControl =  new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker, textErr: null,
+    filterData: (text, records) => this.searchMarkers(text, records) });
+
+
+    
+
+  this.map.addControl( searchControl ); 
   
 }
 
