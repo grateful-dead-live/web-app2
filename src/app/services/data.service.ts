@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
 import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
-  Location, Venue } from './types';
+  Location, Venue, VenueDetails } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
@@ -83,6 +83,10 @@ export class DataService {
   
   async getRandomSong(): Promise<SongDetails> {
     return this.apiService.getSong(_.sample(await this.getRandomSetlist()).id);
+  }
+
+  async getVenueCoordinates(): Promise<VenueDetails[]> {
+    return this.apiService.getVenueCoordinates();
   }
   
   async getRandomTrack(): Promise<Track> {

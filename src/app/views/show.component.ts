@@ -6,6 +6,8 @@ import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 
+
+
 @Component({
   selector: 'gd-show',
   templateUrl: './show.component.html'
@@ -17,10 +19,12 @@ export class ShowComponent {
   protected photos: string[];
   protected artifacts: Artifact[];
   protected eventImage: string;
+
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
     private dialog: DialogService, private player: PlayerService) {}
+ 
   
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {

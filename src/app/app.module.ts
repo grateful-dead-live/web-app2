@@ -15,6 +15,8 @@ import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
 import { SongComponent } from './views/song.component';
 import { ArtistComponent } from './views/artist.component';
+import { MapSelectComponent} from './views/mapselect.component';
+
 
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
@@ -22,11 +24,15 @@ import { WeatherComponent } from './shared/weather.component';
 import { ShowsComponent } from './shared/shows.component';
 import { PlayerComponent } from './shared/player.component';
 import { ListDialogComponent } from './shared/list-dialog.component';
+import { ShowMapComponent } from './shared/showmap.component';
 
 import { DeadApiService } from './services/dead-api.service';
 import { DataService } from './services/data.service';
 import { PlayerService } from './services/player.service';
 import { DialogService } from './services/dialog.service';
+
+
+
 
 @NgModule({
   declarations: [
@@ -41,7 +47,9 @@ import { DialogService } from './services/dialog.service';
     WeatherComponent,
     ShowsComponent,
     PlayerComponent,
-    ListDialogComponent
+    ListDialogComponent,
+    ShowMapComponent,
+    MapSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,7 @@ import { DialogService } from './services/dialog.service';
     MatButtonModule,
     MatIconModule,
     LazyLoadImageModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
   ],
   providers: [
     DeadApiService,
