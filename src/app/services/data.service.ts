@@ -2,10 +2,14 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
 import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
-  Location, Venue, VenueDetails } from './types';
+  Location, Venue, VenueDetails, ArtifactType, Artifact } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
+
+export interface EventArtifact extends Artifact {
+  eventInfo: string
+}
 
 @Injectable()
 export class DataService {
@@ -40,6 +44,10 @@ export class DataService {
   
   async getVenue(venueId: string) {
     return await this.apiService.getVenue(venueId);
+  }
+  
+  async getVenueCoordinates(): Promise<VenueDetails[]> {
+    return this.apiService.getVenueCoordinates();
   }
   
   async getSong(songId: string): Promise<SongDetails> {
@@ -77,16 +85,22 @@ export class DataService {
     return (await this.loadRandomEvent()).location;
   }
   
+  async getRandomArtifacts(types?: ArtifactType[], count = 20): Promise<EventArtifact[]> {
+    await this.loading;
+    let artifacts = _.flatten(this.events.map(e => e.artifacts.map(a =>
+      Object.assign(a, {eventInfo: e.venue + ", " + e.location + ", " + e.date}))));
+    if (types) {
+      artifacts = artifacts.filter(a => types.indexOf(a.type) >= 0);
+    }
+    return _.sampleSize(artifacts, count);
+  }
+  
   async getRandomSetlist(): Promise<SongInfo[]> {
     return this.apiService.getSetlist(await this.getRandomEventId());
   }
   
   async getRandomSong(): Promise<SongDetails> {
     return this.apiService.getSong(_.sample(await this.getRandomSetlist()).id);
-  }
-
-  async getVenueCoordinates(): Promise<VenueDetails[]> {
-    return this.apiService.getVenueCoordinates();
   }
   
   async getRandomTrack(): Promise<Track> {

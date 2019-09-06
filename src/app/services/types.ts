@@ -4,11 +4,8 @@ export interface DeadEventInfo {
   location: string,
   state: string,
   venue: string,
-  ticket: string,
-  pass: string,
-  poster: string,
-  photo: string,
-  recordings: Recording[]
+  recordings: Recording[],
+  artifacts: Artifact[]
 }
 
 export interface DeadEventDetails {
@@ -18,14 +15,27 @@ export interface DeadEventDetails {
   venue: Venue,
   setlist: Set[],
   weather: Weather,
+  news: News[],
   recordings: Recording[],
   performers: Artist[],
   artifacts: Artifact[]
 }
 
+export enum ArtifactType {
+  Ticket = 'ticket',
+  Poster = 'poster',
+  Pass = 'backstage pass',
+  Photo = 'photo',
+  Envelope = 'envelope',
+  Tshirt = 'T-shirt',
+  Fanart = 'fan art'
+}
+
 export interface Artifact {
-  type: string,
-  image: string
+  type: ArtifactType,
+  thumbnail: string,
+  image: string,
+  description: string
 }
 
 export type Venue = GdEventsObject;
@@ -50,6 +60,10 @@ export interface SongDetails extends SongInfo, GdEventsObject {
 
 export interface AudioTrackMap {
   [recordingId: string]: AudioTrack[]
+}
+
+export interface RecordingDetails extends Recording {
+  info: EtreeInfo
 }
 
 export interface Recording {
@@ -106,8 +120,20 @@ export interface Weather {
   conditionIcon: string
 }
 
+export interface News {
+  source: string,
+  title: string,
+  date: string,
+  url: string
+}
+
 export interface EtreeInfo {
-  tracks: string[]
+  tracks: string[],
+  id: string,
+  notes: string,
+  source: string,
+  lineage: string,
+  keywords: string[],
 }
 
 export interface VenueDetails {

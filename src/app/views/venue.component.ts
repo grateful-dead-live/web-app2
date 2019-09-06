@@ -5,8 +5,7 @@ import { Venue } from '../services/types';
 
 @Component({
   selector: 'gd-venue',
-  templateUrl: './venue.component.html',
-  styleUrls: ['./venue.component.sass']
+  templateUrl: './venue.component.html'
 })
 export class VenueComponent {
   protected venue: Venue;
