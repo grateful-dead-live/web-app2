@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DeadEventDetails, Artifact, SongInfo } from '../services/types';
+import { DeadEventDetails, Artifact, SongInfo, ArtifactType } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
@@ -35,11 +35,11 @@ export class ShowComponent {
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
         this.photos = this.event.artifacts
-          .filter(a => a.type === 'photo').map(a => a.image);
-        this.artifacts = this.event.artifacts.filter(a => a.type !== 'photo');
-        const poster = this.event.artifacts.filter(a => a.type == 'poster')[0];
-        const pass = this.event.artifacts.filter(a => a.type == 'pass')[0];
-        const ticket = this.event.artifacts.filter(a => a.type == 'ticket')[0];
+          .filter(a => a.type === ArtifactType.Photo).map(a => a.image);
+        this.artifacts = this.event.artifacts.filter(a => a.type !== ArtifactType.Photo);
+        const poster = this.event.artifacts.filter(a => a.type == ArtifactType.Poster)[0];
+        const pass = this.event.artifacts.filter(a => a.type == ArtifactType.Pass)[0];
+        const ticket = this.event.artifacts.filter(a => a.type == ArtifactType.Ticket)[0];
         this.eventImage = this.photos.length ? this.photos[0]
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;

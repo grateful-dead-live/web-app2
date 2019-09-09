@@ -15,6 +15,7 @@ import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
 import { SongComponent } from './views/song.component';
 import { ArtistComponent } from './views/artist.component';
+import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent} from './views/mapselect.component';
 
 
@@ -42,6 +43,7 @@ import { DialogService } from './services/dialog.service';
     VenueComponent,
     SongComponent,
     ArtistComponent,
+    ArtifactsComponent,
     HeaderComponent,
     MapComponent,
     WeatherComponent,

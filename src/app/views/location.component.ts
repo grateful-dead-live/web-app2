@@ -5,8 +5,7 @@ import { Location } from '../services/types';
 
 @Component({
   selector: 'gd-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.sass']
+  templateUrl: './location.component.html'
 })
 export class LocationComponent {
   protected location: Location;

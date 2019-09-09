@@ -52,8 +52,9 @@ export class DeadApiService {
     return this.getJsonFromApi('featuresummary?audiouri='+encodeURIComponent(audioUri));
   }
 
-  getDiachronicVersionsAudio(songName: string): Promise<string[]> {
-    return this.getJsonFromApi('diachronic?songname='+encodeURIComponent(songName));
+  getDiachronicVersionsAudio(songName: string, count = 100, skip = 0): Promise<string[]> {
+    return this.getJsonFromApi('diachronic?songname='+encodeURIComponent(songName)
+      +"&count="+count+"&skip="+skip);
   }
 
   async getJsonFromApi(path: string): Promise<any> {
