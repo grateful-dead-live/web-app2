@@ -94,7 +94,7 @@ onMapReady(map: L.Map) {
 
   var searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
     var props = feature.properties;
-    if (props.dates != "") {    // workaround for result list after first click on search buttin
+    if (props.dates != "") {    // workaround for result list after first click on search button
       var name = L.DomUtil.create('b', null, container);
       name.innerHTML = props.name;
       container.appendChild(L.DomUtil.create('br', null, container));
