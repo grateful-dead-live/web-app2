@@ -25,14 +25,20 @@ export class ShowMapComponent {
 
 
   ngOnInit() {
+
+
+    
       this.mapOptions = {
         layers: [
-          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
             { maxZoom: 18, attribution: '...' })],
         zoom: this.zoom,
-        center: L.latLng(20, 20)
+        center: L.latLng(45, -70)
       };
   }
+
+  // http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+  //https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png'
 
 
   onMapReady(map: L.Map) {
@@ -60,12 +66,22 @@ export class ShowMapComponent {
           "coordinates": [v.lat, v.long]
         }
       };
-      var myIcon = L.icon({
+      /*var myIcon = L.icon({
         iconUrl: 'assets/' + bears[Math.floor(Math.random()*bears.length)],
         iconSize: [null, 22],
         iconAnchor: [10, 21],
         popupAnchor: [0, -22],
+      });*/
+
+      var myIcon = L.icon({
+        iconUrl: 'assets/dead_marker_small.png',
+        iconSize: [null, 35],
+        iconAnchor: [10, 34],
+        popupAnchor: [0, -32],
       });
+
+
+
       L.geoJSON(geojsonFeature, {
         onEachFeature: this.onEachFeature,
         pointToLayer: function (feature, latlng) {
