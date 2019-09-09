@@ -3,12 +3,14 @@ import { Component, Input } from '@angular/core';
 import { VenueDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import * as Fuse from 'fuse.js';
+//import * as Fuse from 'fuse.js'; // imported in angular.json
 
 declare const L: any;
 import 'leaflet';
-import 'leaflet-search';
-import '@ansur/leaflet-pulse-icon'
+//import 'leaflet-search';
+//import '@ansur/leaflet-pulse-icon'
+import '../../leaflet-fusesearch/src/leaflet.fusesearch.js'
+
 
 
 @Component({
@@ -23,112 +25,111 @@ export class ShowMapComponent {
   @Input() venues: VenueDetails[];
   protected map: L.Map;
   protected mapOptions: L.MapOptions;
-  protected layers: L.Marker[];
-  protected markersLayer: L.LayerGroup;
-  protected markerDates: any = {};
-  protected fuse: any;
+  //protected layers: L.Marker[];
+  //protected markersLayer: L.LayerGroup;
+  //protected markerDates: any = {};
+  //protected fuse: any;
   
   constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
 
 ngOnInit() {
-
-
     this.mapOptions = {
       layers: [
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           { maxZoom: 18, attribution: '...' })],
       zoom: this.zoom,
       center: L.latLng(20, 20)
-
     };
 
-      const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png',
-                    'bear_green_100a.png', 'bear_orange_100.png', 'bear_orange_100a.png',
-                    'bear_pink_100.png', 'bear_pink_100a.png', 'bear_yellow_100.png',
-                    'bear_yellow_100a.png' ]
-
-    var l = [];
-    var fuseList = []
-    this.venues.forEach(v => {
-      if (v.long != undefined) {
-        var fuseItem = { title: v.name };
-        var dates = ""
-        v.shows.forEach(e  => { 
-          dates += e["date"] + " " 
-        });
-        fuseItem["dates"] = dates;
-        fuseList.push(fuseItem);
-    
-        const venuehtml = this.venueHtml(v.shows);
-        var bear = bears[Math.floor(Math.random()*bears.length)];
-        var m = L.marker([v.long, v.lat], {
-        title: v.name,
-        riseOnHover: true,
-        pane: 'overlayPane',
-          icon: L.icon({
-            iconSize: [ null, 22 ],
-            iconAnchor: [ 10, 21 ],
-            iconUrl: 'assets/' + bear
-          })
-        }).bindPopup('<b> <a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml);
-        l.push(m)   
-      }
-    });
-
-    this.layers = l;
-    
-
-    var fuseOptions = {
-      shouldSort: true,
-      threshold: 0.2,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
-      keys: [
-        "title",
-        "dates"
-      ]
-    };
-    this.fuse = new Fuse(fuseList, fuseOptions );
-    this.markersLayer = new L.LayerGroup(this.layers);
 }
 
 
 onMapReady(map: L.Map) {
   this.map = map;
-  const pulsingIcon = L.icon.pulse({iconSize:[10,10], color:'blue'});
-  const searchMarker = L.marker([0, 0],{icon: pulsingIcon, pane: 'markerPane' });
-  var searchControl =  new L.Control.Search({layer: this.markersLayer, initial: false, marker: searchMarker, textErr: null,
-    filterData: (text, records) => this.searchMarkers(text, records) });
 
+  const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png',
+                  'bear_green_100a.png', 'bear_orange_100.png', 'bear_orange_100a.png',
+                  'bear_pink_100.png', 'bear_pink_100a.png', 'bear_yellow_100.png',
+                  'bear_yellow_100a.png' ]
 
+  var geoJsonData = [];
+ this.venues.forEach(v => {
+  if (v.long != undefined) {
+    var ds = this.dateStrings(v.shows);
+    var datestring = ds[0];
+    var venuehtml = ds[1];
     
 
-  this.map.addControl( searchControl ); 
+    var geojsonFeature = {
+      "type": "Feature",
+      "properties": {
+        "name": v.name,
+        "dates": datestring,
+        "popupContent": '<b> <a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [v.lat, v.long]
+      }
+    };
+
+    var myIcon = L.icon({
+      iconUrl: 'assets/' + bears[Math.floor(Math.random()*bears.length)],
+      iconSize: [null, 22],
+      iconAnchor: [10, 21],
+      popupAnchor: [0, -22],
+    });
+
+
+    L.geoJSON(geojsonFeature, {
+      onEachFeature: this.onEachFeature,
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {icon: myIcon, riseOnHover: true});
+      }
+    }).addTo(map)
+
+    geoJsonData.push(geojsonFeature);
+ 
+  }})
+
+  var searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
+    var props = feature.properties;
+    if (props.dates != "") {    // workaround for result list after first click on search buttin
+      var name = L.DomUtil.create('b', null, container);
+      name.innerHTML = props.name;
+      container.appendChild(L.DomUtil.create('br', null, container));
+      //container.appendChild(document.createTextNode(props.dates));
+  }
+}})
+
   
+  searchCtrl.addTo(map);
+  searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']);
+  
+
 }
 
-searchMarkers(text, records){
-  var res = {};
-  this.fuse.search(text).forEach(e => {
-    res[e.title] = records[e.title];
-  })
-  return res
-}
 
-venueHtml(s) {
+dateStrings(s) {
   if (s != undefined){
     var htmlstring = '<br>';
-    s.forEach(e => {
-      htmlstring += '<a href="/show/' + e.id + '">' + e.date + '</a><br>' ;
+    var datestring = ''
+    var dates = s.map(e => [e.date, e.id])
+    dates.sort()
+    dates.forEach(e => {
+      htmlstring += '<a href="/show/' + e[1] + '">' + e[0] + '</a><br>' ;
+      datestring += e[0] + " "
     });
-  return htmlstring;
+  return [datestring, htmlstring];
 }}
 
 
-
-
+onEachFeature(feature, layer) {
+	if (feature.properties && feature.properties.popupContent) {
+    layer.bindPopup(feature.properties.popupContent);
+  }
+  feature.layer = layer;
+}
 
 
 }

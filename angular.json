@@ -34,12 +34,13 @@
             "styles": [
               "src/styles.sass",
               "./node_modules/leaflet/dist/leaflet.css",
-              "./node_modules/leaflet-search/dist/leaflet-search.min.css",
-              "./node_modules/@ansur/leaflet-pulse-icon/dist/L.Icon.Pulse.css",
               "src/weathericons/css/weather-icons.css",
+              "src/leaflet-fusesearch/src/leaflet.fusesearch.css",
               "./node_modules/material-design-icons/iconfont/material-icons.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/fuse.js/dist/fuse.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
