@@ -19,7 +19,6 @@ import '../../leaflet-fusesearch/src/leaflet.fusesearch.js'
 export class ShowMapComponent {
   @Input() zoom: number;
   @Input() venues: VenueDetails[];
-  protected map: L.Map;
   protected mapOptions: L.MapOptions;
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
@@ -37,8 +36,6 @@ export class ShowMapComponent {
 
 
   onMapReady(map: L.Map) {
-    this.map = map;
-
     const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png',
                     'bear_green_100a.png', 'bear_orange_100.png', 'bear_orange_100a.png',
                     'bear_pink_100.png', 'bear_pink_100a.png', 'bear_yellow_100.png',
@@ -56,7 +53,7 @@ export class ShowMapComponent {
         "properties": {
           "name": v.name,
           "dates": datestring,
-          "popupContent": '<b> <a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
+          "popupContent": '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
         },
         "geometry": {
           "type": "Point",
