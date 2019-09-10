@@ -26,8 +26,6 @@ export class ShowMapComponent {
 
   ngOnInit() {
 
-
-    
       this.mapOptions = {
         layers: [
           L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
@@ -38,14 +36,14 @@ export class ShowMapComponent {
   }
 
   // http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-  //https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png'
-
+  //https://a.tiles.mapbox.com/v3/{}/{z}/{x}/{y}.png'
+  // villeda.c4c63d13 smmaurer.k59p4an0 smmaurer.k59p72bl aj.03e9e12d 
 
   onMapReady(map: L.Map) {
-    const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png',
+    /*const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png',
                     'bear_green_100a.png', 'bear_orange_100.png', 'bear_orange_100a.png',
                     'bear_pink_100.png', 'bear_pink_100a.png', 'bear_yellow_100.png',
-                    'bear_yellow_100a.png' ]
+                    'bear_yellow_100a.png' ]*/
 
     var geoJsonData = [];
 
@@ -74,13 +72,11 @@ export class ShowMapComponent {
       });*/
 
       var myIcon = L.icon({
-        iconUrl: 'assets/dead_marker_small.png',
+        iconUrl: 'assets/dead_marker_small_shadow.png',
         iconSize: [null, 35],
-        iconAnchor: [10, 34],
-        popupAnchor: [0, -32],
+        iconAnchor: [12, 34],
+        popupAnchor: [-3, -32],
       });
-
-
 
       L.geoJSON(geojsonFeature, {
         onEachFeature: this.onEachFeature,
@@ -122,7 +118,7 @@ export class ShowMapComponent {
 
   onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.popupContent) {
-      layer.bindPopup(feature.properties.popupContent);
+      layer.bindPopup(feature.properties.popupContent, { maxHeight: 160 });
     }
     feature.layer = layer;
   }

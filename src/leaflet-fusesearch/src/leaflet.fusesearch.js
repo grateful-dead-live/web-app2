@@ -31,10 +31,11 @@ L.Control.FuseSearch = L.Control.extend({
         panelTitle: '',
         placeholder: 'Search',
         caseSensitive: false,
-        threshold: 0.5,
+        threshold: 0.3,
         maxResultLength: null,
         showResultFct: null,
-        showInvisibleFeatures: true
+        showInvisibleFeatures: true,
+        shouldSort: true
     },
     
     initialize: function(options) {
