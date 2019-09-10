@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -62,6 +63,7 @@ import { DialogService } from './services/dialog.service';
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     LazyLoadImageModule,
     LeafletModule.forRoot(),
   ],

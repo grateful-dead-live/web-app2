@@ -39,7 +39,7 @@ export class SongComponent {
         }
       }
       if (!this.song) {
-        this.router.navigate(['/song', (await this.data.getRandomSong())],
+        this.router.navigate(['/song', (await this.data.getRandomSong()).id],
           { replaceUrl: true });
       }
     });

@@ -16,4 +16,9 @@
   </div>
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
+  
+  <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+  <mat-menu #menu="matMenu">
+    <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button>
+  </mat-menu>
 </div>
