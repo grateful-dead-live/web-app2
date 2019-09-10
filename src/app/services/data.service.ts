@@ -49,6 +49,10 @@ export class DataService {
   async getVenueCoordinates(): Promise<VenueDetails[]> {
     return this.apiService.getVenueCoordinates();
   }
+
+  async getTourCoordinates(): Promise<VenueDetails[]> {
+    return this.apiService.getTourCoordinates();
+  }
   
   async getArtistDetails(artistId: string) {
     return this.apiService.getArtistDetails(artistId);

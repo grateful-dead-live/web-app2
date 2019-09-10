@@ -24,6 +24,10 @@ export class DeadApiService {
     return this.getJsonFromApi('coordinates');
   }
 
+  async getTourCoordinates(): Promise<any> {
+    return this.getJsonFromApi('tours');
+  }
+
   async getEventDetails(eventId: string): Promise<DeadEventDetails> {
     return this.getJsonFromApi('details?event='+encodeURIComponent(eventId))
   }

@@ -23,7 +23,7 @@ export class MapSelectComponent {
 
 
 
-    this.venues = await this.data.getVenueCoordinates();
+    //this.venues = await this.data.getVenueCoordinates();
     //console.log(this.venues);
 
 

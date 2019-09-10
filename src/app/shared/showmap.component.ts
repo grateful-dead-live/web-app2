@@ -18,8 +18,11 @@ import '../../leaflet-fusesearch/src/leaflet.fusesearch.js'
 
 export class ShowMapComponent {
   @Input() zoom: number;
-  @Input() venues: VenueDetails[];
+  //@Input() venues: VenueDetails[];
+  protected venues: VenueDetails[];
+  //protected tours: any;
   protected mapOptions: L.MapOptions;
+  protected map: L.Map;
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
 
@@ -39,53 +42,36 @@ export class ShowMapComponent {
   //https://a.tiles.mapbox.com/v3/{}/{z}/{x}/{y}.png'
   // villeda.c4c63d13 smmaurer.k59p4an0 smmaurer.k59p72bl aj.03e9e12d 
 
-  onMapReady(map: L.Map) {
-    /*const bears = [ 'bear_blue_100.png', 'bear_blue_100a.png', 'bear_green_100.png',
-                    'bear_green_100a.png', 'bear_orange_100.png', 'bear_orange_100a.png',
-                    'bear_pink_100.png', 'bear_pink_100a.png', 'bear_yellow_100.png',
-                    'bear_yellow_100a.png' ]*/
+  async onMapReady(map: L.Map) {
+    this.map = map
+ 
+    this.venues = await this.data.getVenueCoordinates();
+    var geoJsonData = this.getGeoJson(this.venues);
 
-    var geoJsonData = [];
+    var tours = await this.data.getTourCoordinates();
+    var tourGeoJsonData = this.getTourJson(tours);
 
-    this.venues.forEach(v => {
-    if (v.long != undefined) {
-      var ds = this.dateStrings(v.shows);
-      var datestring = ds[0];
-      var venuehtml = ds[1];
-      var geojsonFeature = {
-        "type": "Feature",
-        "properties": {
-          "name": v.name,
-          "dates": datestring,
-          "popupContent": '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [v.lat, v.long]
-        }
-      };
-      /*var myIcon = L.icon({
-        iconUrl: 'assets/' + bears[Math.floor(Math.random()*bears.length)],
-        iconSize: [null, 22],
-        iconAnchor: [10, 21],
-        popupAnchor: [0, -22],
-      });*/
+    
 
-      var myIcon = L.icon({
-        iconUrl: 'assets/dead_marker_small_shadow.png',
-        iconSize: [null, 35],
-        iconAnchor: [12, 34],
-        popupAnchor: [-3, -32],
-      });
 
-      L.geoJSON(geojsonFeature, {
-        onEachFeature: this.onEachFeature,
-        pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {icon: myIcon, riseOnHover: true});
-        }
-      }).addTo(map)
-      geoJsonData.push(geojsonFeature);
-    }})
+    var all = this.addAllToMap(geoJsonData);
+    all.addTo(this.map)
+
+    var selectLayers = {"all": all};
+
+    tourGeoJsonData.forEach(t =>{
+      console.log(t[0])
+  
+      var l = this.addAllToMap(t[1]);
+      selectLayers[t[0]] = l
+
+    })
+
+
+
+
+
+    L.control.layers(selectLayers).addTo(this.map);
 
     var searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
       var props = feature.properties;
@@ -96,7 +82,6 @@ export class ShowMapComponent {
         //container.appendChild(document.createTextNode(props.dates));
     }
   }})
-
     searchCtrl.addTo(map);
     searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']);
   }
@@ -122,4 +107,116 @@ export class ShowMapComponent {
     }
     feature.layer = layer;
   }
+
+
+  getGeoJson(shows){
+    var geoJsonData = [];
+    shows.forEach(v => {
+      if (v.long != undefined) {
+        var ds = this.dateStrings(v.shows);
+        var datestring = ds[0];
+        var venuehtml = ds[1];
+        var geojsonFeature = {
+          "type": "Feature",
+          "properties": {
+            "name": v.name,
+            "dates": datestring,
+            "popupContent": '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [v.lat, v.long]
+          }
+        };
+
+          geoJsonData.push(geojsonFeature);
+      }})
+
+      return geoJsonData;
+
+  }
+
+  addAllToMap(g){
+    //var lg = new L.layerGroup
+    var l = [];
+    var myIcon = L.icon({
+      iconUrl: 'assets/dead_marker_small_shadow.png',
+      iconSize: [null, 35],
+      iconAnchor: [12, 34],
+      popupAnchor: [-3, -32],
+    });
+
+    g.forEach(v => {
+      var g = L.geoJSON(v, {
+        onEachFeature: this.onEachFeature,
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {icon: myIcon, riseOnHover: true});
+        }
+      })
+      l.push(g)
+
+    })
+    var lg = L.layerGroup(l);
+    //lg.addTo(this.map)
+
+    return (lg)
+    
+    
+  }
+
+
+  getTourJson(t){
+    var myIcon = L.icon({
+      iconUrl: 'assets/dead_marker_small_shadow.png',
+      iconSize: [null, 35],
+      iconAnchor: [12, 34],
+      popupAnchor: [-3, -32],
+    });
+
+    var tours = []
+    Object.keys(t).forEach(tour => {
+      var geoJsonData = [];
+      //console.log(t[tour])
+      Object.keys(t[tour]).forEach(venue => {
+        
+        var venue_id = t[tour][venue].id;
+        var long = t[tour][venue].long;
+        var lat = t[tour][venue].lat;
+        var shows = []
+        t[tour][venue].shows.forEach(show => {
+          shows.push(show)
+        });
+        var ds = this.dateStrings(shows);
+        var datestring = ds[0];
+        var venuehtml = ds[1];
+
+        var geojsonFeature = {
+          "type": "Feature",
+          "properties": {
+            "name": venue,
+            "dates": datestring,
+            "popupContent": '<b><a href="/venue/' + venue_id+ '">' + venue + '</a></b>' + venuehtml
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [lat, long]
+          }
+        };
+        geoJsonData.push(geojsonFeature);
+
+      });
+      
+      if (geoJsonData.length > 0) {
+      tours.push([tour, geoJsonData])
+      }
+    });
+
+
+    
+
+    return tours;
+
+  }
+
+
 }
