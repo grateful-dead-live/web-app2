@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { VIEWS } from '../globals';
 
 @Component({
   selector: 'gd-header',
@@ -11,6 +12,7 @@ export class HeaderComponent {
   @Input() title: string;
   @Input() subtitle: string;
   protected image: SafeStyle;
+  protected views = VIEWS;
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title) {}
   
