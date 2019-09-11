@@ -43,6 +43,15 @@
     
   </div>
   
+  <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+    <h2 class="titlef">Weekly world news:</h2>
+    <div *ngFor="let n of event.news">
+      <a [href]="n.url" target="_blank" [style.text-decoration]="'none'">
+        {{ n.date+": "+n.title+" ("+n.source+")" }}
+      </a>
+    </div>
+  </div>
+  
   <h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos from the show</span></h2>
   
   <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
