@@ -7,6 +7,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 declare const L: any;
 import 'leaflet';
 import '../../leaflet-fusesearch/src/leaflet.fusesearch.js'
+import 'leaflet-polylinedecorator'
 
 
 @Component({
@@ -28,6 +29,8 @@ export class ShowMapComponent {
   protected geoJsons: any;
   protected currentLayer: any;
   protected selectedTour: any;
+  protected tourLine: any;
+  protected lineDecorator: any;
   
 
 
@@ -41,6 +44,7 @@ export class ShowMapComponent {
       this.mapOptions = {
         layers: [
           L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
+          //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             { maxZoom: 18, attribution: '...' })],
         zoom: this.zoom,
         center: L.latLng(45, -70)
@@ -57,6 +61,7 @@ export class ShowMapComponent {
     var geoJsonData = this.getGeoJson(this.venues);
     var tours = await this.data.getTourCoordinates();
     var tourGeoJsonData = this.getTourJson(tours);
+
     var all = this.groupLayers(geoJsonData);
     this.geoJsons["all shows"] = geoJsonData;
     this.selectLayers["all shows"] = all;
@@ -68,6 +73,7 @@ export class ShowMapComponent {
     tourGeoJsonData.forEach(t =>{
       this.selectLayers[t[0]] = this.groupLayers(t[1]);
       this.geoJsons[t[0]] = t[1];
+      this.geoJsons[t[0]].sort(this.dateSort())
       this.layerNames.push(t[0]); 
     })
 
@@ -87,6 +93,8 @@ export class ShowMapComponent {
     this.searchCtrl.indexFeatures(this.geoJsons["all shows"], ['name', 'dates']); 
     
     this.selectedTour = "all shows"
+
+    
     
   }
 
@@ -202,11 +210,39 @@ export class ShowMapComponent {
 
 
   tourChanged(e){
+    if (this.tourLine != undefined) {this.map.removeLayer(this.tourLine) }
+    if (this.lineDecorator != undefined) {this.map.removeLayer(this.lineDecorator) }
     this.map.removeLayer(this.selectLayers[this.currentLayer])
     this.selectLayers[e].addTo(this.map)
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
+    if (e != "all"){
+      this.connectTheDots(this.geoJsons[e])
+    }
   }
+
+  connectTheDots(e){
+    var c = [];
+    e.forEach( i => {
+      c.push([parseFloat(i.geometry.coordinates[1]), parseFloat(i.geometry.coordinates[0])]);
+    })
+  this.tourLine = L.polyline(c, {color: "blue", weight: 3}).addTo(this.map);
+  this.lineDecorator = L.polylineDecorator(this.tourLine, {
+    patterns: [
+      {offset: '0%', repeat: 50, symbol: L.Symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {weight: 3, color: "blue", stroke: true}})}
+    ] }).addTo(this.map);
+}
+
+dateSort() {
+  return function (a,b) {
+      /* next line works with strings and numbers, 
+       * and you may want to customize it to your needs
+       */
+      var result = (a.properties.dates < b.properties.dates) ? -1 : (a.properties.dates > b.properties.dates) ? 1 : 0;
+      return result;
+  }
+}
+
 
 
 }
