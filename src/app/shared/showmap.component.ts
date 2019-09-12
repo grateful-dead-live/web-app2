@@ -23,12 +23,21 @@ export class ShowMapComponent {
   //protected tours: any;
   protected mapOptions: L.MapOptions;
   protected map: L.Map;
+  protected selectLayers: {};
+  protected layerNames: any[];
+  protected searchCtrl: any;
+  protected geoJsons: any;
+  protected currentLayer: any;
+  
+
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
 
 
   ngOnInit() {
-
+    this.selectLayers = {};
+    this.layerNames = [];
+    this.geoJsons = {};
       this.mapOptions = {
         layers: [
           L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
@@ -43,48 +52,41 @@ export class ShowMapComponent {
   // villeda.c4c63d13 smmaurer.k59p4an0 smmaurer.k59p72bl aj.03e9e12d 
 
   async onMapReady(map: L.Map) {
+    
     this.map = map
- 
     this.venues = await this.data.getVenueCoordinates();
     var geoJsonData = this.getGeoJson(this.venues);
-
     var tours = await this.data.getTourCoordinates();
     var tourGeoJsonData = this.getTourJson(tours);
-
-    
-
-
     var all = this.addAllToMap(geoJsonData);
-    all.addTo(this.map)
-
-    var selectLayers = {"all": all};
-
+    this.geoJsons["all"] = geoJsonData;
+    this.selectLayers["all"] = all;
+    this.layerNames.push("all")
     tourGeoJsonData.forEach(t =>{
-      console.log(t[0])
-  
-      var l = this.addAllToMap(t[1]);
-      selectLayers[t[0]] = l
-
+      this.selectLayers[t[0]] = this.addAllToMap(t[1]);
+      this.geoJsons[t[0]] = t[1];
+      this.layerNames.push(t[0]); 
     })
 
+   
 
-
-
-
-    L.control.layers(selectLayers).addTo(this.map);
-
-    var searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
+    this.searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
       var props = feature.properties;
       if (props.dates != "") {    // workaround for result list after first click on search button
         var name = L.DomUtil.create('span', null, container);
         name.innerHTML = props.name;
+
         //container.appendChild(L.DomUtil.create('br', null, container));
         //container.appendChild(document.createTextNode(props.dates));
     }
   }})
-    searchCtrl.addTo(map);
-    searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']);
+    
+    this.searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']); 
+    this.searchCtrl.addTo(this.map);
+    
+    
   }
+
 
 
   dateStrings(s) {
@@ -121,6 +123,7 @@ export class ShowMapComponent {
           "properties": {
             "name": v.name,
             "dates": datestring,
+            "tour": "all",
             "popupContent": '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
           "geometry": {
@@ -194,8 +197,9 @@ export class ShowMapComponent {
           "type": "Feature",
           "properties": {
             "name": venue,
+            "tour": tour,
             "dates": datestring,
-            "popupContent": '<b><a href="/venue/' + venue_id+ '">' + venue + '</a></b>' + venuehtml
+            "popupContent": '<b><a href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
           },
           "geometry": {
             "type": "Point",
@@ -207,14 +211,22 @@ export class ShowMapComponent {
       });
       
       if (geoJsonData.length > 0) {
-      tours.push([tour, geoJsonData])
+        tours.push([tour, geoJsonData])
       }
     });
 
-
-    
-
     return tours;
+
+  }
+
+  tourChanged(e){
+    console.log(e);
+    if (this.currentLayer != undefined){
+      this.map.removeLayer(this.selectLayers[this.currentLayer])
+    }
+    this.selectLayers[e].addTo(this.map)
+    this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
+    this.currentLayer = e;
 
   }
 
