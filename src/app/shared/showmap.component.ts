@@ -20,7 +20,6 @@ export class ShowMapComponent {
   @Input() zoom: number;
   //@Input() venues: VenueDetails[];
   protected venues: VenueDetails[];
-  //protected tours: any;
   protected mapOptions: L.MapOptions;
   protected map: L.Map;
   protected selectLayers: {};
@@ -28,6 +27,7 @@ export class ShowMapComponent {
   protected searchCtrl: any;
   protected geoJsons: any;
   protected currentLayer: any;
+  protected selectedTour: any;
   
 
 
@@ -52,30 +52,31 @@ export class ShowMapComponent {
   // villeda.c4c63d13 smmaurer.k59p4an0 smmaurer.k59p72bl aj.03e9e12d 
 
   async onMapReady(map: L.Map) {
-    
     this.map = map
     this.venues = await this.data.getVenueCoordinates();
     var geoJsonData = this.getGeoJson(this.venues);
     var tours = await this.data.getTourCoordinates();
     var tourGeoJsonData = this.getTourJson(tours);
     var all = this.groupLayers(geoJsonData);
-    this.geoJsons["all"] = geoJsonData;
-    this.selectLayers["all"] = all;
-    this.layerNames.push("all")
+    this.geoJsons["all shows"] = geoJsonData;
+    this.selectLayers["all shows"] = all;
+    this.layerNames.push("all shows")
+    this.selectLayers["all shows"].addTo(this.map)
+    
+    this.currentLayer = "all shows";
+
     tourGeoJsonData.forEach(t =>{
       this.selectLayers[t[0]] = this.groupLayers(t[1]);
       this.geoJsons[t[0]] = t[1];
       this.layerNames.push(t[0]); 
     })
 
-   
-
+  
     this.searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
       var props = feature.properties;
       if (props.dates != "") {    // workaround for result list after first click on search button
         var name = L.DomUtil.create('span', null, container);
         name.innerHTML = props.name;
-
         //container.appendChild(L.DomUtil.create('br', null, container));
         //container.appendChild(document.createTextNode(props.dates));
     }
@@ -83,10 +84,11 @@ export class ShowMapComponent {
     
     this.searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']); 
     this.searchCtrl.addTo(this.map);
+    this.searchCtrl.indexFeatures(this.geoJsons["all shows"], ['name', 'dates']); 
     
+    this.selectedTour = "all shows"
     
   }
-
 
 
   dateStrings(s) {
@@ -123,7 +125,7 @@ export class ShowMapComponent {
           "properties": {
             "name": v.name,
             "dates": datestring,
-            "tour": "all",
+            "tour": "",
             "popupContent": '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
           "geometry": {
@@ -140,7 +142,6 @@ export class ShowMapComponent {
   }
 
  groupLayers(g){
-    //var lg = new L.layerGroup
     var l = [];
     var myIcon = L.icon({
       iconUrl: 'assets/dead_marker_small_shadow.png',
@@ -148,7 +149,6 @@ export class ShowMapComponent {
       iconAnchor: [12, 34],
       popupAnchor: [-3, -32],
     });
-
     g.forEach(v => {
       var g = L.geoJSON(v, {
         onEachFeature: this.onEachFeature,
@@ -157,31 +157,17 @@ export class ShowMapComponent {
         }
       })
       l.push(g)
-
     })
     var lg = L.layerGroup(l);
-    //lg.addTo(this.map)
-
     return (lg)
-    
-    
   }
 
 
   getTourJson(t){
-    var myIcon = L.icon({
-      iconUrl: 'assets/dead_marker_small_shadow.png',
-      iconSize: [null, 35],
-      iconAnchor: [12, 34],
-      popupAnchor: [-3, -32],
-    });
-
     var tours = []
     Object.keys(t).forEach(tour => {
       var geoJsonData = [];
-      //console.log(t[tour])
       Object.keys(t[tour]).forEach(venue => {
-        
         var venue_id = t[tour][venue].id;
         var long = t[tour][venue].long;
         var lat = t[tour][venue].lat;
@@ -192,7 +178,6 @@ export class ShowMapComponent {
         var ds = this.dateStrings(shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
-
         var geojsonFeature = {
           "type": "Feature",
           "properties": {
@@ -207,26 +192,20 @@ export class ShowMapComponent {
           }
         };
         geoJsonData.push(geojsonFeature);
-
       });
-      
-      if (geoJsonData.length > 0) {
+     if (geoJsonData.length > 0) {
         tours.push([tour, geoJsonData])
       }
     });
-
     return tours;
-
   }
 
+
   tourChanged(e){
-    if (this.currentLayer != undefined){
-      this.map.removeLayer(this.selectLayers[this.currentLayer])
-    }
+    this.map.removeLayer(this.selectLayers[this.currentLayer])
     this.selectLayers[e].addTo(this.map)
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
-
   }
 
 
