@@ -5,6 +5,7 @@ export const VIEWS: View[] = [
   {name: "Songs", url: "/song"},
   {name: "Artists", url: "/artist"},
   {name: "Artifacts", url: "/artifacts"},
+  {name: "Map", url: "/mapselect"},
 ]
 
 interface View {
