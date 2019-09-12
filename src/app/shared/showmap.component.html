@@ -1,9 +1,9 @@
-
-<div>
+<div class="center">
 <select [(ngModel)]="selectedTour" (ngModelChange)="tourChanged($event)" >
     <option *ngFor="let l of layerNames" ngValue="{{l}}"> {{l}}</option>
 </select>
 </div>
+
 
 <div id="MapContainer" 
     leaflet

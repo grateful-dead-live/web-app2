@@ -3,7 +3,10 @@
     [style.background-position]="'center'" [style.padding]="'3px'">
   <div class="container" fxLayout="column" fxFlex="1 1 auto">
     <span>
-      <img src="assets/gd_logo2.png" height="25" [routerLink]="['/show']">
+        <button mat-button [matMenuTriggerFor]="menu"><img src="assets/gd_logo2.png" height="25"></button>
+        <mat-menu #menu="matMenu">
+          <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button>
+        </mat-menu>
     </span>
   </div>
 
@@ -15,9 +18,5 @@
   </div>
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
-  
-  <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-  <mat-menu #menu="matMenu">
-    <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button>
-  </mat-menu>
+
 </div>
