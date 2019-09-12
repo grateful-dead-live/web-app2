@@ -58,12 +58,12 @@ export class ShowMapComponent {
     var geoJsonData = this.getGeoJson(this.venues);
     var tours = await this.data.getTourCoordinates();
     var tourGeoJsonData = this.getTourJson(tours);
-    var all = this.addAllToMap(geoJsonData);
+    var all = this.groupLayers(geoJsonData);
     this.geoJsons["all"] = geoJsonData;
     this.selectLayers["all"] = all;
     this.layerNames.push("all")
     tourGeoJsonData.forEach(t =>{
-      this.selectLayers[t[0]] = this.addAllToMap(t[1]);
+      this.selectLayers[t[0]] = this.groupLayers(t[1]);
       this.geoJsons[t[0]] = t[1];
       this.layerNames.push(t[0]); 
     })
@@ -139,7 +139,7 @@ export class ShowMapComponent {
 
   }
 
-  addAllToMap(g){
+ groupLayers(g){
     //var lg = new L.layerGroup
     var l = [];
     var myIcon = L.icon({
@@ -220,7 +220,6 @@ export class ShowMapComponent {
   }
 
   tourChanged(e){
-    console.log(e);
     if (this.currentLayer != undefined){
       this.map.removeLayer(this.selectLayers[this.currentLayer])
     }
