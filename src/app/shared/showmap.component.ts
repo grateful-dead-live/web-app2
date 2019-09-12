@@ -67,7 +67,6 @@ export class ShowMapComponent {
     this.selectLayers["all shows"] = all;
     this.layerNames.push("all shows")
     this.selectLayers["all shows"].addTo(this.map)
-    
     this.currentLayer = "all shows";
 
     tourGeoJsonData.forEach(t =>{
@@ -196,7 +195,7 @@ export class ShowMapComponent {
           },
           "geometry": {
             "type": "Point",
-            "coordinates": [lat, long]
+            "coordinates": [parseFloat(lat), parseFloat(long)]
           }
         };
         geoJsonData.push(geojsonFeature);
@@ -223,21 +222,16 @@ export class ShowMapComponent {
 
   connectTheDots(e){
     var c = [];
-    e.forEach( i => {
-      c.push([parseFloat(i.geometry.coordinates[1]), parseFloat(i.geometry.coordinates[0])]);
-    })
-  this.tourLine = L.polyline(c, {color: "blue", weight: 3}).addTo(this.map);
-  this.lineDecorator = L.polylineDecorator(this.tourLine, {
+    e.forEach( i => { c.push(i.geometry.coordinates.reverse())})
+    this.tourLine = L.polyline(c, {color: "#1D3A87", weight: 3}).addTo(this.map);
+    this.lineDecorator = L.polylineDecorator(this.tourLine, {
     patterns: [
-      {offset: '0%', repeat: 50, symbol: L.Symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {weight: 3, color: "blue", stroke: true}})}
-    ] }).addTo(this.map);
+      {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead({pixelSize: 9, polygon: false, pathOptions: {weight: 3, color: "#1D3A87", stroke: true}})}
+      ] }).addTo(this.map);
 }
 
 dateSort() {
   return function (a,b) {
-      /* next line works with strings and numbers, 
-       * and you may want to customize it to your needs
-       */
       var result = (a.properties.dates < b.properties.dates) ? -1 : (a.properties.dates > b.properties.dates) ? 1 : 0;
       return result;
   }
