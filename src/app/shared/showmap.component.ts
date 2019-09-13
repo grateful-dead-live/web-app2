@@ -26,7 +26,7 @@ export class ShowMapComponent {
   protected selectLayers: {};
   protected layerNames: any[];
   protected searchCtrl: any;
-  protected geoJsons: any;
+  protected geoJsons: {};
   protected currentLayer: any;
   protected selectedTour: any;
   protected tourLine: any;
@@ -92,6 +92,7 @@ export class ShowMapComponent {
     this.searchCtrl.addTo(this.map);
     this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
     this.selectedTour = 'all shows'
+    this.fitZoom()
   }
 
 
@@ -134,7 +135,7 @@ export class ShowMapComponent {
           },
           'geometry': {
             'type': 'Point',
-            'coordinates': [v.lat, v.long]
+            'coordinates': [parseFloat(v.lat), parseFloat(v.long)]
           }
         };
 
@@ -212,9 +213,22 @@ export class ShowMapComponent {
     this.selectLayers[e].addTo(this.map)
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
-    if (e != 'all shows'){
+    
+    
+
+    if (e != 'all shows' && this.geoJsons[e].length > 1){
       this.connectTheDots(this.geoJsons[e])
     }
+    
+    this.fitZoom()
+    
+  }
+
+  fitZoom(){
+    var group = new L.featureGroup;
+    this.map.eachLayer(l => { if (l['feature'] != undefined){ group.addLayer(l) } });
+    this.map.fitBounds(group.getBounds());
+
   }
 
   connectTheDots(e){
@@ -227,13 +241,13 @@ export class ShowMapComponent {
       ] }).addTo(this.map);
 }
 
+
 dateSort() {
   return function (a,b) {
       var result = (a.properties.dates < b.properties.dates) ? -1 : (a.properties.dates > b.properties.dates) ? 1 : 0;
       return result;
   }
 }
-
 
 
 }

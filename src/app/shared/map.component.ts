@@ -16,8 +16,9 @@ export class MapComponent {
   ngOnInit() {
     this.options = {
       layers: [
-        tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          { maxZoom: 18, attribution: '...' }),
+        //tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p72bl/{z}/{x}/{y}.png',
+          { maxZoom: 17, attribution: '...' }),
         marker([this.latitude, this.longitude], {
           icon: icon({
             iconSize: [ 25, 41 ],
