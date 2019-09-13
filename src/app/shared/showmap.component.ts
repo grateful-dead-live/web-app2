@@ -120,9 +120,7 @@ export class ShowMapComponent {
         var ds = this.dateStrings(v.shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
-        if (v.georss == 'city'){ 
-          venuehtml += '(marker for city only)'
-        }
+        if (v.georss == 'city'){ venuehtml += '(marker for city only)' };
         var geojsonFeature = {
           'type': 'Feature',
           'properties': {
@@ -132,7 +130,6 @@ export class ShowMapComponent {
             'popupContent': '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
           'geometry': {
-            'georss': v.georss,
             'type': 'Point',
             'coordinates': [parseFloat(v.lat), parseFloat(v.long)]
           } };
@@ -170,7 +167,7 @@ export class ShowMapComponent {
         var venue_id = t[tour][venue].id;
         var long = t[tour][venue].long;
         var lat = t[tour][venue].lat;
-        var georss = t[tour][venue].georss;
+        
         var shows = []
         t[tour][venue].shows.forEach(show => {
           shows.push(show)
@@ -178,6 +175,7 @@ export class ShowMapComponent {
         var ds = this.dateStrings(shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
+        if (t[tour][venue].georss == 'city'){ venuehtml += '(marker for city only)' };
         var geojsonFeature = {
           'type': 'Feature',
           'properties': {
@@ -187,7 +185,6 @@ export class ShowMapComponent {
             'popupContent': '<b><a href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
           },
           'geometry': {
-            'georss': georss,
             'type': 'Point',
             'coordinates': [parseFloat(lat), parseFloat(long)]
           } };
