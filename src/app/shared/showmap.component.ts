@@ -43,17 +43,18 @@ export class ShowMapComponent {
     this.geoJsons = {};
       this.mapOptions = {
         layers: [
-          L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
+          //L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
           //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          //L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p4an0/{z}/{x}/{y}.png',
+          L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p72bl/{z}/{x}/{y}.png',
+          //L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p92aj/{z}/{x}/{y}.png',
+          //L.tileLayer('https://a.tiles.mapbox.com/v3/aj.03e9e12d/{z}/{x}/{y}.png',
             { maxZoom: 18, attribution: '...' })],
         zoom: this.zoom,
         center: L.latLng(45, -70)
       };
   }
 
-  // http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-  //https://a.tiles.mapbox.com/v3/{}/{z}/{x}/{y}.png'
-  // villeda.c4c63d13 smmaurer.k59p4an0 smmaurer.k59p72bl aj.03e9e12d 
 
   async onMapReady(map: L.Map) {
     this.map = map
@@ -63,11 +64,11 @@ export class ShowMapComponent {
     var tourGeoJsonData = this.getTourJson(tours);
 
     var all = this.groupLayers(geoJsonData);
-    this.geoJsons["all shows"] = geoJsonData;
-    this.selectLayers["all shows"] = all;
-    this.layerNames.push("all shows")
-    this.selectLayers["all shows"].addTo(this.map)
-    this.currentLayer = "all shows";
+    this.geoJsons['all shows'] = geoJsonData;
+    this.selectLayers['all shows'] = all;
+    this.layerNames.push('all shows')
+    this.selectLayers['all shows'].addTo(this.map)
+    this.currentLayer = 'all shows';
 
     tourGeoJsonData.forEach(t =>{
       this.selectLayers[t[0]] = this.groupLayers(t[1]);
@@ -77,9 +78,9 @@ export class ShowMapComponent {
     })
 
   
-    this.searchCtrl = L.control.fuseSearch({"showResultFct": function(feature, container) {
+    this.searchCtrl = L.control.fuseSearch({'showResultFct': function(feature, container) {
       var props = feature.properties;
-      if (props.dates != "") {    // workaround for result list after first click on search button
+      if (props.dates != '') {    // workaround for result list after first click on search button
         var name = L.DomUtil.create('span', null, container);
         name.innerHTML = props.name;
         //container.appendChild(L.DomUtil.create('br', null, container));
@@ -89,24 +90,20 @@ export class ShowMapComponent {
     
     this.searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']); 
     this.searchCtrl.addTo(this.map);
-    this.searchCtrl.indexFeatures(this.geoJsons["all shows"], ['name', 'dates']); 
-    
-    this.selectedTour = "all shows"
-
-    
-    
+    this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
+    this.selectedTour = 'all shows'
   }
 
 
   dateStrings(s) {
     if (s != undefined){
       var htmlstring = '<br>';
-      var datestring = ''
+      var datestring = '';
       var dates = s.map(e => [e.date, e.id])
       dates.sort()
       dates.forEach(e => {
         htmlstring += '<a href="/show/' + e[1] + '">' + e[0] + '</a><br>' ;
-        datestring += e[0] + " "
+        datestring += e[0] + ' '
       });
     return [datestring, htmlstring];
   }}
@@ -128,16 +125,16 @@ export class ShowMapComponent {
         var datestring = ds[0];
         var venuehtml = ds[1];
         var geojsonFeature = {
-          "type": "Feature",
-          "properties": {
-            "name": v.name,
-            "dates": datestring,
-            "tour": "",
-            "popupContent": '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
+          'type': 'Feature',
+          'properties': {
+            'name': v.name,
+            'dates': datestring,
+            'tour': '',
+            'popupContent': '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [v.lat, v.long]
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [v.lat, v.long]
           }
         };
 
@@ -186,16 +183,16 @@ export class ShowMapComponent {
         var datestring = ds[0];
         var venuehtml = ds[1];
         var geojsonFeature = {
-          "type": "Feature",
-          "properties": {
-            "name": venue,
-            "tour": tour,
-            "dates": datestring,
-            "popupContent": '<b><a href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
+          'type': 'Feature',
+          'properties': {
+            'name': venue,
+            'tour': tour,
+            'dates': datestring,
+            'popupContent': '<b><a href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
           },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [parseFloat(lat), parseFloat(long)]
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [parseFloat(lat), parseFloat(long)]
           }
         };
         geoJsonData.push(geojsonFeature);
@@ -215,7 +212,7 @@ export class ShowMapComponent {
     this.selectLayers[e].addTo(this.map)
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
-    if (e != "all"){
+    if (e != 'all shows'){
       this.connectTheDots(this.geoJsons[e])
     }
   }
@@ -223,10 +220,10 @@ export class ShowMapComponent {
   connectTheDots(e){
     var c = [];
     e.forEach( i => { c.push(i.geometry.coordinates.reverse())})
-    this.tourLine = L.polyline(c, {color: "#1D3A87", weight: 3}).addTo(this.map);
+    this.tourLine = L.polyline(c, {color: '#1D3A87', weight: 3}).addTo(this.map);
     this.lineDecorator = L.polylineDecorator(this.tourLine, {
     patterns: [
-      {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead({pixelSize: 9, polygon: false, pathOptions: {weight: 3, color: "#1D3A87", stroke: true}})}
+      {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead({pixelSize: 9, polygon: false, pathOptions: {weight: 3, color: '#1D3A87', stroke: true}})}
       ] }).addTo(this.map);
 }
 
