@@ -31,7 +31,6 @@ export class ShowMapComponent {
   protected selectedTour: any;
   protected tourLine: any;
   protected lineDecorator: any;
-  
 
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
@@ -62,7 +61,6 @@ export class ShowMapComponent {
     var geoJsonData = this.getGeoJson(this.venues);
     var tours = await this.data.getTourCoordinates();
     var tourGeoJsonData = this.getTourJson(tours);
-
     var all = this.groupLayers(geoJsonData);
     this.geoJsons['all shows'] = geoJsonData;
     this.selectLayers['all shows'] = all;
@@ -76,8 +74,6 @@ export class ShowMapComponent {
       this.geoJsons[t[0]].sort(this.dateSort())
       this.layerNames.push(t[0]); 
     })
-
-  
     this.searchCtrl = L.control.fuseSearch({'showResultFct': function(feature, container) {
       var props = feature.properties;
       if (props.dates != '') {    // workaround for result list after first click on search button
@@ -87,12 +83,11 @@ export class ShowMapComponent {
         //container.appendChild(document.createTextNode(props.dates));
     }
   }})
-    
     this.searchCtrl.indexFeatures(geoJsonData, ['name', 'dates']); 
     this.searchCtrl.addTo(this.map);
     this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
-    this.selectedTour = 'all shows'
-    this.fitZoom()
+    this.selectedTour = 'all shows';
+    this.fitZoom();
   }
 
 
@@ -125,6 +120,9 @@ export class ShowMapComponent {
         var ds = this.dateStrings(v.shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
+        if (v.georss == 'city'){ 
+          venuehtml += '(marker for city only)'
+        }
         var geojsonFeature = {
           'type': 'Feature',
           'properties': {
@@ -134,16 +132,13 @@ export class ShowMapComponent {
             'popupContent': '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
           'geometry': {
+            'georss': v.georss,
             'type': 'Point',
             'coordinates': [parseFloat(v.lat), parseFloat(v.long)]
-          }
-        };
-
+          } };
           geoJsonData.push(geojsonFeature);
-      }})
-
+      }});
       return geoJsonData;
-
   }
 
  groupLayers(g){
@@ -159,10 +154,9 @@ export class ShowMapComponent {
         onEachFeature: this.onEachFeature,
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {icon: myIcon, riseOnHover: true});
-        }
-      })
+        } })
       l.push(g)
-    })
+    });
     var lg = L.layerGroup(l);
     return (lg)
   }
@@ -176,6 +170,7 @@ export class ShowMapComponent {
         var venue_id = t[tour][venue].id;
         var long = t[tour][venue].long;
         var lat = t[tour][venue].lat;
+        var georss = t[tour][venue].georss;
         var shows = []
         t[tour][venue].shows.forEach(show => {
           shows.push(show)
@@ -192,16 +187,15 @@ export class ShowMapComponent {
             'popupContent': '<b><a href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
           },
           'geometry': {
+            'georss': georss,
             'type': 'Point',
             'coordinates': [parseFloat(lat), parseFloat(long)]
-          }
-        };
+          } };
         geoJsonData.push(geojsonFeature);
       });
      if (geoJsonData.length > 0) {
         tours.push([tour, geoJsonData])
-      }
-    });
+      } });
     return tours;
   }
 
@@ -213,22 +207,17 @@ export class ShowMapComponent {
     this.selectLayers[e].addTo(this.map)
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
-    
-    
-
     if (e != 'all shows' && this.geoJsons[e].length > 1){
       this.connectTheDots(this.geoJsons[e])
     }
-    
-    this.fitZoom()
-    
+    this.fitZoom();
   }
 
   fitZoom(){
     var group = new L.featureGroup;
     this.map.eachLayer(l => { if (l['feature'] != undefined){ group.addLayer(l) } });
     this.map.fitBounds(group.getBounds());
-
+    if (this.map.getZoom() > 10) { this.map.setZoom(10) }
   }
 
   connectTheDots(e){
@@ -237,8 +226,9 @@ export class ShowMapComponent {
     this.tourLine = L.polyline(c, {color: '#1D3A87', weight: 3}).addTo(this.map);
     this.lineDecorator = L.polylineDecorator(this.tourLine, {
     patterns: [
-      {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead({pixelSize: 9, polygon: false, pathOptions: {weight: 3, color: '#1D3A87', stroke: true}})}
-      ] }).addTo(this.map);
+      {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead(
+        {pixelSize: 9, polygon: false, pathOptions: {weight: 3, color: '#1D3A87', stroke: true}})
+      } ] }).addTo(this.map);
 }
 
 

@@ -44,7 +44,7 @@
   </div>
   
   <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
-    <h2 class="titlef">Weekly world news:</h2>
+    <h2 class="titlef">News of the week</h2>
     <div *ngFor="let n of event.news">
       <a [href]="n.url" target="_blank" [style.text-decoration]="'none'">
         {{ n.date+": "+n.title+" ("+n.source+")" }}
