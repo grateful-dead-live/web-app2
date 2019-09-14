@@ -172,11 +172,15 @@ export class ShowMapComponent {
     var tours = []
     Object.keys(t).forEach(tour => {
       var geoJsonData = [];
+      var latlongs = [];
       Object.keys(t[tour]).forEach(venue => {
         var venue_id = t[tour][venue].id;
-        var long = t[tour][venue].long;
-        var lat = t[tour][venue].lat;
-        
+        var long = parseFloat(t[tour][venue].long);
+        var lat = parseFloat(t[tour][venue].lat);
+        while (this.searchForArray(latlongs,[lat, long]) != -1){  // prevent markers in same place
+          lat += 0.001;
+        }
+        latlongs.push([lat, long])     
         var shows = []
         t[tour][venue].shows.forEach(show => {
           shows.push(show)
@@ -195,7 +199,7 @@ export class ShowMapComponent {
           },
           'geometry': {
             'type': 'Point',
-            'coordinates': [parseFloat(lat), parseFloat(long)]
+            'coordinates': [lat, long]
           } };
         geoJsonData.push(geojsonFeature);
       });
