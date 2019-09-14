@@ -36,6 +36,8 @@
               "./node_modules/leaflet/dist/leaflet.css",
               "src/weathericons/css/weather-icons.css",
               "src/leaflet-fusesearch/src/leaflet.fusesearch.css",
+              "./node_modules/leaflet.markercluster/dist/MarkerCluster.css",
+              "./node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css",
               "./node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": [

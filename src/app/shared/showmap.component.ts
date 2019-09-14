@@ -88,9 +88,10 @@ export class ShowMapComponent {
     this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
     this.selectedTour = 'all shows';
     this.fitZoom();
+   
   }
 
-
+ 
   dateStrings(s) {
     if (s != undefined){
       var htmlstring = '<br>';
@@ -115,8 +116,16 @@ export class ShowMapComponent {
 
   getGeoJson(shows){
     var geoJsonData = [];
+    var latlongs = [];
+
     shows.forEach(v => {
       if (v.long != undefined) {
+        var lat = parseFloat(v.lat);
+        var long = parseFloat(v.long);
+        while (this.searchForArray(latlongs,[lat, long]) != -1){  // prevent markers in same place
+          lat += 0.001;
+        }
+        latlongs.push([lat, long])   
         var ds = this.dateStrings(v.shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
@@ -131,7 +140,7 @@ export class ShowMapComponent {
           },
           'geometry': {
             'type': 'Point',
-            'coordinates': [parseFloat(v.lat), parseFloat(v.long)]
+            'coordinates': [lat, long]
           } };
           geoJsonData.push(geojsonFeature);
       }});
@@ -228,6 +237,27 @@ export class ShowMapComponent {
       } ] }).addTo(this.map);
 }
 
+markerCluster(){
+  return L.markerClusterGroup({ 
+    maxClusterRadius: 0,
+    spiderfyShapePositions: function(count, centerPt) {
+                  var distanceFromCenter = 35,
+                      markerDistance = 15,
+                      lineLength = markerDistance * (count - 1),
+                      lineStart = centerPt.y - lineLength / 2,
+                      res = [],
+                      i;
+  
+                  res.length = count;
+  
+                  for (i = count - 1; i >= 0; i--) {
+                      res[i] = new L.Point(centerPt.x + distanceFromCenter, lineStart + markerDistance * i);
+                  }
+  
+                  return res;
+              }
+  });
+}
 
 dateSort() {
   return function (a,b) {
@@ -236,5 +266,17 @@ dateSort() {
   }
 }
 
+searchForArray(haystack, needle){
+  var i, j, current;
+  for(i = 0; i < haystack.length; ++i){
+    if(needle.length === haystack[i].length){
+      current = haystack[i];
+      for(j = 0; j < needle.length && needle[j] === current[j]; ++j);
+      if(j === needle.length)
+        return i;
+    }
+  }
+  return -1;
+}
 
 }

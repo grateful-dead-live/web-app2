@@ -24,7 +24,7 @@ export class MapComponent {
             iconSize: [ 25, 41 ],
             iconAnchor: [ 13, 41 ],
             iconUrl: 'assets/marker-icon-2x.png',
-            shadowUrl: 'assets/marker-shadow.png'
+            //shadowUrl: 'assets/marker-shadow.png'
           })
         })
       ],
