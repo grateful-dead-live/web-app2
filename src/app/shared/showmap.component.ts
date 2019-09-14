@@ -178,6 +178,7 @@ export class ShowMapComponent {
         var long = parseFloat(t[tour][venue].long);
         var lat = parseFloat(t[tour][venue].lat);
         while (this.searchForArray(latlongs,[lat, long]) != -1){  // prevent markers in same place
+          console.log([[lat, long]])
           lat += 0.001;
         }
         latlongs.push([lat, long])     
@@ -241,27 +242,6 @@ export class ShowMapComponent {
       } ] }).addTo(this.map);
 }
 
-markerCluster(){
-  return L.markerClusterGroup({ 
-    maxClusterRadius: 0,
-    spiderfyShapePositions: function(count, centerPt) {
-                  var distanceFromCenter = 35,
-                      markerDistance = 15,
-                      lineLength = markerDistance * (count - 1),
-                      lineStart = centerPt.y - lineLength / 2,
-                      res = [],
-                      i;
-  
-                  res.length = count;
-  
-                  for (i = count - 1; i >= 0; i--) {
-                      res[i] = new L.Point(centerPt.x + distanceFromCenter, lineStart + markerDistance * i);
-                  }
-  
-                  return res;
-              }
-  });
-}
 
 dateSort() {
   return function (a,b) {
