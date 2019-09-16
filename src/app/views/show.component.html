@@ -3,24 +3,24 @@
     imageUrl="{{eventImage}}">
     <gd-weather [weather]="event.weather"></gd-weather>
   </gd-header>
-  <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin">
+  <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin" >
     
-    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
+    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
       <h2 class="titlef">Location: <span class="normweight">{{ event.location.name }}</span></h2>
       <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
     </div>
     
-    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
+    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
       <h2 class="titlef">Venue: <span class="normweight">{{ event.venue.name }}</span></h2>
       <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
     </div>
     
-    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+    <div class="gd-container" fxLayout="column" fxFlex="50">
         <h2 class="titlef">Setlist </h2>
       <div fxLayout="column" *ngFor="let set of event.setlist">
         <h3>{{ set.name }}</h3>
         <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
-        <div *ngFor="let song of set.songs, let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+        <div *ngFor="let song of set.songs, let i = index" fxLayout="row">
           <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }} {{ song.name }}</span>
           <button mat-icon-button (click)="openSongOptionsDialog(song, set.name, i+1)">
             <mat-icon>more_horiz</mat-icon>
@@ -29,7 +29,7 @@
       </div>
     </div>
     
-    <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+    <div class="gd-container" fxLayout="column" fxFlex="50">
       <h2 class="titlef">Lineup</h2>
         <div *ngFor="let p of event.performers" [routerLink]="['/artist', p.id]"> 
           <img class="image" [lazyLoad]="p.thumbnail"
@@ -43,7 +43,7 @@
     
   </div>
   
-  <div class="gd-container" style="border: #a8a886 solid 1px" fxLayout="column" fxFlex="50">
+  <div class="gd-container" fxLayout="column" fxFlex="50">
     <h2 class="titlef">News of the week</h2>
     <div *ngFor="let n of event.news">
       <a [href]="n.url" target="_blank" [style.text-decoration]="'none'">

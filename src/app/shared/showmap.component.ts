@@ -24,11 +24,11 @@ export class ShowMapComponent {
   protected mapOptions: L.MapOptions;
   protected map: L.Map;
   protected selectLayers: {};
-  protected layerNames: any[];
+  protected layerNames: string[];
   protected searchCtrl: any;
   protected geoJsons: {};
-  protected currentLayer: any;
-  protected selectedTour: any;
+  protected currentLayer: string;
+  protected selectedTour: string;
   protected tourLine: any;
   protected lineDecorator: any;
 
@@ -99,7 +99,7 @@ export class ShowMapComponent {
       var dates = s.map(e => [e.date, e.id])
       dates.sort()
       dates.forEach(e => {
-        htmlstring += '<a href="/show/' + e[1] + '">' + e[0] + '</a><br>' ;
+        htmlstring += '<a style="color: black;" href="/show/' + e[1] + '">' + e[0] + '</a><br>' ;
         datestring += e[0] + ' '
       });
     return [datestring, htmlstring];
@@ -135,8 +135,7 @@ export class ShowMapComponent {
           'properties': {
             'name': v.name,
             'dates': datestring,
-            'tour': '',
-            'popupContent': '<b><a href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
+            'popupContent': '<b><a style="color: black;" href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
           'geometry': {
             'type': 'Point',
@@ -178,14 +177,11 @@ export class ShowMapComponent {
         var long = parseFloat(t[tour][venue].long);
         var lat = parseFloat(t[tour][venue].lat);
         while (this.searchForArray(latlongs,[lat, long]) != -1){  // prevent markers in same place
-          console.log([[lat, long]])
           lat += 0.001;
         }
         latlongs.push([lat, long])     
         var shows = []
-        t[tour][venue].shows.forEach(show => {
-          shows.push(show)
-        });
+        t[tour][venue].shows.forEach(show => shows.push(show));
         var ds = this.dateStrings(shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
@@ -224,6 +220,7 @@ export class ShowMapComponent {
     this.fitZoom();
   }
 
+
   fitZoom(){
     var group = new L.featureGroup;
     this.map.eachLayer(l => { if (l['feature'] != undefined){ group.addLayer(l) } });
@@ -231,9 +228,10 @@ export class ShowMapComponent {
     if (this.map.getZoom() > 10) { this.map.setZoom(10) }
   }
 
+
   connectTheDots(e){
     var c = [];
-    e.forEach( i => { c.push(i.geometry.coordinates.reverse())})
+    e.forEach( i => c.push(i.geometry.coordinates.reverse()));
     this.tourLine = L.polyline(c, {color: '#1D3A87', weight: 3}).addTo(this.map);
     this.lineDecorator = L.polylineDecorator(this.tourLine, {
     patterns: [
@@ -243,22 +241,22 @@ export class ShowMapComponent {
 }
 
 
-dateSort() {
-  return function (a,b) {
+  dateSort() {
+    return function (a,b) {
       var result = (a.properties.dates < b.properties.dates) ? -1 : (a.properties.dates > b.properties.dates) ? 1 : 0;
       return result;
-  }
+    }
 }
 
-searchForArray(haystack, needle){
-  var i, j, current;
-  for(i = 0; i < haystack.length; ++i){
-    if(needle.length === haystack[i].length){
-      current = haystack[i];
-      for(j = 0; j < needle.length && needle[j] === current[j]; ++j);
-      if(j === needle.length)
-        return i;
-    }
+  searchForArray(haystack, needle){
+    var i, j, current;
+    for(i = 0; i < haystack.length; ++i){
+      if(needle.length === haystack[i].length){
+        current = haystack[i];
+        for(j = 0; j < needle.length && needle[j] === current[j]; ++j);
+        if(j === needle.length)
+          return i;
+      }
   }
   return -1;
 }

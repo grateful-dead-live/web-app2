@@ -26,7 +26,7 @@
 <div class="gd-container" fxLayout="column">
   <div class="playlist" *ngFor="let s of player.playlist"
       [hidden]="minimized && s !== player.getCurrentTrack()"
-      [style.color]="s === player.getCurrentTrack() ? '#3e3c2d' : 'grey'"
+      [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'"
       (click)="player.skipToTrack(s)">
     {{s.title}}
   </div>
