@@ -192,7 +192,7 @@ export class ShowMapComponent {
             'name': venue,
             'tour': tour,
             'dates': datestring,
-            'popupContent': '<b><a href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
+            'popupContent': '<b><a style="color: black; "href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
           },
           'geometry': {
             'type': 'Point',
@@ -247,6 +247,7 @@ export class ShowMapComponent {
       return result;
     }
 }
+
 
   searchForArray(haystack, needle){
     var i, j, current;
