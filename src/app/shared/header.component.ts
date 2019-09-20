@@ -61,7 +61,9 @@ ngOnInit() {
     console.log(e);
     var result = this.fuse.search(e)
     console.log(result)
-    this.openDialog(result)
+    if (result.length > 0){
+      this.openDialog(result)
+    }
   }
 
   openDialog(r) {
