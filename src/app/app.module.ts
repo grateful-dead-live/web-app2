@@ -26,6 +26,7 @@ import { WeatherComponent } from './shared/weather.component';
 import { ShowsComponent } from './shared/shows.component';
 import { PlayerComponent } from './shared/player.component';
 import { ListDialogComponent } from './shared/list-dialog.component';
+import { SearchDialogComponent } from './shared/search-dialog.component';
 import { ShowMapComponent } from './shared/showmap.component';
 
 import { DeadApiService } from './services/dead-api.service';
@@ -51,6 +52,7 @@ import { DialogService } from './services/dialog.service';
     ShowsComponent,
     PlayerComponent,
     ListDialogComponent,
+    SearchDialogComponent,
     ShowMapComponent,
     MapSelectComponent
   ],
@@ -74,6 +76,6 @@ import { DialogService } from './services/dialog.service';
     DialogService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ListDialogComponent]
+  entryComponents: [ListDialogComponent, SearchDialogComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { VenueDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import * as Fuse from 'fuse.js'; // imported in angular.json
+import * as _ from 'lodash';
 
 declare const L: any;
 import 'leaflet';
@@ -185,7 +186,7 @@ export class ShowMapComponent {
         var ds = this.dateStrings(shows);
         var datestring = ds[0];
         var venuehtml = ds[1];
-        if (t[tour][venue].georss == 'city'){ venuehtml += '(marker for city only)' };
+        if (t[tour][venue].georss == 'city'){ venuehtml += '(marker for city only)' };   // todo: make work!
         var geojsonFeature = {
           'type': 'Feature',
           'properties': {
@@ -231,8 +232,9 @@ export class ShowMapComponent {
 
   connectTheDots(e){
     var c = [];
-    e.forEach( i => c.push(i.geometry.coordinates.reverse()));
+    e.forEach( i => c.push(_.clone(i.geometry.coordinates).reverse()));
     this.tourLine = L.polyline(c, {color: '#1D3A87', weight: 3}).addTo(this.map);
+    console.log(this.tourLine)
     this.lineDecorator = L.polylineDecorator(this.tourLine, {
     patterns: [
       {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead(

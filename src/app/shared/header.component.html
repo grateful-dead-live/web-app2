@@ -15,8 +15,12 @@
     <span>
       {{ title }} – {{ subtitle }}
     </span>
+    
   </div>
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
+
+  <input #searchfield placeholder="results in console" (keydown.enter)="onSubmit(searchfield.value)">
+ 
 
 </div>
