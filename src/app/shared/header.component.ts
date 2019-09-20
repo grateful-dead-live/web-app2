@@ -68,6 +68,7 @@ ngOnInit() {
 
   openDialog(r) {
     var dialogConfig = new MatDialogConfig();
+    dialogConfig.position = { right: '0' };
     dialogConfig.data = {
       id: 1,
       result: r
