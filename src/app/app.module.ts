@@ -15,6 +15,7 @@ import { ShowComponent } from './views/show.component';
 import { LocationComponent } from './views/location.component';
 import { VenueComponent } from './views/venue.component';
 import { SongComponent } from './views/song.component';
+import { RecordingComponent } from './views/recording.component';
 import { ArtistComponent } from './views/artist.component';
 import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent} from './views/mapselect.component';
@@ -44,6 +45,7 @@ import { DialogService } from './services/dialog.service';
     LocationComponent,
     VenueComponent,
     SongComponent,
+    RecordingComponent,
     ArtistComponent,
     ArtifactsComponent,
     HeaderComponent,
