@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
 import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
-  Location, Venue, VenueDetails, ArtifactType, Artifact, Set } from './types';
+  Location, Venue, VenueDetails, ArtifactType, Artifact, Set, Recording } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
@@ -60,6 +60,11 @@ export class DataService {
   
   async getSong(songId: string): Promise<SongDetails> {
     return this.apiService.getSong(songId);
+  }
+  
+  async getRecordingTracks(recording: Recording, event: DeadEventInfo): Promise<Track[]> {
+    const tracks = await this.apiService.getRecordingTracks(recording.etreeId);
+    return tracks.map(t => this.toTrack(event, recording.etreeId, t));
   }
   
   async getTrack(song: SongInfo, event: DeadEventInfo, recording?: string) {

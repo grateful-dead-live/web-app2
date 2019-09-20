@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DeadEventDetails, Artifact, SongInfo, ArtifactType } from '../services/types';
+import { DeadEventDetails, Artifact, SongInfo, ArtifactType, Recording } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
@@ -61,10 +61,25 @@ export class ShowComponent {
     );
   }
   
+  protected openRecordingOptionsDialog(recording: Recording) {
+    this.dialog.openMultiFunction(
+      "Recording "+recording.etreeId,
+      ["add all to playlist", "go to recording"],
+      [() => this.addRecordingToPlaylist(recording),
+        () => this.router.navigate(['/recording', recording.etreeId])]
+    );
+  }
+  
   private async addSongToPlaylist(song: SongInfo) {
     const info = await this.data.getEventInfo(this.event.id);
     const track = await this.data.getTrack(song, info);
     if (track) this.player.addToPlaylist(track);
+  }
+  
+  private async addRecordingToPlaylist(recording: Recording) {
+    const info = await this.data.getEventInfo(this.event.id);
+    const tracks = await this.data.getRecordingTracks(recording, info);
+    if (tracks) tracks.forEach(t => this.player.addToPlaylist(t));
   }
 
 }
