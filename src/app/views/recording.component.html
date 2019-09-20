@@ -1,0 +1,18 @@
+<div *ngIf="recording" fxLayout="column">
+  <gd-header *ngIf="recording" title='{{ recording.info.id }}'
+    subtitle='DATE/VENUE/LOCATION'>
+  </gd-header>
+  <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
+    <p>{{ recording.info.id }}</p>
+    <p>{{ recording.info.lineage }}</p>
+    <p>{{ recording.info.source }}</p>
+    <p>{{ recording.info.notes }}</p>
+    <p>{{ recording.info.keywords }}</p>
+  </div>
+  <div *ngFor="let t of recording.tracks">
+    <span>{{ t.track }}: {{ t.title }}</span>
+    <button mat-icon-button (click)="openRecordingOptionsDialog(r)">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </div>
+</div>

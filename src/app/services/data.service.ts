@@ -2,7 +2,8 @@ import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
 import { DeadApiService } from './dead-api.service';
 import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
-  Location, Venue, VenueDetails, ArtifactType, Artifact, Set, Recording } from './types';
+  Location, Venue, VenueDetails, ArtifactType, Artifact, Set, Recording,
+  RecordingDetails } from './types';
 import { Track } from './player.service';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
@@ -62,6 +63,10 @@ export class DataService {
     return this.apiService.getSong(songId);
   }
   
+  async getRecording(etreeId: string) {
+    return this.apiService.getRecordingDetails(etreeId);
+  }
+  
   async getRecordingTracks(recording: Recording, event: DeadEventInfo): Promise<Track[]> {
     const tracks = await this.apiService.getRecordingTracks(recording.etreeId);
     return tracks.map(t => this.toTrack(event, recording.etreeId, t));
@@ -111,6 +116,11 @@ export class DataService {
   async getRandomArtistId(): Promise<string> {
     await this.loading;
     return _.sample(this.event.performers).id;
+  }
+  
+  async getRandomRecording(): Promise<RecordingDetails> {
+    const randomEvent = await this.getEventInfo(await this.getRandomEventId());
+    return this.apiService.getRecordingDetails(_.sample(randomEvent.recordings).etreeId);
   }
   
   async getRandomSetlist(): Promise<Set[]> {
