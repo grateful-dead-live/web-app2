@@ -48,12 +48,12 @@ export class DeadApiService {
     return this.getJsonFromApi('song?id='+encodeURIComponent(songId));
   }
   
-  getRecordingDetails(etreeId: string): Promise<RecordingDetails> {
-    return this.getJsonFromApi('recording?etreeid='+encodeURIComponent(etreeId));
+  getRecordingDetails(recordingId: string): Promise<RecordingDetails> {
+    return this.getJsonFromApi('recording?id='+encodeURIComponent(recordingId));
   }
   
-  getRecordingTracks(etreeId: string): Promise<AudioTrack[]> {
-    return this.getJsonFromApi('tracks?etreeid='+encodeURIComponent(etreeId));
+  getRecordingTracks(recordingId: string): Promise<AudioTrack[]> {
+    return this.getJsonFromApi('tracks?id='+encodeURIComponent(recordingId));
   }
   
   getArtistDetails(artistId: string): Promise<ArtistDetails> {
