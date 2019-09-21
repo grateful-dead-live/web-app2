@@ -22,7 +22,7 @@ export class RecordingComponent {
         console.log(this.recording)
       }
       if (!this.recording) {
-        this.router.navigate(['/recording', (await this.data.getRandomRecording()).etreeId],
+        this.router.navigate(['/recording', (await this.data.getRandomRecording()).id],
           { replaceUrl: true });
       }
     });

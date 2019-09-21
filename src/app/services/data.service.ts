@@ -63,27 +63,28 @@ export class DataService {
     return this.apiService.getSong(songId);
   }
   
-  async getRecording(etreeId: string) {
-    return this.apiService.getRecordingDetails(etreeId);
+  async getRecording(recordingId: string) {
+    return this.apiService.getRecordingDetails(recordingId);
   }
   
   async getRecordingTracks(recording: Recording, event: DeadEventInfo): Promise<Track[]> {
-    const tracks = await this.apiService.getRecordingTracks(recording.etreeId);
+    const tracks = await this.apiService.getRecordingTracks(recording.id);
+    console.log(tracks)
     return tracks.map(t => this.toTrack(event, recording.etreeId, t));
   }
   
-  async getTrack(song: SongInfo, event: DeadEventInfo, recording?: string) {
+  async getTrack(song: SongInfo, event: DeadEventInfo, etreeId?: string) {
     const songDetails = await this.apiService.getSong(song.id);
-    if (!recording) {
+    if (!etreeId) {
       const sbd = event.recordings.filter(r => r.isSoundboard);
-      recording = sbd.length ? sbd[0].etreeId : _.sample(event.recordings).etreeId;
+      etreeId = sbd.length ? sbd[0].etreeId : _.sample(event.recordings).etreeId;
     }
-    return this.getTracks(songDetails, event, recording)[0];
+    return this.getTracks(songDetails, event, etreeId)[0];
   }
   
-  getTracks(song: SongDetails, event: DeadEventInfo, recording: string): Track[] {
-    return song.audio && song.audio[recording] ?
-      song.audio[recording].map(a => this.toTrack(event, recording, a)) : [];
+  getTracks(song: SongDetails, event: DeadEventInfo, etreeId: string): Track[] {
+    return song.audio && song.audio[etreeId] ?
+      song.audio[etreeId].map(a => this.toTrack(event, etreeId, a)) : [];
   }
   
   async loadRandomEvent(): Promise<DeadEventDetails> {
@@ -120,7 +121,7 @@ export class DataService {
   
   async getRandomRecording(): Promise<RecordingDetails> {
     const randomEvent = await this.getEventInfo(await this.getRandomEventId());
-    return this.apiService.getRecordingDetails(_.sample(randomEvent.recordings).etreeId);
+    return this.apiService.getRecordingDetails(_.sample(randomEvent.recordings).id);
   }
   
   async getRandomSetlist(): Promise<Set[]> {
@@ -142,8 +143,8 @@ export class DataService {
     return this.toTrack(correspondingEvent, randomRecordingId, randomAudio);
   }
   
-  private toTrack(event: DeadEventInfo, recordingId: string, audio: AudioTrack): Track {
-    const uri = ARCHIVE_URI+recordingId+'/'+audio.filename;
+  private toTrack(event: DeadEventInfo, etreeId: string, audio: AudioTrack): Track {
+    const uri = ARCHIVE_URI+etreeId+'/'+audio.filename;
     return {
       title: audio.title + ", " + event.venue + ", "
         + event.location + ", " + event.date,

@@ -66,7 +66,7 @@ export class ShowComponent {
       "Recording "+recording.etreeId,
       ["add all to playlist", "go to recording"],
       [() => this.addRecordingToPlaylist(recording),
-        () => this.router.navigate(['/recording', recording.etreeId])]
+        () => this.router.navigate(['/recording', recording.id])]
     );
   }
   
