@@ -1,5 +1,22 @@
 <b>Search results</b>
-<div *ngFor="let r of result, let i = index">
-   <a href="{{r.type + '/' + r.uri}}">{{i+1}}. {{r.title}}</a>
+
+<div class="type" *ngIf = "result.song.length != 0">Songs:</div>
+<div  class="result" *ngFor="let r of result.song, let i = index">
+  <span [routerLink]="['/song', r[1]]"> {{i+1}}. {{r[0]}}</span>
 </div>
+
+<div class="type" *ngIf = "result.venue.length != 0">Venues:</div>
+<div class="result" *ngFor="let r of result.venue, let i = index">
+  <span [routerLink]="['/venue', r[1]]"> {{i+1}}. {{r[0]}}</span>
+</div>
+
+<div class="type" *ngIf = "result.show.length != 0">Shows:</div>
+<div class="result" *ngFor="let r of result.show, let i = index">
+  <span [routerLink]="['/show', r[1]]"> {{i+1}}. {{r[0]}}</span>
+</div>
+
+
+
+
+
 

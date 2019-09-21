@@ -36,9 +36,9 @@ ngOnInit() {
 
     var options = {
       shouldSort: true,
-      tokenize: false,
+      tokenize: true,
       matchAllTokens: true,
-      threshold: 0.2,
+      threshold: 0.1,
       location: 0,
       distance: 100,
       maxPatternLength: 32,
@@ -69,6 +69,7 @@ ngOnInit() {
   openDialog(r) {
     var dialogConfig = new MatDialogConfig();
     dialogConfig.position = { right: '0', top: '0' };
+    dialogConfig.maxHeight = 400;
     dialogConfig.data = {
       id: 1,
       result: r

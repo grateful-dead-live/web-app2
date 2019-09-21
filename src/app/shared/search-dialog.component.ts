@@ -16,7 +16,8 @@ export class SearchDialogComponent {
   result: any;
   constructor(private dialogRef: MatDialogRef<SearchDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data ) {
-      this.result = data.result; //this.sortItems(data.result);
+      //this.result = data.result; //this.sortItems(data.result);
+      this.result = this.sortItems(data.result);
     }
 
   
@@ -30,9 +31,9 @@ export class SearchDialogComponent {
   }
 
   sortItems(r){
-    var s = [];
+    var s = { 'show': [], 'venue': [], 'song': [] };
     r.forEach( i => {
-      s.push([i.type, i.title, i.uri])
+      s[i.type].push([i.title, i.uri])
     })
     console.log(s)
     return s
