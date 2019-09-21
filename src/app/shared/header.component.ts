@@ -1,13 +1,13 @@
 import { Component, Input, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { VIEWS } from '../globals';
-import * as Fuse from 'fuse.js';
+//import * as Fuse from 'fuse.js';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
+import { DataService } from '../services/data.service';
 
-
-declare var require: any;
-const searchjson = require("../../assets/search.json");
+//declare var require: any;
+//const searchjson = require("../../assets/search.json");
 
 @Component({
   selector: 'gd-header',
@@ -28,39 +28,18 @@ export class HeaderComponent {
   
   
   
-  constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog) {}
+  constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService) {}
   
 ngOnInit() {
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
     this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
-
-    var options = {
-      shouldSort: true,
-      tokenize: true,
-      matchAllTokens: true,
-      threshold: 0.1,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
-      keys: [
-        "songs",
-        "venue.location",
-        "venue.name",
-        "date",
-        "name",
-        "location"
-      ]
-    };
-    this.fuse = new Fuse(searchjson, options);
   }
 
 
 
-  onSubmit(e){
+  async onSubmit(e){
     console.log(e);
-    var result = this.fuse.search(e)
-    console.log(result)
+    var result = await this.data.getSearchResult(e);
     if (result.length > 0){
       this.openDialog(result)
     }

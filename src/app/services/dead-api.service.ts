@@ -76,4 +76,8 @@ export class DeadApiService {
       .catch(e => console.log(e));
   }
 
+  async getSearchResult(q: string): Promise<any> {
+    return this.getJsonFromApi('search?q='+encodeURIComponent(q));
+  }
+
 }

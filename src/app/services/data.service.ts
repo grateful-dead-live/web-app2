@@ -168,4 +168,8 @@ export class DataService {
     objects.forEach(o => o.date = this.formatDate(o.date));
   }
 
+  async getSearchResult(q: string): Promise<any> {
+    return this.apiService.getSearchResult(q);
+  }
+
 }
