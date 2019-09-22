@@ -63,6 +63,11 @@ export class DataService {
     return this.apiService.getSong(songId);
   }
   
+  async getEventInfoForRecording(recordingId: string): Promise<DeadEventInfo> {
+    await this.loading;
+    return this.events.filter(e => e.recordings.some(r => r.id === recordingId))[0];
+  }
+  
   async getRecording(recordingId: string) {
     return this.apiService.getRecordingDetails(recordingId);
   }

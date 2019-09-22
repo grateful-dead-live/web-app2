@@ -1,13 +1,12 @@
 <div *ngIf="recording" fxLayout="column">
-  <gd-header *ngIf="recording" title='{{ recording.info.id }}'
-    subtitle='DATE/VENUE/LOCATION'>
+  <gd-header *ngIf="recording" title='{{ recording.info.etreeId }}'
+    subtitle='{{event.location}}'>
   </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
-    <p>{{ recording.info.id }}</p>
-    <p>{{ recording.info.lineage }}</p>
-    <p>{{ recording.info.source }}</p>
-    <p>{{ recording.info.notes }}</p>
-    <p>{{ recording.info.keywords }}</p>
+    <p>Lineage: {{ recording.info.lineage }}</p>
+    <p>Source: {{ recording.info.source }}</p>
+    <p>Note: {{ recording.info.notes }}</p>
+    <p>Keywords: {{ recording.info.keywords }}</p>
   </div>
   <div *ngFor="let t of recording.tracks">
     <span>{{ t.track }}: {{ t.title }}</span>
