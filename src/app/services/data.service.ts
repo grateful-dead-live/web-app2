@@ -78,6 +78,10 @@ export class DataService {
     return tracks.map(t => this.toTrack(event, recording.etreeId, t));
   }
   
+  async getTrackFromAudio(audio: AudioTrack, event: DeadEventInfo, etreeId: string) {
+    return this.toTrack(event, etreeId, audio);
+  }
+  
   async getTrack(song: SongInfo, event: DeadEventInfo, etreeId?: string) {
     const songDetails = await this.apiService.getSong(song.id);
     if (!etreeId) {

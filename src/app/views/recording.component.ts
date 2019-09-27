@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { RecordingDetails, DeadEventInfo } from '../services/types';
+import { RecordingDetails, DeadEventInfo, SongInfo, AudioTrack } from '../services/types';
+import { PlayerService } from '../services/player.service';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'gd-recording',
@@ -12,18 +14,37 @@ export class RecordingComponent {
   protected event: DeadEventInfo;
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute, private dialog: DialogService,
+    private player: PlayerService) {}
   
   async ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.recording = await this.data.getRecording(params.get('id'));
         this.event = await this.data.getEventInfoForRecording(this.recording.id);
+        console.log(this.recording)
+        console.log(this.event)
       }
       if (!this.recording) {
         this.router.navigate(['/recording', (await this.data.getRandomRecording()).id],
           { replaceUrl: true });
       }
     });
+  }
+  
+  protected openTrackOptionsDialog(audio: AudioTrack) {
+    this.recording.tracks
+    this.dialog.openMultiFunction(
+      //song.name+"', "+this.event.venue.name+", "+this.event.date,
+      audio.track + " " + audio.title,
+      ["add to playlist"],
+      [() => this.addTrackToPlaylist(audio)]
+    );
+  }
+  
+  private async addTrackToPlaylist(audio: AudioTrack) {
+    const info = await this.data.getEventInfo(this.event.id);
+    const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
+    if (track) this.player.addToPlaylist(track);
   }
 }
