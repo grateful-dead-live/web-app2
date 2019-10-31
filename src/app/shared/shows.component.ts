@@ -17,6 +17,6 @@ export class ShowsComponent {
   async ngOnInit() {
     this.events = await this.data.getEventInfos(this.eventIds);
     //TODO add pagination?
-    if (this.events) this.events = this.events.slice(0, 20);
+    //if (this.events) this.events = this.events.slice(0, 20);
   }
 }

@@ -62,25 +62,54 @@
     </div>
   </div>
   
+
+    <!-- 
   <h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos from the show</span></h2>
   
   <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
     <div *ngFor="let s of photos" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">
-      <img class="image" [lazyLoad]="s" [style.object-fit]="'contain'">
+      <img style="max-width: 200px;" class="image" [lazyLoad]="s" [style.object-fit]="'contain'">
     </div>
   </div>
+-->
   
-  <h2 *ngIf="artifacts.length" class="gd-section"><span class="titlef">Artifacts from psilo</span></h2>
-  
+
+<h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos</span></h2>
+  <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap"
+      fxLayout.xs="column" fxLayoutAlign="start start">
+    <div *ngFor="let s of photos" class="gd-artifact" fxLayout="column" fxFlex>
+        <figure>
+          <div *ngIf="s.source; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <a href="{{ s.source }}" target="_blank"><img style="height: 200px;" class="image" [lazyLoad]="s.image" [style.object-fit]="'contain'"></a>
+          </ng-template>
+          <ng-template #elseBlock>
+            <img style="height: 200px;" class="image" [lazyLoad]="s.image" [style.object-fit]="'contain'">
+          </ng-template>
+          <figcaption class="p1">({{ s.collection }} )</figcaption>
+        </figure>
+    </div>
+  </div>
+</div>
+
+
+  <h2 *ngIf="artifacts.length" class="gd-section"><span class="titlef">Other Artifacts</span></h2>
+
   <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap"
       fxLayout.xs="column" fxLayoutAlign="start start">
-    <div *ngFor="let a of artifacts" class="gd-container" fxLayout="column" fxFlex>
+    <div *ngFor="let a of artifacts" class="gd-artifact" fxLayout="column" fxFlex>
         <figure>
-      <img class="image" [lazyLoad]="a.image" 
-        [style.object-fit]="'contain'">
-        <figcaption class="p1">{{ a.type }}</figcaption>
-        </figure>
-        <!--<span class="p1">{{ a.type }}</span>-->
+        <div *ngIf="a.source; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <a href="{{ a.source }}" target="_blank"><img style="height: 200px;" class="image" [lazyLoad]="a.image" [style.object-fit]="'contain'"></a>
+        </ng-template>
+        <ng-template #elseBlock>
+            <a href="{{ a.image }}" target="_blank"><img style="height: 200px;" class="image" [lazyLoad]="a.image" [style.object-fit]="'contain'"></a>
+        </ng-template>
+        <figcaption class="p1">{{ a.type }} ({{ a.collection }} )</figcaption>
+      </figure>
+
+
     </div>
   </div>
 </div>

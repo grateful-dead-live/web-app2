@@ -16,7 +16,8 @@ export class ShowComponent {
   
   protected event: DeadEventDetails;
   protected recordingUrls: SafeStyle[];
-  protected photos: string[];
+  //protected photos: string[];
+  protected photos: Artifact[];
   protected artifacts: Artifact[];
   protected eventImage: string;
 
@@ -35,12 +36,12 @@ export class ShowComponent {
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
         this.photos = this.event.artifacts
-          .filter(a => a.type === ArtifactType.Photo).map(a => a.image);
+          .filter(a => a.type === ArtifactType.Photo)//.map(a => a.image);
         this.artifacts = this.event.artifacts.filter(a => a.type !== ArtifactType.Photo);
         const poster = this.event.artifacts.filter(a => a.type == ArtifactType.Poster)[0];
         const pass = this.event.artifacts.filter(a => a.type == ArtifactType.Pass)[0];
         const ticket = this.event.artifacts.filter(a => a.type == ArtifactType.Ticket)[0];
-        this.eventImage = this.photos.length ? this.photos[0]
+        this.eventImage = this.photos.length ? this.photos[0].image
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
         console.log(this.event)

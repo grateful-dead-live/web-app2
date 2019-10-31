@@ -3,9 +3,26 @@
     <img fxLayout="column" class="image field" fxFlex="1 1 15%"
       [style.width]="'80px'" [style.height]="'60px'"
       [defaultImage]="'assets/gd_placeholder.png'"
-      [lazyLoad]="e.photo || e.ticket"
+      [lazyLoad]="e.artifacts[0] ? e.artifacts[0].thumbnail || e.artifacts[0].image: null"
       [style.object-fit]="'cover'"
       [routerLink]="['/show', e.id]">
+      <div fxLayout="column" fxFlex="1 1 10%" fxLayoutAlign="center"
+      [ngStyle.xs]="{'font-size': '80%'}" class="field"
+        [routerLink]="['/show', e.id]">
+        {{ e.date }}
+      </div>
+      <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
+      [ngStyle.xs]="{'font-size': '80%'}" class="field"
+        [routerLink]="['/show', e.id]">
+        {{ e.venue }} 
+      </div>
+      <span class="field"
+        [routerLink]="['/show', e.id]">
+      {{ e.location }}
+    </span>
+
+
+    <!--
     <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
         [ngStyle.xs]="{'font-size': '80%'}" class="field"
         [routerLink]="['/show', e.id]">
@@ -24,5 +41,6 @@
     <button mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%"
       (click)="onOptions(e)"><mat-icon>more_horiz</mat-icon>
     </button>
+    -->
   </div>
 </div>
