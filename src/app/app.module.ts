@@ -35,6 +35,8 @@ import { DataService } from './services/data.service';
 import { PlayerService } from './services/player.service';
 import { DialogService } from './services/dialog.service';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 
 
 
@@ -69,13 +71,14 @@ import { DialogService } from './services/dialog.service';
     MatIconModule,
     MatMenuModule,
     LazyLoadImageModule,
-    LeafletModule.forRoot(),
+    LeafletModule.forRoot()
   ],
   providers: [
     DeadApiService,
     DataService,
     PlayerService,
-    DialogService
+    DialogService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent]

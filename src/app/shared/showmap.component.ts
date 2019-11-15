@@ -100,7 +100,7 @@ export class ShowMapComponent {
       var dates = s.map(e => [e.date, e.id])
       dates.sort()
       dates.forEach(e => {
-        htmlstring += '<a style="color: black;" href="/show/' + e[1] + '">' + e[0] + '</a><br>' ;
+        htmlstring += '<a style="color: black;" href="/#/show/' + e[1] + '">' + e[0] + '</a><br>' ;
         datestring += e[0] + ' '
       });
     return [datestring, htmlstring];
@@ -136,7 +136,7 @@ export class ShowMapComponent {
           'properties': {
             'name': v.name,
             'dates': datestring,
-            'popupContent': '<b><a style="color: black;" href="/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
+            'popupContent': '<b><a style="color: black;" href="/#/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml
           },
           'geometry': {
             'type': 'Point',
@@ -193,7 +193,7 @@ export class ShowMapComponent {
             'name': venue,
             'tour': tour,
             'dates': datestring,
-            'popupContent': '<b><a style="color: black; "href="/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
+            'popupContent': '<b><a style="color: black; "href="/#/venue/' + venue_id + '">' + venue + '</a></b>' + venuehtml
           },
           'geometry': {
             'type': 'Point',
