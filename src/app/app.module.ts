@@ -19,6 +19,7 @@ import { RecordingComponent } from './views/recording.component';
 import { ArtistComponent } from './views/artist.component';
 import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent} from './views/mapselect.component';
+import { StartComponent} from './views/start.component';
 
 
 import { HeaderComponent } from './shared/header.component';
@@ -58,7 +59,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ListDialogComponent,
     SearchDialogComponent,
     ShowMapComponent,
-    MapSelectComponent
+    MapSelectComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,

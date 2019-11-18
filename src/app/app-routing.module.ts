@@ -9,9 +9,10 @@ import { RecordingComponent } from './views/recording.component';
 import { ArtistComponent } from './views/artist.component';
 import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent } from './views/mapselect.component';
+import { StartComponent } from './views/start.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/show', pathMatch: 'full' },
+  { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'show', component: ShowComponent },
   { path: 'show/:id', component: ShowComponent },
   { path: 'location', component: LocationComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'artist/:id', component: ArtistComponent },
   { path: 'artifacts', component: ArtifactsComponent },
   { path: 'artifacts/:types', component: ArtifactsComponent },
-  { path: 'mapselect', component: MapSelectComponent }
+  { path: 'mapselect', component: MapSelectComponent },
+  { path: 'start', component: StartComponent }
 ];
 
 @NgModule({
