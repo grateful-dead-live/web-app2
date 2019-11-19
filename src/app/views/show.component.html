@@ -7,12 +7,12 @@
     
     <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
       <h2 class="titlef">Location: <span class="normweight">{{ event.location.name }}</span></h2>
-      <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto">
+      <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto"  [style.object-fit]="'contain'">
     </div>
     
     <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
       <h2 class="titlef">Venue: <span class="normweight">{{ event.venue.name }}</span></h2>
-      <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto">
+      <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto"  [style.object-fit]="'contain'">
     </div>
     
     <div class="gd-container" fxLayout="column" fxFlex="50">
@@ -86,7 +86,7 @@
           <ng-template #elseBlock>
             <img style="height: 200px;" class="image" [lazyLoad]="s.image" [style.object-fit]="'contain'">
           </ng-template>
-          <figcaption class="p1">({{ s.collection }} )</figcaption>
+          <figcaption class="p1">({{ s.collection }})</figcaption>
         </figure>
     </div>
   </div>
@@ -106,7 +106,7 @@
         <ng-template #elseBlock>
             <a href="{{ a.image }}" target="_blank"><img style="height: 200px;" class="image" [lazyLoad]="a.image" [style.object-fit]="'contain'"></a>
         </ng-template>
-        <figcaption class="p1">{{ a.type }} ({{ a.collection }} )</figcaption>
+        <figcaption class="p1">{{ a.type }} ({{ a.collection }})</figcaption>
       </figure>
 
 

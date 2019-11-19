@@ -17,19 +17,34 @@ body {font-family: "Lato", sans-serif}
   <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="top">
     <!-- <h2 class="w3-wide" [routerLink]="['/mapselect']">THE GRATEFUL DEAD CONCERT EXPLORER</h2> -->
-    <img src="/assets/gd_logo1_start.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:65%" [routerLink]="['/mapselect']">
-    <p class="w3-opacity" [routerLink]="['/mapselect']"><i><u>start exploring</u></i></p>
+    <img src="/assets/gd_logo1_start.png" class="w3-round w3-margin-bottom" alt="grateful dead explorer logo" style="width:65%" [routerLink]="['/mapselect']">
+    <p class="w3-opacity"><i><u [routerLink]="['/mapselect']">click to enter</u></i></p>
       </div>
 
   <div class="w3-container w3-content w3-center" style="max-width:800px" id="overview">
-      <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-justify">
+          The Grateful Dead Concert Explorer is a Web application that enables user to navigate and explore digital libraries of live music recordings and discover and share associated artifacts that are dynamically linked within the application. It aims to demonstrate how Semantic Audio and Linked Data technologies can produce an improved user experience for browsing and exploring live music collections. 
+        </p>
+          <p class="w3-justify">
+          This prototype demonstrator focusses on the concerts of the Grateful Dead, motivated by the ongoing interest in detailed descriptions of their performances, evidenced by the large amount of information available on the Web detailing various aspects of those events. The application links the large number of concert recordings by the Grateful Dead available in the Internet Archive with audio analysis data and retrieves additional information and artifacts (e.g. band lineup, photos, scans of tickets and posters, reviews) from existing Web sources, to explore and visualise the collection. The project demonstrates mechanisms for musicians and the music industry to provide services for consumers to enjoy live music performances recognizing the social and cultural value of live music and fan communities.
+      </p>
+      <p class="w3-justify">
+        This is an ongoing project in its early stages. The technologies exploited in this work that were developed in the <a href="http://www.semanticaudio.ac.uk/" target="_blank"><u>EPSRC FAST IMPaCt</u></a> project include:
+      </p>
+      <ul class="w3-justify">
+          <li>Ontological data models for the representation of performed music as cultural artefacts, and its linkage to associated non-musical artefacts</li>
+          <li>Music information retrieval and processing algorithms for the automatic generation of playlists and audio mixes based on user-selected criteria</li>
+          <li>Music-structure analysis for the comparison of performances</li>
+          <li>Audio alignment of different user-generated recordings of live-music performances</li>
+      </ul>
+      <p class="w3-justify">
+      The main functions of the current version are described in the following.
+    </p>
   </div>
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="map">
       <h3 class="w3-wide">Map View</h3>
-      <img src="/assets/screens/scr_map.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_map.png" class="w3-round w3-margin-bottom" alt="map view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -37,7 +52,7 @@ body {font-family: "Lato", sans-serif}
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="show">
       <h3 class="w3-wide">Show View</h3>
-      <img src="/assets/screens/scr_show.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_show.png" class="w3-round w3-margin-bottom" alt="show view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -45,7 +60,7 @@ body {font-family: "Lato", sans-serif}
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="song">
       <h3 class="w3-wide">Song View</h3>
-      <img src="/assets/screens/scr_song.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_song.png" class="w3-round w3-margin-bottom" alt="song view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -53,7 +68,7 @@ body {font-family: "Lato", sans-serif}
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="location">
       <h3 class="w3-wide">Location View</h3>
-      <img src="/assets/screens/scr_location.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_location.png" class="w3-round w3-margin-bottom" alt="location view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -61,7 +76,7 @@ body {font-family: "Lato", sans-serif}
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="venue">
       <h3 class="w3-wide">Venue View</h3>
-      <img src="/assets/screens/scr_venue.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_venue.png" class="w3-round w3-margin-bottom" alt="venue view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -69,7 +84,7 @@ body {font-family: "Lato", sans-serif}
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="recording">
       <h3 class="w3-wide">Recording View</h3>
-      <img src="/assets/screens/scr_recording.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_recording.png" class="w3-round w3-margin-bottom" alt="recording view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -77,13 +92,13 @@ body {font-family: "Lato", sans-serif}
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="player">
       <h3 class="w3-wide">Audio Player</h3>
-      <img src="/assets/screens/scr_player.png" class="w3-round w3-margin-bottom" alt="Random Name" style="width:90%">
+      <img src="/assets/screens/scr_player.png" class="w3-round w3-margin-bottom" alt="audio player" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="player">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="additional">
       <h3 class="w3-wide">Additional Functions</h3>
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
@@ -91,9 +106,10 @@ body {font-family: "Lato", sans-serif}
   </div>
 
   <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="player">
-      <a href="https://archive.org" target="_blank"> <img src="https://archive.org/images/glogo.png" class="w3-round  w3-margin-right" alt="Random Name" style="width:8%"></a>
-      <a href="https://c4dm.eecs.qmul.ac.uk" target="_blank"> <img src="https://sites.google.com/site/mathemusicalconversations/_/rsrc/1396930666900/about/c4dm_qml-logo.jpg" class="w3-round" alt="Random Name" style="width:19%"></a>
-      <a href="https://gdao.org" target="_blank"> <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" class="w3-round w3-margin-bottom w3-margin-left w3-margin-top" alt="Random Name" style="width:8%"></a>
+      <a href="https://archive.org" target="_blank"> <img src="https://archive.org/images/glogo.png" class="w3-round w3-margin-right" alt="internet archive logo" style="width:8%"></a>
+      <a href="http://c4dm.eecs.qmul.ac.uk" target="_blank"> <img src="https://sites.google.com/site/mathemusicalconversations/_/rsrc/1396930666900/about/c4dm_qml-logo.jpg" class="w3-round w3-margin-right w3-margin-left" alt="c4dm qmul logo" style="width:18%"></a>
+      <a href="https://epsrc.ukri.org/" target="_blank"> <img src="/assets/epsrc.jpg" class="w3-round w3-margin-right w3-margin-left" alt="epsrc logo" style="width:17%"></a>
+      <a href="https://gdao.org" target="_blank"> <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" class="w3-round w3-margin-left" alt="gdao logo" style="width:8%"></a>
   </div>
 
   <div class="w3-container w3-content w3-center" style="max-width:800px" id="player">
