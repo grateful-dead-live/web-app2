@@ -21,7 +21,7 @@ body {font-family: "Lato", sans-serif}
     <p class="w3-opacity"><i><u [routerLink]="['/mapselect']">click to enter</u></i></p>
       </div>
 
-  <div class="w3-container w3-content w3-center" style="max-width:800px" id="overview">
+  <div class="w3-container w3-content w3-center" style="max-width:800px" id="overviewstart">
       <p class="w3-justify">
           The Grateful Dead Concert Explorer is a Web application that enables user to navigate and explore digital libraries of live music recordings and discover and share associated artifacts that are dynamically linked within the application. It aims to demonstrate how Semantic Audio and Linked Data technologies can produce an improved user experience for browsing and exploring live music collections. 
         </p>
@@ -42,21 +42,19 @@ body {font-family: "Lato", sans-serif}
     </p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="map">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="mapstart">
       <h3 class="w3-wide">Map View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_map.png" alt="map view" style="width:90%">
       <p class="w3-justify">The map view shows the world map with markers indicating the locations of concerts. Clicking on a marker opens a menu with links to the pages for the venue, and to the pages for the concerts at that location. While by default all concert locations are displayed, specific tours can be seleceted from the pull down menu on the top left. When selecting a tour, only the concerts from the tour are displayed on the map and connected by arrows indicating the order of concerts. The map also has a seperate search function covering the concerts on the map.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="show">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="showstart">
       <h3 class="w3-wide">Show View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_show.png" alt="show view" style="width:90%">
-      <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-justify">The Show View shows information about a specific concert, including the location, venue, the setlist, the lineup and the additional recordings available in the archive. One can navigate to other pages by clicking on any item, for instance, clicking on the venue opens the <a href="#venuestart"><u>Venue View</u></a> for the respective venue. Clicking on the button next to a song opens a dialogue to either go to the <a href="#songstart"><u>Song View</u></a> or add the song to the playlist of the <a href="#playerstart"><u>audio player</u></a>. Clicking on photos or other artifacts either opens a higher resolution image or opens the source page at the <a href="https://www.gdao.org/" target="_blank"><u>Grateful Dead Archive Online (GDAO)</u></a> in a new tab</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="song">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="songstart">
       <h3 class="w3-wide">Song View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_song.png" alt="song view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -64,7 +62,7 @@ body {font-family: "Lato", sans-serif}
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="location">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="locationstart">
       <h3 class="w3-wide">Location View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_location.png" alt="location view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -72,7 +70,7 @@ body {font-family: "Lato", sans-serif}
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="venue">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="venuestart">
       <h3 class="w3-wide">Venue View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_venue.png" alt="venue view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -80,7 +78,7 @@ body {font-family: "Lato", sans-serif}
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="recording">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="recordingstart">
       <h3 class="w3-wide">Recording View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_recording.png" alt="recording view" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -88,7 +86,7 @@ body {font-family: "Lato", sans-serif}
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="player">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="playerstart">
       <h3 class="w3-wide">Audio Player</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_player.png" alt="audio player" style="width:90%">
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -96,7 +94,7 @@ body {font-family: "Lato", sans-serif}
         adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="additional">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="additionalstart">
       <h3 class="w3-wide">Additional Functions</h3>
       <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur
@@ -107,14 +105,14 @@ body {font-family: "Lato", sans-serif}
     </p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="player">
+  <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="logostart">
       <a href="https://archive.org" target="_blank"> <img src="https://archive.org/images/glogo.png" class="w3-round w3-margin-right" alt="internet archive logo" style="width:8%"></a>
       <a href="http://c4dm.eecs.qmul.ac.uk" target="_blank"> <img src="https://sites.google.com/site/mathemusicalconversations/_/rsrc/1396930666900/about/c4dm_qml-logo.jpg" class="w3-round w3-margin-right w3-margin-left" alt="c4dm qmul logo" style="width:18%"></a>
       <a href="https://epsrc.ukri.org/" target="_blank"> <img src="/assets/epsrc.jpg" class="w3-round w3-margin-right w3-margin-left" alt="epsrc logo" style="width:17%"></a>
       <a href="https://gdao.org" target="_blank"> <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" class="w3-round w3-margin-left" alt="gdao logo" style="width:8%"></a>
   </div>
 
-  <div class="w3-container w3-content w3-center" style="max-width:800px" id="player">
+  <div class="w3-container w3-content w3-center" style="max-width:800px" id="emailstart">
       <a href="{{ 'mai' + 'lto' + ':' + part1 + part2 + part3 + part4 + part5 + part6 + part7 }}"><u>Email us</u> </a>
   </div>
   
