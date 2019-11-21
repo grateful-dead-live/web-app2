@@ -16,4 +16,8 @@ export class PlayerComponent {
   async addRandomTrack() {
     this.player.addToPlaylist(await this.data.getRandomTrack());
   }
+
+  volumeChange(v){
+    this.player.volume(v);
+  }
 }

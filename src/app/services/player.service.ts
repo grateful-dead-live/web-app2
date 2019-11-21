@@ -118,4 +118,10 @@ export class PlayerService {
     this.currentTime = 0;
   }
 
+  volume(v) {
+    if (this.currentAudio) {
+      this.currentAudio.volume = v / 100;
+    }
+  }
+
 }

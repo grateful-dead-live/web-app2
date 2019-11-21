@@ -5,7 +5,9 @@
     <span>
         <button mat-button [matMenuTriggerFor]="menu"><img src="assets/gd_logo2.png" height="25"></button>
         <mat-menu #menu="matMenu">
-          <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button>
+          <!-- <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button> -->
+          <button mat-menu-item routerLink="/mapselect">Concert Map</button>
+          <button mat-menu-item routerLink="/start">Start Page</button>
         </mat-menu>
     </span>
   </div>
