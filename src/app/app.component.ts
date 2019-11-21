@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,15 @@ import { Router, NavigationStart } from '@angular/router';
 export class AppComponent {
   protected start: Boolean;
   
+
   constructor(router:Router) {
     router.events.forEach((event) => {
-        if(event instanceof NavigationStart) {
-            this.start = event.url !== "/";
-        }
-      });
-    }
-
-
+      if (router.url.includes('/start')) {  
+        this.start = true; 
+      } else {
+        this.start = false; 
+      }
+    });
+  }
 
 }
