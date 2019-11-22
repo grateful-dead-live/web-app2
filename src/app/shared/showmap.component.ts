@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { VenueDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 //import * as Fuse from 'fuse.js'; // imported in angular.json
 import * as _ from 'lodash';
 
@@ -32,12 +34,14 @@ export class ShowMapComponent {
   protected selectedTour: string;
   protected tourLine: any;
   protected lineDecorator: any;
+  protected loaded: boolean;
+  
 
-
-  constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
+  constructor(protected data: DataService, private sanitizer: DomSanitizer, @Inject(DOCUMENT) private document: Document) {}
 
 
   ngOnInit() {
+    this.loaded = false;
     this.selectLayers = {};
     this.layerNames = [];
     this.geoJsons = {};
@@ -57,6 +61,7 @@ export class ShowMapComponent {
 
 
   async onMapReady(map: L.Map) {
+    this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
     this.venues = await this.data.getVenueCoordinates();
     var geoJsonData = this.getGeoJson(this.venues);
@@ -89,6 +94,8 @@ export class ShowMapComponent {
     this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
     this.selectedTour = 'all shows';
     this.fitZoom();
+    this.loaded = true;
+    this.document.getElementById("maploaded").style.visibility = "visible";
    
   }
 

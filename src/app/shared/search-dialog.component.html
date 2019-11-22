@@ -1,18 +1,18 @@
 <div class="left">  <b>Search results</b></div>
 
 <div class="type" *ngIf="result.song.length != 0">Songs:</div>
-<div  class="result" *ngFor="let r of result.song, let i = index">
-  <span [routerLink]="['/song', r[1]]"> {{i+1}}. {{r[0]}}</span>
+<div class="result" *ngFor="let r of result.song, let i = index">
+  <span style="cursor:pointer" [routerLink]="['/song', r[1]]"> {{i+1}}. {{r[0]}}</span>
 </div>
 
 <div class="type" *ngIf="result.venue.length != 0">Venues:</div>
 <div class="result" *ngFor="let r of result.venue, let i = index">
-  <span [routerLink]="['/venue', r[1]]"> {{i+1}}. {{r[0]}}</span>
+  <span style="cursor:pointer" [routerLink]="['/venue', r[1]]"> {{i+1}}. {{r[0]}}</span>
 </div>
 
 <div class="type" *ngIf="result.show.length != 0">Shows:</div>
 <div class="result" *ngFor="let r of result.show, let i = index">
-  <span [routerLink]="['/show', r[1]]"> {{i+1}}. {{r[0]}}</span>
+  <span style="cursor:pointer" [routerLink]="['/show', r[1]]"> {{i+1}}. {{r[0]}}</span>
 </div>
 
 
