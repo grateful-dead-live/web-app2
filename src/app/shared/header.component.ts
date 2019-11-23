@@ -25,12 +25,14 @@ export class HeaderComponent {
   protected views = VIEWS;
   protected fuse: any;
   protected result: any;
+  protected searchState: any;
   
   
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService) {}
   
 ngOnInit() {
+    this.searchState = 0;
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
     this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
   }
@@ -39,10 +41,12 @@ ngOnInit() {
 
   async onSubmit(e){
     console.log(e);
+    this.searchState = 1;
     var result = await this.data.getSearchResult(e);
     if (result.length > 0){
       this.openDialog(result)
     }
+    this.searchState = 0;
   }
 
   openDialog(r) {

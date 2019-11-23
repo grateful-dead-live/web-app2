@@ -22,7 +22,10 @@
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
 
-  <input #searchfield placeholder="Search" (keydown.enter)="onSubmit(searchfield.value)">
+  <div *ngIf="searchState" [style.margin-top]="'5px'"><mat-spinner diameter="20"></mat-spinner></div>
+  <input [disabled]="searchState==1" id="search" #searchfield placeholder="Search" (keydown.enter)="onSubmit(searchfield.value)">
+  
+
  
 
 </div>

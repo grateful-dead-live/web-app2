@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatButtonModule, MatIconModule, MatSliderModule } from '@angular/material';
+import { MatDialogModule, MatButtonModule, MatIconModule, MatSliderModule, MatProgressSpinnerModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -74,7 +74,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatMenuModule,
     LazyLoadImageModule,
     LeafletModule.forRoot(),
-    MatSliderModule
+    MatSliderModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     DeadApiService,
