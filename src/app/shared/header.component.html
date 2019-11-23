@@ -24,7 +24,7 @@
 
   <p *ngIf="!searchState" [style.margin-right]="'25px'"></p>
   <div *ngIf="searchState" [style.margin-top]="'8px'" [style.margin-right]="'5px'"><mat-spinner diameter="20"></mat-spinner></div>
-  <input [disabled]="searchState==1" id="search" #searchfield placeholder="Search" (keydown.enter)="onSubmit(searchfield.value)">
+  <input [disabled]="searchState==1" #searchfield placeholder="Search" (keydown.enter)="onSubmit(searchfield.value)">
   
 
  
