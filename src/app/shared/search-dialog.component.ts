@@ -14,13 +14,14 @@ export interface DialogData {
 export class SearchDialogComponent {
 
   result: any;
+  searchString: string;
+  
   constructor(private dialogRef: MatDialogRef<SearchDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data ) {
       //this.result = data.result; //this.sortItems(data.result);
       this.result = this.sortItems(data.result);
+      this.searchString = data.searchString;
     }
-
-  
 
   onCancelClick(): void {
     this.dialogRef.close();

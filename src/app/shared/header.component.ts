@@ -44,18 +44,19 @@ ngOnInit() {
     this.searchState = 1;
     var result = await this.data.getSearchResult(e);
     if (result.length > 0){
-      this.openDialog(result)
+      this.openDialog(result, e)
     }
     this.searchState = 0;
   }
 
-  openDialog(r) {
+  openDialog(r, s) {
     var dialogConfig = new MatDialogConfig();
     dialogConfig.position = { right: '0', top: '0' };
     dialogConfig.maxHeight = 400;
     dialogConfig.data = {
       id: 1,
-      result: r
+      result: r,
+      searchString: s
      };
     //dialogConfig.disableClose = true;
     //dialogConfig.autoFocus = true;
