@@ -35,6 +35,7 @@ export class ShowMapComponent {
   protected tourLine: any;
   protected lineDecorator: any;
   protected loaded: boolean;
+  protected timeOut: boolean;
   
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer, @Inject(DOCUMENT) private document: Document) {}
@@ -42,6 +43,7 @@ export class ShowMapComponent {
 
   ngOnInit() {
     this.loaded = false;
+    this.timeOut = false;
     this.selectLayers = {};
     this.layerNames = [];
     this.geoJsons = {};
@@ -61,6 +63,9 @@ export class ShowMapComponent {
 
 
   async onMapReady(map: L.Map) {
+    setTimeout(() => {
+      this.timeOut = true;
+    }, 30000);
     this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
     this.venues = await this.data.getVenueCoordinates();
@@ -99,7 +104,7 @@ export class ShowMapComponent {
    
   }
 
- 
+  
   dateStrings(s) {
     if (s != undefined){
       var htmlstring = '<br>';
