@@ -98,9 +98,9 @@ export class ShowMapComponent {
     this.searchCtrl.addTo(this.map);
     this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
     this.selectedTour = 'all shows';
-    this.fitZoom();
     this.loaded = true;
     this.document.getElementById("maploaded").style.visibility = "visible";
+    this.fitZoom();
    
   }
 
