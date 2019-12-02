@@ -65,18 +65,19 @@ export class ShowMapComponent {
   async onMapReady(map: L.Map) {
     setTimeout(() => {
       this.timeOut = true;
-    }, 30000);
+    }, 35000);
     this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
-    let i = 0;
-    while (this.venues == undefined) {
+    this.venues = await this.data.getVenueCoordinates();
+    let i = 1;
+    while (this.venues == undefined) {    // retry heroku fetch
       console.log("retry " + i);
       this.venues = await this.data.getVenueCoordinates();
+      console.log(this.venues)
       i++;
     }
-    //console.log(this.venues);
-    var geoJsonData = this.getGeoJson(this.venues);
     var tours = await this.data.getTourCoordinates();
+    var geoJsonData = this.getGeoJson(this.venues);
     var tourGeoJsonData = this.getTourJson(tours);
     var all = this.groupLayers(geoJsonData);
     this.geoJsons['all shows'] = geoJsonData;

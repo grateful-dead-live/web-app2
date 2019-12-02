@@ -19,7 +19,7 @@ export class MapSelectComponent {
 
   protected venues: VenueDetails[];
   protected test: number;
-  async ngOnInit() {
+  ngOnInit() {
 
 
 
