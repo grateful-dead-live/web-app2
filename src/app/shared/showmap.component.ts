@@ -68,7 +68,13 @@ export class ShowMapComponent {
     }, 30000);
     this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
-    this.venues = await this.data.getVenueCoordinates();
+    let i = 0;
+    while (this.venues == undefined) {
+      console.log("retry " + i);
+      this.venues = await this.data.getVenueCoordinates();
+      i++;
+    }
+    //console.log(this.venues);
     var geoJsonData = this.getGeoJson(this.venues);
     var tours = await this.data.getTourCoordinates();
     var tourGeoJsonData = this.getTourJson(tours);
