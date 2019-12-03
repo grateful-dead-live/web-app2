@@ -68,15 +68,15 @@ export class ShowMapComponent {
     }, 35000);
     this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
-    this.venues = await this.data.getVenueCoordinates();
-    let i = 1;
-    while (this.venues == undefined) {    // retry heroku fetch
+    let i = 0;
+    while (this.venues == undefined || this.venues.length == 0) {    // retry heroku fetch
       console.log("retry " + i);
       this.venues = await this.data.getVenueCoordinates();
       console.log(this.venues)
       i++;
     }
     var tours = await this.data.getTourCoordinates();
+    console.log(tours)
     var geoJsonData = this.getGeoJson(this.venues);
     var tourGeoJsonData = this.getTourJson(tours);
     var all = this.groupLayers(geoJsonData);
