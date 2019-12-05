@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { VenueDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 //import * as Fuse from 'fuse.js'; // imported in angular.json
 import * as _ from 'lodash';
 
@@ -38,7 +36,7 @@ export class ShowMapComponent {
   protected timeOut: boolean;
   
 
-  constructor(protected data: DataService, private sanitizer: DomSanitizer, @Inject(DOCUMENT) private document: Document) {}
+  constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
 
 
   ngOnInit() {
@@ -66,7 +64,7 @@ export class ShowMapComponent {
     setTimeout(() => {
       this.timeOut = true;
     }, 35000);
-    this.document.getElementById("maploaded").style.visibility = "hidden";
+    //this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
     let i = 0;
     while (this.venues == undefined || this.venues.length == 0) {    // retry heroku fetch
@@ -106,7 +104,6 @@ export class ShowMapComponent {
     this.searchCtrl.indexFeatures(this.geoJsons['all shows'], ['name', 'dates']); 
     this.selectedTour = 'all shows';
     this.loaded = true;
-    this.document.getElementById("maploaded").style.visibility = "visible";
     this.fitZoom();
    
   }

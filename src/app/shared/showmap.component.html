@@ -32,9 +32,10 @@
      <div class="loader"></div>
 </div>
 
-<div *ngIf="timeOut && !loaded" class="wait"><br>Loading seems to take a while! retrying...</div>
+<div *ngIf="!timeOut && !loaded" class="wait"><br>connecting to database</div>
+<div *ngIf="timeOut && !loaded" class="wait"><br>loading seems to take a while! retrying...</div>
 
-<div id="maploaded">
+<div id="maploaded" [style.visibility]="!loaded ? 'hidden' : 'visible' ">
     <div class="center">
     <select [(ngModel)]="selectedTour" (ngModelChange)="tourChanged($event)">
         <option *ngFor="let l of layerNames" ngValue="{{l}}"> {{l}}</option>
