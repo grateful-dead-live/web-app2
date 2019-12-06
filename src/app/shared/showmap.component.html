@@ -7,7 +7,6 @@
   border-radius: 50%;
   height: 75px;
   width: 75px;
-  margin-left: 12px;
 }
 
 @-webkit-keyframes spin {
@@ -29,24 +28,24 @@
 </style>
 
 <div *ngIf="!loaded" class="wait">
-     <div class="loader"></div>
+  <div class="loader"></div>
 </div>
 
-<div *ngIf="!timeOut && !loaded" class="wait"><br>connecting to database</div>
-<div *ngIf="timeOut && !loaded" class="wait"><br>loading seems to take a while! retrying...</div>
+<div *ngIf="!loaded" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+<div *ngIf="!timeOut && !loaded" class="wait">connecting to database</div>
+<div *ngIf="timeOut && !loaded" class="wait">loading seems to take a while! retrying...</div>
 
 <div id="maploaded" [style.visibility]="!loaded ? 'hidden' : 'visible' ">
-    <div class="center">
+  <div class="center">
     <select [(ngModel)]="selectedTour" (ngModelChange)="tourChanged($event)">
         <option *ngFor="let l of layerNames" ngValue="{{l}}"> {{l}}</option>
     </select>
-    </div>
-
-    <div id="MapContainer" 
-        leaflet
-        [leafletOptions]="mapOptions"
-        (leafletMapReady)="onMapReady($event)">
-    </div>
+  </div>
+  <div id="MapContainer" 
+    leaflet
+    [leafletOptions]="mapOptions"
+    (leafletMapReady)="onMapReady($event)">
+  </div>
 </div> 
 
 
