@@ -38,6 +38,7 @@ import { DialogService } from './services/dialog.service';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -82,7 +83,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     DataService,
     PlayerService,
     DialogService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    CookieService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent]
