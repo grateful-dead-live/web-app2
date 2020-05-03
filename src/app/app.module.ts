@@ -39,6 +39,7 @@ import { DialogService } from './services/dialog.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
+import { ButtonDirective } from './button.directive';
 
 
 
@@ -61,7 +62,8 @@ import { CookieService } from 'ngx-cookie-service';
     SearchDialogComponent,
     ShowMapComponent,
     MapSelectComponent,
-    StartComponent
+    StartComponent,
+    ButtonDirective
   ],
   imports: [
     BrowserModule,
