@@ -13,7 +13,7 @@ export class ButtonDirective {
     (<any>window).ga('send', 'event', this.option.category, this.option.action, {
       hitCallback: function() {
 
-        console.log('Tracking is successful');
+        console.log('tracking event');
 
       }
 

@@ -5,7 +5,7 @@ import { VIEWS } from '../globals';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
-//import { AuthService } from '../auth.service';
+import { AuthService } from '../auth.service';
 
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
@@ -30,7 +30,7 @@ export class HeaderComponent {
   
   
   
-  constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService) {}//, public auth: AuthService) {}
+  constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, public auth: AuthService) {}
   
 ngOnInit() {
     this.searchState = 0;
