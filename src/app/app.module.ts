@@ -40,6 +40,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
 import { ButtonDirective } from './button.directive';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -63,7 +64,8 @@ import { ButtonDirective } from './button.directive';
     ShowMapComponent,
     MapSelectComponent,
     StartComponent,
-    ButtonDirective
+    ButtonDirective,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

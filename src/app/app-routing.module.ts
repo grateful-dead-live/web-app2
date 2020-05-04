@@ -10,6 +10,8 @@ import { ArtistComponent } from './views/artist.component';
 import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent } from './views/mapselect.component';
 import { StartComponent } from './views/start.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
@@ -28,7 +30,8 @@ const routes: Routes = [
   { path: 'artifacts', component: ArtifactsComponent },
   { path: 'artifacts/:types', component: ArtifactsComponent },
   { path: 'mapselect', component: MapSelectComponent },
-  { path: 'start', component: StartComponent }
+  { path: 'start', component: StartComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
