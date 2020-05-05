@@ -73,7 +73,7 @@ export class AuthService {
     checkAuth$.subscribe();
   }
 
-  login(redirectPath: string = '/') {
+  login(redirectPath: string = this.router.url) {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
@@ -95,7 +95,7 @@ export class AuthService {
         // Have client, now call method to handle auth callback redirect
         tap(cbRes => {
           // Get and set target redirect route from callback results
-          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : '/';
+          targetRoute = cbRes.appState && cbRes.appState.target ? cbRes.appState.target : this.router.url;
         }),
         concatMap(() => {
           // Redirect callback complete; get user and login status
