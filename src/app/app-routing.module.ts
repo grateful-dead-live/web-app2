@@ -14,7 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/start', pathMatch: 'full' },
+  //{ path: '', redirectTo: '/start', pathMatch: 'full' },
+  { path: '', component: StartComponent },
   { path: 'show', component: ShowComponent },
   { path: 'show/:id', component: ShowComponent },
   { path: 'location', component: LocationComponent },

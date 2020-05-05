@@ -13,7 +13,9 @@ export class AuthService {
   auth0Client$ = (from(
     createAuth0Client({
       domain: "gdconcertexplorer.eu.auth0.com",
-      client_id: "sarv4455JXu5zgMa1wQqR6vwGAgZSleK",
+      client_id: "96ad9eiqv5wCgdUfjYe0WeT07hww2mWl",
+
+
       redirect_uri: `${window.location.origin}`
     })
   ) as Observable<Auth0Client>).pipe(
@@ -117,7 +119,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "sarv4455JXu5zgMa1wQqR6vwGAgZSleK",
+        client_id: "96ad9eiqv5wCgdUfjYe0WeT07hww2mWl",
         returnTo: `${window.location.origin}`
       });
     });

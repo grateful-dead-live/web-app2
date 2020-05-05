@@ -36,7 +36,7 @@ import { DataService } from './services/data.service';
 import { PlayerService } from './services/player.service';
 import { DialogService } from './services/dialog.service';
 
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+//import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
 import { ButtonDirective } from './button.directive';
@@ -87,7 +87,7 @@ import { ProfileComponent } from './profile/profile.component';
     DataService,
     PlayerService,
     DialogService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    //{provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService
   ],
   bootstrap: [AppComponent],
