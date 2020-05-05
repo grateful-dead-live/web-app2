@@ -13,7 +13,7 @@ export class AuthService {
   auth0Client$ = (from(
     createAuth0Client({
       domain: "gdconcertexplorer.eu.auth0.com",
-      client_id: "96ad9eiqv5wCgdUfjYe0WeT07hww2mWl",
+      client_id: "",
 
 
       redirect_uri: `${window.location.origin}`
@@ -119,7 +119,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
-        client_id: "96ad9eiqv5wCgdUfjYe0WeT07hww2mWl",
+        client_id: "",
         returnTo: `${window.location.origin}`
       });
     });

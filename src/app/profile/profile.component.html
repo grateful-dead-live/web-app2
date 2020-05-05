@@ -1,5 +1,5 @@
 
-<gd-header title='Map' subtitle="Selector"></gd-header>
+<gd-header *ngIf="auth.userProfile$ | async as profile" title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>
 <pre *ngIf="auth.userProfile$ | async as profile">
   <code>{{ profile | json }}</code>
 </pre>
