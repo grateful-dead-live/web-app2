@@ -15,13 +15,13 @@ export class AppComponent {
   
 
   constructor(router:Router, private cookieService: CookieService) {
-    router.events.forEach((event) => {
-      if (router.url.includes('/start')) {  
-        this.start = true; 
-      } else {
-        this.start = false; 
-      }
-    });
+    //router.events.forEach((event) => {
+    //  if (router.url.includes('/about')) {  
+    //    this.start = true; 
+    //  } else {
+    //    this.start = false; 
+    //  }
+    //});
 
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

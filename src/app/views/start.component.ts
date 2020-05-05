@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -18,7 +17,7 @@ export class StartComponent {
   part7: String;
   
   constructor(private sanitizer: DomSanitizer,
-    private router: Router, private route: ActivatedRoute, public auth: AuthService) {}
+    private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.part1 = "gdc";

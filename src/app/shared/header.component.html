@@ -10,8 +10,8 @@
         <mat-menu #menu="matMenu">
           <!-- <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button> -->
           <button mat-menu-item routerLink="/mapselect">Concert Map</button>
-          <button mat-menu-item routerLink="/start">Start Page</button>
           <button mat-menu-item routerLink="/profile" *ngIf="auth.loggedIn">Profile Page</button>
+          <button mat-menu-item routerLink="/about">About</button>
         </mat-menu>
     </span>
   </div>
@@ -19,7 +19,7 @@
 
   <div class="container hf1" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'4px'">
     <span>
-      {{ title }} – {{ subtitle }}
+      {{ title }} {{ subtitle }}
     </span>
     
   </div>

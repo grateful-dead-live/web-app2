@@ -14,8 +14,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  //{ path: '', redirectTo: '/start', pathMatch: 'full' },
-  { path: '', component: StartComponent },
+  //{ path: '', redirectTo: '/mapselect', pathMatch: 'full' },
+  { path: '', component: MapSelectComponent },
   { path: 'show', component: ShowComponent },
   { path: 'show/:id', component: ShowComponent },
   { path: 'location', component: LocationComponent },
@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'artifacts', component: ArtifactsComponent },
   { path: 'artifacts/:types', component: ArtifactsComponent },
   { path: 'mapselect', component: MapSelectComponent },
-  { path: 'start', component: StartComponent },
+  { path: 'about', component: StartComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
