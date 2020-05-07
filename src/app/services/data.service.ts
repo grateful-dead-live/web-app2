@@ -181,4 +181,12 @@ export class DataService {
     return this.apiService.getSearchResult(q);
   }
 
+  async testPostMongo(userid: string, data: string): Promise<any> {
+    return this.apiService.postMongo(userid, data);
+  }
+
+  async testDelMongo(userid: string): Promise<any> {
+    return this.apiService.delMongo(userid);
+  }
+
 }

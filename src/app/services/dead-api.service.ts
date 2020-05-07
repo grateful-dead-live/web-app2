@@ -76,8 +76,23 @@ export class DeadApiService {
       .catch(e => console.log(e));
   }
 
+  async getTextFromApi(path: string): Promise<any> {
+    return fetch(this.API_URL+path)
+      .then(r => r.text())
+      .catch(e => console.log(e));
+  }
+
   async getSearchResult(q: string): Promise<any> {
     return this.getJsonFromApi('search?q='+encodeURIComponent(q));
+  }
+
+  
+  async postMongo(userid: string, data: string): Promise<any> {
+    return this.getTextFromApi('postMongo?userid='+userid+'&data='+data);
+  }
+
+  async delMongo(userid: string): Promise<any> {
+    return this.getTextFromApi('delMongo?userid='+userid);
   }
 
 }
