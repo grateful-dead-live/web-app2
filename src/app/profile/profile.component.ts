@@ -8,26 +8,27 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  currentUser: any;
-  userId: string;
-
   constructor(public auth: AuthService, private data: DataService) { }
 
   ngOnInit() {
+    /*
     this.auth.userProfile$.subscribe(userProfile => {
-      this.currentUser = userProfile;
-      this.userId = this.currentUser.sub.split("|")[1]; 
-    });
-    console.log(this.userId);
+     this.currentUser = userProfile;
+     this.userId = this.currentUser.sub.split("|")[1];
+   });
+   console.log(this.userId);
+   */
   }
 
-  async onButton(d){
-    var result = await this.data.testPostMongo(this.userId, d);
+  async onButton(userId, d){
+    userId = userId.split('|')[1];
+    var result = await this.data.testPostMongo(userId, d);
     console.log(result);
   }
 
-  async onButton2(){
-    var result = await this.data.testDelMongo(this.userId);
+  async onButton2(userId){
+    userId = userId.split('|')[1];
+    var result = await this.data.testDelMongo(userId);
     console.log(result);
   }
 

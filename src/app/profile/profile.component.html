@@ -1,10 +1,15 @@
 
-<gd-header *ngIf="auth.userProfile$ | async as profile" title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>
+<div *ngIf="auth.userProfile$ | async as profile">
+<gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>
 
 
-<pre *ngIf="auth.userProfile$ | async as profile">
+<pre>
   <code>{{ profile | json }}</code>
+  <button button class="button-basic" (click)="onButton(profile.sub, 'test')">test post</button>
+  <button button class="button-basic" (click)="onButton2(profile.sub)">test del</button>
 </pre>
-<button button class="button-basic" (click)="onButton('test')">test post</button>
-<button button class="button-basic" (click)="onButton2()">test del</button>
+
+
+</div>
+
 
