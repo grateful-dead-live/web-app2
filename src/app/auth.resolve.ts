@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
@@ -8,9 +7,9 @@ import { Observable } from 'rxjs';
 export class APIResolver implements Resolve<any> {
   constructor(private auth: AuthService) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
+  resolve(): Observable<boolean> {
     console.log('resolve');
-    return this.auth.isAuthenticated$ 
+    return this.auth.isAuthenticated$;
     }
 
 
