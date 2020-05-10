@@ -1,15 +1,24 @@
 
-<div *ngIf="auth.userProfile$ | async as profile">
-<gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>
-
-
+<!--<div *ngIf="auth.userProfile$ | async as profile">
+<gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>-->
+<div *ngIf="authenticated">
+<gd-header title='Profile' subtitle='{{ userName }}'></gd-header>
 <pre>
-  <code>{{ profile | json }}</code>
-  <button button class="button-basic" (click)="onButton(profile.sub, 'test')">test post</button>
-  <button button class="button-basic" (click)="onButton2(profile.sub)">test del</button>
+  <code>{{ currentUser | json }}</code>
+  <button button class="button-basic" (click)="onButton(userId, 'test')">test post</button>
+  <button button class="button-basic" (click)="onButton2(userId)">test del</button>
 </pre>
-
-
 </div>
+
+<div *ngIf="!authenticated">
+  <gd-header title='Profile'></gd-header>
+  <pre>
+    you are not logged in
+  </pre>
+  </div>
+
+
+
+<!--</div>-->
 
 

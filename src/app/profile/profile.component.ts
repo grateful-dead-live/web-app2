@@ -10,24 +10,46 @@ import { DataService } from '../services/data.service';
 export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService, private data: DataService) { }
 
+  protected currentUser: any;
+  protected userId: string;
+  protected userName: string;
+  protected authenticated: boolean;
+
   ngOnInit() {
-    /*
-    this.auth.userProfile$.subscribe(userProfile => {
-     this.currentUser = userProfile;
-     this.userId = this.currentUser.sub.split("|")[1];
-   });
-   console.log(this.userId);
-   */
+
+    this.auth.isAuthenticated$.subscribe(a => {
+      this.authenticated = a;
+      console.log(this.authenticated);
+      if (this.authenticated) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.currentUser = userProfile;
+        this.userId = this.currentUser.sub.split("|")[1];
+        this.userName = this.currentUser['http://example.com/username'];
+        console.log(this.userId)
+      });}
+    
+    });
+  
+    
+/*
+    if (this.authenticated == true) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.currentUser = userProfile;
+        this.userId = this.currentUser.sub.split("|")[1];
+        this.userName = this.currentUser['http://example.com/username'];
+      });
+    console.log(this.userId)
+    }*/
   }
 
   async onButton(userId, d){
-    userId = userId.split('|')[1];
+    //userId = userId.split('|')[1];
     var result = await this.data.testPostMongo(userId, d);
     console.log(result);
   }
 
   async onButton2(userId){
-    userId = userId.split('|')[1];
+    //userId = userId.split('|')[1];
     var result = await this.data.testDelMongo(userId);
     console.log(result);
   }

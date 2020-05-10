@@ -42,6 +42,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ButtonDirective } from './button.directive';
 import { ProfileComponent } from './profile/profile.component';
 
+import { AuthGuard } from './auth.guard';
+import { APIResolver } from './auth.resolve';
 
 
 @NgModule({
@@ -88,7 +90,9 @@ import { ProfileComponent } from './profile/profile.component';
     PlayerService,
     DialogService,
     //{provide: LocationStrategy, useClass: HashLocationStrategy},
-    CookieService
+    CookieService,
+    AuthGuard,
+    APIResolver
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent]
