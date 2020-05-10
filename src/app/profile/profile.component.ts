@@ -35,10 +35,10 @@ export class ProfileComponent implements OnInit {
   
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
-        this.currentUser = userProfile;
-        this.userProfile = this.resolve.getUser(userProfile);
+        this.userProfile = userProfile;
+        this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.userProfile);
+      console.log(this.currentUser);
     }
     
 /*
