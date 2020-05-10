@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   protected userProfile: any;
 
   ngOnInit() {
-
+    /*
     this.auth.isAuthenticated$.subscribe(a => {
       this.authenticated = a;
       console.log(this.authenticated);
@@ -31,10 +31,11 @@ export class ProfileComponent implements OnInit {
         console.log(this.userId)
       });}
     
-    });
+    }); */
   
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
+        this.currentUser = userProfile;
         this.userProfile = this.resolve.getUser(userProfile);
       });
       console.log(this.userProfile);

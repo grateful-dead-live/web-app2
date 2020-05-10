@@ -11,7 +11,6 @@ import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent } from './views/mapselect.component';
 import { StartComponent } from './views/start.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AuthGuard } from './auth.guard';
 import { APIResolver } from './auth.resolve';
 
 const routes: Routes = [
@@ -33,7 +32,7 @@ const routes: Routes = [
   { path: 'artifacts/:types', component: ArtifactsComponent, resolve: { loggedIn: APIResolver} },
   { path: 'mapselect', component: MapSelectComponent, resolve: { loggedIn: APIResolver} },
   { path: 'about', component: StartComponent, resolve: { loggedIn: APIResolver} },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], resolve: { loggedIn: APIResolver} }
+  { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} }
 ];
 
 @NgModule({
