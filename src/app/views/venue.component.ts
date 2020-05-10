@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Venue } from '../services/types';
+import { AuthService } from '../auth.service';
+import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-venue',
@@ -10,11 +12,20 @@ import { Venue } from '../services/types';
 export class VenueComponent {
   protected venue: Venue;
   protected location: string;
+
+  protected userProfile: any;
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
   
   async ngOnInit() {
+    if (this.route.snapshot.data['loggedIn']) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.userProfile = this.resolve.getUser(userProfile);
+      });
+      console.log(this.userProfile);
+    }
+
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.venue = await this.data.getVenue(params.get('id'));

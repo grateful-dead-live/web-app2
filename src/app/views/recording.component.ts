@@ -4,6 +4,8 @@ import { DataService } from '../services/data.service';
 import { RecordingDetails, DeadEventInfo, SongInfo, AudioTrack } from '../services/types';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
+import { AuthService } from '../auth.service';
+import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-recording',
@@ -12,12 +14,19 @@ import { DialogService } from '../services/dialog.service';
 export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
+  protected currentUser: any;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
-    private player: PlayerService) {}
-  
-  async ngOnInit() {
+    private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {}
+
+  ngOnInit() {
+    if (this.route.snapshot.data['loggedIn']) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.currentUser = this.resolve.getUser(userProfile);
+      });
+      console.log(this.currentUser);
+    }
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.recording = await this.data.getRecording(params.get('id'));

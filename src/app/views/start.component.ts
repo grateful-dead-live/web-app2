@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
+import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-start',
@@ -17,26 +18,19 @@ export class StartComponent {
   part7: String;
 
   protected currentUser: any;
-  protected userId: string;
-  protected userName: string;
-  protected authenticated: boolean;
-  protected loggedIn: any;
   
   constructor(private sanitizer: DomSanitizer,
-    private router: Router, private route: ActivatedRoute, public auth: AuthService) {}
+    private router: Router, private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
 
   ngOnInit() {
-    this.loggedIn = this.route.snapshot.data['loggedIn'];
-    if (this.loggedIn){
+    if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
-        this.currentUser = userProfile;
-        this.userId = this.currentUser.sub.split("|")[1];
-        this.userName = this.currentUser['http://example.com/username'];
+        this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log("logged in (" + this.userId + ")");
+      console.log(this.currentUser);
     }
-    
-
+ 
+  
     this.part1 = "gdc";
     this.part2 = "oncert";
     this.part3 = "explo";

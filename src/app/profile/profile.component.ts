@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DataService } from '../services/data.service';
+import { APIResolver } from '../auth.resolve';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -8,12 +10,13 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService, private data: DataService) { }
+  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute) { }
 
   protected currentUser: any;
   protected userId: string;
   protected userName: string;
   protected authenticated: boolean;
+  protected userProfile: any;
 
   ngOnInit() {
 
@@ -30,6 +33,12 @@ export class ProfileComponent implements OnInit {
     
     });
   
+    if (this.route.snapshot.data['loggedIn']) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.userProfile = this.resolve.getUser(userProfile);
+      });
+      console.log(this.userProfile);
+    }
     
 /*
     if (this.authenticated == true) {

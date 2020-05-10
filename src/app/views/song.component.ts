@@ -5,6 +5,8 @@ import { SongDetails, DeadEventInfo } from '../services/types';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
+import { AuthService } from '../auth.service';
+import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-song',
@@ -19,12 +21,20 @@ export class SongComponent {
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
+  protected currentUser: any;
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService) {}
+    private dialog: DialogService, public auth: AuthService, public resolve: APIResolver) {}
 
   async ngOnInit() {
+    if (this.route.snapshot.data['loggedIn']) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.currentUser = this.resolve.getUser(userProfile);
+      });
+      console.log(this.currentUser);
+    }
+
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));

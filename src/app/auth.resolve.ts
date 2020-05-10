@@ -11,13 +11,19 @@ export class APIResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot): Observable<boolean> {
     console.log('resolve');
     return this.auth.isAuthenticated$ 
-    /*.pipe(
-        tap(loggedIn => { 
-          console.log(loggedIn);
-        //if (!loggedIn) {
-        //    this.auth.login(state.url);
-        //  }
-        })
-      ); */
     }
+
+
+  getUser(loggedIn) {
+    var currentUser = 
+        {
+            userId: loggedIn.sub.split("|")[1],
+            userName: loggedIn['http://example.com/username']
+        }
+    return currentUser;
+  }
+
+
+
+
 }

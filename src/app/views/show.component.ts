@@ -5,7 +5,8 @@ import { DeadEventDetails, Artifact, SongInfo, ArtifactType, Recording } from '.
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
-
+import { AuthService } from '../auth.service';
+import { APIResolver } from '../auth.resolve';
 
 
 @Component({
@@ -20,14 +21,20 @@ export class ShowComponent {
   protected photos: Artifact[];
   protected artifacts: Artifact[];
   protected eventImage: string;
-
+  protected currentUser: any;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, private player: PlayerService) {}
- 
-  
-  async ngOnInit() {
+    private dialog: DialogService, private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {}
+
+    async ngOnInit() {
+      if (this.route.snapshot.data['loggedIn']) {
+        this.auth.userProfile$.subscribe(userProfile => {
+          this.currentUser = this.resolve.getUser(userProfile);
+        });
+        console.log(this.currentUser);
+      }
+      
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.event = await this.data.getEventDetails(params.get('id'));
