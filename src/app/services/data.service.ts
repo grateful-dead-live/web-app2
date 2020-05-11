@@ -181,12 +181,12 @@ export class DataService {
     return this.apiService.getSearchResult(q);
   }
 
-  async testPostMongo(userid: string, data: string): Promise<any> {
-    return this.apiService.postMongo(userid, data);
+  async addBookmark(userid: string, route: string): Promise<any> {
+    return this.apiService.addBookmark(userid, route);
   }
 
-  async testDelMongo(userid: string): Promise<any> {
-    return this.apiService.delMongo(userid);
+  async delBookmark(userid: string, route: string): Promise<any> {
+    return this.apiService.delBookmark(userid, route);
   }
 
 }

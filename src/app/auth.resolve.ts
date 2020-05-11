@@ -14,15 +14,10 @@ export class APIResolver implements Resolve<any> {
 
 
   getUser(loggedIn) {
-    var currentUser = 
-        {
-            userId: loggedIn.sub.split("|")[1],
-            userName: loggedIn['http://example.com/username']
-        }
-    return currentUser;
+    return {
+      userId: loggedIn.sub.split("|")[1],
+      userName: loggedIn['http://example.com/username']
+    }
   }
-
-
-
 
 }

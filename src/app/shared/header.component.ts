@@ -1,12 +1,13 @@
 import { Component, Input, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { VIEWS } from '../globals';
+//import { VIEWS } from '../globals';
 //import * as Fuse from 'fuse.js';
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
-
+import { APIResolver } from '../auth.resolve';
+import { Router } from '@angular/router';
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
 
@@ -23,19 +24,28 @@ export class HeaderComponent {
   @Input() subtitle: string;
   //@ViewChild('input') input: ElementRef;
   protected image: SafeStyle;
-  protected views = VIEWS;
-  protected fuse: any;
+  //protected views = VIEWS;
+  //protected fuse: any;
   protected result: any;
   protected searchState: any;
+  protected currentUser: any;
+
   
   
-  
-  constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, public auth: AuthService) {}
+  constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
+    public auth: AuthService, public resolve: APIResolver, private router: Router) {}
   
 ngOnInit() {
     this.searchState = 0;
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
     this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
+
+    if (this.auth.loggedIn) {
+      this.auth.userProfile$.subscribe(userProfile => {
+        this.currentUser = this.resolve.getUser(userProfile);
+      });
+    }
+    
   }
 
 

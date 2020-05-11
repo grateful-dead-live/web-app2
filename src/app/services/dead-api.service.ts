@@ -87,12 +87,12 @@ export class DeadApiService {
   }
 
   
-  async postMongo(userid: string, data: string): Promise<any> {
-    return this.getTextFromApi('postMongo?userid='+userid+'&data='+data);
+  async addBookmark(userid: string, route: string): Promise<any> {
+    return this.getTextFromApi('addBookmark?userid='+userid+'&route='+route);
   }
 
-  async delMongo(userid: string): Promise<any> {
-    return this.getTextFromApi('delMongo?userid='+userid);
+  async delBookmark(userid: string, route: string): Promise<any> {
+    return this.getTextFromApi('delBookmark?userid='+userid+'&route='+route);
   }
 
 }

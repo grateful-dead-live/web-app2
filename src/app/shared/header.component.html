@@ -19,6 +19,9 @@
   <div class="container hf1" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'4px'">
     <span>
       {{ title }} {{ subtitle }}
+      <button *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile'))" mat-icon-button color="accent">
+        <mat-icon>bookmark</mat-icon>
+      </button>
     </span>
     
   </div>
@@ -28,8 +31,9 @@
   <p *ngIf="!searchState" [style.margin-right]="'25px'"></p>
   <div *ngIf="searchState" [style.margin-top]="'8px'" [style.margin-right]="'5px'"><mat-spinner diameter="20"></mat-spinner></div>
   <input [disabled]="searchState==1" #searchfield placeholder="Search" (keydown.enter)="onSubmit(searchfield.value)">
-  
 
+
+  
  
 
 </div>

@@ -2,11 +2,11 @@
 <!--<div *ngIf="auth.userProfile$ | async as profile">
 <gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>-->
 <div *ngIf="currentUser">
-<gd-header title='Profile' subtitle='{{ userName }}'></gd-header>
+<gd-header title='Profile' subtitle='{{ currentUser.userName }}'></gd-header>
 <pre>
   <code>{{ userProfile | json }}</code>
-  <button button class="button-basic" (click)="onButton(userId, 'test')">test post</button>
-  <button button class="button-basic" (click)="onButton2(userId)">test del</button>
+  <button button class="button-basic" (click)="onButton(currentUser.userId, 'show/show_01d9af11027343d5889eebb93418bd60')">test post</button>
+  <button button class="button-basic" (click)="onButton2(currentUser.userId, 'show/show_dcb0370d5bf14ce08624d455d031e65f')">test del</button>
 </pre>
 </div>
 
