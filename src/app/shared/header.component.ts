@@ -72,7 +72,14 @@ ngOnInit() {
     //dialogConfig.disableClose = true;
     //dialogConfig.autoFocus = true;
     this.dialog.open(SearchDialogComponent, dialogConfig);
-}
+  }
+
+  async onBookmarkButton(route){
+    var result = await this.data.addBookmark(this.currentUser.userId, route);
+    console.log(result);
+  }
+
+ 
 
  
 }

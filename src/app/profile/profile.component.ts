@@ -36,16 +36,4 @@ export class ProfileComponent implements OnInit {
     }*/
   }
 
-  async onButton(userId, route){
-    //userId = userId.split('|')[1];
-    var result = await this.data.addBookmark(userId, route);
-    console.log(result);
-  }
-
-  async onButton2(userId, route){
-    //userId = userId.split('|')[1];
-    var result = await this.data.delBookmark(userId, route);
-    console.log(result);
-  }
-
 }
