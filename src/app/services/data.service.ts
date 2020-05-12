@@ -189,4 +189,8 @@ export class DataService {
     return this.apiService.delBookmark(userid, route);
   }
 
+  async getBookmarks(userid: string): Promise<any> {
+    return this.apiService.getBookmarks(userid);
+  }
+
 }

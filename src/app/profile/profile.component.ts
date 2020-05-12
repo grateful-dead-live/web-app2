@@ -15,15 +15,21 @@ export class ProfileComponent implements OnInit {
   protected currentUser: any;
   protected authenticated: boolean;
   protected userProfile: any;
+  protected bookmarks: any;
+  protected bookmarkTypes: any;
 
   ngOnInit() {
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.userProfile = userProfile;
         this.currentUser = this.resolve.getUser(userProfile);
+        this.getBookmarks();
       });
       console.log(this.currentUser);
     }
+
+    
+    
     
 /*
     if (this.authenticated == true) {
@@ -35,5 +41,14 @@ export class ProfileComponent implements OnInit {
     console.log(this.userId)
     }*/
   }
+
+  async getBookmarks(){
+    //userId = userId.split('|')[1];
+    var result = await this.data.getBookmarks(this.currentUser.userId);
+    this.bookmarks = JSON.parse(result)[0].bookmarks;
+    this.bookmarkTypes = Object.keys(this.bookmarks);
+    console.log(this.bookmarks)
+  }
+
 
 }

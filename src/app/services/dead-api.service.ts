@@ -95,4 +95,9 @@ export class DeadApiService {
     return this.getTextFromApi('delBookmark?userid='+userid+'&route='+route);
   }
 
+  async getBookmarks(userid: string): Promise<any> {
+    return this.getTextFromApi('getBookmarks?userid='+userid);
+  }
+
+
 }
