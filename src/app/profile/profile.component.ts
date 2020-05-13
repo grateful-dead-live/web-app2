@@ -43,8 +43,8 @@ export class ProfileComponent implements OnInit {
   }
 
   async getBookmarks(){
-    //userId = userId.split('|')[1];
     var result = await this.data.getBookmarks(this.currentUser.userId);
+    console.log(result);
     this.bookmarks = JSON.parse(result)[0].bookmarks;
     this.bookmarkTypes = Object.keys(this.bookmarks);
     console.log(this.bookmarks)
