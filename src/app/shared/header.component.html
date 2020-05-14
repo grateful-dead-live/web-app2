@@ -18,11 +18,12 @@
 
   <div class="container hf1" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'4px'">
     <span>
-      {{ title }} {{ subtitle }} {{bookmarked}}
+      {{ title }} {{ subtitle }}
       <span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile'))">
-      <button mat-icon-button [color]="bookmarked" (click)="onBookmarkButton(router.url)">
-        <mat-icon>bookmark</mat-icon>
-      </button>
+        <button mat-icon-button color="" (click)="onBookmarkButton()">
+          <mat-icon *ngIf="bookmarked">bookmark</mat-icon>
+          <mat-icon *ngIf="!bookmarked">bookmark_border</mat-icon>
+        </button>
     </span>
     </span>
     

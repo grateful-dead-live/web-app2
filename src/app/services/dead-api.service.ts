@@ -100,9 +100,7 @@ export class DeadApiService {
   }
 
   async checkBookmark(userid: string, route: string): Promise<any> {
-    //return this.getTextFromApi('checkBookmark?userid='+userid+'&route='+route);
-    return fetch(this.API_URL+'checkBookmark?userid='+userid+'&route='+route)
-      .catch(e => console.log(e));
+    return this.getTextFromApi('checkBookmark?userid='+userid+'&route='+route);
   }
 
 

@@ -29,7 +29,7 @@ export class HeaderComponent {
   protected result: any;
   protected searchState: any;
   protected currentUser: any;
-  protected bookmarked: any;
+  protected bookmarked: boolean;
 
   
   
@@ -37,7 +37,7 @@ export class HeaderComponent {
     public auth: AuthService, public resolve: APIResolver, private router: Router) {}
   
 ngOnInit() {
-    this.bookmarked = "";
+    this.bookmarked = false;
     this.searchState = 0;
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
     this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
@@ -45,7 +45,7 @@ ngOnInit() {
     if (this.auth.loggedIn) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
-        if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/mapselect') ))
+        if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
         { this.checkBookmark() };
       });
     }
@@ -76,15 +76,20 @@ ngOnInit() {
     this.dialog.open(SearchDialogComponent, dialogConfig);
   }
 
-  async onBookmarkButton(route){
-      //var result = await this.data.delBookmark(this.currentUser.userId, route);
-      var result = await this.data.checkBookmark(this.currentUser.userId, this.router.url);
-      console.log(result);
+  async onBookmarkButton(){
+    if (this.bookmarked == false){
+      await this.data.addBookmark(this.currentUser.userId, this.router.url);
+    } else {
+      await this.data.delBookmark(this.currentUser.userId, this.router.url);
+    }
+    this.checkBookmark();
   }
 
+
   async checkBookmark(){
-    var r = await this.data.checkBookmark(this.currentUser.userId, this.router.url);
-    console.log(r);
+    var b = await this.data.checkBookmark(this.currentUser.userId, this.router.url);
+    this.bookmarked = Boolean(JSON.parse(b));
+    console.log("bookmark: "+this.bookmarked)
   }
 
  
