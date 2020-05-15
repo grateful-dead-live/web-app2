@@ -9,23 +9,23 @@
 <div *ngIf="bookmarks">
   Bookmarks
     <div *ngFor="let t of bookmarkTypes">
-      {{t}}:
-      <div *ngFor="let b of bookmarks[t]">
+      <div class *ngIf="bookmarks[t]?.length > 0">
+        <br>{{t+'s' |titlecase}}:
+        <div *ngFor="let b of bookmarks[t]">
         <u class="field"
         [routerLink]="['/'+t, b]">
-      {{ b }}
-      </u>
-      </div>
+        {{ b }}
+        </u>
+        </div>
     </div>
   </div>
+</div>
 </div>
 
 <div *ngIf="!currentUser">
   <gd-header title='Profile'></gd-header>
-  <pre>
-    you are not logged in
-  </pre>
-  </div>
+  <pre>you are not logged in</pre>
+</div>
 
 
 
