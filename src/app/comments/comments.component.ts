@@ -65,6 +65,7 @@ export class CommentsComponent implements OnInit {
   async getComments(){
     var result = await this.data.getComments(this.router.url);
     this.allComments = JSON.parse(result)[0][this.router.url.split('/')[2]];
+    if (!this.allComments) { this.allComments = [] }
     console.log(this.allComments)
   }
 
