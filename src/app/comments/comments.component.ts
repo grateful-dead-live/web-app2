@@ -76,7 +76,7 @@ export class CommentsComponent implements OnInit {
     console.log(this.msgId)
     return await this.data.checkComment(this.msgId, this.router.url)
     .then(b => {
-      console.log(b.length);
+      console.log(b);
       return Boolean(Number(b));
       }
     )}
