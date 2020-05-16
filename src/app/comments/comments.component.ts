@@ -19,7 +19,7 @@ export class CommentsComponent implements OnInit {
   placeholderText=  'Write a comment...!!!';
   @Input() currentUserId:  string;
   allComments:  Array<CommentPayload>;
-
+  msgId: any
 
   /*allComments:  Array<CommentPayload> = [
       {msgId:  4, userId:  9, msg:  'This is 2nd test comment', timestamp:  '21st Sept 2019', userName:  'John Doe', userImagePath:  '../assets/logo.png'},
@@ -34,9 +34,9 @@ export class CommentsComponent implements OnInit {
 
   async sendMessage(msgPayload:  string) {
       // Constructing a desired object of type CommentPayload to be added to allComments
-      const msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+      this.msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
       const  payload  = {
-          msgId:  msgId,
+          msgId:  this.msgId,
           msg:  msgPayload,
           timestamp:  '21st Sept 2019',
           userName:  this.heading,
@@ -51,7 +51,7 @@ export class CommentsComponent implements OnInit {
     } catch (e) {
         console.error(e);
     } 
-    if (await this.checkComment(msgId)){
+    if (await this.checkComment()){
       this.allComments.push(payload);
     }
   }
@@ -72,11 +72,11 @@ export class CommentsComponent implements OnInit {
     await this.data.addComment(p, this.router.url);
   }
 
-  async checkComment(msgId) {
-    console.log(msgId.toString())
-    return await this.data.checkComment(msgId, this.router.url)
+  async checkComment() {
+    console.log(this.msgId)
+    return await this.data.checkComment(this.msgId, this.router.url)
     .then(b => {
-      console.log(b);
+      console.log(b.length);
       return Boolean(Number(b));
       }
     )}

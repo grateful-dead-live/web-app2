@@ -113,7 +113,7 @@ export class DeadApiService {
   }
 
   async checkComment(msgId: Number, route: string): Promise<any> {
-    return this.getTextFromApi('checkComment?msgId='+msgId+'&route='+route);
+    return this.getJsonFromApi('checkComment?msgId='+msgId+'&route='+route);
   }
 
 }
