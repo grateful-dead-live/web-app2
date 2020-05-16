@@ -103,5 +103,17 @@ export class DeadApiService {
     return this.getTextFromApi('checkBookmark?userid='+userid+'&route='+route);
   }
 
+  async getComments(route: string): Promise<any> {
+    return this.getTextFromApi('getComments?route='+route);
+  }
+
+  async addComment(comment: any, route: string): Promise<any> {
+    const cmt = encodeURIComponent(JSON.stringify(comment));
+    return this.getTextFromApi('addComment?comment='+cmt+'&route='+route);
+  }
+
+  async checkComment(msgId: Number, route: string): Promise<any> {
+    return this.getTextFromApi('checkComment?msgId='+msgId+'&route='+route);
+  }
 
 }

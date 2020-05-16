@@ -197,4 +197,16 @@ export class DataService {
     return this.apiService.checkBookmark(userid, route);
   }
 
+  async getComments(route: string): Promise<any> {
+    return this.apiService.getComments(route);
+  }
+
+  async addComment(comment: any, route: string): Promise<any> {
+    return this.apiService.addComment(comment, route);
+  }
+
+  async checkComment(msgId: Number, route: string): Promise<any> {
+    return this.apiService.checkComment(msgId, route);
+  }
+
 }
