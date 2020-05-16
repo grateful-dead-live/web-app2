@@ -43,7 +43,8 @@ import { ButtonDirective } from './button.directive';
 import { ProfileComponent } from './profile/profile.component';
 
 import { APIResolver } from './auth.resolve';
-
+import { ChatterBoxModule } from '@iam_vishalkhare/chatter-box';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { APIResolver } from './auth.resolve';
     MapSelectComponent,
     StartComponent,
     ButtonDirective,
-    ProfileComponent
+    ProfileComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,8 @@ import { APIResolver } from './auth.resolve';
     LazyLoadImageModule,
     LeafletModule.forRoot(),
     MatSliderModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ChatterBoxModule
   ],
   providers: [
     DeadApiService,

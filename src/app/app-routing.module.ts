@@ -12,6 +12,7 @@ import { MapSelectComponent } from './views/mapselect.component';
 import { StartComponent } from './views/start.component';
 import { ProfileComponent } from './profile/profile.component';
 import { APIResolver } from './auth.resolve';
+import { CommentsComponent } from './comments/comments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mapselect', pathMatch: 'full' },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'artifacts/:types', component: ArtifactsComponent, resolve: { loggedIn: APIResolver} },
   { path: 'mapselect', component: MapSelectComponent, resolve: { loggedIn: APIResolver} },
   { path: 'about', component: StartComponent, resolve: { loggedIn: APIResolver} },
-  { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} }
+  { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} },
+  { path: 'comments', component: CommentsComponent, resolve: { loggedIn: APIResolver} }
 ];
 
 @NgModule({
