@@ -1,0 +1,65 @@
+{
+  "_from": "@iam_vishalkhare/chatter-box",
+  "_id": "@iam_vishalkhare/chatter-box@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-XNY79yyDrGBlM52TYQGHWX6hOABqdIubDUU3qvkz47MNKvKysF+AzA/WAcop2L3/Bb2kjgG+rSx3stlvEXxaVw==",
+  "_location": "/@iam_vishalkhare/chatter-box",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@iam_vishalkhare/chatter-box",
+    "name": "@iam_vishalkhare/chatter-box",
+    "escapedName": "@iam_vishalkhare%2fchatter-box",
+    "scope": "@iam_vishalkhare",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@iam_vishalkhare/chatter-box/-/chatter-box-1.0.5.tgz",
+  "_shasum": "abd27df392670456556a6426f0393cff7fd5a925",
+  "_spec": "@iam_vishalkhare/chatter-box",
+  "_where": "/Volumes/Journal/projects/grateful_dead_2019_git/web-app2/src/app",
+  "author": {
+    "name": "Vishal Khare",
+    "email": "vishalkhare39@gmail.com",
+    "url": "https://medium.com/@iamvishalkhare"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "deprecated": false,
+  "description": "ChatterBox is an angular component library planned to be utilized as chat or comment component needed for an angular application development.",
+  "es2015": "fesm2015/iam_vishalkhare-chatter-box.js",
+  "esm2015": "esm2015/iam_vishalkhare-chatter-box.js",
+  "esm5": "esm5/iam_vishalkhare-chatter-box.js",
+  "fesm2015": "fesm2015/iam_vishalkhare-chatter-box.js",
+  "fesm5": "fesm5/iam_vishalkhare-chatter-box.js",
+  "keywords": [
+    "chatter-box",
+    "chat-box",
+    "comment",
+    "comment-box",
+    "angular-comment",
+    "group-chat",
+    "one-on-one-chat",
+    "angular-component",
+    "chatbot"
+  ],
+  "main": "bundles/iam_vishalkhare-chatter-box.umd.js",
+  "metadata": "iam_vishalkhare-chatter-box.metadata.json",
+  "module": "fesm5/iam_vishalkhare-chatter-box.js",
+  "name": "@iam_vishalkhare/chatter-box",
+  "peerDependencies": {
+    "@angular/common": "^8.0.3",
+    "@angular/core": "^8.0.3"
+  },
+  "sideEffects": false,
+  "typings": "iam_vishalkhare-chatter-box.d.ts",
+  "version": "1.0.5"
+}

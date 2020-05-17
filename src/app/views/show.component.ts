@@ -28,6 +28,7 @@ export class ShowComponent {
     private dialog: DialogService, private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {}
 
     async ngOnInit() {
+      this.currentUser = { userName: '', userId: ''}
       if (this.route.snapshot.data['loggedIn']) {
         this.auth.userProfile$.subscribe(userProfile => {
           this.currentUser = this.resolve.getUser(userProfile);

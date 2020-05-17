@@ -43,7 +43,7 @@ import { ButtonDirective } from './button.directive';
 import { ProfileComponent } from './profile/profile.component';
 
 import { APIResolver } from './auth.resolve';
-import { ChatterBoxModule } from '@iam_vishalkhare/chatter-box';
+import { ChatterBoxModule } from './chatter-box';
 import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({

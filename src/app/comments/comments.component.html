@@ -1,15 +1,25 @@
-<div  style="height: 600px; width: 400px;">
-  <vis-chatterBox
+<div  style="height: auto; width: auto;">
+  <vis-chatterBox *ngIf='heading != ""'
       [heading]=heading
       [headerImage]=headerImage
       [allComments]=allComments
-      [inputMaxLength]=inputMaxLength
+      [inputMaxLength]=500
       [currentUserId]=currentUserId
       [showErrorDiv]=showErrorDiv
       [errorMsg]=errorMsg
       [placeholderText]=placeholderText
       (onKeyupEnter)=sendMessage($event)
-      (onKeyup)=onKeyUp(message)
+  >
+  </vis-chatterBox>
+
+  <vis-chatterBox *ngIf='heading == ""'
+      heading=""
+      [headerImage]=headerImage
+      [allComments]=allComments
+      [inputMaxLength]=500
+      [showErrorDiv]=showErrorDiv
+      [errorMsg]=errorMsg
+      placeholderText="please log in to comment"
   >
   </vis-chatterBox>
 </div>

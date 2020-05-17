@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommentPayload } from '@iam_vishalkhare/chatter-box';
+import { CommentPayload } from '../chatter-box';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -19,6 +19,7 @@ export class CommentsComponent implements OnInit {
   placeholderText=  'Write a comment...!!!';
   @Input() currentUserId:  string;
   allComments:  Array<CommentPayload>;
+
   //msgId: any
 
   /*allComments:  Array<CommentPayload> = [
