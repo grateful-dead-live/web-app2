@@ -51,7 +51,7 @@ export class CommentsComponent implements OnInit {
         console.error(e);
     } 
     if (await this.checkComment(msgId)){
-      payload.timestamp = this.formatTimeHHMMA(timestamp);
+      payload.timestamp = this.formatTime(timestamp);
       this.allComments.push(payload);
     }
   }
@@ -65,7 +65,7 @@ export class CommentsComponent implements OnInit {
     var jresult = JSON.parse(result)[0][this.router.url.split('/')[2]];
     if (jresult) { 
       for (var i in jresult) {
-        jresult[i].timestamp = this.formatTimeHHMMA(new Date(Number(jresult[i].timestamp)));
+        jresult[i].timestamp = this.formatTime(new Date(Number(jresult[i].timestamp)));
       };
       this.allComments = jresult;
     } else {
@@ -87,7 +87,7 @@ export class CommentsComponent implements OnInit {
       })
   }
 
-  formatTimeHHMMA(d) {
+  formatTime(d) {
     function z(n){return (n<10?'0':'')+n}
     return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
   }
