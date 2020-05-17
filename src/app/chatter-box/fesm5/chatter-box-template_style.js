@@ -1,12 +1,14 @@
 export const strTemplate = `
   <div class="vis-chat-window">
     <div class="vis-chat-window-header">
-    <img *ngIf="headerImage !== null && headerImage !== undefined"
+
+    <!-- <img *ngIf="headerImage !== null && headerImage !== undefined"
                             [src]="headerImage"
                             alt="user"
-                            class="user-image"/>
+                            class="user-image"/> -->
+
         <div class="vis-chat-window-header-text">
-            {{heading}}
+            Comments <!--{{heading}}-->
         </div>
     </div>
     <div class="vis-chat-window-body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
@@ -16,7 +18,8 @@ export const strTemplate = `
         <div *ngIf="!showErrorDiv">
             <div *ngFor="let comment of allComments">
               <div [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'comment-currentUser' : 'comment') :'comment'">
-                <div class="col-2">
+
+                <!-- <div class="col-2">
                     <img *ngIf="!showImageOrDiv(comment)"
                             src="{{comment.userImagePath}}"
                             alt="user"
@@ -25,7 +28,8 @@ export const strTemplate = `
                     <div *ngIf="showImageOrDiv(comment)" class="user-image color-gray">
                       {{comment.userName[0]}}
                     </div>
-                </div>
+                </div> -->
+
                 <div class="comment-bubble col-10" [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'comment-bubble-currentUser col-10' : 'comment-bubble col-10') :'comment-bubble col-10'">
                     <div [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'user-name' : 'user-name color-gray') :'user-name color-gray'">
                         {{comment.userName}}
@@ -64,13 +68,14 @@ export const strTemplate = `
       font-family: 'Roboto';
     }
     .vis-chat-window-header {
-      display: flex;
-      justify-content: flex-start;
-      background-color: #dc3030;
-      color: #ffffff;
-      padding: 0.8em;
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
+      //display: flex;
+      //justify-content: flex-start;
+      background-color: #ffffff;
+      color: #000000;
+      //padding: 0.8em;
+      //border-top-right-radius: 10px;
+      //border-top-left-radius: 10px;
+      font-size: 1.5em;
     }
     .vis-chat-window-body {
       height: -webkit-fill-available;
@@ -83,17 +88,17 @@ export const strTemplate = `
       display: flex;
       flex-direction: column;
       width: -webkit-fill-available;
-      background-color: #dc3030;
-      border-bottom-right-radius: 10px;
-      border-bottom-left-radius: 10px;
-      border-right: #215AA8 solid 1px;
-      border-left: #215AA8 solid 1px;
+      background-color: #ffffff;
+      //border-bottom-right-radius: 10px;
+      //border-bottom-left-radius: 10px;
+      //border-right: #215AA8 solid 1px;
+      //border-left: #215AA8 solid 1px;
     }
     .vis-chat-window-header-text {
-      font-size: 1.5em;
-      font-weight: bold;
+      font-size: 1em;
+      //font-weight: bold;
       vertical-align: middle;
-      line-height: 50px;
+      //line-height: 50px;
       margin-left: 0.8em;
     }
     .vis-chat-window-header-minimize:hover {
@@ -107,10 +112,11 @@ export const strTemplate = `
       padding-left: 0.8em;
       text-decoration: none;
       border: none;
-      border-top: 1px solid #215AA8;
-      border-bottom: 1px solid #215AA8;
-      border-right: #215AA8 solid 0.5px;
-      border-left: #215AA8 solid 0.5px;
+      border-top: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
+      border-right: #cccccc solid 0.5px;
+      border-left: #cccccc solid 0.5px;
+      overflow: scroll;
     }
     #vis-comment-textField:focus {
       outline: none;
@@ -140,14 +146,14 @@ export const strTemplate = `
       font-size: 14px;
     }
     .comment {
-      display: flex;
+      //display: flex;
       justify-content: space-between;
       margin: 0.6em;
     }
     .comment-currentUser {
-      display: flex;
+      //display: flex;
       justify-content: space-between;
-      flex-direction: row-reverse;
+      //flex-direction: row-reverse;
       margin: 0.6em;
     }
     .user-image {
@@ -161,33 +167,33 @@ export const strTemplate = `
       font-size: 24px;
     }
     .comment-bubble {
-      background-color: #F6F5F8;
+      background-color: #f0f0f0;
       margin-left: 0.3em;
       margin-right: 0.3em;
       width: -webkit-fill-available;
-      border-top-right-radius: 15px;
-      border-bottom-right-radius: 15px;
-      border-bottom-left-radius: 15px;
+      //border-top-right-radius: 15px;
+      //border-bottom-right-radius: 15px;
+      //border-bottom-left-radius: 15px;
       color: #000000;
       padding: 1em;
-      font-size: 0.8em;
+      font-size: 1em;
     }
 
     .comment-bubble-currentUser{
-      background-color: #333399;
+      background-color: #f0f0f0;
       margin-left: 0.3em;
       margin-right: 0.3em;
       width: -webkit-fill-available;
-      border-top-left-radius: 15px;
-      border-bottom-right-radius: 15px;
-      border-bottom-left-radius: 15px;
-      border-top-right-radius: 0px;
-      color: #ffffff;
+      //border-top-left-radius: 15px;
+      //border-bottom-right-radius: 15px;
+      //border-bottom-left-radius: 15px;
+      //border-top-right-radius: 0px;
+      color: #000000;
       padding: 1em;
-      font-size: 0.8em;
+      font-size: 1em;
     }
     .user-name {
-      color: #FAFAFA;
+      color: #000000;
       font-weight: bolder;
       font-size: 1.1em;
     }
@@ -196,7 +202,7 @@ export const strTemplate = `
     }
     .timestamp {
       bottom: 0px;
-      font-size: 0.6em;
+      font-size: 0.7em;
       float: right;
       font-style: italic;
     }
@@ -208,7 +214,7 @@ export const strTemplate = `
     .character-count {
       font-size: 0.8em;
       float: right;
-      color: #ffffff;
+      color: #000000;
       margin-right: 0.5em;
       font-style: italic;
       padding: 0.5em;

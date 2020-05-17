@@ -11,12 +11,13 @@ import { DataService } from '../services/data.service';
 export class CommentsComponent implements OnInit {
   constructor(private data: DataService, private router: Router) { }
 
-  @Input() heading: string;
-  headerImage  =  '../assets/logo.png';
+  @Input() userName: string;
+  //heading = 'comments';
+  //headerImage  =  '../assets/logo.png';
   showErrorDiv:  boolean;
   errorMsg  =  'This is an error';
   inputMaxLength  =  100;
-  placeholderText=  'Write a comment...!!!';
+  placeholderText=  'Write a comment!';
   @Input() currentUserId:  string;
   allComments:  Array<CommentPayload>;
 
@@ -41,7 +42,7 @@ export class CommentsComponent implements OnInit {
           msgId:  msgId,
           msg:  msgPayload,
           timestamp:  timestamp.getTime().toString(),
-          userName:  this.heading,
+          userName:  this.userName,
           userId: this.currentUserId
       };
       try {
