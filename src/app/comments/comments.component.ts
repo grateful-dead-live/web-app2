@@ -19,7 +19,7 @@ export class CommentsComponent implements OnInit {
   placeholderText=  'Write a comment...!!!';
   @Input() currentUserId:  string;
   allComments:  Array<CommentPayload>;
-  msgId: any
+  //msgId: any
 
   /*allComments:  Array<CommentPayload> = [
       {msgId:  4, userId:  9, msg:  'This is 2nd test comment', timestamp:  '21st Sept 2019', userName:  'John Doe', userImagePath:  '../assets/logo.png'},
@@ -34,24 +34,22 @@ export class CommentsComponent implements OnInit {
 
   async sendMessage(msgPayload:  string) {
       // Constructing a desired object of type CommentPayload to be added to allComments
-      this.msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+      var msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+      var timestamp = new Date;
       const  payload  = {
-          msgId:  this.msgId,
+          msgId:  msgId,
           msg:  msgPayload,
-          timestamp:  '21st Sept 2019',
+          timestamp:  timestamp.getTime().toString(),
           userName:  this.heading,
           userId: this.currentUserId
       };
-      var ok = false;
       try {
         await this.addComment(payload);
-        ok = true;
-
-        
     } catch (e) {
         console.error(e);
     } 
-    if (await this.checkComment()){
+    if (await this.checkComment(msgId)){
+      payload.timestamp = (timestamp.toLocaleString())
       this.allComments.push(payload);
     }
   }
@@ -64,8 +62,15 @@ export class CommentsComponent implements OnInit {
 
   async getComments(){
     var result = await this.data.getComments(this.router.url);
-    this.allComments = JSON.parse(result)[0][this.router.url.split('/')[2]];
-    if (!this.allComments) { this.allComments = [] }
+    var jresult = JSON.parse(result)[0][this.router.url.split('/')[2]];
+    if (jresult) { 
+      for (var i in jresult) {
+        jresult[i].timestamp = new Date(Number(jresult[i].timestamp)).toLocaleString();
+      };
+      this.allComments = jresult;
+    } else {
+      this.allComments = [] 
+    }
     console.log(this.allComments)
   }
 
@@ -73,9 +78,9 @@ export class CommentsComponent implements OnInit {
     await this.data.addComment(p, this.router.url);
   }
 
-  async checkComment() {
-    console.log(this.msgId)
-    return await this.data.checkComment(this.msgId, this.router.url)
+  async checkComment(msgId) {
+    console.log(msgId)
+    return await this.data.checkComment(msgId, this.router.url)
     .then(b => {
       console.log(b);
       return Boolean(Number(b));
