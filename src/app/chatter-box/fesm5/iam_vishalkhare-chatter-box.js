@@ -28,8 +28,6 @@ if (false) {
     CommentPayload.prototype.userImagePath;
 }
 var ChatterBoxComponent = /** @class */ (function () {
-    const templateImport = strTemplate;
-    const styleImport = strStyle;
     function ChatterBoxComponent() {
         this.onKeyupEnter = new EventEmitter();
         this.onKeyup = new EventEmitter();
@@ -81,8 +79,8 @@ var ChatterBoxComponent = /** @class */ (function () {
     ChatterBoxComponent.decorators = [
         { type: Component, args: [{
                     selector: 'vis-chatterBox',
-                    template: templateImport,
-                    styles: [styleImport]
+                    template: strTemplate,
+                    styles: [strStyle]
                 }] }
     ];
     /** @nocollapse */
