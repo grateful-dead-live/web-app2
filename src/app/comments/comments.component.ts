@@ -51,13 +51,11 @@ export class CommentsComponent implements OnInit {
         console.error(e);
     } 
     if (await this.checkComment(msgId)){
-      payload.timestamp = (timestamp.toLocaleString())
+      payload.timestamp = this.formatTimeHHMMA(timestamp);
       this.allComments.push(payload);
     }
   }
       
-
-
   onKeyUp(msgPayload:  string) {
       //console.log(msgPayload);  // doesn't work
   }
@@ -67,7 +65,7 @@ export class CommentsComponent implements OnInit {
     var jresult = JSON.parse(result)[0][this.router.url.split('/')[2]];
     if (jresult) { 
       for (var i in jresult) {
-        jresult[i].timestamp = new Date(Number(jresult[i].timestamp)).toLocaleString();
+        jresult[i].timestamp = this.formatTimeHHMMA(new Date(Number(jresult[i].timestamp)));
       };
       this.allComments = jresult;
     } else {
@@ -86,7 +84,11 @@ export class CommentsComponent implements OnInit {
     .then(b => {
       console.log(b);
       return Boolean(Number(b));
-      }
-    )}
+      })
+  }
 
+  formatTimeHHMMA(d) {
+    function z(n){return (n<10?'0':'')+n}
+    return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
+  }
 }
