@@ -36,23 +36,25 @@ export class CommentsComponent implements OnInit {
 
   async sendMessage(msgPayload:  string) {
       // Constructing a desired object of type CommentPayload to be added to allComments
-      var msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
-      var timestamp = new Date;
-      const  payload  = {
-          msgId:  msgId,
-          msg:  msgPayload,
-          timestamp:  timestamp.getTime().toString(),
-          userName:  this.userName,
-          userId: this.currentUserId
-      };
-      try {
-        await this.addComment(payload);
-    } catch (e) {
-        console.error(e);
-    } 
-    if (await this.checkComment(msgId)){
-      payload.timestamp = this.formatTime(timestamp);
-      this.allComments.push(payload);
+      if (msgPayload){
+        var msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+        var timestamp = new Date;
+        const  payload  = {
+            msgId:  msgId,
+            msg:  msgPayload,
+            timestamp:  timestamp.getTime().toString(),
+            userName:  this.userName,
+            userId: this.currentUserId
+        };
+        try {
+          await this.addComment(payload);
+      } catch (e) {
+          console.error(e);
+      } 
+      if (await this.checkComment(msgId)){
+        payload.timestamp = this.formatTime(timestamp);
+        this.allComments.push(payload);
+      }
     }
   }
       
