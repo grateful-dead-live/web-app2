@@ -48,15 +48,16 @@ export const strTemplate = `
     </div>
     <div class="vis-chat-window-footer">
         <div>
-          <input type="text" id="vis-comment-textField" placeholder="{{placeholderText}}"
+          <textarea id="vis-comment-textField" placeholder="{{placeholderText}}"
                 [(ngModel)]="commentText"
-                (keyup.enter)="addComment(commentText)"
                 (keyup)="onKeyUp(commentText)"
-                maxlength="{{inputMaxLength}}">
+                maxlength="{{inputMaxLength}}"></textarea>
+          <button type="button" (click)="addComment(commentText)">send</button> 
         </div>
         <div class="character-count">
             {{typedCommentTextLength}} / {{inputMaxLength}} characters
         </div>
+        
     </div>
   </div>
   `
@@ -117,6 +118,8 @@ export const strTemplate = `
       border-right: #cccccc solid 0.5px;
       border-left: #cccccc solid 0.5px;
       overflow: scroll;
+      height: 100px;
+      resize: none;
     }
     #vis-comment-textField:focus {
       outline: none;
@@ -167,6 +170,7 @@ export const strTemplate = `
       font-size: 24px;
     }
     .comment-bubble {
+      white-space: pre-wrap;
       background-color: #f0f0f0;
       margin-left: 0.3em;
       margin-right: 0.3em;
@@ -180,6 +184,7 @@ export const strTemplate = `
     }
 
     .comment-bubble-currentUser{
+      white-space: pre-wrap;
       background-color: #f0f0f0;
       margin-left: 0.3em;
       margin-right: 0.3em;
@@ -195,7 +200,7 @@ export const strTemplate = `
     .user-name {
       color: #000000;
       font-weight: bolder;
-      font-size: 1.1em;
+      font-size: 1em;
     }
     .color-gray {
       color: #838384;
