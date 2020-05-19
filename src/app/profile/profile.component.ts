@@ -44,12 +44,20 @@ export class ProfileComponent implements OnInit {
 
   async getBookmarks(){
     var result = await this.data.getBookmarks(this.currentUser.userId);
-    //console.log(result);
-    this.bookmarks = JSON.parse(result)[0][this.currentUser.userId];
-    if (this.bookmarks) {
-      this.bookmarkTypes = Object.keys(this.bookmarks);
+    if (result != []) {
+      this.bookmarks = {}
+      result[0].bookmarks.forEach(b => {
+        var s = b.split('/');
+        this.bookmarks[s[1]] = this.bookmarks[s[1]] || [];
+        this.bookmarks[s[1]].push(b);
+      })
     }
     console.log(this.bookmarks)
+  }
+
+  async testButton(){
+    var result = await this.data.getUserCommentRoutes(this.currentUser.userId);
+    console.log(result);
   }
 
 

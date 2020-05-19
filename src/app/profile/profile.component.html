@@ -7,18 +7,15 @@
   <code>{{ userProfile | json }}</code>
 </pre>
 <div *ngIf="bookmarks">
-  Bookmarks
-    <div *ngFor="let t of bookmarkTypes">
-      <div class *ngIf="bookmarks[t]?.length > 0">
-        <br>{{t+'s' |titlecase}}:
-        <div *ngFor="let b of bookmarks[t]">
-        <u class="field"
-        [routerLink]="['/'+t, b]">
-        {{ b }}
-        </u>
+  <br>Bookmarks
+    <div *ngFor="let t of bookmarks | keyvalue">
+      <div class *ngIf="t.value?.length > 0">
+        <br>{{t.key+'s' |titlecase}}:
+        <div *ngFor="let b of t.value">
+          <u class="field" [routerLink]="b">{{ b }}</u>
         </div>
+      </div>
     </div>
-  </div>
 </div>
 </div>
 
@@ -26,6 +23,8 @@
   <gd-header title='Profile'></gd-header>
   <pre>you are not logged in</pre>
 </div>
+
+<br><button (click)="testButton()">test</button>
 
 
 

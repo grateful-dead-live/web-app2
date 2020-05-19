@@ -96,7 +96,7 @@ export class DeadApiService {
   }
 
   async getBookmarks(userid: string): Promise<any> {
-    return this.getTextFromApi('getBookmarks?userid='+userid);
+    return this.getJsonFromApi('getBookmarks?userid='+userid);
   }
 
   async checkBookmark(userid: string, route: string): Promise<any> {
@@ -104,16 +104,20 @@ export class DeadApiService {
   }
 
   async getComments(route: string): Promise<any> {
-    return this.getTextFromApi('getComments?route='+route);
+    return this.getJsonFromApi('getComments?route='+route);
   }
 
-  async addComment(comment: any, route: string): Promise<any> {
+  async addComment(comment: any, route: string, userid: string): Promise<any> {
     const cmt = encodeURIComponent(JSON.stringify(comment));
-    return this.getTextFromApi('addComment?comment='+cmt+'&route='+route);
+    return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid);
   }
 
   async checkComment(msgId: Number, route: string): Promise<any> {
     return this.getJsonFromApi('checkComment?msgId='+msgId+'&route='+route);
+  }
+
+  async getUserCommentRoutes(userId: string): Promise<any> {
+    return this.getTextFromApi('getUserCommentRoutes?userId='+userId);
   }
 
 }

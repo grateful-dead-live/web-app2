@@ -201,12 +201,16 @@ export class DataService {
     return this.apiService.getComments(route);
   }
 
-  async addComment(comment: any, route: string): Promise<any> {
-    return this.apiService.addComment(comment, route);
+  async addComment(comment: any, route: string, userid: string): Promise<any> {
+    return this.apiService.addComment(comment, route, userid);
   }
 
   async checkComment(msgId: Number, route: string): Promise<any> {
     return this.apiService.checkComment(msgId, route);
+  }
+
+  async getUserCommentRoutes(userid: string): Promise<any> {
+    return this.apiService.getUserCommentRoutes(userid);
   }
 
 }

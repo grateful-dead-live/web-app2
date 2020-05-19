@@ -63,21 +63,20 @@ export class CommentsComponent implements OnInit {
   }
 
   async getComments(){
-    var result = await this.data.getComments(this.router.url);
-    var jresult = JSON.parse(result)[0][this.router.url.split('/')[2]];
-    if (jresult) { 
-      for (var i in jresult) {
-        jresult[i].timestamp = this.formatTime(new Date(Number(jresult[i].timestamp)));
-      };
-      this.allComments = jresult;
-    } else {
-      this.allComments = [] 
+    this.allComments = [];
+    var res =  await this.data.getComments(this.router.url);
+    if (res != []){
+      for (var i in res) {
+        res[i].timestamp = this.formatTime(new Date(Number(res[i].timestamp)));
+      }
+      this.allComments = res;
     }
-    console.log(this.allComments)
+    return res;
   }
 
+
   async addComment(p){
-    await this.data.addComment(p, this.router.url);
+    await this.data.addComment(p, this.router.url, this.currentUserId);
   }
 
   async checkComment(msgId) {
