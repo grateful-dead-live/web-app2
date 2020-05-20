@@ -44,20 +44,28 @@ export class ProfileComponent implements OnInit {
 
   async getBookmarks(){
     var result = await this.data.getBookmarks(this.currentUser.userId);
-    if (result != []) {
-      this.bookmarks = {}
-      result[0].bookmarks.forEach(b => {
-        var s = b.split('/');
-        this.bookmarks[s[1]] = this.bookmarks[s[1]] || [];
-        this.bookmarks[s[1]].push(b);
+    if (result[0]) {
+      var b = []
+      result[0].bookmarks.forEach(r => {
+        b.push({route: r.route, timestamp: r.timestamp});
       })
-    }
+      b.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      for (var i in b){
+        b[i].timestamp = this.formatTime(new Date(Number(b[i].timestamp)));
+      }
+      this.bookmarks = b;
+    };
     console.log(this.bookmarks)
   }
 
   async testButton(){
     var result = await this.data.getUserCommentRoutes(this.currentUser.userId);
     console.log(result);
+  }
+
+  formatTime(d) {
+    function z(n){return (n<10?'0':'')+n}
+    return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
   }
 
 

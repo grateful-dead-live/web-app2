@@ -78,7 +78,7 @@ ngOnInit() {
 
   async onBookmarkButton(){
     if (this.bookmarked == false){
-      await this.data.addBookmark(this.currentUser.userId, this.router.url);
+      await this.data.addBookmark(this.currentUser.userId, this.router.url, new Date().getTime());
     } else {
       await this.data.delBookmark(this.currentUser.userId, this.router.url);
     }

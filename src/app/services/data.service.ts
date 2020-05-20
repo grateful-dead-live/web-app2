@@ -181,8 +181,8 @@ export class DataService {
     return this.apiService.getSearchResult(q);
   }
 
-  async addBookmark(userid: string, route: string): Promise<any> {
-    return this.apiService.addBookmark(userid, route);
+  async addBookmark(userid: string, route: string, time: number): Promise<any> {
+    return this.apiService.addBookmark(userid, route, time);
   }
 
   async delBookmark(userid: string, route: string): Promise<any> {

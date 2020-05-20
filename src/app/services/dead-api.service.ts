@@ -87,8 +87,8 @@ export class DeadApiService {
   }
 
   
-  async addBookmark(userid: string, route: string): Promise<any> {
-    return this.getTextFromApi('addBookmark?userid='+userid+'&route='+route);
+  async addBookmark(userid: string, route: string, time: number): Promise<any> {
+    return this.getTextFromApi('addBookmark?userid='+userid+'&route='+route+'&time='+time);
   }
 
   async delBookmark(userid: string, route: string): Promise<any> {

@@ -65,9 +65,7 @@ export class CommentsComponent implements OnInit {
   async getComments(){
     var res =  await this.data.getComments(this.router.url);
     if (res != []){
-      res.sort(function(a, b) {
-        return a.timestamp - b.timestamp;
-    });
+      res.sort(function(a, b) { return a.timestamp - b.timestamp });
       for (var i in res) {
         res[i].timestamp = this.formatTime(new Date(Number(res[i].timestamp)));
       }

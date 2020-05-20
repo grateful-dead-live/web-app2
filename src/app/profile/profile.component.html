@@ -7,14 +7,9 @@
   <code>{{ userProfile | json }}</code>
 </pre>
 <div *ngIf="bookmarks">
-  <br>Bookmarks
-    <div *ngFor="let t of bookmarks | keyvalue">
-      <div class *ngIf="t.value?.length > 0">
-        <br>{{t.key+'s' |titlecase}}:
-        <div *ngFor="let b of t.value">
-          <u class="field" [routerLink]="b">{{ b }}</u>
-        </div>
-      </div>
+  <br>Bookmarks<br>
+    <div *ngFor="let b of bookmarks">
+          {{b.timestamp}} <u class="field" [routerLink]="b.route">{{ b.route }}</u>
     </div>
 </div>
 </div>
