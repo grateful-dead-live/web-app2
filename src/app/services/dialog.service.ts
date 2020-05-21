@@ -7,8 +7,9 @@ export class DialogService {
   constructor(private dialog: MatDialog) {}
   
   async openMultiFunction(title: string, options: string[], funcs: Function[]) {
-    this.open(title, options).subscribe(result =>
-      funcs[options.indexOf(result)]());
+    this.open(title, options).subscribe(result => {
+     if (result) {funcs[options.indexOf(result)]() }
+  });
   }
   
   async openSingleFunction(title: string, options: string[], func: (s: string) => any) {
