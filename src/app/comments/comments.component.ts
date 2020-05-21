@@ -99,20 +99,18 @@ export class CommentsComponent implements OnInit {
       "Are you sure you want to report this message?",
       ["yes", "no"],
       [() => this.sendCommentReport(msg), 
-        () => {}]
+        () => null]
     );
   }
 
   async sendCommentReport(msg) {
-   var m = await this.data.sendCommentReport(msg, this.currentUserId);
-   if (Boolean(m)==true){
-    this.dialog.openSingleFunction(
-      "Report sent", ["ok"], () => {}
-      )
-   }
-   console.log('mail:'+m);
+    var m = await this.data.sendCommentReport(msg, this.currentUserId);
+    if (m.startsWith('250')) {
+      var dm = 'Report sent';
+    } else {
+      var dm = 'Error sending report';
+    }
+    this.dialog.openSingleFunction( dm, ["ok"], () => null );
   }
    
-  
-
 }
