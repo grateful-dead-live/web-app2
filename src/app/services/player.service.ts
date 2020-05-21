@@ -12,7 +12,7 @@ export class PlayerService {
   public maxTime: number = 0;
   public currentTime: number = 0;
   private currentAudio: HTMLAudioElement;
-  private playlist: Track[] = [];
+  public playlist: Track[] = [];
   private currentTrackIndex = 0;
   private muted = false;
   

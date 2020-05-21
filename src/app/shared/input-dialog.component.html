@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>Save playlist</p>
+  <mat-form-field>
+    <mat-label>Enter name</mat-label>
+    <input matInput [(ngModel)]="data.input">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.input" cdkFocusInitial>Ok</button>
+</div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -45,6 +45,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { APIResolver } from './auth.resolve';
 import { ChatterBoxModule } from './chatter-box';
 import { CommentsComponent } from './comments/comments.component';
+import { InputDialogComponent } from './shared/input-dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CommentsComponent } from './comments/comments.component';
     ButtonDirective,
     ProfileComponent,
     CommentsComponent,
+    InputDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +98,7 @@ import { CommentsComponent } from './comments/comments.component';
     APIResolver
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ListDialogComponent, SearchDialogComponent]
+  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
