@@ -213,4 +213,8 @@ export class DataService {
     return this.apiService.getUserCommentRoutes(userid);
   }
 
+  async sendCommentReport(msg: any, userid: string): Promise<any> {
+    return this.apiService.sendCommentReport(msg, userid);
+  }
+
 }

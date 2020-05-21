@@ -31,6 +31,7 @@ var ChatterBoxComponent = /** @class */ (function () {
     function ChatterBoxComponent() {
         this.onKeyupEnter = new EventEmitter();
         this.onKeyup = new EventEmitter();
+        this.emitReport = new EventEmitter();
         this.typedCommentTextLength = 0;
     }
     /**
@@ -76,6 +77,22 @@ var ChatterBoxComponent = /** @class */ (function () {
         this.onKeyup.emit(input);
         this.typedCommentTextLength = input.length;
     };
+
+    // GD added function
+    ChatterBoxComponent.prototype.onReportButton = /**
+     * @param {?} input
+     * @return {?}
+     */
+    function (input) {
+        this.emitReport.emit(input);
+       // if(confirm("Are you sure you want to report this comment?")) {
+       //     this.emitReport.emit(input);
+       // }
+    };
+     /**
+     * @param {?} input
+     * @return {?}
+     */
     ChatterBoxComponent.decorators = [
         { type: Component, args: [{
                     selector: 'vis-chatterBox',
@@ -95,7 +112,8 @@ var ChatterBoxComponent = /** @class */ (function () {
         placeholderText: [{ type: Input }],
         currentUserId: [{ type: Input }],
         onKeyupEnter: [{ type: Output }],
-        onKeyup: [{ type: Output }]
+        onKeyup: [{ type: Output }],
+        emitReport: [{ type: Output }],
     };
     return ChatterBoxComponent;
 }());

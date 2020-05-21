@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CommentPayload } from '../chatter-box';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'gd-comments',
@@ -9,7 +10,7 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./comments.component.sass']
 })
 export class CommentsComponent implements OnInit {
-  constructor(private data: DataService, private router: Router) { }
+  constructor(private data: DataService, private router: Router,  private dialog: DialogService) { }
 
   @Input() userName: string;
   //heading = 'comments';
@@ -76,21 +77,42 @@ export class CommentsComponent implements OnInit {
   }
 
 
+
   async addComment(p){
     await this.data.addComment(p, this.router.url, this.currentUserId);
   }
 
   async checkComment(msgId) {
     console.log(msgId)
-    return await this.data.checkComment(msgId, this.router.url)
-    .then(b => {
-      console.log(b);
-      return Boolean(Number(b));
-      })
+    var b = Boolean(Number(await this.data.checkComment(msgId, this.router.url)));
+    console.log(b);
+    return b
   }
 
   formatTime(d) {
     function z(n){return (n<10?'0':'')+n}
     return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
   }
+
+  protected reportComment(msg) {
+    this.dialog.openMultiFunction(
+      "Are you sure you want to report this message?",
+      ["yes", "no"],
+      [() => this.sendCommentReport(msg), 
+        () => {}]
+    );
+  }
+
+  async sendCommentReport(msg) {
+   var m = await this.data.sendCommentReport(msg, this.currentUserId);
+   if (Boolean(m)==true){
+    this.dialog.openSingleFunction(
+      "Report sent", ["ok"], () => {}
+      )
+   }
+   console.log('mail:'+m);
+  }
+   
+  
+
 }

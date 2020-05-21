@@ -120,4 +120,9 @@ export class DeadApiService {
     return this.getTextFromApi('getUserCommentRoutes?userId='+userId);
   }
 
+  async sendCommentReport(comment: any, userid: string): Promise<any> {
+    const cmt = encodeURIComponent(JSON.stringify(comment));
+    return this.getTextFromApi('sendCommentReport?comment='+cmt+'&userid='+userid);
+  }
+
 }

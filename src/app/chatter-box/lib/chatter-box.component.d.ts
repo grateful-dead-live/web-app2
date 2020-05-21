@@ -25,4 +25,5 @@ export declare class ChatterBoxComponent implements OnInit {
     showImageOrDiv(comment: CommentPayload): boolean;
     addComment(comment: string): void;
     onKeyUp(input: string): void;
+    
 }

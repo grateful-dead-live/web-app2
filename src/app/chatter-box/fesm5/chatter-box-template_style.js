@@ -1,3 +1,4 @@
+
 export const strTemplate = `
   <div class="vis-chat-window">
     <div class="vis-chat-window-header">
@@ -38,7 +39,7 @@ export const strTemplate = `
                         {{comment.msg}}
                     </div>
                     <div [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'timestamp' : 'timestamp color-gray') :'timestamp color-gray'">
-                        {{comment.timestamp}}
+                        {{comment.timestamp}} <button (click)="onReportButton(comment)">report</button>
                     </div>
                 </div>
               </div>
@@ -225,4 +226,3 @@ export const strTemplate = `
       padding: 0.5em;
     }
 `
-  
