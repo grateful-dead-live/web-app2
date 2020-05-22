@@ -1,5 +1,5 @@
 <div fxLayout="column" fxFlexFill>
   <div fxFlex><router-outlet></router-outlet></div>
   <!--<footer *ngIf="!start"><gd-player></gd-player></footer>-->
-  <footer><gd-player></gd-player></footer>
+  <footer><gd-player [currentUser]="currentUser"></gd-player></footer>
 </div>

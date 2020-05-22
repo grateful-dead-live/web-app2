@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ListDialogComponent } from '../shared/list-dialog.component';
 import { InputDialogComponent } from '../shared/input-dialog.component';
+import { DataService } from '../services/data.service';
 
 @Injectable()
 export class DialogService {
   input: string;
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private data: DataService) {}
   
   async openMultiFunction(title: string, options: string[], funcs: Function[]) {
     this.open(title, options).subscribe(result => {
@@ -32,6 +33,7 @@ export class DialogService {
 
   
    async openInputDialog() {
+     console.log()
     const dialogRef = this.dialog.open(InputDialogComponent, {
       width: '250px',
       data: {input: this.input}
@@ -39,6 +41,7 @@ export class DialogService {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      //console.log(this.userName)
       this.input = result;
     });
   }
