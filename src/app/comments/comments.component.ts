@@ -84,7 +84,7 @@ export class CommentsComponent implements OnInit {
 
   async checkComment(msgId) {
     console.log(msgId)
-    var b = Boolean(Number(await this.data.checkComment(msgId, this.router.url)));
+    var b = Boolean(Number(await this.data.checkComment(msgId)));
     console.log(b);
     return b
   }

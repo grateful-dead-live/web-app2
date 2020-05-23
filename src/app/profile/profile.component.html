@@ -2,16 +2,37 @@
 <!--<div *ngIf="auth.userProfile$ | async as profile">
 <gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>-->
 <div *ngIf="currentUser">
-<gd-header title='Profile' subtitle='{{ currentUser.userName }}'></gd-header>
-<pre>
-  <code>{{ userProfile | json }}</code>
-</pre>
-<div *ngIf="bookmarks">
-  <br>Bookmarks<br>
-    <div *ngFor="let b of bookmarks">
-          {{b.timestamp}} <u class="field" [routerLink]="b.route">{{ b.route }}</u>
+  <gd-header title='Profile' subtitle='{{ currentUser.userName }}'></gd-header>
+  <br><b>User Info</b><br>
+  <pre>
+    <code>{{ userProfile | json }}</code>
+  </pre>
+
+  <div *ngIf="bookmarks">
+    <b>Bookmarks</b><br>
+      <div *ngFor="let b of bookmarks">
+            {{b.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="b.route">{{ b.route }}</u>
+      </div>
+  </div>
+
+  <div *ngIf="commentRoutes">
+    <br><b>Commented on</b><br>
+    <div *ngFor="let c of commentRoutes">
+      <u class="field" style="cursor:pointer" [routerLink]="c">{{ c }}</u>
+      </div>
+  </div>
+
+  <div *ngIf="playlists">
+    <br><b>Playlists</b><br>
+    <div *ngFor="let p of playlists">
+      <div> {{ p.timestamp }} "{{ p.name }}"
+        <button mat-icon-button (click)="delPlaylist(p.id)"><mat-icon>clear</mat-icon></button>  
+      </div>
+      <div *ngFor="let t of p.playlist; index as i">
+        <small>{{i+1}}. {{ t.title }}</small>
     </div>
-</div>
+    <br>
+  </div>
 </div>
 
 <div *ngIf="!currentUser">
@@ -19,10 +40,8 @@
   <pre>you are not logged in</pre>
 </div>
 
-<br><button (click)="testButton()">test</button>
+<!--br><button (click)="testButton()">test</button-->
 
 
-
-<!--</div>-->
 
 

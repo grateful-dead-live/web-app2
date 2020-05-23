@@ -43,7 +43,7 @@ export class PlayerComponent {
   async savePlaylist(name){
     console.log('saving playlist');
     const id = this.makeid();
-    await this.data.addPlaylist(this.player.playlist, id, this.currentUser.userId)
+    await this.data.addPlaylist(name, this.player.playlist, id, this.currentUser.userId, new Date().getTime())
   }
 
   private makeid() {

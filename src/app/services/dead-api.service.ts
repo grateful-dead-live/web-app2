@@ -112,20 +112,28 @@ export class DeadApiService {
     return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid);
   }
 
-  async checkComment(msgId: Number, route: string): Promise<any> {
-    return this.getJsonFromApi('checkComment?msgId='+msgId+'&route='+route);
+  async checkComment(msgId: Number): Promise<any> {
+    return this.getJsonFromApi('checkComment?msgId='+msgId);
   }
 
   async getUserCommentRoutes(userId: string): Promise<any> {
-    return this.getTextFromApi('getUserCommentRoutes?userId='+userId);
+    return this.getJsonFromApi('getUserCommentRoutes?userId='+userId);
   }
 
   async sendCommentReport(comment: string, userid: string): Promise<any> {
     return this.getTextFromApi('sendCommentReport?comment='+comment+'&userid='+userid);
   }
 
-  async addPlaylist(playlist: string, playlistid: string, userid: string): Promise<any> {
-    return this.getTextFromApi('addPlaylist?playlist='+playlist+'&playlistid='+playlistid+'&userid='+userid);
+  async addPlaylist(name: string, playlist: string, playlistid: string, userid: string, time: number): Promise<any> {
+    return this.getTextFromApi('addPlaylist?name='+name+'&playlist='+playlist+'&playlistid='+playlistid+'&userid='+userid+'&time='+time);
+  }
+
+  async getPlaylists(userid: string): Promise<any> {
+    return this.getJsonFromApi('getPlaylists?userid='+userid);
+  }
+
+  async delPlaylist(userid: string, playlistid: string): Promise<any> {
+    return this.getTextFromApi('delPlaylist?userid='+userid+'&playlistid='+playlistid);
   }
 
 }

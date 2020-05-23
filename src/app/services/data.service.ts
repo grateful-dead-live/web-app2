@@ -205,8 +205,8 @@ export class DataService {
     return this.apiService.addComment(comment, route, userid);
   }
 
-  async checkComment(msgId: Number, route: string): Promise<any> {
-    return this.apiService.checkComment(msgId, route);
+  async checkComment(msgId: Number): Promise<any> {
+    return this.apiService.checkComment(msgId);
   }
 
   async getUserCommentRoutes(userid: string): Promise<any> {
@@ -218,9 +218,18 @@ export class DataService {
     return this.apiService.sendCommentReport(comment, userid);
   }
 
-  async addPlaylist(playlist: Track[], playlistid: string, userid: string): Promise<any> {
+  async addPlaylist(name: string, playlist: Track[], playlistid: string, userid: string, time: number): Promise<any> {
     const p = encodeURIComponent(JSON.stringify(playlist));
-    return this.apiService.addPlaylist(p, playlistid, userid);
+    return this.apiService.addPlaylist(name, p, playlistid, userid, time);
   }
+
+  async getPlaylists(userid: string): Promise<any> {
+    return this.apiService.getPlaylists(userid);
+  }
+
+  async delPlaylist(userid: string, playlistid: string): Promise<any> {
+    return this.apiService.delPlaylist(userid, playlistid);
+  }
+
 
 }
