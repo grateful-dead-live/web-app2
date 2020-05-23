@@ -8,9 +8,8 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Cancel</button>
   <!--button mat-button [mat-dialog-close]="data.input" cdkFocusInitial>Ok</button-->
-  <button mat-button (click)="onOkClick(data.input)" cdkFocusInitial>Ok</button>
+  <button mat-button [disabled]="data.input.length == 0" (click)="onOkClick(data.input)">Ok</button> <!--cdkFocusInitial-->
 </div>
-
 
 
 <!--div mat-dialog-content>

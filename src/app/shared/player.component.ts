@@ -33,12 +33,8 @@ export class PlayerComponent {
   }
 
   async onSavePlaylist() {
-    //console.log(this.makeid())
-    //console.log(this.currentUser.userId)
-    //await this.data.addPlaylist(0, 'a', this.currentUser.userId);
     this.dialog.openInputDialog(name => {
       if (name) { 
-        
         this.savePlaylist(name);
       }
     });
@@ -48,8 +44,6 @@ export class PlayerComponent {
     console.log('saving playlist');
     const id = this.makeid();
     await this.data.addPlaylist(this.player.playlist, id, this.currentUser.userId)
-    
-
   }
 
   private makeid() {
