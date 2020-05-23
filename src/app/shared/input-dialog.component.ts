@@ -19,7 +19,7 @@ export class InputDialogComponent {
     this.dialogRef.close();
   }
   
-  onItemClick(item: string): void {
-    this.dialogRef.close(item);
+  onOkClick(input: string): void {
+    this.dialogRef.close(input);
   }
 }

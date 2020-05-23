@@ -6,6 +6,18 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.input" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <!--button mat-button [mat-dialog-close]="data.input" cdkFocusInitial>Ok</button-->
+  <button mat-button (click)="onOkClick(data.input)" cdkFocusInitial>Ok</button>
 </div>
+
+
+
+<!--div mat-dialog-content>
+  <p class="mat-dialog-title" >{{data.title}}</p>
+  <input matInput [(ngModel)]="data.input">
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div-->

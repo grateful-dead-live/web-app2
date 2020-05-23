@@ -6,7 +6,6 @@ import { DataService } from '../services/data.service';
 
 @Injectable()
 export class DialogService {
-  input: string;
   constructor(private dialog: MatDialog, private data: DataService) {}
   
   async openMultiFunction(title: string, options: string[], funcs: Function[]) {
@@ -32,17 +31,13 @@ export class DialogService {
   }
 
   
-   async openInputDialog() {
-     console.log()
+  async openInputDialog(callback) {
     const dialogRef = this.dialog.open(InputDialogComponent, {
       width: '250px',
-      data: {input: this.input}
+      data: {input: ''}
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      //console.log(this.userName)
-      this.input = result;
+      callback(result);
     });
   }
 

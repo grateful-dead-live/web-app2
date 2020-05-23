@@ -120,9 +120,12 @@ export class DeadApiService {
     return this.getTextFromApi('getUserCommentRoutes?userId='+userId);
   }
 
-  async sendCommentReport(comment: any, userid: string): Promise<any> {
-    const cmt = encodeURIComponent(JSON.stringify(comment));
-    return this.getTextFromApi('sendCommentReport?comment='+cmt+'&userid='+userid);
+  async sendCommentReport(comment: string, userid: string): Promise<any> {
+    return this.getTextFromApi('sendCommentReport?comment='+comment+'&userid='+userid);
+  }
+
+  async addPlaylist(playlist: string, playlistid: string, userid: string): Promise<any> {
+    return this.getTextFromApi('addPlaylist?playlist='+playlist+'&playlistid='+playlistid+'&userid='+userid);
   }
 
 }

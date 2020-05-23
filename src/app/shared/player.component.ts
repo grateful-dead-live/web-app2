@@ -2,9 +2,6 @@ import { Component, Input } from '@angular/core';
 import { PlayerService } from '../services/player.service';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
-import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'gd-player',
@@ -29,17 +26,39 @@ export class PlayerComponent {
     this.player.volume(v);
   }
 
-  async savePlaylist(userid){
-    console.log(this.player.playlist);
-  }
 
   async delTrack(i){
     this.player.playlist.splice(i, 1);
     console.log(i);
   }
 
-  protected onSavePlaylist() {
-    console.log(this.currentUser.userId)
-    this.dialog.openInputDialog();
+  async onSavePlaylist() {
+    //console.log(this.makeid())
+    //console.log(this.currentUser.userId)
+    //await this.data.addPlaylist(0, 'a', this.currentUser.userId);
+    this.dialog.openInputDialog(name => {
+      if (name) { 
+        
+        this.savePlaylist(name);
+      }
+    });
   }
+
+  async savePlaylist(name){
+    console.log('saving playlist');
+    const id = this.makeid();
+    await this.data.addPlaylist(this.player.playlist, id, this.currentUser.userId)
+    
+
+  }
+
+  private makeid() {
+    var result           = '';
+    var characters       = 'abcdef0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 24; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 }
