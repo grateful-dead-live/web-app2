@@ -19,4 +19,7 @@
   <p class="gd-section">All shows in {{ location.name }}:</p>
   
   <gd-shows [eventIds]="location.eventIds"></gd-shows>
+  <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId"></gd-comments>
+  <br>
 </div>
+<p [style.margin-bottom]="'75px'"></p>
