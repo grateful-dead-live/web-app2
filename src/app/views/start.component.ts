@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
+import { EMAILADDRESS } from '../config'
 
 @Component({
   selector: 'gd-start',
@@ -18,6 +19,7 @@ export class StartComponent {
   part7: String;
 
   protected currentUser: any;
+  protected email: string;
   
   constructor(private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
@@ -29,6 +31,8 @@ export class StartComponent {
       });
       console.log(this.currentUser);
     }
+
+    this.email = EMAILADDRESS;
  
   
     this.part1 = "gdc";
