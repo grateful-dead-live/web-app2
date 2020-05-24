@@ -129,7 +129,7 @@ export class CommentsComponent implements OnInit {
       const i = this.allComments.indexOf(msg);
       if (i > -1) {
         this.allComments.splice(i, 1);
-        this.changeDetectorRef.detectChanges()
+        this.changeDetectorRef.detectChanges();
       }
     }
   }
