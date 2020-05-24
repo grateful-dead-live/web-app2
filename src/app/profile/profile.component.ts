@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
 
   delPlaylist(playlistid, name) {
     this.dialog.openMultiFunction(
-      'Are you sure you want to delete playlist ' + name + '"?',
+      'Are you sure you want to delete playlist "' + name + '"?',
       ["yes", "no"],
       [() => {
         this.data.delPlaylist(this.currentUser.userId, playlistid);
