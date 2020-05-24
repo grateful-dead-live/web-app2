@@ -96,18 +96,16 @@ export class ProfileComponent implements OnInit {
         p[i].timestamp = this.formatTime(new Date(Number(p[i].timestamp)));
       }
       this.playlists = p; 
-
     }
     //console.log(this.playlists);
   }
 
 
   async loadPlaylist(playlist) {
-    console.log(playlist)
     this.dialog.openMultiFunction(
       'Your current playlist will be lost',
       ["ok", "cancel"],
-      [() => {this.player.playlist = playlist},
+      [() => this.player.playlist = [...playlist],
         () => {}]
     );
   }
