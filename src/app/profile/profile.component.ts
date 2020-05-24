@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   //protected authenticated: boolean;
   protected userProfile: any;
   protected bookmarks: any;
-  protected commentRoutes: any;
+  protected comments: any;
   protected playlists: any;
   protected showPlaylistInfo: boolean = false;
 
@@ -29,15 +29,11 @@ export class ProfileComponent implements OnInit {
         this.userProfile = userProfile;
         this.currentUser = this.resolve.getUser(userProfile);
         this.getBookmarks();
-        this.getCommentRoutes();
+        this.getComments()
         this.getPlaylists();
       });
-      //console.log(this.currentUser);
     }
 
-    
-    
-    
 /*
     if (this.authenticated == true) {
       this.auth.userProfile$.subscribe(userProfile => {
@@ -51,22 +47,19 @@ export class ProfileComponent implements OnInit {
 
   async getBookmarks(){
     var result = await this.data.getBookmarks(this.currentUser.userId);
-    if (result[0]) {
-      var b = []
-      result[0].bookmarks.forEach(r => {
-        b.push({route: r.route, timestamp: r.timestamp});
-      })
+    if (result[0].bookmarks) {
+      var b = result[0].bookmarks;
       b.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
-      for (var i in b){
-        b[i].timestamp = this.formatTime(new Date(Number(b[i].timestamp)));
-      }
+      b.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
       this.bookmarks = b;
     };
-    //console.log(this.bookmarks)
   }
 
-  async getCommentRoutes(){
-    this.commentRoutes = await this.data.getUserCommentRoutes(this.currentUser.userId);
+  async getComments(){
+    var result = await this.data.getUserComments(this.currentUser.userId);
+    if (result[0].comments) {
+      this.comments = result[0].comments;
+    };
   }
 
   formatTime(d) {
@@ -84,22 +77,17 @@ export class ProfileComponent implements OnInit {
       },
         () => null]
     );
-    
   }
 
   async getPlaylists(){
     var result = await this.data.getPlaylists(this.currentUser.userId);
-    if (result[0]){
+    if (result[0].length){
       var p = result[0].playlists;
       p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
-      for (var i in p){
-        p[i].timestamp = this.formatTime(new Date(Number(p[i].timestamp)));
-      }
+      p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
       this.playlists = p; 
     }
-    //console.log(this.playlists);
   }
-
 
   async loadPlaylist(playlist) {
     this.dialog.openMultiFunction(

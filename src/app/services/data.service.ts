@@ -181,8 +181,8 @@ export class DataService {
     return this.apiService.getSearchResult(q);
   }
 
-  async addBookmark(userid: string, route: string, time: number): Promise<any> {
-    return this.apiService.addBookmark(userid, route, time);
+  async addBookmark(userid: string, route: string, time: number, title: string): Promise<any> {
+    return this.apiService.addBookmark(userid, route, time, title);
   }
 
   async delBookmark(userid: string, route: string): Promise<any> {
@@ -201,16 +201,16 @@ export class DataService {
     return this.apiService.getComments(route);
   }
 
-  async addComment(comment: any, route: string, userid: string): Promise<any> {
-    return this.apiService.addComment(comment, route, userid);
+  async addComment(comment: any, route: string, userid: string, title: string): Promise<any> {
+    return this.apiService.addComment(comment, route, userid, title);
   }
 
   async checkComment(msgId: Number): Promise<any> {
     return this.apiService.checkComment(msgId);
   }
 
-  async getUserCommentRoutes(userid: string): Promise<any> {
-    return this.apiService.getUserCommentRoutes(userid);
+  async getUserComments(userid: string): Promise<any> {
+    return this.apiService.getUserComments(userid);
   }
 
   async sendCommentReport(msg: any, userid: string): Promise<any> {

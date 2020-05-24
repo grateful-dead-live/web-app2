@@ -8,22 +8,22 @@
     <code>{{ userProfile | json }}</code>
   </pre>
 
+  <b>Bookmarks</b><br>
   <div *ngIf="bookmarks">
-    <b>Bookmarks</b><br>
       <div *ngFor="let b of bookmarks">
-            {{b.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="b.route">{{ b.route }}</u>
+            {{b.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="b.route">{{ b.title }}</u>
       </div>
   </div>
 
-  <div *ngIf="commentRoutes">
-    <br><b>Commented on</b><br>
-    <div *ngFor="let c of commentRoutes">
-      <u class="field" style="cursor:pointer" [routerLink]="c">{{ c }}</u>
+  <br><b>Commented on</b><br>
+  <div *ngIf="comments"> 
+    <div *ngFor="let c of comments">
+      <u class="field" style="cursor:pointer" [routerLink]="c.route">{{ c.title }}</u>
       </div>
   </div>
 
+  <br><b>Playlists</b><br>
   <div *ngIf="playlists">
-    <br><b>Playlists</b><br>
     <div *ngFor="let p of playlists">
       <div> {{ p.timestamp }} "{{ p.name }}"
         <button mat-icon-button (click)="loadPlaylist(p.playlist)"><mat-icon>library_music</mat-icon></button> 

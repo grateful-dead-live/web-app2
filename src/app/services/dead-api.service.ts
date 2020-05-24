@@ -87,8 +87,8 @@ export class DeadApiService {
   }
 
   
-  async addBookmark(userid: string, route: string, time: number): Promise<any> {
-    return this.getTextFromApi('addBookmark?userid='+userid+'&route='+route+'&time='+time);
+  async addBookmark(userid: string, route: string, time: number, title: string): Promise<any> {
+    return this.getTextFromApi('addBookmark?userid='+userid+'&route='+route+'&time='+time+'&title='+title);
   }
 
   async delBookmark(userid: string, route: string): Promise<any> {
@@ -107,17 +107,17 @@ export class DeadApiService {
     return this.getJsonFromApi('getComments?route='+route);
   }
 
-  async addComment(comment: any, route: string, userid: string): Promise<any> {
+  async addComment(comment: any, route: string, userid: string, title: string): Promise<any> {
     const cmt = encodeURIComponent(JSON.stringify(comment));
-    return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid);
+    return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid+'&title='+title);
   }
 
   async checkComment(msgId: Number): Promise<any> {
     return this.getJsonFromApi('checkComment?msgId='+msgId);
   }
 
-  async getUserCommentRoutes(userId: string): Promise<any> {
-    return this.getJsonFromApi('getUserCommentRoutes?userId='+userId);
+  async getUserComments(userid: string): Promise<any> {
+    return this.getJsonFromApi('getUserComments?userid='+userid);
   }
 
   async sendCommentReport(comment: string, userid: string): Promise<any> {

@@ -12,6 +12,7 @@ import { DialogService } from '../services/dialog.service';
 export class CommentsComponent implements OnInit {
   constructor(private data: DataService, private router: Router,  private dialog: DialogService) { }
 
+  @Input() title: string;
   @Input() userName: string;
   //heading = 'comments';
   //headerImage  =  '../assets/logo.png';
@@ -33,6 +34,7 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() { 
    this.getComments()
+   console.log('comment '+this.title)
   }
 
   async sendMessage(msgPayload:  string) {
@@ -79,7 +81,7 @@ export class CommentsComponent implements OnInit {
 
 
   async addComment(p){
-    await this.data.addComment(p, this.router.url, this.currentUserId);
+    await this.data.addComment(p, this.router.url, this.currentUserId, this.title);
   }
 
   async checkComment(msgId) {

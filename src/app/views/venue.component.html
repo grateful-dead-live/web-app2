@@ -19,7 +19,7 @@
   <p class="gd-section">All shows at the {{ venue.name }}:</p>
   
   <gd-shows [eventIds]="venue.eventIds"></gd-shows>
-  <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId"></gd-comments>
+  <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="venue.name+', '+location"></gd-comments>
   <br>
 </div>
 <p [style.margin-bottom]="'75px'"></p>
