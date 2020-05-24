@@ -27,6 +27,7 @@
     <div *ngFor="let p of playlists">
       <div> {{ p.timestamp }} "{{ p.name }}"
         <button mat-icon-button (click)="delPlaylist(p.id)"><mat-icon>clear</mat-icon></button>  
+        <button mat-icon-button (click)="loadPlaylist(p.playlist)"><mat-icon>art_track</mat-icon></button>  
       </div>
       <div *ngFor="let t of p.playlist; index as i">
         <small>{{i+1}}. {{ t.title }}</small>

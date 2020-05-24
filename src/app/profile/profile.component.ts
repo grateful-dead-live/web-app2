@@ -3,6 +3,8 @@ import { AuthService } from '../auth.service';
 import { DataService } from '../services/data.service';
 import { APIResolver } from '../auth.resolve';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from '../services/dialog.service';
+import { PlayerService } from '../services/player.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute) { }
+  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute, 
+    private dialog: DialogService, private player: PlayerService) { }
 
   protected currentUser: any;
   //protected authenticated: boolean;
@@ -71,9 +74,17 @@ export class ProfileComponent implements OnInit {
     return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
   }
 
-  delPlaylist(playlistid) {
-    this.data.delPlaylist(this.currentUser.userId, playlistid);
-    this.getPlaylists();
+  delPlaylist(playlistid, name) {
+    this.dialog.openMultiFunction(
+      'Are you sure you want to delete playlist ' + name + '"?',
+      ["yes", "no"],
+      [() => {
+        this.data.delPlaylist(this.currentUser.userId, playlistid);
+        this.getPlaylists();
+      },
+        () => null]
+    );
+    
   }
 
   async getPlaylists(){
@@ -88,6 +99,17 @@ export class ProfileComponent implements OnInit {
 
     }
     //console.log(this.playlists);
+  }
+
+
+  async loadPlaylist(playlist) {
+    console.log(playlist)
+    this.dialog.openMultiFunction(
+      'Your current playlist will be lost',
+      ["ok", "cancel"],
+      [() => {this.player.playlist = playlist},
+        () => {}]
+    );
   }
 
 }
