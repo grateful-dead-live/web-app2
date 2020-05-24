@@ -235,5 +235,4 @@ export class DataService {
     return this.apiService.deleteComment(msgid, userid);
   }
 
-
 }

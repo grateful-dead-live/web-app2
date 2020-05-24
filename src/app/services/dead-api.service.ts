@@ -86,7 +86,6 @@ export class DeadApiService {
     return this.getJsonFromApi('search?q='+encodeURIComponent(q));
   }
 
-  
   async addBookmark(userid: string, route: string, time: number, title: string): Promise<any> {
     return this.getTextFromApi('addBookmark?userid='+userid+'&route='+route+'&time='+time+'&title='+title);
   }

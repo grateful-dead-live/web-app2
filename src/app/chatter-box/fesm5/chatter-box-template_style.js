@@ -48,7 +48,6 @@ export const strTemplate = `
               </div>
             </div>
         </div>
-
     </div>
     <div class="vis-chat-window-footer">
         <div>

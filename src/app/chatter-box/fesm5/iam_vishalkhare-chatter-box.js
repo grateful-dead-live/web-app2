@@ -134,6 +134,7 @@ var ChatterBoxComponent = /** @class */ (function () {
         // GD added
         emitReport: [{ type: Output }],
         emitDelete: [{ type: Output }]
+        
     };
     return ChatterBoxComponent;
 }());
