@@ -31,8 +31,12 @@ var ChatterBoxComponent = /** @class */ (function () {
     function ChatterBoxComponent() {
         this.onKeyupEnter = new EventEmitter();
         this.onKeyup = new EventEmitter();
-        this.emitReport = new EventEmitter();
         this.typedCommentTextLength = 0;
+
+        //GD added
+        this.emitReport = new EventEmitter();
+        this.emitDelete = new EventEmitter();
+        
     }
     /**
      * @return {?}
@@ -78,6 +82,9 @@ var ChatterBoxComponent = /** @class */ (function () {
         this.typedCommentTextLength = input.length;
     };
 
+
+
+
     // GD added function
     ChatterBoxComponent.prototype.onReportButton = /**
      * @param {?} input
@@ -85,14 +92,25 @@ var ChatterBoxComponent = /** @class */ (function () {
      */
     function (input) {
         this.emitReport.emit(input);
-       // if(confirm("Are you sure you want to report this comment?")) {
-       //     this.emitReport.emit(input);
-       // }
     };
      /**
      * @param {?} input
      * @return {?}
-     */
+    */
+    ChatterBoxComponent.prototype.onDeleteButton = /**
+    * @param {?} input
+    * @return {?}
+    */
+    function (input) {
+        this.emitDelete.emit(input);
+    };
+    /**
+     * @param {?} input
+     * @return {?}
+    */
+
+
+
     ChatterBoxComponent.decorators = [
         { type: Component, args: [{
                     selector: 'vis-chatterBox',
@@ -113,7 +131,9 @@ var ChatterBoxComponent = /** @class */ (function () {
         currentUserId: [{ type: Input }],
         onKeyupEnter: [{ type: Output }],
         onKeyup: [{ type: Output }],
+        // GD added
         emitReport: [{ type: Output }],
+        emitDelete: [{ type: Output }]
     };
     return ChatterBoxComponent;
 }());

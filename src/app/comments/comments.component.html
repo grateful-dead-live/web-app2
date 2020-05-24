@@ -9,7 +9,8 @@
       [errorMsg]=errorMsg
       [placeholderText]=placeholderText
       (onKeyupEnter)=sendMessage($event)
-      (emitReport)=reportComment($event)
+      (emitReport)=onReportComment($event)
+      (emitDelete)=onDeleteComment($event)
   >
   </vis-chatterBox>
 

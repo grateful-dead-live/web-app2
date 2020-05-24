@@ -136,4 +136,8 @@ export class DeadApiService {
     return this.getTextFromApi('delPlaylist?userid='+userid+'&playlistid='+playlistid);
   }
 
+  async deleteComment(msgid: number, userid: string): Promise<any> {
+    return this.getTextFromApi('deleteComment?msgid='+msgid+'&userid='+userid);
+  }
+
 }

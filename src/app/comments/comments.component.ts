@@ -96,16 +96,25 @@ export class CommentsComponent implements OnInit {
     return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
   }
 
-  protected reportComment(msg) {
+  protected onReportComment(msg) {
     this.dialog.openMultiFunction(
       "Are you sure you want to report this message?",
       ["yes", "no"],
-      [() => this.sendCommentReport(msg), 
+      [() => this.reportComment(msg), 
         () => null]
     );
   }
 
-  async sendCommentReport(msg) {
+  protected onDeleteComment(msgId) {
+    this.dialog.openMultiFunction(
+      "Are you sure you want to delete this message?",
+      ["yes", "no"],
+      [() => this.deleteComment(msgId), 
+        () => null]
+    );
+  }
+
+  async reportComment(msg) {
     var m = await this.data.sendCommentReport(msg, this.currentUserId);
     if (m.startsWith('250')) {
       var dm = 'Report sent';
@@ -113,6 +122,12 @@ export class CommentsComponent implements OnInit {
       var dm = 'Error sending report';
     }
     this.dialog.openSingleFunction( dm, ["ok"], () => null );
+  }
+
+  async deleteComment(msgId) {
+    console.log(msgId)
+    var d = await this.data.deleteComment(msgId, this.currentUserId);
+    
   }
    
 }

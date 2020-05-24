@@ -231,5 +231,9 @@ export class DataService {
     return this.apiService.delPlaylist(userid, playlistid);
   }
 
+  async deleteComment(msgid: number, userid: string): Promise<any> {
+    return this.apiService.deleteComment(msgid, userid);
+  }
+
 
 }
