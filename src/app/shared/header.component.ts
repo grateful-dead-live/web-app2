@@ -85,12 +85,10 @@ ngOnInit() {
     this.checkBookmark();
   }
 
-
   async checkBookmark(){
     var b = await this.data.checkBookmark(this.currentUser.userId, this.router.url);
     this.bookmarked = Boolean(JSON.parse(b));
     console.log("bookmark: "+this.bookmarked)
   }
 
- 
 }

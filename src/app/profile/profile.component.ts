@@ -98,4 +98,20 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  protected onDeleteBookmark(bookmark) {
+    this.dialog.openMultiFunction(
+      "Are you sure you want to delete this bookmark?",
+      ["yes", "no"],
+      [() => this.deleteBookmark(bookmark), 
+        () => null]
+    );
+  }
+
+  async deleteBookmark(bookmark){
+    await this.data.delBookmark(this.currentUser.userId, bookmark.route);
+    this.getBookmarks();
+  }
+
+
+
 }
