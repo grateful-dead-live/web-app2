@@ -13,7 +13,7 @@ export class VenueComponent {
   protected venue: Venue;
   protected location: string;
 
-  protected userProfile: any;
+  protected currentUser: any;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
@@ -21,9 +21,9 @@ export class VenueComponent {
   async ngOnInit() {
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
-        this.userProfile = this.resolve.getUser(userProfile);
+        this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.userProfile);
+      console.log(this.currentUser);
     }
 
     this.route.paramMap.subscribe(async params => {
