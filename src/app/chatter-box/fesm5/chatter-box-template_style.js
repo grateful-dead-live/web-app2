@@ -40,7 +40,7 @@ export const strTemplate = `
                     </div>
                     <div [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'timestamp' : 'timestamp color-gray') :'timestamp color-gray'">
                         {{comment.timestamp}} 
-                        <button *ngIf="comment.userId == currentUserId" (click)="onDeleteButton(comment.msgId)">delete</button>
+                        <button *ngIf="comment.userId == currentUserId" (click)="onDeleteButton(comment)">delete</button>
                         <button *ngIf="comment.userId != currentUserId"(click)="onReportButton(comment)">report</button>
                     </div>
                     

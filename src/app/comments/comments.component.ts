@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { CommentPayload } from '../chatter-box';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
@@ -10,7 +10,7 @@ import { DialogService } from '../services/dialog.service';
   styleUrls: ['./comments.component.sass']
 })
 export class CommentsComponent implements OnInit {
-  constructor(private data: DataService, private router: Router,  private dialog: DialogService) { }
+  constructor(private data: DataService, private router: Router,  private dialog: DialogService, private changeDetectorRef: ChangeDetectorRef) { }
 
   @Input() title: string;
   @Input() userName: string;
@@ -31,8 +31,7 @@ export class CommentsComponent implements OnInit {
   ];*/
 
   ngOnInit() { 
-   this.getComments()
-   console.log('comment '+this.title)
+   this.getComments();
   }
 
   async sendMessage(msgPayload:  string) {
@@ -122,10 +121,17 @@ export class CommentsComponent implements OnInit {
     this.dialog.openSingleFunction( dm, ["ok"], () => null );
   }
 
-  async deleteComment(msgId) {
-    console.log(msgId)
-    var d = await this.data.deleteComment(msgId, this.currentUserId);
-    
+  async deleteComment(msg) {
+    console.log(msg.msgId)
+    var d = await this.data.deleteComment(msg.msgId, this.currentUserId);
+    if (!(await this.checkComment(msg.msgId))){
+      console.log('comment '+msg.msgId+' deleted');
+      const i = this.allComments.indexOf(msg);
+      if (i > -1) {
+        this.allComments.splice(i, 1);
+        this.changeDetectorRef.detectChanges()
+      }
+    }
   }
    
 }
