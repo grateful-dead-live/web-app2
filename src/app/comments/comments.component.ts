@@ -23,12 +23,6 @@ export class CommentsComponent implements OnInit {
   @Input() currentUserId:  string;
   allComments:  Array<CommentPayload>;
 
-  /*allComments:  Array<CommentPayload> = [
-      {msgId:  4, userId:  9, msg:  'This is 2nd test comment', timestamp:  '21st Sept 2019', userName:  'John Doe', userImagePath:  '../assets/logo.png'},
-      {msgId:  3, userId:  8, msg:  'This is a test comment', timestamp:  '21st Sept 2019', userName:  'Vishal Khare'},
-      {msgId:  5, msg:  'This is 3rd test comment', timestamp:  '21st Sept 2019', userName:  'John Doe', userImagePath:  '../assets/logo.png'},
-      {msgId:  4, userId:  9, msg:  'This is 2nd test comment', timestamp:  '21st Sept 2019', userName:  'John Doe', userImagePath:  '../assets/logo.png'},
-  ];*/
 
   ngOnInit() { 
    this.getComments();

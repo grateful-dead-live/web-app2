@@ -58,7 +58,14 @@ export class ProfileComponent implements OnInit {
   async getComments(){
     var result = await this.data.getUserComments(this.currentUser.userId);
     if (result[0].comments) {
-      this.comments = result[0].comments;
+      var res = [];
+      result[0].comments.forEach(r => {
+        if (!(res.some(res => res.title === r.title) && res.some(res => res.route === r.route))){
+          res.push({'title': r.title, 'route': r.route});
+        }        
+      })
+      this.comments = res;
+      //this.comments = result[0].comments;
     };
   }
 
@@ -111,7 +118,5 @@ export class ProfileComponent implements OnInit {
     await this.data.delBookmark(this.currentUser.userId, bookmark.route);
     this.getBookmarks();
   }
-
-
 
 }
