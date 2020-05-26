@@ -15,7 +15,7 @@ public showBanner: Boolean;
 
 
 public ngOnInit() {
-  const consent = this.getCookie('cookieconsent');
+  const consent = this.getCookie('gd-cookieconsent');
   if (consent === 'allow') {
     this.showBanner = false;
   } else {

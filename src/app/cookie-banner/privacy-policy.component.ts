@@ -18,7 +18,7 @@ public ngOnInit() {
 }
 
 public removeCookie() {
-    this.document.cookie = 'cookieconsent= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    this.document.cookie = 'gd-cookieconsent= ; expires = Thu, 01 Jan 1970 00:00:00 GMT';
     this.window.location.reload();
   }
 
