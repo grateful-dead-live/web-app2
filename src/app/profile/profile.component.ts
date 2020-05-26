@@ -84,11 +84,11 @@ export class ProfileComponent implements OnInit {
       },
         () => null]
     );
-  }
+  } 
 
   async getPlaylists(){
     var result = await this.data.getPlaylists(this.currentUser.userId);
-    if (result[0].length){
+    if (result[0].playlists){
       var p = result[0].playlists;
       p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
       p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
