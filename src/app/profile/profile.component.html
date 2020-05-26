@@ -4,11 +4,15 @@
 <div *ngIf="currentUser">
   <gd-header title='Profile' subtitle='{{ currentUser.userName }}'></gd-header>
   <br><b>User Info</b><br>
-  <pre>
+  <!--pre>
     <code>{{ userProfile | json }}</code>
-  </pre>
+  </pre-->
 
-  <b>Bookmarks</b><br>
+  <i>{{'Username:  '}} </i>{{ userProfile['http://example.com/username'] }}
+  <br><i>{{'Email:  '}} </i> {{ userProfile.email }}
+
+
+  <br><br><b>Bookmarks</b><br>
   <div *ngIf="bookmarks">
       <div *ngFor="let b of bookmarks">
             {{b.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="b.route">{{ b.title }}</u>

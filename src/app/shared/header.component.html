@@ -19,7 +19,7 @@
   <div class="container hf1" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'4px'">
     <span>
       {{ title }} {{ subtitle }}
-      <span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile'))">
+      <span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
         <button mat-icon-button color="" (click)="onBookmarkButton()">
           <mat-icon *ngIf="bookmarked">bookmark</mat-icon>
           <mat-icon *ngIf="!bookmarked">bookmark_border</mat-icon>

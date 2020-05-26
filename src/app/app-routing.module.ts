@@ -13,6 +13,7 @@ import { StartComponent } from './views/start.component';
 import { ProfileComponent } from './profile/profile.component';
 import { APIResolver } from './auth.resolve';
 import { CommentsComponent } from './comments/comments.component';
+import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mapselect', pathMatch: 'full' },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'mapselect', component: MapSelectComponent, resolve: { loggedIn: APIResolver} },
   { path: 'about', component: StartComponent, resolve: { loggedIn: APIResolver} },
   { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} },
-  { path: 'comments', component: CommentsComponent, resolve: { loggedIn: APIResolver} }
+  { path: 'comments', component: CommentsComponent, resolve: { loggedIn: APIResolver} },
+  { path: 'dataprivacy', component: PrivacyPolicyComponent }
 ];
 
 @NgModule({

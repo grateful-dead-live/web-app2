@@ -46,6 +46,8 @@ import { APIResolver } from './auth.resolve';
 import { ChatterBoxModule } from './chatter-box';
 import { CommentsComponent } from './comments/comments.component';
 import { InputDialogComponent } from './shared/input-dialog.component';
+import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
+import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { InputDialogComponent } from './shared/input-dialog.component';
     ButtonDirective,
     ProfileComponent,
     CommentsComponent,
-    InputDialogComponent
+    InputDialogComponent,
+    CookieBannerComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +99,15 @@ import { InputDialogComponent } from './shared/input-dialog.component';
     DialogService,
     //{provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
-    APIResolver
+    APIResolver,
+    {
+      provide: 'window',
+      useValue: window,
+    },
+    {
+      provide: 'document',
+      useValue: document,
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 
