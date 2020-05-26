@@ -46,7 +46,7 @@ public ngOnInit() {
   }
 
   public agreeToShare() {
-    this.setCookie('cookieconsent', 'allow', 365);
+    this.setCookie('gd-cookieconsent', 'allow', 365);
     this.window.location.reload();
   }
 
