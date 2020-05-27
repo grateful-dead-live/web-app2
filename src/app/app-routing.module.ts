@@ -11,6 +11,7 @@ import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent } from './views/mapselect.component';
 import { StartComponent } from './views/start.component';
 import { ProfileComponent } from './profile/profile.component';
+import { APIResolver } from './auth.resolve';
 import { CommentsComponent } from './comments/comments.component';
 import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
 
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: 'artifacts/:types', component: ArtifactsComponent },
   { path: 'mapselect', component: MapSelectComponent },
   { path: 'about', component: StartComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} },
   { path: 'comments', component: CommentsComponent },
   { path: 'dataprivacy', component: PrivacyPolicyComponent }
 ];

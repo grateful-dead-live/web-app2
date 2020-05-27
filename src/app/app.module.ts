@@ -39,7 +39,7 @@ import { DialogService } from './services/dialog.service';
 //import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
-import { ButtonDirective } from './button.directive';
+//import { ButtonDirective } from './button.directive';
 import { ProfileComponent } from './profile/profile.component';
 
 import { APIResolver } from './auth.resolve';
@@ -69,7 +69,7 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     ShowMapComponent,
     MapSelectComponent,
     StartComponent,
-    ButtonDirective,
+    //ButtonDirective,
     ProfileComponent,
     CommentsComponent,
     InputDialogComponent,
@@ -99,7 +99,7 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     DialogService,
     //{provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
-    //APIResolver,
+    APIResolver,
     {
       provide: 'window',
       useValue: window,

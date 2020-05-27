@@ -6,7 +6,7 @@
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
 <div fxLayout="row">
-  <button mat-flat-button fxFlex (click)="player.play()" [eventTracker]='{"category":"user","action":"play"}'>
+  <button mat-flat-button fxFlex (click)="player.play()">   <!--  [eventTracker]='{"category":"user","action":"play"}  -->
     <mat-icon>play_arrow</mat-icon></button>
   <button mat-flat-button fxFlex (click)="player.pause()">
     <mat-icon>pause</mat-icon></button>

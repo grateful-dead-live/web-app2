@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular-8-how-to-use-cookies-14ab3f2e93fc
 import { AuthService } from './auth.service';
+import { TRACKINGID } from './config';
 
 declare let gtag: Function;
 
@@ -14,10 +15,10 @@ declare let gtag: Function;
 
 export class AppComponent {
   protected start: Boolean;
-  private cookieValue: string;
+  //private cookieValue: string;
   protected currentUser: any;
 
-  constructor(router:Router, private cookieService: CookieService, public auth: AuthService) {
+  constructor(public router:Router, private cookieService: CookieService, public auth: AuthService) {
     //router.events.forEach((event) => {
     //  if (router.url.includes('/about')) {  
     //    this.start = true; 
@@ -33,6 +34,16 @@ export class AppComponent {
           userName: userProfile['http://example.com/username']
         }
       }
+    });
+
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationEnd){
+          gtag('config', TRACKINGID, 
+                {
+                  'page_path': event.urlAfterRedirects
+                }
+               );
+       }
     });
 
     /*
