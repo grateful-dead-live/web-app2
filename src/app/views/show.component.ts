@@ -20,12 +20,16 @@ export class ShowComponent {
   protected photos: Artifact[];
   protected artifacts: Artifact[];
   protected eventImage: string;
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
     private dialog: DialogService, private player: PlayerService, public auth: AuthService) {
 
+      
+    }
+
+    async ngOnInit() {
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
           this.currentUser = {
@@ -34,9 +38,7 @@ export class ShowComponent {
           }
         }
       });
-    }
-
-    async ngOnInit() {
+      
       /*
       this.currentUser = { userName: '', userId: ''}
       if (this.route.snapshot.data['loggedIn']) {

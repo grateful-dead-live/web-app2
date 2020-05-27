@@ -35,19 +35,20 @@ export class HeaderComponent {
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
     public auth: AuthService, private router: Router) {
 
-      this.auth.userProfile$.subscribe(userProfile => {
-        if (userProfile){
-          this.currentUser = {
-            userId: userProfile.sub.split("|")[1],
-            userName: userProfile['http://example.com/username']
-          }
-          if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
-            { this.checkBookmark() };
-        }
-      });
+      
     }
   
 ngOnInit() {
+  this.auth.userProfile$.subscribe(userProfile => {
+    if (userProfile){
+      this.currentUser = {
+        userId: userProfile.sub.split("|")[1],
+        userName: userProfile['http://example.com/username']
+      }
+      if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
+        { this.checkBookmark() };
+    }
+  });
     this.bookmarked = false;
     this.searchState = 0;
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');

@@ -16,6 +16,10 @@ export class ArtifactsComponent {
   
   constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService) {
 
+   
+  }
+  
+  async ngOnInit() {
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {
@@ -24,9 +28,6 @@ export class ArtifactsComponent {
         }
       }
     });
-  }
-  
-  async ngOnInit() {
     /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {

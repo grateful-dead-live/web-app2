@@ -16,6 +16,11 @@ export class LocationComponent {
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService) {
 
+      
+
+    }
+
+    ngOnInit() {
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
           this.currentUser = {
@@ -24,10 +29,6 @@ export class LocationComponent {
           }
         }
       });
-
-    }
-
-    ngOnInit() {
       /*
       if (this.route.snapshot.data['loggedIn']) {
         this.auth.userProfile$.subscribe(userProfile => {

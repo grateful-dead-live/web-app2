@@ -19,18 +19,19 @@ export class RecordingComponent {
     private route: ActivatedRoute, private dialog: DialogService,
     private player: PlayerService, public auth: AuthService) {
 
-      this.auth.userProfile$.subscribe(userProfile => {
-        if (userProfile){
-          this.currentUser = {
-            userId: userProfile.sub.split("|")[1],
-            userName: userProfile['http://example.com/username']
-          }
-        }
-      });
+      
 
     }
 
   ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+      }
+    });
     /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {

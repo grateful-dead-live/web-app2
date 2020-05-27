@@ -19,6 +19,11 @@ export class MapSelectComponent {
   constructor(private data: DataService, private sanitizer: DomSanitizer,
   public auth: AuthService) {
 
+    
+
+  }
+
+  ngOnInit() {
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {
@@ -27,10 +32,6 @@ export class MapSelectComponent {
         }
       }
     });
-
-  }
-
-  ngOnInit() {
     /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {

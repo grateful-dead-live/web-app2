@@ -17,18 +17,19 @@ export class ArtistComponent {
   constructor(private data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {
 
-      this.auth.userProfile$.subscribe(userProfile => {
-        if (userProfile){
-          this.currentUser = {
-            userId: userProfile.sub.split("|")[1],
-            userName: userProfile['http://example.com/username']
-          }
-        }
-      });
-
+      
     }
 
   async ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+      }
+    });
+
     /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
