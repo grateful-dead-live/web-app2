@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DataService } from '../services/data.service';
 import { APIResolver } from '../auth.resolve';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 
@@ -12,8 +11,18 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute, 
-    private dialog: DialogService, private player: PlayerService) { }
+  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, 
+    private dialog: DialogService, private player: PlayerService) { 
+
+      this.auth.userProfile$.subscribe(userProfile => {
+        if (userProfile){
+          this.userProfile = userProfile;
+          this.currentUser = this.resolve.getUser(userProfile);
+          
+        }
+        });
+      
+    }
 
   protected currentUser: any;
   //protected authenticated: boolean;
@@ -24,6 +33,7 @@ export class ProfileComponent implements OnInit {
   protected showPlaylistInfo: boolean = false;
 
   ngOnInit() {
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.userProfile = userProfile;
@@ -32,6 +42,12 @@ export class ProfileComponent implements OnInit {
         this.getComments()
         this.getPlaylists();
       });
+    }*/
+
+    if (this.currentUser){
+      this.getBookmarks();
+        this.getComments();
+        this.getPlaylists();
     }
 
 /*

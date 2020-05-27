@@ -4,6 +4,8 @@ import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular
 import { AuthService } from './auth.service';
 import { APIResolver } from './auth.resolve';
 
+declare let gtag: Function;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,10 +27,7 @@ export class AppComponent {
     //  }
     //});
     
-    this.auth.userProfile$.subscribe(userProfile => {
-      if (userProfile){
-        this.currentUser = this.resolve.getUser(userProfile);}
-      });
+    
       
     
 
@@ -42,11 +41,18 @@ export class AppComponent {
   }
 
   public ngOnInit(): void {
+    
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = this.resolve.getUser(userProfile);}
+      });
+      
+      /*
     if (!this.cookieService.check('gd-cookie')){
       const v = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       this.cookieService.set('gd-cookie', v);
       this.cookieValue = this.cookieService.get('gd-cookie');
-    } 
+    } */
   }
 
 

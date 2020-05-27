@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { VenueDetails } from '../services/types';
@@ -19,16 +18,24 @@ export class MapSelectComponent {
   protected test: number;
 
   constructor(private data: DataService, private sanitizer: DomSanitizer,
-  private router: Router, private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
+  public auth: AuthService, public resolve: APIResolver) {
+
+      this.auth.userProfile$.subscribe(userProfile => {
+        if (userProfile){
+          this.currentUser = this.resolve.getUser(userProfile);}
+        });
+
+  }
 
   ngOnInit() {
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
-
+    */
 
 
     //this.venues = await this.data.getVenueCoordinates();

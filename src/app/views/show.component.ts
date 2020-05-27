@@ -25,16 +25,23 @@ export class ShowComponent {
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {}
+    private dialog: DialogService, private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {
+
+      this.auth.userProfile$.subscribe(userProfile => {
+        if (userProfile){
+          this.currentUser = this.resolve.getUser(userProfile);}
+        });
+    }
 
     async ngOnInit() {
+      /*
       this.currentUser = { userName: '', userId: ''}
       if (this.route.snapshot.data['loggedIn']) {
         this.auth.userProfile$.subscribe(userProfile => {
           this.currentUser = this.resolve.getUser(userProfile);
         });
         console.log(this.currentUser);
-      }
+      }*/
       
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {

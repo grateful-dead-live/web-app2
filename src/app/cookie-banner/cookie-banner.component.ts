@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service'; 
 
 @Component({
   selector: 'app-cookie-banner',
@@ -7,11 +8,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class CookieBannerComponent implements OnInit {
 
-public constructor(@Inject('document') private document,
+public constructor(@Inject('document') private document, private cookieService: CookieService,
             @Inject('window') private window) {
 }
 
 public showBanner: Boolean;
+private cookieValue: string;
 
 
 public ngOnInit() {
@@ -47,7 +49,28 @@ public ngOnInit() {
 
   public agreeToShare() {
     this.setCookie('gd-cookieconsent', 'allow', 365);
+    this.setGdCookie();
+    //this.showBanner = true;
     this.window.location.reload();
   }
+
+
+  private setGdCookie() {
+    if (!this.cookieService.check('gd-cookie')){
+      this.cookieValue = this.makeid();
+      this.cookieService.set('gd-cookie', this.cookieValue);
+      //this.cookieValue = this.cookieService.get('gd-cookie');
+    } 
+  }
+
+  private makeid() {
+    var result           = '';
+    var characters       = 'abcdef0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 24; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 
 }

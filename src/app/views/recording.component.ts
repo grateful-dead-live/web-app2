@@ -18,15 +18,24 @@ export class RecordingComponent {
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
-    private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {}
+    private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {
+
+      this.auth.userProfile$.subscribe(userProfile => {
+        if (userProfile){
+          this.currentUser = this.resolve.getUser(userProfile);}
+        });
+
+    }
 
   ngOnInit() {
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
+    */
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.recording = await this.data.getRecording(params.get('id'));

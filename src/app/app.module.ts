@@ -99,7 +99,7 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     DialogService,
     //{provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
-    APIResolver,
+    //APIResolver,
     {
       provide: 'window',
       useValue: window,
