@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular-8-how-to-use-cookies-14ab3f2e93fc
 import { AuthService } from './auth.service';
-import { APIResolver } from './auth.resolve';
 
 declare let gtag: Function;
 
@@ -18,7 +17,7 @@ export class AppComponent {
   private cookieValue: string;
   protected currentUser: any;
 
-  constructor(router:Router, private cookieService: CookieService, public auth: AuthService, public resolve: APIResolver) {
+  constructor(router:Router, private cookieService: CookieService, public auth: AuthService) {
     //router.events.forEach((event) => {
     //  if (router.url.includes('/about')) {  
     //    this.start = true; 
@@ -26,10 +25,15 @@ export class AppComponent {
     //    this.start = false; 
     //  }
     //});
-    
-    
-      
-    
+
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+      }
+    });
 
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -40,14 +44,7 @@ export class AppComponent {
 
   }
 
-  public ngOnInit(): void {
-    
-    this.auth.userProfile$.subscribe(userProfile => {
-      if (userProfile){
-        this.currentUser = this.resolve.getUser(userProfile);}
-      });
-      
-      /*
+  public ngOnInit(): void {/*
     if (!this.cookieService.check('gd-cookie')){
       const v = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
       this.cookieService.set('gd-cookie', v);

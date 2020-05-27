@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DataService } from '../services/data.service';
-import { APIResolver } from '../auth.resolve';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 
@@ -11,14 +10,16 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, 
+  constructor(public auth: AuthService, private data: DataService, 
     private dialog: DialogService, private player: PlayerService) { 
 
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
           this.userProfile = userProfile;
-          this.currentUser = this.resolve.getUser(userProfile);
-          
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
         }
         });
       

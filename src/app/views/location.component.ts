@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Location } from '../services/types';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
+
 
 @Component({
   selector: 'gd-location',
@@ -14,12 +14,16 @@ export class LocationComponent {
   protected currentUser: any;
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {
+    private route: ActivatedRoute, public auth: AuthService) {
 
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
-          this.currentUser = this.resolve.getUser(userProfile);}
-        });
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
+        }
+      });
 
     }
 

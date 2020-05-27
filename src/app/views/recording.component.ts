@@ -5,7 +5,6 @@ import { RecordingDetails, DeadEventInfo, SongInfo, AudioTrack } from '../servic
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-recording',
@@ -18,12 +17,16 @@ export class RecordingComponent {
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
-    private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {
+    private player: PlayerService, public auth: AuthService) {
 
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
-          this.currentUser = this.resolve.getUser(userProfile);}
-        });
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
+        }
+      });
 
     }
 

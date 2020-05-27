@@ -6,7 +6,6 @@ import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-song',
@@ -25,12 +24,16 @@ export class SongComponent {
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, public auth: AuthService, public resolve: APIResolver) {
+    private dialog: DialogService, public auth: AuthService) {
 
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
-          this.currentUser = this.resolve.getUser(userProfile);}
-        });
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
+        }
+      });
 
     }
 

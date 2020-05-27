@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
 
 @Component({
   selector: 'gd-artifacts',
@@ -15,12 +14,16 @@ export class ArtifactsComponent {
   protected types: ArtifactType[];
   protected currentUser: any;
   
-  constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {
+  constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService) {
 
-      this.auth.userProfile$.subscribe(userProfile => {
-        if (userProfile){
-          this.currentUser = this.resolve.getUser(userProfile);}
-        });
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+      }
+    });
   }
   
   async ngOnInit() {

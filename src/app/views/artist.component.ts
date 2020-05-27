@@ -19,8 +19,12 @@ export class ArtistComponent {
 
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
-          this.currentUser = this.resolve.getUser(userProfile);}
-        });
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
+        }
+      });
 
     }
 

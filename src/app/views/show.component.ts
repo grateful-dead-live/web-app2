@@ -6,7 +6,6 @@ import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
 
 
 @Component({
@@ -25,12 +24,16 @@ export class ShowComponent {
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {
+    private dialog: DialogService, private player: PlayerService, public auth: AuthService) {
 
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
-          this.currentUser = this.resolve.getUser(userProfile);}
-        });
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
+        }
+      });
     }
 
     async ngOnInit() {

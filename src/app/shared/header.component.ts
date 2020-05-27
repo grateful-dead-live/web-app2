@@ -6,7 +6,6 @@ import { MatDialog, MatDialogConfig } from "@angular/material";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
 import { Router } from '@angular/router';
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
@@ -34,7 +33,19 @@ export class HeaderComponent {
   
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    public auth: AuthService, public resolve: APIResolver, private router: Router) {}
+    public auth: AuthService, private router: Router) {
+
+      this.auth.userProfile$.subscribe(userProfile => {
+        if (userProfile){
+          this.currentUser = {
+            userId: userProfile.sub.split("|")[1],
+            userName: userProfile['http://example.com/username']
+          }
+          if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
+            { this.checkBookmark() };
+        }
+      });
+    }
   
 ngOnInit() {
     this.bookmarked = false;
@@ -42,6 +53,7 @@ ngOnInit() {
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
     this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
 
+    /*
     if (this.auth.loggedIn) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
@@ -49,6 +61,7 @@ ngOnInit() {
         { this.checkBookmark() };
       });
     }
+    */
   }
 
 
