@@ -3,6 +3,8 @@ import { PlayerService } from '../services/player.service';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 
+declare let gtag: Function;
+
 @Component({
   selector: 'gd-player',
   templateUrl: './player.component.html',
@@ -15,7 +17,7 @@ export class PlayerComponent {
   constructor(protected player: PlayerService, private data: DataService, private dialog: DialogService) {}
   
   ngOnInit() {
-   
+    if (this.currentUser.userId != '') gtag('set', {'user_id': this.currentUser.userId});
   }
 
   async addRandomTrack() {

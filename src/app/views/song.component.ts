@@ -22,7 +22,7 @@ export class SongComponent {
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
-  protected currentUser: any = { userName: undefined, userId: undefined};
+  protected currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
@@ -39,6 +39,7 @@ export class SongComponent {
           userId: userProfile.sub.split("|")[1],
           userName: userProfile['http://example.com/username']
         }
+        gtag('set', {'user_id': this.currentUser.userId});
       }
     });
     /*

@@ -31,6 +31,7 @@ export class MapSelectComponent {
           userId: userProfile.sub.split("|")[1],
           userName: userProfile['http://example.com/username']
         }
+        gtag('set', {'user_id': this.currentUser.userId});
       }
     });
     /*

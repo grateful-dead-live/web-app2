@@ -15,7 +15,7 @@ declare let gtag: Function;
 export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
-  protected currentUser: any = { userName: undefined, userId: undefined };
+  protected currentUser: any = { userName: '', userId: ''};
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
@@ -32,6 +32,7 @@ export class RecordingComponent {
           userId: userProfile.sub.split("|")[1],
           userName: userProfile['http://example.com/username']
         }
+        gtag('set', {'user_id': this.currentUser.userId});
       }
     });
     /*

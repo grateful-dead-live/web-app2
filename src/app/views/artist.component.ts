@@ -14,7 +14,7 @@ declare let gtag: Function;
 export class ArtistComponent {
   
   protected artist: ArtistDetails;
-  protected currentUser: any = { userName: undefined, userId: undefined};
+  protected currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {
@@ -29,6 +29,7 @@ export class ArtistComponent {
           userId: userProfile.sub.split("|")[1],
           userName: userProfile['http://example.com/username']
         }
+        gtag('set', {'user_id': this.currentUser.userId});
       }
     });
 
