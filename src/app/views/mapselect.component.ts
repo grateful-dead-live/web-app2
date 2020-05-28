@@ -4,6 +4,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { VenueDetails } from '../services/types';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-mapselect',
@@ -12,7 +13,7 @@ import { AuthService } from '../auth.service';
 })
 
 export class MapSelectComponent {
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: '', userId:'' };
   protected venues: VenueDetails[];
   protected test: number;
 

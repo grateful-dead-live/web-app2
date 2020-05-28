@@ -7,6 +7,7 @@ import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-show',
@@ -20,7 +21,7 @@ export class ShowComponent {
   protected photos: Artifact[];
   protected artifacts: Artifact[];
   protected eventImage: string;
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: '', userId:'' };
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,

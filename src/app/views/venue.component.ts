@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { Venue } from '../services/types';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-venue',
@@ -13,7 +14,7 @@ export class VenueComponent {
   protected venue: Venue;
   protected location: string;
 
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService) {}
@@ -25,6 +26,7 @@ export class VenueComponent {
           userId: userProfile.sub.split("|")[1],
           userName: userProfile['http://example.com/username']
         }
+        gtag('set', {'user_id': this.currentUser.userId});
       }
     });
 

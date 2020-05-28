@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-artist',
@@ -13,7 +14,7 @@ import { APIResolver } from '../auth.resolve';
 export class ArtistComponent {
   
   protected artist: ArtistDetails;
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: undefined, userId: undefined};
 
   constructor(private data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {

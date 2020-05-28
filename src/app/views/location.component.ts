@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { Location } from '../services/types';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-location',
@@ -11,7 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class LocationComponent {
   protected location: Location;
-  protected currentUser: any = { userName: '', userId: ''};;
+  protected currentUser: any = { userName: '', userId:'' };;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService) {

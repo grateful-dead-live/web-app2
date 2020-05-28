@@ -15,7 +15,7 @@ declare let gtag: Function;
 export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: undefined, userId: undefined };
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,

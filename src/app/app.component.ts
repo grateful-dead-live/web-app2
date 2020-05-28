@@ -16,7 +16,7 @@ declare let gtag: Function;
 export class AppComponent {
   //protected start: Boolean;
   //private cookieValue: string;
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: '', userId: '' };
 
   constructor(public router:Router, public auth: AuthService) {
     //router.events.forEach((event) => {

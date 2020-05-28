@@ -29,8 +29,8 @@ export class PlayerService {
       || {title:"", uri:"", waveform:""};
   }
   
-  skipToTrack(userId, track: Track) {
-    this.skipToTrackAtIndex(userId, this.playlist.indexOf(track));
+  skipToTrack(track: Track) {
+    this.skipToTrackAtIndex(this.playlist.indexOf(track));
   }
 
 
@@ -43,7 +43,7 @@ export class PlayerService {
       */
 
 
-  playPause(userId) {
+  playPause() {
     if (this.playlist.length > 0){
       if (this.currentAudio) {
         if (this.currentAudio.paused) {
@@ -54,7 +54,7 @@ export class PlayerService {
           this.paused = true;
         }
       } else {
-        this.playPlaylist(userId);
+        this.playPlaylist();
       }
   }
   }
@@ -82,33 +82,33 @@ export class PlayerService {
     return this.muted;
   }
   
-  nextTrack(userId) {
+  nextTrack() {
     if (this.playlist.length) {
-      this.skipToTrackAtIndex(userId, (this.currentTrackIndex+1) % this.playlist.length);
+      this.skipToTrackAtIndex((this.currentTrackIndex+1) % this.playlist.length);
     }
   }
   
-  previousTrack(userId) {
+  previousTrack() {
     if (this.playlist.length) {
-      this.skipToTrackAtIndex(userId, (this.currentTrackIndex-1) % this.playlist.length);
+      this.skipToTrackAtIndex((this.currentTrackIndex-1) % this.playlist.length);
     }
   }
   
-  private skipToTrackAtIndex(userId, index: number) {
+  private skipToTrackAtIndex(index: number) {
     this.currentTrackIndex = index;
     if (this.currentAudio) {
       this.stop();
-      this.playPause(userId);
+      this.playPause();
     }
   }
   
-  private async playPlaylist(userId) {
+  private async playPlaylist() {
     if (this.currentTrackIndex < this.playlist.length) {
       console.log('Google Analytics')
-      this.googleAnalyticsService.eventEmitter(userId, "play", "audio_player", "play", this.getCurrentTrack().uri);
+      this.googleAnalyticsService.eventEmitter("play", "audio_player", "play", this.getCurrentTrack().uri);
       await this.playCurrentTrack();
       this.currentTrackIndex++;
-      //this.playPlaylist(userId);  // why was this here?
+      //this.playPlaylist();  // why was this here?
     } else {
       this.reset();
     }

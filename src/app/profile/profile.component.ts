@@ -34,10 +34,10 @@ export class ProfileComponent implements OnInit {
       this.auth.userProfile$.subscribe(userProfile => {
         this.userProfile = userProfile;
         this.currentUser = this.resolve.getUser(userProfile);
+        gtag('set', {'user_id': this.currentUser.userId});
         this.getBookmarks();
         this.getComments()
         this.getPlaylists();
-        gtag('set', {'user_id': this.currentUser.userId});
       });
     }
 

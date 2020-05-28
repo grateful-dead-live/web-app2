@@ -6,7 +6,7 @@
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
 <div fxLayout="row">
-  <button mat-flat-button fxFlex (click)="player.playPause(currentUser.userId)"> 
+  <button mat-flat-button fxFlex (click)="player.playPause()"> 
     <mat-icon *ngIf="!player.paused">pause</mat-icon>
     <mat-icon *ngIf="player.paused">play_arrow</mat-icon>
   </button>
@@ -14,9 +14,9 @@
     <mat-icon>pause</mat-icon></button-->
   <button mat-flat-button fxFlex (click)="player.stop()">
     <mat-icon>stop</mat-icon></button>
-  <button mat-flat-button fxFlex (click)="player.previousTrack(currentUser.userId)">
+  <button mat-flat-button fxFlex (click)="player.previousTrack()">
     <mat-icon>skip_previous</mat-icon></button>
-  <button mat-flat-button fxFlex (click)="player.nextTrack(currentUser.userId)">
+  <button mat-flat-button fxFlex (click)="player.nextTrack()">
     <mat-icon>skip_next</mat-icon></button>
   <button mat-flat-button fxFlex (click)="player.toggleMute()">
     <mat-icon>{{player.muted ? 'volume_up' : 'volume_off'}}</mat-icon></button>
@@ -32,7 +32,7 @@
   <div class="playlist" *ngFor="let s of player.playlist; index as i"
       [hidden]="minimized && s !== player.getCurrentTrack()"
       [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'"
-      (click)="player.skipToTrack(currentUser.userId, s)">
+      (click)="player.skipToTrack(s)">
     {{s.title}} 
     <button mat-icon-button color="" (click)="delTrack(i)"><mat-icon>clear</mat-icon></button>
   </div>

@@ -7,6 +7,7 @@ import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-song',
@@ -21,7 +22,7 @@ export class SongComponent {
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: undefined, userId: undefined};
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,

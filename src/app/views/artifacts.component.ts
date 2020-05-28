@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-artifacts',
@@ -13,7 +14,7 @@ export class ArtifactsComponent {
   
   protected artifacts: Artifact[];
   protected types: ArtifactType[];
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: '', userId:''};
   
   constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService) {
 

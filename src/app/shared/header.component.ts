@@ -29,10 +29,9 @@ export class HeaderComponent {
   //protected fuse: any;
   protected result: any;
   protected searchState: any;
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId:''};
   protected bookmarked: boolean;
 
-  
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
     public auth: AuthService, private router: Router) {
