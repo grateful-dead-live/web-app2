@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular-8-how-to-use-cookies-14ab3f2e93fc
 import { AuthService } from './auth.service';
-import { TRACKINGID } from './config';
+import { TRACKINGID, TRACKING } from './config';
+
 
 declare let gtag: Function;
 
@@ -28,16 +29,16 @@ export class AppComponent {
     //});
 
     
-    /*
+    
     this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd){
+      if(event instanceof NavigationEnd && TRACKING){
           gtag('config', TRACKINGID, 
                 {
                   'page_path': event.urlAfterRedirects
                 }
                );
        }
-    }); */
+    }); 
 
 
   }

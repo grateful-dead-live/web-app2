@@ -48,6 +48,8 @@ import { CommentsComponent } from './comments/comments.component';
 import { InputDialogComponent } from './shared/input-dialog.component';
 import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
 import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
+import {GoogleAnalyticsService} from './services/google-analytics.service';
+
 
 @NgModule({
   declarations: [
@@ -107,7 +109,9 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     {
       provide: 'document',
       useValue: document,
-    }
+    },
+    GoogleAnalyticsService
+    
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 

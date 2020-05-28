@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import{GoogleAnalyticsService} from './google-analytics.service';
 
 export interface Track {
   title: string,
@@ -16,7 +17,7 @@ export class PlayerService {
   private currentTrackIndex = 0;
   private muted = false;
   
-  constructor() {}
+  constructor(protected googleAnalyticsService: GoogleAnalyticsService) {}
   
   addToPlaylist(track: Track) {
     this.playlist.push(track);
@@ -30,6 +31,16 @@ export class PlayerService {
   skipToTrack(track: Track) {
     this.skipToTrackAtIndex(this.playlist.indexOf(track));
   }
+
+
+/*
+    eventName: string, 
+    eventCategory: string, 
+    eventAction: string, 
+    eventLabel: string = null,  
+    eventValue: number = null ){ 
+      */
+
 
   play() {
     if (this.currentAudio) {
@@ -91,6 +102,8 @@ export class PlayerService {
   
   private async playPlaylist() {
     if (this.currentTrackIndex < this.playlist.length) {
+      console.log('Google Analytics')
+      this.googleAnalyticsService.eventEmitter("play", "audio_player", "play", this.getCurrentTrack().uri);
       await this.playCurrentTrack();
       this.currentTrackIndex++;
       this.playPlaylist();

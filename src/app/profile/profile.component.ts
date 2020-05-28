@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
       var p = result[0].playlists;
       p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
       p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
-      this.playlists = p; 
+      this.playlists = p;
     }
   }
 
