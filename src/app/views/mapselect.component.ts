@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service';
 })
 
 export class MapSelectComponent {
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
   protected venues: VenueDetails[];
   protected test: number;
 

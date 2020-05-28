@@ -6,6 +6,8 @@ import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
 
+declare let gtag: Function;
+
 @Component({
   selector: 'gd-recording',
   templateUrl: './recording.component.html'
@@ -13,7 +15,7 @@ import { AuthService } from '../auth.service';
 export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,

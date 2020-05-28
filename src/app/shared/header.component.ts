@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
 
+declare let gtag: Function;
+
 @Component({
   selector: 'gd-header',
   templateUrl: './header.component.html',
@@ -47,6 +49,7 @@ ngOnInit() {
       }
       if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
         { this.checkBookmark() };
+      gtag('set', {'user_id': this.currentUser.userId});
     }
   });
     this.bookmarked = false;

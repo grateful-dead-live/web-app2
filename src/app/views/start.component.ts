@@ -3,20 +3,14 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
 import { EMAILADDRESS } from '../config'
 
+
 @Component({
   selector: 'gd-start',
   templateUrl: './start.component.html'
 })
 export class StartComponent {
-  part1: String;
-  part2: String;
-  part3: String;
-  part4: String;
-  part5: String;
-  part6: String;
-  part7: String;
 
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
   protected email: string;
   
   constructor(private sanitizer: DomSanitizer,

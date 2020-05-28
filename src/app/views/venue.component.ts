@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { Venue } from '../services/types';
 import { AuthService } from '../auth.service';
 
+
 @Component({
   selector: 'gd-venue',
   templateUrl: './venue.component.html'

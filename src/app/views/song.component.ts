@@ -7,6 +7,7 @@ import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
 
+
 @Component({
   selector: 'gd-song',
   templateUrl: './song.component.html'
@@ -20,7 +21,7 @@ export class SongComponent {
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,

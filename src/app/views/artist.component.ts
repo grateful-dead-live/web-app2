@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
 
+
 @Component({
   selector: 'gd-artist',
   templateUrl: './artist.component.html',
@@ -12,7 +13,7 @@ import { APIResolver } from '../auth.resolve';
 export class ArtistComponent {
   
   protected artist: ArtistDetails;
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {

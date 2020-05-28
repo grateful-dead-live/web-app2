@@ -29,8 +29,8 @@ export class PlayerService {
       || {title:"", uri:"", waveform:""};
   }
   
-  skipToTrack(track: Track) {
-    this.skipToTrackAtIndex(this.playlist.indexOf(track));
+  skipToTrack(userId, track: Track) {
+    this.skipToTrackAtIndex(userId, this.playlist.indexOf(track));
   }
 
 
@@ -43,22 +43,7 @@ export class PlayerService {
       */
 
 
-  play() {
-    if (this.currentAudio) {
-      this.currentAudio.paused ? this.pause() : null;
-    } else {
-      this.playPlaylist();
-    }
-  }
-  
-  pause() {
-    if (this.currentAudio) {
-      this.currentAudio.paused ?
-        this.currentAudio.play() : this.currentAudio.pause();
-    }
-  }
-
-  playPause() {
+  playPause(userId) {
     if (this.playlist.length > 0){
       if (this.currentAudio) {
         if (this.currentAudio.paused) {
@@ -69,7 +54,7 @@ export class PlayerService {
           this.paused = true;
         }
       } else {
-        this.playPlaylist();
+        this.playPlaylist(userId);
       }
   }
   }
@@ -97,33 +82,33 @@ export class PlayerService {
     return this.muted;
   }
   
-  nextTrack() {
+  nextTrack(userId) {
     if (this.playlist.length) {
-      this.skipToTrackAtIndex((this.currentTrackIndex+1) % this.playlist.length);
+      this.skipToTrackAtIndex(userId, (this.currentTrackIndex+1) % this.playlist.length);
     }
   }
   
-  previousTrack() {
+  previousTrack(userId) {
     if (this.playlist.length) {
-      this.skipToTrackAtIndex((this.currentTrackIndex-1) % this.playlist.length);
+      this.skipToTrackAtIndex(userId, (this.currentTrackIndex-1) % this.playlist.length);
     }
   }
   
-  private skipToTrackAtIndex(index: number) {
+  private skipToTrackAtIndex(userId, index: number) {
     this.currentTrackIndex = index;
     if (this.currentAudio) {
       this.stop();
-      this.play();
+      this.playPause(userId);
     }
   }
   
-  private async playPlaylist() {
+  private async playPlaylist(userId) {
     if (this.currentTrackIndex < this.playlist.length) {
       console.log('Google Analytics')
-      this.googleAnalyticsService.eventEmitter("play", "audio_player", "play", this.getCurrentTrack().uri);
+      this.googleAnalyticsService.eventEmitter(userId, "play", "audio_player", "play", this.getCurrentTrack().uri);
       await this.playCurrentTrack();
       this.currentTrackIndex++;
-      this.playPlaylist();
+      //this.playPlaylist(userId);  // why was this here?
     } else {
       this.reset();
     }
@@ -147,6 +132,7 @@ export class PlayerService {
     this.currentAudio.pause();
     this.currentAudio = null;
     this.currentTime = 0;
+    this.paused = true;
   }
 
   volume(v) {

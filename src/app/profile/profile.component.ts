@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 
+declare let gtag: Function;
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -35,6 +37,7 @@ export class ProfileComponent implements OnInit {
         this.getBookmarks();
         this.getComments()
         this.getPlaylists();
+        gtag('set', {'user_id': this.currentUser.userId});
       });
     }
 

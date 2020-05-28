@@ -38,7 +38,7 @@ export class ShowComponent {
           }
         }
       });
-      
+
       /*
       this.currentUser = { userName: '', userId: ''}
       if (this.route.snapshot.data['loggedIn']) {

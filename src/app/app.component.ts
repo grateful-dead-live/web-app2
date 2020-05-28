@@ -17,7 +17,7 @@ declare let gtag: Function;
 export class AppComponent {
   //protected start: Boolean;
   //private cookieValue: string;
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
 
   constructor(public router:Router, private cookieService: CookieService, public auth: AuthService) {
     //router.events.forEach((event) => {
@@ -28,10 +28,19 @@ export class AppComponent {
     //  }
     //});
 
-    
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+      }
+    });
     
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd && TRACKING){
+          if (this.currentUser != '') gtag('set', {'user_id': this.currentUser.userId});
+          else gtag('set', {'user_id': undefined});
           gtag('config', TRACKINGID, 
                 {
                   'page_path': event.urlAfterRedirects
@@ -44,16 +53,7 @@ export class AppComponent {
   }
 
   public ngOnInit() {
-    this.auth.userProfile$.subscribe(userProfile => {
-      if (userProfile){
-        this.currentUser = {
-          userId: userProfile.sub.split("|")[1],
-          userName: userProfile['http://example.com/username']
-        }
-      }
-    });
     
-
   }
 
 

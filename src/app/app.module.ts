@@ -111,7 +111,6 @@ import {GoogleAnalyticsService} from './services/google-analytics.service';
       useValue: document,
     },
     GoogleAnalyticsService
-    
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 

@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
 
+
 @Component({
   selector: 'gd-artifacts',
   templateUrl: './artifacts.component.html'
@@ -12,7 +13,7 @@ export class ArtifactsComponent {
   
   protected artifacts: Artifact[];
   protected types: ArtifactType[];
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};
   
   constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService) {
 
@@ -27,6 +28,7 @@ export class ArtifactsComponent {
           userName: userProfile['http://example.com/username']
         }
       }
+      
     });
     /*
     if (this.route.snapshot.data['loggedIn']) {

@@ -11,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class LocationComponent {
   protected location: Location;
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId: ''};;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService) {
