@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular-8-how-to-use-cookies-14ab3f2e93fc
 import { AuthService } from './auth.service';
 import { TRACKINGID, TRACKING } from './config';
 
@@ -19,7 +18,7 @@ export class AppComponent {
   //private cookieValue: string;
   protected currentUser: any = { userName: '', userId: ''};
 
-  constructor(public router:Router, private cookieService: CookieService, public auth: AuthService) {
+  constructor(public router:Router, public auth: AuthService) {
     //router.events.forEach((event) => {
     //  if (router.url.includes('/about')) {  
     //    this.start = true; 
@@ -39,7 +38,7 @@ export class AppComponent {
     
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd && TRACKING){
-          if (this.currentUser != '') gtag('set', {'user_id': this.currentUser.userId});
+          if (this.currentUser.userId != '') gtag('set', {'user_id': this.currentUser.userId});
           else gtag('set', {'user_id': undefined});
           gtag('config', TRACKINGID, 
                 {
