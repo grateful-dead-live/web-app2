@@ -16,6 +16,7 @@ export class PlayerService {
   public playlist: Track[] = [];
   private currentTrackIndex = 0;
   private muted = false;
+  public paused = true;
   
   constructor(protected googleAnalyticsService: GoogleAnalyticsService) {}
   
@@ -55,6 +56,22 @@ export class PlayerService {
       this.currentAudio.paused ?
         this.currentAudio.play() : this.currentAudio.pause();
     }
+  }
+
+  playPause() {
+    if (this.playlist.length > 0){
+      if (this.currentAudio) {
+        if (this.currentAudio.paused) {
+          this.currentAudio.play();
+          this.paused = false;
+        } else {
+          this.currentAudio.pause();
+          this.paused = true;
+        }
+      } else {
+        this.playPlaylist();
+      }
+  }
   }
   
   stop() {
@@ -116,6 +133,7 @@ export class PlayerService {
     const audio = new Audio(this.playlist[this.currentTrackIndex].uri);
     audio.muted = this.muted;
     audio.play();
+    this.paused = false;
     this.currentAudio = audio;
     audio.ontimeupdate = () => {
       this.maxTime = audio.duration;

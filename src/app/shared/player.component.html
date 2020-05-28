@@ -6,10 +6,12 @@
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
 <div fxLayout="row">
-  <button mat-flat-button fxFlex (click)="player.play()"> 
-    <mat-icon>play_arrow</mat-icon></button>
-  <button mat-flat-button fxFlex (click)="player.pause()">
-    <mat-icon>pause</mat-icon></button>
+  <button mat-flat-button fxFlex (click)="player.playPause()"> 
+    <mat-icon *ngIf="!player.paused">pause</mat-icon>
+    <mat-icon *ngIf="player.paused">play_arrow</mat-icon>
+  </button>
+  <!--button mat-flat-button fxFlex (click)="player.pause()">
+    <mat-icon>pause</mat-icon></button-->
   <button mat-flat-button fxFlex (click)="player.stop()">
     <mat-icon>stop</mat-icon></button>
   <button mat-flat-button fxFlex (click)="player.previousTrack()">
