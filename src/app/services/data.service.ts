@@ -205,7 +205,7 @@ export class DataService {
     return this.apiService.addComment(comment, route, userid, title);
   }
 
-  async checkComment(msgId: Number): Promise<any> {
+  async checkComment(msgId: string): Promise<any> {
     return this.apiService.checkComment(msgId);
   }
 
@@ -231,7 +231,7 @@ export class DataService {
     return this.apiService.delPlaylist(userid, playlistid);
   }
 
-  async deleteComment(msgid: number, userid: string): Promise<any> {
+  async deleteComment(msgid: string, userid: string): Promise<any> {
     return this.apiService.deleteComment(msgid, userid);
   }
 

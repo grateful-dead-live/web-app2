@@ -31,7 +31,8 @@ export class CommentsComponent implements OnInit {
   async sendMessage(msgPayload:  string) {
       // Constructing a desired object of type CommentPayload to be added to allComments
       if (msgPayload){
-        var msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+        //var msgId = Math.floor(1000000000000000 + Math.random() * 9000000000000000);
+        var msgId = this.makeid()
         var timestamp = new Date;
         const  payload  = {
             msgId:  msgId,
@@ -76,9 +77,9 @@ export class CommentsComponent implements OnInit {
   }
 
   async checkComment(msgId) {
-    console.log(msgId)
+    //console.log(msgId)
     var b = Boolean(Number(await this.data.checkComment(msgId)));
-    console.log(b);
+    //console.log(b);
     return b
   }
 
@@ -116,7 +117,7 @@ export class CommentsComponent implements OnInit {
   }
 
   async deleteComment(msg) {
-    console.log(msg.msgId)
+    //console.log(msg.msgId)
     var d = await this.data.deleteComment(msg.msgId, this.currentUserId);
     if (!(await this.checkComment(msg.msgId))){
       console.log('comment '+msg.msgId+' deleted');
@@ -127,5 +128,15 @@ export class CommentsComponent implements OnInit {
       }
     }
   }
+
+  private makeid() {
+    var result           = '';
+    var characters       = 'abcdef0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 24; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
    
 }

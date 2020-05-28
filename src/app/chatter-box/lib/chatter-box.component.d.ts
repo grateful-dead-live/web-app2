@@ -1,6 +1,6 @@
 import { OnInit, EventEmitter } from '@angular/core';
 export interface CommentPayload {
-    msgId: number;
+    msgId: string;
     userId?: number | string;
     msg: string;
     timestamp: string;

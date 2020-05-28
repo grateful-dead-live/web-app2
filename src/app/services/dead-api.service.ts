@@ -111,7 +111,7 @@ export class DeadApiService {
     return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid+'&title='+title);
   }
 
-  async checkComment(msgId: Number): Promise<any> {
+  async checkComment(msgId: string): Promise<any> {
     return this.getJsonFromApi('checkComment?msgId='+msgId);
   }
 
@@ -135,7 +135,7 @@ export class DeadApiService {
     return this.getTextFromApi('delPlaylist?userid='+userid+'&playlistid='+playlistid);
   }
 
-  async deleteComment(msgid: number, userid: string): Promise<any> {
+  async deleteComment(msgid: string, userid: string): Promise<any> {
     return this.getTextFromApi('deleteComment?msgid='+msgid+'&userid='+userid);
   }
 
