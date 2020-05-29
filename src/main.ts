@@ -22,11 +22,24 @@ document.write(`
       window[disableStr] = true;
     }
 
+    // Opt-in function
+    function gaOptIn() {
+      var oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+      document.cookie = 'gd-cookieconsent=allow; expires="' + oneYearFromNow.toGMTString() + '"';
+      window[disableStr] = false;
+      window.location.reload()
+    }
+
     // Opt-out function
-    // function gaOptout() {
-    //  document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-    //  window[disableStr] = true;
-    // }
+    function gaOptOut() {
+      document.cookie = 'gd-cookieconsent=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    //  document.cookie = '_ga=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    //  document.cookie = '_gid=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+    //  document.cookie = '_gat_gtag_` + TRACKINGID.replace(/-/g, '_') + `=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+      window[disableStr] = true;
+      window.location.reload()
+    }
   </script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
