@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, ElementRef, AfterViewInit, ViewChild, Inject } from '@angular/core';
 import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import { VIEWS } from '../globals';
 //import * as Fuse from 'fuse.js';
@@ -7,6 +7,8 @@ import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
 
@@ -34,12 +36,19 @@ export class HeaderComponent {
 
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    public auth: AuthService, private router: Router) {
+    public auth: AuthService, private router: Router, @Inject('window') private window, private cookieService: CookieService) {
 
       
     }
   
 ngOnInit() {
+  const consent = this.cookieService.get('gd-cookieconsent')
+  if (consent === 'allow') {
+    this.window['ga-disable-GA_MEASUREMENT_ID'] = false;
+  } else {
+    this.window['ga-disable-GA_MEASUREMENT_ID'] = true;
+  }
+  
   this.auth.userProfile$.subscribe(userProfile => {
     if (userProfile){
       this.currentUser = {

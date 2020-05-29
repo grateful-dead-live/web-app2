@@ -38,8 +38,7 @@ export class AppComponent {
     
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd && TRACKING){
-          if (this.currentUser.userId != '') gtag('set', {'user_id': this.currentUser.userId});
-          else gtag('set', {'user_id': undefined});
+          gtag('set', {'user_id': this.currentUser.userId});
           gtag('config', TRACKINGID, 
                 {
                   'page_path': event.urlAfterRedirects
