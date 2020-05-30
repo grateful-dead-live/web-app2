@@ -15,7 +15,7 @@ declare let gtag: Function;
 })
 export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute,
-    private dialog: DialogService, private player: PlayerService) { 
+    private dialog: DialogService, public player: PlayerService) { 
 
       
     }
@@ -36,8 +36,7 @@ export class ProfileComponent implements OnInit {
         this.currentUser = this.resolve.getUser(userProfile);
         gtag('set', {'user_id': this.currentUser.userId});
         this.getBookmarks();
-        this.getComments()
-        this.getPlaylists();
+        this.getComments();
       });
     }
 
@@ -95,21 +94,11 @@ export class ProfileComponent implements OnInit {
       ["yes", "no"],
       [() => {
         this.data.delPlaylist(this.currentUser.userId, playlistid);
-        this.getPlaylists();
+        this.player.getPlaylists(this.currentUser.userId);
       },
         () => null]
     );
   } 
-
-  async getPlaylists(){
-    var result = await this.data.getPlaylists(this.currentUser.userId);
-    if (result[0].playlists){
-      var p = result[0].playlists;
-      p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
-      p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
-      this.playlists = p;
-    }
-  }
 
   async loadPlaylist(playlist) {
     this.dialog.openMultiFunction(

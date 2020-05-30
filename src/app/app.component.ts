@@ -33,12 +33,12 @@ export class AppComponent {
           userId: userProfile.sub.split("|")[1],
           userName: userProfile['http://example.com/username']
         }
+        gtag('set', {'user_id': this.currentUser.userId});
       }
     });
     
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd && TRACKING){
-          gtag('set', {'user_id': this.currentUser.userId});
           gtag('config', TRACKINGID, 
                 {
                   'page_path': event.urlAfterRedirects

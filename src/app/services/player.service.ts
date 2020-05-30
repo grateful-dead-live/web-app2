@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import{GoogleAnalyticsService} from './google-analytics.service';
+import { DataService } from '../services/data.service';
 
 export interface Track {
   title: string,
@@ -17,8 +18,9 @@ export class PlayerService {
   private currentTrackIndex = 0;
   private muted = false;
   public paused = true;
+  public playlists: any;
   
-  constructor(protected googleAnalyticsService: GoogleAnalyticsService) {}
+  constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService) {}
   
   addToPlaylist(track: Track) {
     this.playlist.push(track);
@@ -140,5 +142,22 @@ export class PlayerService {
       this.currentAudio.volume = v / 100;
     }
   }
+
+  async getPlaylists(userId){
+    var result = await this.data.getPlaylists(userId);
+    if (result[0].playlists){
+      var p = result[0].playlists;
+      p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
+      this.playlists = p;
+      return this.playlists;
+    }
+  }
+  
+  formatTime(d) {
+    function z(n){return (n<10?'0':'')+n}
+    return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
+  }
+  
 
 }

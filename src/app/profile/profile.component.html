@@ -28,8 +28,8 @@
   </div>
 
   <br><b>Playlists</b><br>
-  <div *ngIf="playlists">
-    <div *ngFor="let p of playlists">
+  <div *ngIf="player.playlists">
+    <div *ngFor="let p of player.playlists">
       <div> {{ p.timestamp }} "{{ p.name }}"
         <button mat-icon-button (click)="loadPlaylist(p.playlist)"><mat-icon>library_music</mat-icon></button> 
         <button mat-icon-button (click)="delPlaylist(p.id, p.name)"><mat-icon>clear</mat-icon></button>   
