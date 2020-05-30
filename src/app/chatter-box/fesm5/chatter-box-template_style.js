@@ -56,6 +56,7 @@ export const strTemplate = `
                 (keyup)="onKeyUp(commentText)"
                 maxlength="{{inputMaxLength}}"></textarea>
           <button type="button" (click)="addComment(commentText)">send</button> 
+          <button style="float: right; margin-right: 16px;" (click)="onRefreshButton()">refresh</button>
         </div>
         <div class="character-count">
             {{typedCommentTextLength}} / {{inputMaxLength}} characters

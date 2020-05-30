@@ -68,6 +68,7 @@ export class CommentsComponent implements OnInit {
     } else {
       this.allComments = [];
     }
+    this.changeDetectorRef.detectChanges();
   }
 
 

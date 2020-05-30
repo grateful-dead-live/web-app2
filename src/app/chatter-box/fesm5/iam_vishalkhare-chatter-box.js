@@ -36,6 +36,7 @@ var ChatterBoxComponent = /** @class */ (function () {
         //GD added
         this.emitReport = new EventEmitter();
         this.emitDelete = new EventEmitter();
+        this.emitRefresh = new EventEmitter();
         
     }
     /**
@@ -108,8 +109,17 @@ var ChatterBoxComponent = /** @class */ (function () {
      * @param {?} input
      * @return {?}
     */
-
-
+   ChatterBoxComponent.prototype.onRefreshButton = /**
+   * @param {?}
+   * @return {?}
+   */
+   function () {
+       this.emitRefresh.emit();
+   };
+   /**
+    * @param {?} input
+    * @return {?}
+   */
 
     ChatterBoxComponent.decorators = [
         { type: Component, args: [{
@@ -133,7 +143,8 @@ var ChatterBoxComponent = /** @class */ (function () {
         onKeyup: [{ type: Output }],
         // GD added
         emitReport: [{ type: Output }],
-        emitDelete: [{ type: Output }]
+        emitDelete: [{ type: Output }],
+        emitRefresh: [{ type: Output }]
         
     };
     return ChatterBoxComponent;
