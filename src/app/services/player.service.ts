@@ -18,7 +18,7 @@ export class PlayerService {
   private currentTrackIndex = 0;
   private muted = false;
   public paused = true;
-  public playlists: any;
+  public playlists = [];
   
   constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService) {}
   

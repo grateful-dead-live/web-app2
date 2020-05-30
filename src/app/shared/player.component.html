@@ -26,13 +26,23 @@
     <mat-icon>{{minimized ? 'visibility' : 'visibility_off'}}</mat-icon></button>
   <mat-slider type="range" min="0" max="100" value="100" step="1" (input)="volumeChange($event.value)"></mat-slider>
 
-  <button mat-flat-button [disabled]="player.playlist.length==0" fxFlex *ngIf="currentUser.userId" (click)="onSavePlaylist()">save playlist</button>
-  <div *ngIf="player.playlists">
-    <button mat-flat-button [disabled]="player.playlists.length==0" fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
-  </div>
-  <div *ngIf="!player.playlists">
-    <button mat-flat-button disabled="true" fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
-  </div>
+    <div *ngIf="player.playlist.length==0">
+      <button mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex *ngIf="currentUser.userId" (click)="onSavePlaylist()">save playlist</button>
+    </div>
+    <div *ngIf="player.playlist.length>0">
+      <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onSavePlaylist()">save playlist</button>
+    </div>
+    
+    <div *ngIf="player.playlists.length==0">
+      <button mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
+    </div>
+    <div *ngIf="player.playlists.length>0">
+      <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
+    </div>
+  
+
+
+
 
 </div>
 

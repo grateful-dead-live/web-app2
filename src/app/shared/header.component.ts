@@ -42,12 +42,7 @@ export class HeaderComponent {
     }
   
 ngOnInit() {
-  const consent = this.cookieService.get('gd-cookieconsent')
-  if (consent === 'allow') {
-    this.window['ga-disable-GA_MEASUREMENT_ID'] = false;
-  } else {
-    this.window['ga-disable-GA_MEASUREMENT_ID'] = true;
-  }
+ 
   
   this.auth.userProfile$.subscribe(userProfile => {
     if (userProfile){
