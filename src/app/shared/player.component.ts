@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PlayerService } from '../services/player.service';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
@@ -53,11 +53,43 @@ export class PlayerComponent {
     });
   }
 
+  async onLoadPlaylist() {
+    console.log('load playlist')
+    this.loadPlaylist()
+  }
+
   async savePlaylist(name){
     console.log('saving playlist');
     const id = this.makeid();
     await this.data.addPlaylist(name, this.player.playlist, id, this.currentUser.userId, new Date().getTime());
-    await this.player.getPlaylists(this.currentUser.userId)
+    await this.player.getPlaylists(this.currentUser.userId);
+  }
+/*
+
+protected openOptionsDialog(event: DeadEventInfo) {
+    this.dialog.openMultiFunction(
+      this.song.name+"', "+event.venue+", "+event.date,
+      ["Add to playlist", "Go to show"],
+      [() => this.openRecordingsDialog(event),
+        () => this.router.navigate(['/show', event.id])]
+    );
+  }
+
+  private openRecordingsDialog(event: DeadEventInfo) {
+    this.dialog.openSingleFunction(
+      "Recordings of '"+this.song.name+"', "+event.venue+", "+event.date,
+      event.recordings.map(r => r.etreeId),
+      r => this.addRecordingToPlaylist(r, event)
+    );
+  }
+  */
+ 
+  private loadPlaylist() {
+    this.dialog.openMultiFunction(
+      'Your current playlist will be lost',
+      this.player.playlists.map(r => r.name),
+      this.player.playlists.map(r => () => {this.player.playlist = [...r.playlist]})
+    );
   }
 
   private makeid() {

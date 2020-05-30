@@ -150,7 +150,7 @@ export class PlayerService {
       p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
       p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
       this.playlists = p;
-      return this.playlists;
+      //return this.playlists;
     }
   }
   

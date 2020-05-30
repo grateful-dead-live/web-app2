@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   protected userProfile: any;
   protected bookmarks: any;
   protected comments: any;
-  protected playlists: any;
+  //protected playlists: any;
   protected showPlaylistInfo: boolean = false;
 
   ngOnInit() {
