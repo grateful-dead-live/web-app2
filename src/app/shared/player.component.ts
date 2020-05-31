@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { PlayerService } from '../services/player.service';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
-import { AuthService } from '../auth.service'
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 declare let gtag: Function;
 
@@ -15,7 +16,7 @@ export class PlayerComponent {
   protected currentUser: any = { userName: '', userId: '' };
   protected loaded = false;
   protected minimized = false;
-  constructor(protected player: PlayerService, private data: DataService, private dialog: DialogService, public auth: AuthService) {}
+  constructor(protected player: PlayerService, private data: DataService, private dialog: DialogService, public auth: AuthService, public router: Router) {}
   
   ngOnInit() {
     //if (this.currentUser.userId != '') gtag('set', {'user_id': this.currentUser.userId});

@@ -5,7 +5,8 @@ import { DataService } from '../services/data.service';
 export interface Track {
   title: string,
   uri: string,
-  waveform: string
+  waveform: string,
+  id: string
 }
 
 @Injectable()

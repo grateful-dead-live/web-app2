@@ -33,6 +33,8 @@ export class HeaderComponent {
   protected searchState: any;
   protected currentUser: any = { userName: '', userId:''};
   protected bookmarked: boolean;
+  //protected liked: boolean;
+  //protected number_liked: number;
 
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
@@ -56,6 +58,7 @@ ngOnInit() {
     }
   });
     this.bookmarked = false;
+    //this.liked = false;
     this.searchState = 0;
     this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
     this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);

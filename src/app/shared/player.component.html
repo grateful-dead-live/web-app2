@@ -39,19 +39,17 @@
     <div *ngIf="player.playlists.length>0">
       <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
     </div>
-  
-
-
-
-
+    
 </div>
 
 <div fxLayout="column">
-  <div class="playlist" *ngFor="let s of player.playlist; index as i"
-      [hidden]="minimized && s !== player.getCurrentTrack()"
+  <div class="playlist" *ngFor="let s of player.playlist; index as i">
+  <span [hidden]="minimized && s !== player.getCurrentTrack()"
       [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'"
       (click)="player.skipToTrack(s)">
     {{s.title}} 
+  </span>
     <button mat-icon-button color="" (click)="delTrack(i)"><mat-icon>clear</mat-icon></button>
+    <button mat-icon-button color="" (click)="router.navigate(['/show', s.id])"><mat-icon>arrow_forward</mat-icon></button>
   </div>
 </div>
