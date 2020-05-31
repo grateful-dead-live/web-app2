@@ -124,6 +124,7 @@ export const strTemplate = `
       overflow: scroll;
       height: 100px;
       resize: none;
+      font-family: 'Roboto';
     }
     #vis-comment-textField:focus {
       outline: none;
