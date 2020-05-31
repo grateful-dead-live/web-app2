@@ -153,6 +153,11 @@ export class PlayerService {
       //return this.playlists;
     }
   }
+
+  async deletePlaylist(userid, playlistid){
+    await this.data.delPlaylist(userid, playlistid);
+    this.getPlaylists(userid);
+  }
   
   formatTime(d) {
     function z(n){return (n<10?'0':'')+n}

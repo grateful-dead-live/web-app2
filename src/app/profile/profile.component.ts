@@ -92,9 +92,8 @@ export class ProfileComponent implements OnInit {
     this.dialog.openMultiFunction(
       'Are you sure you want to delete playlist "' + name + '"?',
       ["yes", "no"],
-      [() => {
-        this.data.delPlaylist(this.currentUser.userId, playlistid);
-        this.player.getPlaylists(this.currentUser.userId);
+      [async () => {
+        await this.player.deletePlaylist(this.currentUser.userId, playlistid);
       },
         () => null]
     );
