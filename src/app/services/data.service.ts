@@ -158,7 +158,7 @@ export class DataService {
       title: audio.title + ", " + event.venue + ", "
         + event.location + ", " + event.date,
       uri: uri,
-      id: event.id,
+      show_id: event.id,
       waveform: uri.replace('.mp3', '.png')
     };
   }
