@@ -22,15 +22,13 @@
       {{ title }} {{ subtitle }}
       <span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
         <button mat-icon-button color="" (click)="onBookmarkButton()">
-          <mat-icon *ngIf="bookmarked">bookmark</mat-icon>
-          <mat-icon *ngIf="!bookmarked">bookmark_border</mat-icon>
+          <mat-icon>{{bookmarked ? 'bookmark' : 'bookmark_border'}}</mat-icon>
         </button>
       </span>
 
       <!--span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
         <button mat-icon-button color="">
-          <mat-icon *ngIf="liked">thumb_up_alt</mat-icon>
-          <mat-icon *ngIf="!liked">thumb_up_off_alt</mat-icon>
+          <mat-icon>{{liked ? 'thumb_up_alt' : 'thumb_up_off_alt'}}</mat-icon>
         </button>
       </span-->
 
