@@ -67,7 +67,9 @@ ngOnInit() {
   this.searchState = 0;
   this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
   this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
-  this.countLikes();
+
+  if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
+    this.countLikes();
   /*
     if (this.auth.loggedIn) {
       this.auth.userProfile$.subscribe(userProfile => {
@@ -131,7 +133,7 @@ ngOnInit() {
   async checkLike(){
     var b = await this.data.checkLike(this.currentUser.userId, this.router.url);
     this.liked = Boolean(JSON.parse(b));
-    this.countLikes();
+    this.countLikes()
     console.log("like: "+this.liked)
   }
 

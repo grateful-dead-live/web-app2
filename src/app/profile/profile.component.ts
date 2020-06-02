@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   protected likes: any;
   protected comments: any;
   //protected playlists: any;
-  protected showPlaylistInfo: boolean = false;
+
 
   ngOnInit() {
     
@@ -112,13 +112,14 @@ export class ProfileComponent implements OnInit {
     );
   } 
 
-  async loadPlaylist(playlist) {
+  loadPlaylist(playlist) {
     this.dialog.openMultiFunction(
       'Your current playlist will be lost',
       ["ok", "cancel"],
-      [() => this.player.playlist = [...playlist],
+      [() => { this.player.playlist = [...playlist] },
         () => {}]
     );
+    
   }
 
   protected onDeleteBookmark(bookmark) {

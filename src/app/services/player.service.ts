@@ -23,6 +23,7 @@ export class PlayerService {
   private muted = false;
   public paused = true;
   public playlists = [];
+  public playlistsLoaded = false;
   
   constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService) {}
   
@@ -154,7 +155,7 @@ export class PlayerService {
       p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
       p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
       this.playlists = p;
-      //return this.playlists;
+      this.playlistsLoaded = true;      
     }
   }
 

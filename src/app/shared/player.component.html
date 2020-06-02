@@ -33,10 +33,10 @@
       <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onSavePlaylist()">save playlist</button>
     </div>
     
-    <div *ngIf="player.playlists.length==0">
+    <div *ngIf="!player.playlists || player.playlists.length==0">
       <button mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
     </div>
-    <div *ngIf="player.playlists.length>0">
+    <div *ngIf="!player.playlists || player.playlists.length>0">
       <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
     </div>
     
