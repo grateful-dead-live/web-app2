@@ -6,7 +6,9 @@ export interface Track {
   title: string,
   uri: string,
   waveform: string,
-  show_id: string
+  show_id: string,
+  etree_id: string,
+  recording_id: string
 }
 
 @Injectable()

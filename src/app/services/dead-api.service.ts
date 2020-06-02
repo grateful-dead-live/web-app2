@@ -55,6 +55,10 @@ export class DeadApiService {
   getRecordingTracks(recordingId: string): Promise<AudioTrack[]> {
     return this.getJsonFromApi('tracks?id='+encodeURIComponent(recordingId));
   }
+
+  getRecordingId(eventId: string): Promise<any> {
+    return this.getJsonFromApi('recordingid?id='+encodeURIComponent(eventId));
+  }
   
   getArtistDetails(artistId: string): Promise<ArtistDetails> {
     return this.getJsonFromApi('artist?id='+encodeURIComponent(artistId));

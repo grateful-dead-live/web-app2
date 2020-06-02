@@ -89,7 +89,7 @@ export class SongComponent {
   }
 
   private addRecordingToPlaylist(recordingId: string, event: DeadEventInfo) {
-    this.data.getTracks(this.song, event, recordingId)
+    this.data.getTracks(this.song, event, recordingId, '')
       .forEach(t => this.player.addToPlaylist(t));
   }
 

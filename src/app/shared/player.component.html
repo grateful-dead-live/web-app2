@@ -45,9 +45,10 @@
 <div fxLayout="column">
   <div class="playlist" *ngFor="let s of player.playlist; index as i" [hidden]="minimized && s !== player.getCurrentTrack()">
   <span [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'" (click)="player.skipToTrack(s)">
-    {{s.title}} 
+    {{s.title + ' [' + s.etree_id + ']'}} 
   </span>
-    <button mat-icon-button color="" (click)="delTrack(i)"><mat-icon>clear</mat-icon></button>
     <button mat-icon-button color="" (click)="router.navigate(['/show', s.show_id])">show</button>
+    <button mat-icon-button color="" (click)="router.navigate(['/recording', s.recording_id])">rec</button>
+    <button mat-icon-button color="" (click)="delTrack(i)"><mat-icon>clear</mat-icon></button>
   </div>
 </div>
