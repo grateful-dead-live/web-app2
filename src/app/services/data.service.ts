@@ -91,14 +91,14 @@ export class DataService {
       var e = sbd.length ? sbd[0] : _.sample(event.recordings);
       etreeId = e.etreeId;
       recordingId = e.id;
-    } else {
-      recordingId = this.searchArray(etreeId, 'etreeId', event.recordings).id;
-      console.log(recordingId)
-    }
+    } 
     return this.getTracks(songDetails, event, etreeId, recordingId)[0];
   }
   
-  getTracks(song: SongDetails, event: DeadEventInfo, etreeId: string, recordingId: string): Track[] {
+  getTracks(song: SongDetails, event: DeadEventInfo, etreeId: string, recordingId?: string): Track[] {
+    if (!recordingId){
+      recordingId = this.searchArray(etreeId, 'etreeId', event.recordings).id;
+    }
     return song.audio && song.audio[etreeId] ?
       song.audio[etreeId].map(a => this.toTrack(event, etreeId, a, recordingId)) : [];
   }

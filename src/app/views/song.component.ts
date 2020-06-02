@@ -88,8 +88,8 @@ export class SongComponent {
     );
   }
 
-  private addRecordingToPlaylist(recordingId: string, event: DeadEventInfo) {
-    this.data.getTracks(this.song, event, recordingId, '')
+  private addRecordingToPlaylist(recordingEtreeId: string, event: DeadEventInfo) {
+    this.data.getTracks(this.song, event, recordingEtreeId)
       .forEach(t => this.player.addToPlaylist(t));
   }
 
