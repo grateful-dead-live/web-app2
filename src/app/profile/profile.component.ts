@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   //protected authenticated: boolean;
   protected userProfile: any;
   protected bookmarks: any;
+  protected likes: any;
   protected comments: any;
   //protected playlists: any;
   protected showPlaylistInfo: boolean = false;
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
         this.currentUser = this.resolve.getUser(userProfile);
         gtag('set', {'user_id': this.currentUser.userId});
         this.getBookmarks();
+        this.getLikes();
         this.getComments();
       });
     }
@@ -62,12 +64,23 @@ export class ProfileComponent implements OnInit {
   async getBookmarks(){
     var result = await this.data.getBookmarks(this.currentUser.userId);
     if (result[0].bookmarks) {
-      var b = result[0].bookmarks;
-      b.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
-      b.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
-      this.bookmarks = b;
+      var m = result[0].bookmarks;
+      m.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      m.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
+      this.bookmarks = m;
     };
   }
+
+  async getLikes(){
+    var result = await this.data.getLikes(this.currentUser.userId);
+    if (result[0].likes) {
+      var l = result[0].likes;
+      l.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      l.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
+      this.likes = l;
+    };
+  }
+
 
   async getComments(){
     var result = await this.data.getUserComments(this.currentUser.userId);
@@ -121,5 +134,20 @@ export class ProfileComponent implements OnInit {
     await this.data.delBookmark(this.currentUser.userId, bookmark.route);
     this.getBookmarks();
   }
+
+  protected onUnlike(like) {
+    this.dialog.openMultiFunction(
+      "Are you sure you want to unlike?",
+      ["yes", "no"],
+      [() => this.unlike(like), 
+        () => null]
+    );
+  }
+
+  async unlike(like){
+    await this.data.unlike(this.currentUser.userId, like.route);
+    this.getLikes();
+  }
+
 
 }

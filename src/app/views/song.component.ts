@@ -81,15 +81,15 @@ export class SongComponent {
   }
 
   private openRecordingsDialog(event: DeadEventInfo) {
-    this.dialog.openSingleFunction(
+    this.dialog.openMultiFunction(
       "Recordings of '"+this.song.name+"', "+event.venue+", "+event.date,
       event.recordings.map(r => r.etreeId),
-      r => this.addRecordingToPlaylist(r, event)
+      event.recordings.map(r => () => this.addRecordingToPlaylist(r.etreeId, event, r.id))
     );
   }
 
-  private addRecordingToPlaylist(recordingEtreeId: string, event: DeadEventInfo) {
-    this.data.getTracks(this.song, event, recordingEtreeId)
+  private addRecordingToPlaylist(recordingEtreeId: string, event: DeadEventInfo, recordingId: string) {
+    this.data.getTracks(this.song, event, recordingEtreeId, recordingId)
       .forEach(t => this.player.addToPlaylist(t));
   }
 

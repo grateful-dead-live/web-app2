@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div *ngIf="title" fxLayout="row" fxLayout.xs="column"
     [style.background-color]="'#ededed'" [style.background-size]="'cover'"
     [style.background-position]="'center'" [style.padding]="'3px'">
@@ -20,17 +21,20 @@
   <div class="container hf1" fxLayout="column" fxFlex="1 1 auto" [style.padding]="'4px'">
     <span>
       {{ title }} {{ subtitle }}
-      <span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
-        <button mat-icon-button color="" (click)="onBookmarkButton()">
+      <span *ngIf="!((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
+        <button *ngIf="auth.loggedIn" mat-icon-button color="" (click)="onBookmarkButton()">
           <mat-icon>{{bookmarked ? 'bookmark' : 'bookmark_border'}}</mat-icon>
         </button>
-      </span>
 
-      <!--span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
-        <button mat-icon-button color="">
+      <!--span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))"-->
+        <button *ngIf="auth.loggedIn" mat-icon-button color="" (click)="onLikeButton()">
           <mat-icon>{{liked ? 'thumb_up_alt' : 'thumb_up_off_alt'}}</mat-icon>
         </button>
-      </span-->
+        <button *ngIf="!auth.loggedIn" mat-icon-button color="">
+          <mat-icon>thumb_up_off_alt</mat-icon>
+        </button>
+        {{likes}}
+      </span>
 
 
     </span>

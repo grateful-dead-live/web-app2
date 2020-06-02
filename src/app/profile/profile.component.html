@@ -20,6 +20,14 @@
       </div>
   </div>
 
+  <br><b>Likes</b><br>
+  <div *ngIf="likes">
+      <div *ngFor="let l of likes">
+            {{l.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="l.route">{{ l.title }}</u>
+            <button mat-icon-button (click)="onUnlike(l)"><mat-icon>clear</mat-icon></button>  
+      </div>
+  </div>
+
   <br><b>Commented on</b><br>
   <div *ngIf="comments"> 
     <div *ngFor="let c of comments">

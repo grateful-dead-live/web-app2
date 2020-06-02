@@ -74,20 +74,17 @@ export class DataService {
   
   async getRecordingTracks(recording: Recording, event: DeadEventInfo): Promise<Track[]> {
     const tracks = await this.apiService.getRecordingTracks(recording.id);
-    return tracks.map(t => this.toTrack(event, recording.etreeId, t, recording.id));
+    return tracks.map(t => this.toTrack(event, recording.etreeId, t, recording.id, '')); // TODO: song_id
   }
   
   async getTrackFromAudio(audio: AudioTrack, event: DeadEventInfo, etreeId: string) {
-    return this.toTrack(event, etreeId, audio, '');  // TODO: fix recording_id
+    return this.toTrack(event, etreeId, audio, event.id, '');  // TODO: fix song_id
   }
   
-  async getTrack(song: SongInfo, event: DeadEventInfo, etreeId?: string) {
+  async getTrack(song: SongInfo, event: DeadEventInfo, etreeId?: string, recordingId?: string) {
     const songDetails = await this.apiService.getSong(song.id);
-    var recordingId;
-    //etreeId = 'gd1981-11-30.133562.sbd.miller.flac16'
     if (!etreeId) {
       const sbd = event.recordings.filter(r => r.isSoundboard);
-      //etreeId = sbd.length ? sbd[0].etreeId : _.sample(event.recordings).etreeId;
       var e = sbd.length ? sbd[0] : _.sample(event.recordings);
       etreeId = e.etreeId;
       recordingId = e.id;
@@ -95,12 +92,9 @@ export class DataService {
     return this.getTracks(songDetails, event, etreeId, recordingId)[0];
   }
   
-  getTracks(song: SongDetails, event: DeadEventInfo, etreeId: string, recordingId?: string): Track[] {
-    if (!recordingId){
-      recordingId = this.searchArray(etreeId, 'etreeId', event.recordings).id;
-    }
+  getTracks(song: SongDetails, event: DeadEventInfo, etreeId: string, recordingId: string): Track[] {
     return song.audio && song.audio[etreeId] ?
-      song.audio[etreeId].map(a => this.toTrack(event, etreeId, a, recordingId)) : [];
+      song.audio[etreeId].map(a => this.toTrack(event, etreeId, a, recordingId, song.id)) : [];
   }
   
   async loadRandomEvent(): Promise<DeadEventDetails> {
@@ -153,14 +147,14 @@ export class DataService {
   async getRandomTrack(): Promise<Track> {
     const randomSong = await this.getRandomSong();
    
-    const randomRecordingId = _.sample(_.keys(randomSong.audio));
-    const randomAudio = _.sample(randomSong.audio[randomRecordingId]);
+    const randomRecordingEtreeId = _.sample(_.keys(randomSong.audio));
+    const randomAudio = _.sample(randomSong.audio[randomRecordingEtreeId]);
     const correspondingEvent = this.events.filter(e =>
-      e.recordings.map(r => r.etreeId).indexOf(randomRecordingId) >= 0)[0];
-    return this.toTrack(correspondingEvent, randomRecordingId, randomAudio, '');  // TODO: fix etreeId, recordingId
+      e.recordings.map(r => r.etreeId).indexOf(randomRecordingEtreeId) >= 0)[0];
+    return this.toTrack(correspondingEvent, randomRecordingEtreeId, randomAudio, '', randomSong.id);  // TODO: fix recordingId
   }
   
-  private toTrack(event: DeadEventInfo, etreeId: string, audio: AudioTrack, recordingId: string): Track {
+  private toTrack(event: DeadEventInfo, etreeId: string, audio: AudioTrack, recordingId: string, songId: string): Track {
     const uri = ARCHIVE_URI+etreeId+'/'+audio.filename;
     return {
       title: audio.title + ", " + event.venue + ", "
@@ -169,7 +163,8 @@ export class DataService {
       show_id: event.id,
       waveform: uri.replace('.mp3', '.png'),
       etree_id: etreeId,
-      recording_id: recordingId
+      recording_id: recordingId,
+      song_id: songId
     };
   }
   
@@ -177,14 +172,6 @@ export class DataService {
     this.events = await this.apiService.getEvents();
     this.events.sort((a, b) => parseFloat(a.date.replace(/-/g, ''))
       - parseFloat(b.date.replace(/-/g, '')));
-  }
-  
-  private searchArray(nameKey, prop, myArray){
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i][prop]=== nameKey) {
-            return myArray[i];
-        }
-    } 
   }
   
   formatDate(date: string) {
@@ -214,6 +201,26 @@ export class DataService {
 
   async checkBookmark(userid: string, route: string): Promise<any> {
     return this.apiService.checkBookmark(userid, route);
+  }
+  
+  async like(userid: string, route: string, time: number, title: string): Promise<any> {
+    return this.apiService.like(userid, route, time, title);
+  }
+
+  async unlike(userid: string, route: string): Promise<any> {
+    return this.apiService.unlike(userid, route);
+  }
+
+  async checkLike(userid: string, route: string): Promise<any> {
+    return this.apiService.checkLike(userid, route);
+  }
+
+  async countLikes(route: string): Promise<any> {
+    return this.apiService.countLikes(route);
+  }
+  
+  async getLikes(userid: string): Promise<any> {
+    return this.apiService.getLikes(userid);
   }
 
   async getComments(route: string): Promise<any> {

@@ -33,7 +33,8 @@ export class HeaderComponent {
   protected searchState: any;
   protected currentUser: any = { userName: '', userId:''};
   protected bookmarked: boolean;
-  //protected liked: boolean;
+  protected liked: boolean;
+  protected likes: number;
   //protected number_liked: number;
 
   
@@ -44,7 +45,7 @@ export class HeaderComponent {
     }
   
 ngOnInit() {
- 
+  
   
   this.auth.userProfile$.subscribe(userProfile => {
     if (userProfile){
@@ -53,17 +54,21 @@ ngOnInit() {
         userName: userProfile['http://example.com/username']
       }
       if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
-        { this.checkBookmark() };
+        { 
+          this.checkBookmark();
+          this.checkLike()
+        };
       gtag('set', {'user_id': this.currentUser.userId});
     }
   });
-    this.bookmarked = false;
-    //this.liked = false;
-    this.searchState = 0;
-    this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
-    this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
 
-    /*
+  this.bookmarked = false;
+  this.liked = false;
+  this.searchState = 0;
+  this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
+  this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
+  this.countLikes();
+  /*
     if (this.auth.loggedIn) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
@@ -112,6 +117,27 @@ ngOnInit() {
     var b = await this.data.checkBookmark(this.currentUser.userId, this.router.url);
     this.bookmarked = Boolean(JSON.parse(b));
     console.log("bookmark: "+this.bookmarked)
+  }
+
+  async onLikeButton(){
+    if (this.liked == false){
+      await this.data.like(this.currentUser.userId, this.router.url, new Date().getTime(), this.title+' '+this.subtitle);
+    } else {
+      await this.data.unlike(this.currentUser.userId, this.router.url);
+    }
+    this.checkLike();
+  }
+
+  async checkLike(){
+    var b = await this.data.checkLike(this.currentUser.userId, this.router.url);
+    this.liked = Boolean(JSON.parse(b));
+    this.countLikes();
+    console.log("like: "+this.liked)
+  }
+
+  async countLikes(){
+    this.likes  = await this.data.countLikes(this.router.url);
+    console.log("likes: "+this.likes)
   }
 
 }

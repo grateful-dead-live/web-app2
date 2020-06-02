@@ -110,6 +110,31 @@ export class DeadApiService {
     return this.getJsonFromApi('getComments?route='+route);
   }
 
+
+
+  async like(userid: string, route: string, time: number, title: string): Promise<any> {
+    return this.getTextFromApi('like?userid='+userid+'&route='+route+'&time='+time+'&title='+title);
+  }
+
+  async unlike(userid: string, route: string): Promise<any> {
+    return this.getTextFromApi('unlike?userid='+userid+'&route='+route);
+  }
+
+  async checkLike(userid: string, route: string): Promise<any> {
+    return this.getTextFromApi('checkLike?userid='+userid+'&route='+route);
+  }
+
+  async countLikes(route: string): Promise<any> {
+    return this.getTextFromApi('countLikes?route='+route);
+  }
+
+  async getLikes(userid: string): Promise<any> {
+    return this.getJsonFromApi('getLikes?userid='+userid);
+  }
+  
+
+
+
   async addComment(comment: any, route: string, userid: string, title: string): Promise<any> {
     const cmt = encodeURIComponent(JSON.stringify(comment));
     return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid+'&title='+title);

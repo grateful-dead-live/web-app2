@@ -8,7 +8,8 @@ export interface Track {
   waveform: string,
   show_id: string,
   etree_id: string,
-  recording_id: string
+  recording_id: string,
+  song_id: string
 }
 
 @Injectable()
