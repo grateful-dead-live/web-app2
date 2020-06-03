@@ -78,7 +78,7 @@ export class DataService {
   }
   
   async getTrackFromAudio(audio: AudioTrack, event: DeadEventInfo, etreeId: string) {
-    return this.toTrack(event, etreeId, audio, event.id, '');  // TODO: fix song_id
+    return this.toTrack(event, etreeId, audio, event.id, audio.id);  // TODO: fix song_id
   }
   
   async getTrack(song: SongInfo, event: DeadEventInfo, etreeId?: string, recordingId?: string) {

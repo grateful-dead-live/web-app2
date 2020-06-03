@@ -58,7 +58,7 @@ export class RecordingComponent {
   }
   
   protected openTrackOptionsDialog(audio: AudioTrack) {
-    this.recording.tracks
+    //this.recording.tracks
     this.dialog.openMultiFunction(
       //song.name+"', "+this.event.venue.name+", "+this.event.date,
       audio.track + " " + audio.title,
@@ -68,6 +68,7 @@ export class RecordingComponent {
   }
   
   private async addTrackToPlaylist(audio: AudioTrack) {
+    console.log(audio.id)
     const info = await this.data.getEventInfo(this.event.id);
     const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
     if (track) this.player.addToPlaylist(track);
