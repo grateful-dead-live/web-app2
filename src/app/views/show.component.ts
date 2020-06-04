@@ -72,7 +72,7 @@ export class ShowComponent {
       }
     });
   }
-  
+  /*
   protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
     this.dialog.openMultiFunction(
       //song.name+"', "+this.event.venue.name+", "+this.event.date,
@@ -82,6 +82,27 @@ export class ShowComponent {
         () => this.router.navigate(['/song', song.id])]
     );
   }
+*/
+
+  protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
+    this.dialog.openMultiFunction(
+      //song.name+"', "+this.event.venue.name+", "+this.event.date,
+      set + "/Track " + idx + ": " + '"'+song.name+'"',
+      ["add to playlist", "go to song"],
+      [() => this.openRecordingsDialog(song),
+        () => this.router.navigate(['/song', song.id])]
+    );
+  }
+
+
+  private openRecordingsDialog(song: SongInfo) {
+    this.dialog.openMultiFunction(
+      "Recordings of '"+song.name+"', "+this.event.venue+", "+this.event.date,
+      this.event.recordings.map(r => r.etreeId),
+      this.event.recordings.map(r => () => this.addTrackToPlaylist(song, r.etreeId, r.id))
+    );
+  }
+
   
   protected openRecordingOptionsDialog(recording: Recording) {
     this.dialog.openMultiFunction(
@@ -92,11 +113,35 @@ export class ShowComponent {
     );
   }
   
+  /*
   private async addSongToPlaylist(song: SongInfo) {
     const info = await this.data.getEventInfo(this.event.id);
     const track = await this.data.getTrack(song, info);
     if (track) this.player.addToPlaylist(track);
   }
+
+
+ private async addSongToPlaylist(song: SongInfo) {
+  const info = await this.data.getEventInfo(this.event.id);
+  const track = await this.data.getTrack(song, info);
+  if (track) this.player.addToPlaylist(track);
+}
+  */
+
+private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recordingId: string) {
+  const eventInfo = { 
+    id: this.event.id,
+    date: this.event.date,
+    location: '',
+    state: '',
+    venue: '',
+    recordings: this.event.recordings,
+    artifacts: this.artifacts
+  }
+  var songDetails = await this.data.getSong(song.id);
+  this.data.getTracks(songDetails, eventInfo, recordingEtreeId, recordingId)
+    .forEach(t => this.player.addToPlaylist(t));
+}
   
   private async addRecordingToPlaylist(recording: Recording) {
     const info = await this.data.getEventInfo(this.event.id);

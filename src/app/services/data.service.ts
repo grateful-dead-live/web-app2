@@ -74,11 +74,11 @@ export class DataService {
   
   async getRecordingTracks(recording: Recording, event: DeadEventInfo): Promise<Track[]> {
     const tracks = await this.apiService.getRecordingTracks(recording.id);
-    return tracks.map(t => this.toTrack(event, recording.etreeId, t, recording.id, t.id)); // TODO: song_id
+    return tracks.map(t => this.toTrack(event, recording.etreeId, t, recording.id, t.id)); 
   }
   
   async getTrackFromAudio(audio: AudioTrack, event: DeadEventInfo, etreeId: string) {
-    return this.toTrack(event, etreeId, audio, event.id, audio.id);  // TODO: fix song_id
+    return this.toTrack(event, etreeId, audio, event.id, audio.id);  
   }
   
   async getTrack(song: SongInfo, event: DeadEventInfo, etreeId?: string, recordingId?: string) {
