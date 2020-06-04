@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Venue } from '../services/types';
 import { AuthService } from '../auth.service';
+import { DeadEventInfo } from '../services/types';
+import { DialogService } from '../services/dialog.service';
+
 
 declare let gtag: Function;
 
@@ -17,7 +20,7 @@ export class VenueComponent {
   protected currentUser: any = { userName: '', userId: ''};
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute, public auth: AuthService) {}
+    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {}
   
   async ngOnInit() {
     this.auth.userProfile$.subscribe(userProfile => {
@@ -40,5 +43,22 @@ export class VenueComponent {
           { replaceUrl: true });
       }
     });
+  }
+
+  protected openOptionsDialog(event: DeadEventInfo) {
+    this.dialog.openMultiFunction(
+      event.venue+", "+event.date,
+      ["Go to show", "Go to recording"],
+      [() => this.router.navigate(['/show', event.id]),
+        () => this.openRecordingsDialog(event)]
+    );
+  }
+
+  private openRecordingsDialog(event: DeadEventInfo) {
+    this.dialog.openMultiFunction(
+      "Recordings of '"+event.venue+", "+event.date,
+      event.recordings.map(r => r.etreeId),
+      event.recordings.map(r => () => this.router.navigate(['/recording', r.id]) )
+    );
   }
 }

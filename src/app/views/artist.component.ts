@@ -48,10 +48,12 @@ export class ArtistComponent {
         console.log(this.artist);
       }
     });
+    /* // not working
     if (!this.artist) {
       this.router.navigate(['/artist', (await this.data.getRandomArtistId())],
         { replaceUrl: true });
     }
+    */
   }
 
 }

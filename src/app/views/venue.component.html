@@ -18,7 +18,7 @@
   
   <p class="gd-section">All shows at the {{ venue.name }}:</p>
   
-  <gd-shows [eventIds]="venue.eventIds"></gd-shows>
+  <gd-shows [eventIds]="venue.eventIds" [onOptions]="openOptionsDialog.bind(this)"></gd-shows>
   <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="venue.name+', '+location"></gd-comments>
   <br>
 </div>
