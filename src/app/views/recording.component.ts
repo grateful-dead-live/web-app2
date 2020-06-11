@@ -93,9 +93,6 @@ export class RecordingComponent {
   */
 
   private async addTrackToPlaylist(audio: AudioTrack) {
-
-    //const info = await this.data.getEventInfo(this.event.id);
-    //const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
     const track = this.data.toPlayerTrack(this.recordinginfo.venue_name, 
                                           this.recordinginfo.location_name, 
                                           this.recordinginfo.date, 
@@ -104,7 +101,7 @@ export class RecordingComponent {
                                           audio,
                                           this.recordinginfo.recording_id);
                                           
-    if (track) this.player.addToPlaylist(track);
+    this.player.addToPlaylist(track);
   }
   
 }
