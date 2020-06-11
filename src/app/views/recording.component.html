@@ -34,32 +34,28 @@
       <div class="gd-container" fxLayout="column" class="topmargin" >
         <div fxLayout="column" fxFlex class="gd-container">
           <ng-container>
-            Recorded at: 
+            <i>Recorded at:</i> 
             <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
             <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span> {{ recordinginfo.date }}
-          </ng-container>
-          <br/>
+          </ng-container><div><br></div>
+
           <ng-container *ngIf="recordinginfo.lineage">
-            Lineage: {{ recordinginfo.lineage }}<br></ng-container>
+            <i>Lineage:</i> {{ recordinginfo.lineage }}</ng-container><div><br></div>
           <ng-container *ngIf="recordinginfo.source">
-            Source: {{ recordinginfo.source }}<br></ng-container>
+            <i>Source:</i> {{ recordinginfo.source }}<br></ng-container><div><br></div>
           <ng-container *ngIf="recordinginfo.notes">
-            Notes: {{ recordinginfo.notes }}<br/></ng-container>
+            <i>Notes:</i> {{ recordinginfo.notes }}<br/></ng-container><div><br></div>
           <ng-container *ngIf="recordinginfo.subject">
-            Notes: {{ recordinginfo.subject.join(', ') }}</ng-container>
-
-            <br/>
-      <ng-container *ngIf="tracklist">
-        Tracks:
-        <div *ngFor="let t of tracklist">
-          <span> {{ t.track }}: {{ t.title }}</span>
-          <button mat-icon-button (click)="openTrackOptionsDialog(t)">
-            <mat-icon>more_horiz</mat-icon>
-          </button>
-        </div><br/>
-      </ng-container>
-
-
+            <i>Notes:</i> {{ recordinginfo.subject.join(', ') }}</ng-container><div><br></div>
+          <ng-container *ngIf="tracklist">
+            Tracks:
+            <div *ngFor="let t of tracklist">
+              <span> {{ t.track }}: {{ t.title }}</span>
+              <button mat-icon-button (click)="openTrackOptionsDialog(t)">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+            </div>
+          </ng-container><div><br></div>
 
      <a href="{{ 'https://archive.org/details/' + recordinginfo.etree_id }}" target="_blank">  <img src="https://archive.org/images/glogo.png" [style.object-fit]="'contain'"></a>
      

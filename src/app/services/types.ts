@@ -150,9 +150,18 @@ export interface VenueDetails {
   georss: string
 }
 
-export interface DbTrack {
-  filename: string,
-  song?: string,
-  title: string,
-  track: number,
+export interface RecordingInfo {
+  date: string,
+  description: string,
+  etree_id: string,
+  lineage: string,
+  location_id: string,
+  location_name: string,
+  notes: string,
+  recording_id: string,
+  show_id: string,
+  source: string,
+  subject: string[],
+  venue_id: string,
+  venue_name: string
 }

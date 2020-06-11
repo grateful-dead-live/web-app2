@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { RecordingDetails, DeadEventInfo, SongInfo, AudioTrack } from '../services/types';
+import { RecordingDetails, DeadEventInfo, AudioTrack, RecordingInfo } from '../services/types';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
@@ -17,7 +17,7 @@ export class RecordingComponent {
   protected event: DeadEventInfo;
   protected currentUser: any = { userName: '', userId: ''};
   protected tracklist: any[];
-  protected recordinginfo: any;
+  protected recordinginfo: RecordingInfo;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
