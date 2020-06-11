@@ -38,10 +38,16 @@
             <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
             <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span> {{ recordinginfo.date }}
           </ng-container>
-            <br>
+          <ng-container *ngIf="recordinginfo.lineage">
+            Lineage: {{ recordinginfo.lineage }}<br></ng-container>
+          <ng-container *ngIf="recordinginfo.source">
+            Source: {{ recordinginfo.source }}<br></ng-container>
+          <ng-container *ngIf="recordinginfo.notes">
+            Notes: {{ recordinginfo.notes }}<br/></ng-container>
+          <ng-container *ngIf="recordinginfo.subject">
+            Notes: {{ recordinginfo.subject.join(', ') }}<br/></ng-container>
 
-
-      <br>
+      
       <ng-container *ngIf="tracklist">
         Tracks:
         <div *ngFor="let t of tracklist">
