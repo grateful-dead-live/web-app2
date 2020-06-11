@@ -73,15 +73,20 @@ export class RecordingComponent {
     });
   }
   
-  protected openTrackOptionsDialog(audio: AudioTrack) {
-    //this.recording.tracks
-    this.dialog.openMultiFunction(
-      //song.name+"', "+this.event.venue.name+", "+this.event.date,
-      audio.track + " " + audio.title,
-      ["add to playlist"],
-      [() => this.addTrackToPlaylist(audio)]
-    );
+  protected openTrackOptionsDialog(audio: AudioTrack) {    
+    if (audio.id) {
+      this.dialog.openMultiFunction(
+        audio.track + " " + audio.title,
+        ["add to playlist", "go to song"], [() => this.addTrackToPlaylist(audio), 
+          () => this.router.navigate(['/song', audio.id])]);
+    }
+    else {
+      this.dialog.openMultiFunction(
+        audio.track + " " + audio.title,
+        ["add to playlist"], [() => this.addTrackToPlaylist(audio)]);
+    }
   }
+  
   
   /*
   private async addTrackToPlaylist(audio: AudioTrack) {

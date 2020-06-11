@@ -38,6 +38,7 @@
             <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
             <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span> {{ recordinginfo.date }}
           </ng-container>
+          <br/>
           <ng-container *ngIf="recordinginfo.lineage">
             Lineage: {{ recordinginfo.lineage }}<br></ng-container>
           <ng-container *ngIf="recordinginfo.source">
@@ -45,14 +46,13 @@
           <ng-container *ngIf="recordinginfo.notes">
             Notes: {{ recordinginfo.notes }}<br/></ng-container>
           <ng-container *ngIf="recordinginfo.subject">
-            Notes: {{ recordinginfo.subject.join(', ') }}<br/></ng-container>
+            Notes: {{ recordinginfo.subject.join(', ') }}</ng-container>
 
-      
+            <br/>
       <ng-container *ngIf="tracklist">
         Tracks:
         <div *ngFor="let t of tracklist">
-          <span *ngIf="t.id" class="link" [routerLink]="['/song', t.id]"> {{ t.track }}: {{ t.title }}</span>
-          <span *ngIf="!t.id"> {{ t.track }}: {{ t.title }}</span>
+          <span> {{ t.track }}: {{ t.title }}</span>
           <button mat-icon-button (click)="openTrackOptionsDialog(t)">
             <mat-icon>more_horiz</mat-icon>
           </button>
