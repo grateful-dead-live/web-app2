@@ -1,7 +1,8 @@
-<div *ngIf="recording && event" fxLayout="column">
+<!--div *ngIf="recording && event" fxLayout="column">
   <gd-header *ngIf="recording && event" title='{{ recording.etreeId }}'
     subtitle='{{ event.location }}'>
   </gd-header>
+
   <div *ngIf="recording" class="gd-container" fxLayout="column" class="topmargin" >
     <div fxLayout="column" fxFlex class="gd-container">
       <ng-container *ngIf="event">
@@ -18,18 +19,47 @@
       <ng-container *ngIf="recording.tracks">
         Tracks:
         <div *ngFor="let t of recording.tracks">
-          <span [routerLink]="['/song', t.title]"> {{ t.track }}: {{ t.title }}</span>
+          <span [routerLink]="['/song', t.id]"> {{ t.track }}: {{ t.title }}</span>
+          <button mat-icon-button (click)="openTrackOptionsDialog(t)">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </div><br/>
+      </ng-container-->
+
+<div *ngIf="recordinginfo" fxLayout="column">
+  <gd-header title='{{ recordinginfo.etree_id }}'
+    subtitle=' – {{ recordinginfo.location_name }}'>
+  </gd-header>
+
+      <div class="gd-container" fxLayout="column" class="topmargin" >
+        <div fxLayout="column" fxFlex class="gd-container">
+          <ng-container>
+            Recorded at: 
+            <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
+            <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span> {{ recordinginfo.date }}
+          </ng-container>
+            <br>
+
+
+      <br>
+      <ng-container *ngIf="tracklist">
+        Tracks:
+        <div *ngFor="let t of tracklist">
+          <span *ngIf="t.id" class="link" [routerLink]="['/song', t.id]"> {{ t.track }}: {{ t.title }}</span>
+          <span *ngIf="!t.id"> {{ t.track }}: {{ t.title }}</span>
           <button mat-icon-button (click)="openTrackOptionsDialog(t)">
             <mat-icon>more_horiz</mat-icon>
           </button>
         </div><br/>
       </ng-container>
 
-     <a href="{{ 'https://archive.org/details/' + recording.etreeId }}" target="_blank">  <img src="https://archive.org/images/glogo.png" [style.object-fit]="'contain'"></a>
+
+
+     <a href="{{ 'https://archive.org/details/' + recordinginfo.etree_id }}" target="_blank">  <img src="https://archive.org/images/glogo.png" [style.object-fit]="'contain'"></a>
      
     </div>
   </div>
-  <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="recording.etreeId+', '+event.location"></gd-comments>
+  <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="recordinginfo.etree_id+', '+recordinginfo.location_name"></gd-comments>
   <br>
 </div>
 <p [style.margin-bottom]="'75px'"></p>

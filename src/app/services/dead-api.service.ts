@@ -168,4 +168,12 @@ export class DeadApiService {
     return this.getTextFromApi('deleteComment?msgid='+msgid+'&userid='+userid);
   }
 
+  async getRecordingInfo(recordingid: string): Promise<any> {
+    return this.getJsonFromApi('getRecordingInfo?recordingid='+recordingid);
+  }
+
+  async getTracklist(recordingid: string): Promise<any> {
+    return this.getJsonFromApi('getTracklist?recordingid='+recordingid);
+  }
+
 }

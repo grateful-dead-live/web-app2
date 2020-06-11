@@ -9,7 +9,8 @@ export interface Track {
   show_id: string,
   etree_id: string,
   recording_id: string,
-  song_id: string
+  song_id: string,
+  track: string
 }
 
 @Injectable()
@@ -28,6 +29,7 @@ export class PlayerService {
   constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService) {}
   
   addToPlaylist(track: Track) {
+    console.log(track);
     this.playlist.push(track);
   }
   

@@ -164,7 +164,8 @@ export class DataService {
       waveform: uri.replace('.mp3', '.png'),
       etree_id: etreeId,
       recording_id: recordingId,
-      song_id: songId
+      song_id: songId,
+      track: audio.track
     };
   }
   
@@ -260,5 +261,31 @@ export class DataService {
   async deleteComment(msgid: string, userid: string): Promise<any> {
     return this.apiService.deleteComment(msgid, userid);
   }
+
+  async getRecordingInfo(recordingid: string){
+    return this.apiService.getRecordingInfo(recordingid);
+  }
+
+  async getTracklist(recordingid: string){
+    return this.apiService.getTracklist(recordingid);
+  }
+
+  toPlayerTrack(venue: string, location: string, date: string, showId: string, etreeId: string, 
+                        audio: AudioTrack, recordingId: string): Track {
+    const uri = ARCHIVE_URI+etreeId+'/'+audio.filename;
+    return {
+      title: audio.title + ", " + venue + ", "
+        + location + ", " + date,
+      uri: uri,
+      show_id: showId,
+      waveform: uri.replace('.mp3', '.png'),
+      etree_id: etreeId,
+      recording_id: recordingId,
+      song_id: audio.id,
+      track: audio.track
+    };
+  }
+
+
 
 }

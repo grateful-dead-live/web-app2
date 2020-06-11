@@ -16,6 +16,8 @@ export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
   protected currentUser: any = { userName: '', userId: ''};
+  protected tracklist: any[];
+  protected recordinginfo: any;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
@@ -45,15 +47,29 @@ export class RecordingComponent {
     */
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
-        this.recording = await this.data.getRecording(params.get('id'));
-        this.event = await this.data.getEventInfoForRecording(this.recording.id);
-        console.log(this.recording)
-        console.log(this.event)
+        //this.recording = await this.data.getRecording(params.get('id'));
+        //this.event = await this.data.getEventInfoForRecording(this.recording.id);
+
+        //const rec_id = params.get('id');
+        this.recordinginfo = await this.data.getRecordingInfo(params.get('id'));
+        var tracklist = await this.data.getTracklist(params.get('id'));
+        tracklist.forEach(t =>{  // format to Audiotrack, take first song_id for now
+          if (t.song) {
+            t['id'] = t.song[0].song_id;
+            delete t.song;
+          }
+          t.track = t.track.toString();
+        })
+        this.tracklist = tracklist;
+        console.log(this.recordinginfo)
+        console.log(this.tracklist);
       }
+
+      /*
       if (!this.recording) {
         this.router.navigate(['/recording', (await this.data.getRandomRecording()).id],
           { replaceUrl: true });
-      }
+      } */
     });
   }
   
@@ -67,10 +83,28 @@ export class RecordingComponent {
     );
   }
   
+  /*
   private async addTrackToPlaylist(audio: AudioTrack) {
     console.log(audio.id)
     const info = await this.data.getEventInfo(this.event.id);
     const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
     if (track) this.player.addToPlaylist(track);
   }
+  */
+
+  private async addTrackToPlaylist(audio: AudioTrack) {
+
+    //const info = await this.data.getEventInfo(this.event.id);
+    //const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
+    const track = this.data.toPlayerTrack(this.recordinginfo.venue_name, 
+                                          this.recordinginfo.location_name, 
+                                          this.recordinginfo.date, 
+                                          this.recordinginfo.show_id,
+                                          this.recordinginfo.etree_id,
+                                          audio,
+                                          this.recordinginfo.recording_id);
+                                          
+    if (track) this.player.addToPlaylist(track);
+  }
+  
 }

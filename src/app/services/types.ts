@@ -77,7 +77,7 @@ export interface Recording {
 
 export interface AudioTrack {
   filename: string,
-  format: string,
+  //format: string,
   title: string,
   track: string,
   id: string
@@ -148,4 +148,11 @@ export interface VenueDetails {
   lat: number,
   shows: [],
   georss: string
+}
+
+export interface DbTrack {
+  filename: string,
+  song?: string,
+  title: string,
+  track: number,
 }
