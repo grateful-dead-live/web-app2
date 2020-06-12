@@ -36,7 +36,8 @@
           <ng-container>
             <i>Recorded at:</i> 
             <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
-            <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span> {{ recordinginfo.date }}
+            <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span>
+            <span class="link" [routerLink]="['/show', recordinginfo.show_id]">{{ recordinginfo.date }}, </span>
           </ng-container><div><br></div>
 
           <ng-container *ngIf="recordinginfo.lineage">

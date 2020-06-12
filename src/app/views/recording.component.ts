@@ -61,8 +61,8 @@ export class RecordingComponent {
           t.track = t.track.toString();
         })
         this.tracklist = tracklist;
-        console.log(this.recordinginfo)
-        console.log(this.tracklist);
+        //console.log(this.recordinginfo)
+        //console.log(this.tracklist);
       }
 
       /*

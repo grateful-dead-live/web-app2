@@ -168,12 +168,12 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
       }
       t.track = t.track.toString();
     })
-    console.log(tracklist)
+    //console.log(tracklist)
     if (tracklist) tracklist.forEach(t => this.addRecordingTrackToPlaylist(t, recording));
   }
 
   private async addRecordingTrackToPlaylist(audio: AudioTrack, recording: Recording) {
-    console.log(audio)
+    //console.log(audio)
     const track = this.data.toPlayerTrack(this.event.venue.name, 
                                           this.event.location.name, 
                                           this.event.date, 

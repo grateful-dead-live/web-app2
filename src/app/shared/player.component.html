@@ -5,7 +5,7 @@
   <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
-<div fxLayout="row">
+<div fxLayout="row" style="margin-left: 3px; margin-right: 3px;">
   <button mat-flat-button fxFlex (click)="player.playPause()"> 
     <mat-icon *ngIf="!player.paused">pause</mat-icon>
     <mat-icon *ngIf="player.paused">play_arrow</mat-icon>
@@ -43,15 +43,20 @@
 </div>
 
 <div fxLayout="column">
-  <div class="playlist" *ngFor="let s of player.playlist; index as i" [hidden]="minimized && s !== player.getCurrentTrack()">
+
+  <div class="playlist" *ngFor="let s of player.playlist; index as i" [hidden]="minimized && s !== player.getCurrentTrack()" style="text-align:left; margin-left: 3px;">
     <span [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'" (click)="player.skipToTrack(s)">
       {{s.track + '. ' + s.title + ' [' + s.etree_id + ']'}} 
     </span>
-    <span>
-      <button *ngIf="s.song_id" mat-icon-button color="" (click)="router.navigate(['/song', s.song_id])">song</button>
-      <button mat-icon-button color="" (click)="router.navigate(['/show', s.show_id])">show</button>
-      <button mat-icon-button color="" (click)="router.navigate(['/recording', s.recording_id])">rec</button>
-      <button mat-icon-button color="" (click)="delTrack(i)"><mat-icon>clear</mat-icon></button>
+    <span style="float:right; margin-right: 3px;">
+      <button [matMenuTriggerFor]="menu">>></button>        
+        <mat-menu #menu="matMenu">
+          <button *ngIf="s.song_id" (click)="router.navigate(['/song', s.song_id])">song</button>
+          <button *ngIf="s.show_id" (click)="router.navigate(['/show', s.show_id])">show</button>
+          <button *ngIf="s.recording_id" (click)="router.navigate(['/recording', s.recording_id])">recording</button>
+        </mat-menu>
+        <button (click)="delTrack(i)">del</button>
     </span>
   </div>
+
 </div>
