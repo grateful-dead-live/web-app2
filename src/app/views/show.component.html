@@ -1,5 +1,5 @@
 <div *ngIf="event" fxLayout="column">
-  <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
+  <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{formatDate}}'
     imageUrl="{{eventImage}}">
     <gd-weather [weather]="event.weather"></gd-weather>
   </gd-header>

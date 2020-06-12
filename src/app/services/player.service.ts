@@ -29,7 +29,7 @@ export class PlayerService {
   constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService) {}
   
   addToPlaylist(track: Track) {
-    console.log(track);
+    //console.log(track);
     this.playlist.push(track);
   }
   

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DeadEventDetails, Artifact, SongInfo, ArtifactType, Recording } from '../services/types';
+import { DeadEventDetails, Artifact, SongInfo, ArtifactType, Recording, AudioTrack } from '../services/types';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
@@ -22,6 +22,7 @@ export class ShowComponent {
   protected artifacts: Artifact[];
   protected eventImage: string;
   protected currentUser: any = { userName: '', userId:'' };
+  protected formatDate: string;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -53,10 +54,13 @@ export class ShowComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.event = await this.data.getEventDetails(params.get('id'));
-        this.event.date = this.data.formatDate(this.event.date);
+        this.event.date = this.event.date;
+        this.formatDate = this.data.formatDate(this.event.date);
+
         this.recordingUrls = this.event.recordings.map(r => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
+        console.log(this.event)
         this.photos = this.event.artifacts
           .filter(a => a.type === ArtifactType.Photo)//.map(a => a.image);
         this.artifacts = this.event.artifacts.filter(a => a.type !== ArtifactType.Photo);
@@ -66,10 +70,12 @@ export class ShowComponent {
         this.eventImage = this.photos.length ? this.photos[0].image
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
+        
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
           { replaceUrl: true });
       }
+      
     });
   }
   /*
@@ -128,13 +134,15 @@ export class ShowComponent {
 }
   */
 
+
+
 private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recordingId: string) {
   const eventInfo = { 
     id: this.event.id,
     date: this.event.date,
-    location: '',
+    location: this.event.location.name,
     state: '',
-    venue: '',
+    venue: this.event.venue.name,
     recordings: this.event.recordings,
     artifacts: this.artifacts
   }
@@ -142,11 +150,40 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
   this.data.getTracks(songDetails, eventInfo, recordingEtreeId, recordingId)
     .forEach(t => this.player.addToPlaylist(t));
 }
-  
+  /*
   private async addRecordingToPlaylist(recording: Recording) {
     const info = await this.data.getEventInfo(this.event.id);
     const tracks = await this.data.getRecordingTracks(recording, info);
     if (tracks) tracks.forEach(t => this.player.addToPlaylist(t));
   }
+*/
+
+  private async addRecordingToPlaylist(recording: Recording) {
+    //const info = await this.data.getEventInfo(this.event.id);
+    var tracklist = await this.data.getTracklist(recording.id);
+    tracklist.forEach(t =>{  // format to Audiotrack, take first song_id for now
+      if (t.song) {
+        t['id'] = t.song[0].song_id;
+        delete t.song;
+      }
+      t.track = t.track.toString();
+    })
+    console.log(tracklist)
+    if (tracklist) tracklist.forEach(t => this.addRecordingTrackToPlaylist(t, recording));
+  }
+
+  private async addRecordingTrackToPlaylist(audio: AudioTrack, recording: Recording) {
+    console.log(audio)
+    const track = this.data.toPlayerTrack(this.event.venue.name, 
+                                          this.event.location.name, 
+                                          this.event.date, 
+                                          this.event.id,
+                                          recording.etreeId,
+                                          audio,
+                                          recording.id
+                                          );
+    this.player.addToPlaylist(track);
+  }
+  
 
 }
