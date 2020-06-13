@@ -2,7 +2,7 @@ import { Component, Input, ElementRef, AfterViewInit, ViewChild, Inject } from '
 import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import { VIEWS } from '../globals';
 //import * as Fuse from 'fuse.js';
-import { MatDialog, MatDialogConfig } from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
