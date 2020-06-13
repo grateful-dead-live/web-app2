@@ -34,9 +34,9 @@ document.write(`
     // Opt-out function
     function gaOptOut() {
       document.cookie = 'gd-cookieconsent=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
-    //  document.cookie = '_ga=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
-    //  document.cookie = '_gid=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
-    //  document.cookie = '_gat_gtag_` + TRACKINGID.replace(/-/g, '_') + `=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = '_ga=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = '_gid=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = '_gat_gtag_` + TRACKINGID.replace(/-/g, '_') + `=; expires = Thu, 01 Jan 1970 00:00:00 GMT';
       window[disableStr] = true;
       window.location.reload()
     }

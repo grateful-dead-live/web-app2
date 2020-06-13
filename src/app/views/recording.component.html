@@ -37,17 +37,17 @@
             <i>Recorded at:</i> 
             <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
             <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span>
-            <span class="link" [routerLink]="['/show', recordinginfo.show_id]">{{ recordinginfo.date }}, </span>
+            <span class="link" [routerLink]="['/show', recordinginfo.show_id]">{{ recordinginfo.date }} </span>
           </ng-container><div><br></div>
 
           <ng-container *ngIf="recordinginfo.lineage">
-            <i>Lineage:</i> {{ recordinginfo.lineage }}</ng-container><div><br></div>
+            <i>Lineage:</i> {{ recordinginfo.lineage }}<div><br></div></ng-container>
           <ng-container *ngIf="recordinginfo.source">
-            <i>Source:</i> {{ recordinginfo.source }}<br></ng-container><div><br></div>
+            <i>Source:</i> {{ recordinginfo.source }}<div><br></div></ng-container>
           <ng-container *ngIf="recordinginfo.notes">
-            <i>Notes:</i> {{ recordinginfo.notes }}<br/></ng-container><div><br></div>
+            <i>Notes:</i> {{ recordinginfo.notes }}<div><br></div></ng-container>
           <ng-container *ngIf="recordinginfo.subject">
-            <i>Subject:</i> {{ recordinginfo.subject.join(', ') }}</ng-container><div><br></div>
+            <i>Subject:</i> {{ _array.isArray(recordinginfo.subject) ? recordinginfo.subject.join(', ') : recordinginfo.subject }}</ng-container><div><br></div>
           <ng-container *ngIf="tracklist">
             Tracks:
             <div *ngFor="let t of tracklist">
