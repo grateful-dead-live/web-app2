@@ -1,11 +1,11 @@
 <div fxLayout="column" [style.height]="loaded && !minimized ? '120px' : '20px'">
   <img *ngIf="player.getCurrentTrack().waveform" class="image"
     [lazyLoad]="player.getCurrentTrack().waveform" [style.height]="'100px'"
-    [class.flashy]="loaded" (load)="loaded = true" [hidden]="minimized">
+    [class.flashy]="loaded" (load)="loaded = true" [hidden]="minimized" class="waveform">
   <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
-<div fxLayout="row" style="margin-left: 3px; margin-right: 3px;">
+<div fxLayout="row" style="margin-top: 10px; margin-left: 3px; margin-right: 3px;">
   <button mat-flat-button fxFlex (click)="player.playPause()"> 
     <mat-icon *ngIf="!player.paused">pause</mat-icon>
     <mat-icon *ngIf="player.paused">play_arrow</mat-icon>
@@ -26,20 +26,19 @@
     <mat-icon>{{minimized ? 'visibility' : 'visibility_off'}}</mat-icon></button>
   <mat-slider type="range" min="0" max="100" value="100" step="1" (input)="volumeChange($event.value)"></mat-slider>
 
-    <div *ngIf="player.playlist.length==0">
-      <button mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex *ngIf="currentUser.userId" (click)="onSavePlaylist()">save playlist</button>
-    </div>
-    <div *ngIf="player.playlist.length>0">
-      <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onSavePlaylist()">save playlist</button>
-    </div>
-    
-    <div *ngIf="!player.playlists || player.playlists.length==0">
-      <button mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
-    </div>
-    <div *ngIf="!player.playlists || player.playlists.length>0">
-      <button mat-flat-button fxFlex *ngIf="currentUser.userId" (click)="onLoadPlaylist()">load playlist</button>
-    </div>
-    
+  <button *ngIf="currentUser.userId && player.playlist.length==0" mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex (click)="onSavePlaylist()">
+    save playlist
+  </button>
+  <button *ngIf="currentUser.userId && player.playlist.length>0" mat-flat-button fxFlex (click)="onSavePlaylist()">
+    save playlist
+  </button>
+  <button *ngIf="currentUser.userId && (!player.playlists || player.playlists.length==0)" mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex (click)="onLoadPlaylist()">
+    load playlist
+  </button>
+  <button *ngIf="currentUser.userId && (!player.playlists || player.playlists.length>0)"mat-flat-button fxFlex (click)="onLoadPlaylist()">
+    load playlist
+  </button>
+
 </div>
 
 <div fxLayout="column">
