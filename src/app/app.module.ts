@@ -54,6 +54,10 @@ import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
 import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
 import {GoogleAnalyticsService} from './services/google-analytics.service';
 
+import { ShareButtonsComponent } from './shared/sharebuttons.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+
 
 @NgModule({
   declarations: [
@@ -80,7 +84,8 @@ import {GoogleAnalyticsService} from './services/google-analytics.service';
     CommentsComponent,
     InputDialogComponent,
     CookieBannerComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    ShareButtonsComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +101,9 @@ import {GoogleAnalyticsService} from './services/google-analytics.service';
     LeafletModule.forRoot(),
     MatSliderModule,
     MatProgressSpinnerModule,
-    ChatterBoxModule
+    ChatterBoxModule,
+    ShareButtonsModule,
+    ShareIconsModule
   ],
   providers: [
     DeadApiService,
