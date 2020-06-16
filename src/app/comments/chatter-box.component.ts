@@ -6,7 +6,7 @@ import { CommentPayload } from '../services/types'
 @Component({
     selector: 'gd-chatterbox',
     templateUrl: './chatter-box.component.html',
-    styleUrls: ['./chatter-box.component.sass']
+    styleUrls: ['./chatter-box.component.css']
   })
 
 
