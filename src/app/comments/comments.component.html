@@ -1,32 +1,3 @@
-<!--div  style="height: auto; width: auto;">
-  <vis-chatterBox *ngIf='heading != ""'
-      [heading]=heading
-      [headerImage]=headerImage
-      [allComments]=allComments
-      [inputMaxLength]=1000
-      [currentUserId]=currentUserId
-      [showErrorDiv]=showErrorDiv
-      [errorMsg]=errorMsg
-      [placeholderText]=placeholderText
-      (onKeyupEnter)=sendMessage($event)
-      (emitReport)=onReportComment($event)
-      (emitDelete)=onDeleteComment($event)
-      (emitRefresh)=getComments()
-  >
-  </vis-chatterBox>
-
-  <vis-chatterBox *ngIf='heading == ""'
-      heading=""
-      [headerImage]=headerImage
-      [allComments]=allComments
-      [inputMaxLength]=0
-      [showErrorDiv]=showErrorDiv
-      [errorMsg]=errorMsg
-      placeholderText="please log in to comment"
-  >
-  </vis-chatterBox>
-</div-->
-
 
 <div  style="height: auto; width: auto;">
   <gd-chatterbox *ngIf='heading != ""'

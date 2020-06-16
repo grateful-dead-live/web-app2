@@ -1,8 +1,5 @@
-import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
+import { EventEmitter, Component, Input, Output } from '@angular/core';
 import { isUndefined } from 'util';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { CommentPayload } from '../services/types'
 
 
