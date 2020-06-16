@@ -15,7 +15,7 @@ declare let gtag: Function;
 })
 export class SongComponent {
   
-  protected song: SongDetails;
+  public song: SongDetails;
   protected subtitle: string;
   protected firstPlayed: string;
   protected lastPlayed: string;

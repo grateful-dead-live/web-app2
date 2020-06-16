@@ -13,7 +13,7 @@ declare let gtag: Function;
   templateUrl: './location.component.html'
 })
 export class LocationComponent {
-  protected location: Location;
+  public location: Location;
   protected currentUser: any = { userName: '', userId:'' };;
   
   constructor(protected data: DataService, private router: Router,

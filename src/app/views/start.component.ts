@@ -12,7 +12,7 @@ declare let gtag: Function;
 export class StartComponent {
 
   protected currentUser: any = { userName: '', userId: ''};
-  protected email: string;
+  public email: string;
   
   constructor(private sanitizer: DomSanitizer,
     public auth: AuthService) {

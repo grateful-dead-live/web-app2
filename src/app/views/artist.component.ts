@@ -13,7 +13,7 @@ declare let gtag: Function;
 })
 export class ArtistComponent {
   
-  protected artist: ArtistDetails;
+  public artist: ArtistDetails;
   protected currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private router: Router,

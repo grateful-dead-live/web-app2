@@ -29,8 +29,8 @@ import { CommentPayload } from '../services/types'
     @Output() emitDelete = new EventEmitter();
     @Output() emitRefresh = new EventEmitter();
 
-    protected typedCommentTextLength: number;
-    protected commentText: string;
+    public typedCommentTextLength: number;
+    public commentText: string;
 
 
 
@@ -41,12 +41,12 @@ import { CommentPayload } from '../services/types'
         return isUndefined(comment.userImagePath);
     }
 
-    protected addComment(comment){
+    addComment(comment){
         this.onKeyupEnter.emit(comment);
         this.commentText = '';
     }
 
-    protected onKeyUp(input){
+    onKeyUp(input){
         this.onKeyup.emit(input);
         this.typedCommentTextLength = input.length;
     }
@@ -55,7 +55,7 @@ import { CommentPayload } from '../services/types'
         this.emitDelete.emit(input);
     }
 
-    protected onRefreshButton(){
+    onRefreshButton(){
         this.emitRefresh.emit();
     }
 

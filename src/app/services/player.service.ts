@@ -21,7 +21,7 @@ export class PlayerService {
   private currentAudio: HTMLAudioElement;
   public playlist: Track[] = [];
   private currentTrackIndex = 0;
-  private muted = false;
+  public muted = false;
   public paused = true;
   public playlists = [];
   public playlistsLoaded = false;

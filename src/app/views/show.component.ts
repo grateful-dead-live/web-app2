@@ -15,7 +15,7 @@ declare let gtag: Function;
 })
 export class ShowComponent {
   
-  protected event: DeadEventDetails;
+  public event: DeadEventDetails;
   protected recordingUrls: SafeStyle[];
   //protected photos: string[];
   protected photos: Artifact[];

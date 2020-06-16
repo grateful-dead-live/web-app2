@@ -13,10 +13,10 @@ declare let gtag: Function;
   styleUrls: ['./player.component.sass']
 })
 export class PlayerComponent {
-  protected currentUser: any = { userName: '', userId: '' };
-  protected loaded = false;
-  protected minimized = false;
-  constructor(protected player: PlayerService, private data: DataService, private dialog: DialogService, public auth: AuthService, public router: Router) {}
+  public currentUser: any = { userName: '', userId: '' };
+  public loaded = false;
+  public minimized = false;
+  constructor(public player: PlayerService, private data: DataService, private dialog: DialogService, public auth: AuthService, public router: Router) {}
   
   ngOnInit() {
     //if (this.currentUser.userId != '') gtag('set', {'user_id': this.currentUser.userId});

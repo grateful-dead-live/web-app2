@@ -12,7 +12,7 @@ declare let gtag: Function;
 })
 export class ArtifactsComponent {
   
-  protected artifacts: Artifact[];
+  public artifacts: Artifact[];
   protected types: ArtifactType[];
   protected currentUser: any = { userName: '', userId:''};
   

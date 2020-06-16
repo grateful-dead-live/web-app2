@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
       
     }
 
-  protected currentUser: any;
+  currentUser: any;
   //protected authenticated: boolean;
   protected userProfile: any;
   protected bookmarks: any;

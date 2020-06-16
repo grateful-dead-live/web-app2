@@ -17,7 +17,7 @@ export class RecordingComponent {
   protected event: DeadEventInfo;
   protected currentUser: any = { userName: '', userId: ''};
   protected tracklist: any[];
-  protected recordinginfo: RecordingInfo;
+  public recordinginfo: RecordingInfo;
   protected _array = Array;
   
   constructor(protected data: DataService, private router: Router,

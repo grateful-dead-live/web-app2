@@ -14,7 +14,7 @@ declare let gtag: Function;
   templateUrl: './venue.component.html'
 })
 export class VenueComponent {
-  protected venue: Venue;
+  public venue: Venue;
   protected location: string;
 
   protected currentUser: any = { userName: '', userId: ''};

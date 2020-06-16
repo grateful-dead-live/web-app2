@@ -14,7 +14,7 @@ export class CommentsComponent implements OnInit {
 
   @Input() title: string;
   @Input() userName: string;
-  //heading = 'comments';
+  @Input() heading = 'comments';
   //headerImage  =  '../assets/logo.png';
   showErrorDiv:  boolean;
   errorMsg  =  'This is an error';

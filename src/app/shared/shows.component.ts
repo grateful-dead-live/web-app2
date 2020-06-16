@@ -10,7 +10,7 @@ import { DeadEventInfo } from '../services/types';
 export class ShowsComponent {
   @Input() eventIds: string[];
   @Input() onOptions: (s: DeadEventInfo) => any;
-  protected events: DeadEventInfo[];
+  public events: DeadEventInfo[];
   
   constructor(private data: DataService) {}
   
