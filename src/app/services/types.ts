@@ -165,3 +165,12 @@ export interface RecordingInfo {
   venue_id: string,
   venue_name: string
 }
+
+export interface CommentPayload {
+  msgId: string,
+  userId?: number | string,
+  msg: string,
+  timestamp: string,
+  userName: string,
+  userImagePath?: string
+}

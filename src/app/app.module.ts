@@ -47,7 +47,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ProfileComponent } from './profile/profile.component';
 
 import { APIResolver } from './auth.resolve';
-import { ChatterBoxModule } from './chatter-box';
+//import { ChatterBoxModule } from './chatter-box';
 import { CommentsComponent } from './comments/comments.component';
 import { InputDialogComponent } from './shared/input-dialog.component';
 import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
@@ -57,6 +57,8 @@ import {GoogleAnalyticsService} from './services/google-analytics.service';
 import { ShareButtonsComponent } from './shared/sharebuttons.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+
+import { ChatterBoxComponent } from './comments/chatter-box.component';
 
 
 @NgModule({
@@ -85,7 +87,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     InputDialogComponent,
     CookieBannerComponent,
     PrivacyPolicyComponent,
-    ShareButtonsComponent
+    ShareButtonsComponent,
+    ChatterBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +104,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     LeafletModule.forRoot(),
     MatSliderModule,
     MatProgressSpinnerModule,
-    ChatterBoxModule,
+    //ChatterBoxModule,
     ShareButtonsModule,
     ShareIconsModule
   ],

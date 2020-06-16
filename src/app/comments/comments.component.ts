@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { CommentPayload } from '../chatter-box';
+import { CommentPayload } from '../services/types';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
