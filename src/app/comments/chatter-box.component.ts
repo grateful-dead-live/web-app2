@@ -59,6 +59,8 @@ import { CommentPayload } from '../services/types'
         this.emitRefresh.emit();
     }
 
-
+    protected onReportButton(input){
+        this.emitReport.emit(input);
+    }
 
   }
