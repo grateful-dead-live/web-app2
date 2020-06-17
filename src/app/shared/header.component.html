@@ -8,9 +8,9 @@
         <mat-menu #menu="matMenu">
           <!-- <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button> -->
           <button mat-menu-item routerLink="/mapselect">Concert Map</button>
-          <button mat-menu-item routerLink="/profile" *ngIf="auth.loggedIn">Profile Page</button>
-          <button mat-menu-item (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
-          <button mat-menu-item (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button>
+          <button mat-menu-item routerLink="/profile" *ngIf="userId">Profile Page</button>
+          <button mat-menu-item (click)="auth.login()" *ngIf="!userId">Log In</button>
+          <button mat-menu-item (click)="auth.logout()" *ngIf="userId">Log Out</button>
           <button mat-menu-item routerLink="/about">About</button>
           <button mat-menu-item routerLink="/dataprivacy">Privacy</button>
         </mat-menu>
@@ -22,15 +22,15 @@
     <span>
       {{ title }} {{ subtitle }}
       <span *ngIf="!((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))">
-        <button *ngIf="auth.loggedIn" mat-icon-button color="" (click)="onBookmarkButton()">
+        <button *ngIf="userId" mat-icon-button color="" (click)="onBookmarkButton()">
           <mat-icon>{{bookmarked ? 'bookmark' : 'bookmark_border'}}</mat-icon>
         </button>
 
       <!--span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))"-->
-        <button *ngIf="auth.loggedIn" mat-icon-button color="" (click)="onLikeButton()">
+        <button *ngIf="userId" mat-icon-button color="" (click)="onLikeButton()">
           <mat-icon>{{liked ? 'thumb_up_alt' : 'thumb_up_off_alt'}}</mat-icon>
         </button>
-        <button *ngIf="!auth.loggedIn" mat-icon-button color="">
+        <button *ngIf="!userId" mat-icon-button color="">
           <mat-icon>thumb_up_off_alt</mat-icon>
         </button>
         {{likes}}

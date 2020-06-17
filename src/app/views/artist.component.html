@@ -1,6 +1,6 @@
 <div *ngIf="artist" fxLayout="column">
   <gd-header *ngIf="artist" title="{{ artist.name }}"
-    subtitle="{{ artist.instruments.join(', ').split('_').join(' ') }}">
+    subtitle="{{ artist.instruments.join(', ').split('_').join(' ') }}" userId='{{ currentUser.userId }}'>
   </gd-header>
   
   <div class="gd-container" fxLayout="row" fxLayout.xs="column">

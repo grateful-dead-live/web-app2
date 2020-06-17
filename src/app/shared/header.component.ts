@@ -5,9 +5,9 @@ import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
-import { AuthService } from '../auth.service';
+//import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+//import { CookieService } from 'ngx-cookie-service';
 
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
@@ -25,13 +25,14 @@ export class HeaderComponent {
   @Input() imageUrl: string;
   @Input() title: string;
   @Input() subtitle: string;
+  @Input() userId: string;
   //@ViewChild('input') input: ElementRef;
   protected image: SafeStyle;
   //protected views = VIEWS;
   //protected fuse: any;
   protected result: any;
   protected searchState: any;
-  protected currentUser: any = { userName: '', userId:''};
+  //protected currentUser: any = { userName: '', userId:''};
   protected bookmarked: boolean;
   protected liked: boolean;
   protected likes: number;
@@ -39,35 +40,28 @@ export class HeaderComponent {
 
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    public auth: AuthService, private router: Router, @Inject('window') private window, private cookieService: CookieService) {
+    private router: Router) {
 
       
     }
   
 ngOnInit() {
-  
-  
-  this.auth.userProfile$.subscribe(userProfile => {
-    if (userProfile){
-      this.currentUser = {
-        userId: userProfile.sub.split("|")[1],
-        userName: userProfile['http://example.com/username']
-      }
-      if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
-        { 
-          this.checkBookmark();
-          this.checkLike()
-        };
-      gtag('set', {'user_id': this.currentUser.userId});
-    }
-  });
+  this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
 
+  if (this.userId) {
+    gtag('set', {'user_id': this.userId});
+    if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
+          { 
+            this.checkBookmark();
+            this.checkLike()
+          };
+  }
+  
   this.bookmarked = false;
   this.liked = false;
   this.searchState = 0;
   this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
-  this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
-
+  
   if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
     this.countLikes();
   /*
@@ -108,30 +102,30 @@ ngOnInit() {
 
   async onBookmarkButton(){
     if (this.bookmarked == false){
-      await this.data.addBookmark(this.currentUser.userId, this.router.url, new Date().getTime(), this.title+' '+this.subtitle);
+      await this.data.addBookmark(this.userId, this.router.url, new Date().getTime(), this.title+' '+this.subtitle);
     } else {
-      await this.data.delBookmark(this.currentUser.userId, this.router.url);
+      await this.data.delBookmark(this.userId, this.router.url);
     }
     this.checkBookmark();
   }
 
   async checkBookmark(){
-    var b = await this.data.checkBookmark(this.currentUser.userId, this.router.url);
+    var b = await this.data.checkBookmark(this.userId, this.router.url);
     this.bookmarked = Boolean(JSON.parse(b));
     console.log("bookmark: "+this.bookmarked)
   }
 
   async onLikeButton(){
     if (this.liked == false){
-      await this.data.like(this.currentUser.userId, this.router.url, new Date().getTime(), this.title+' '+this.subtitle);
+      await this.data.like(this.userId, this.router.url, new Date().getTime(), this.title+' '+this.subtitle);
     } else {
-      await this.data.unlike(this.currentUser.userId, this.router.url);
+      await this.data.unlike(this.userId, this.router.url);
     }
     this.checkLike();
   }
 
   async checkLike(){
-    var b = await this.data.checkLike(this.currentUser.userId, this.router.url);
+    var b = await this.data.checkLike(this.userId, this.router.url);
     this.liked = Boolean(JSON.parse(b));
     this.countLikes()
     console.log("like: "+this.liked)

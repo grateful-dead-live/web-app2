@@ -2,7 +2,7 @@
 <!--<div *ngIf="auth.userProfile$ | async as profile">
 <gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>-->
 <div *ngIf="currentUser">
-  <gd-header title='Profile' subtitle='{{ currentUser.userName }}'></gd-header>
+  <gd-header title='Profile' subtitle='{{ currentUser.userName }}' userId='{{ currentUser.userId }}'></gd-header>
   <br><b>User Info</b><br>
   <!--pre>
     <code>{{ userProfile | json }}</code>

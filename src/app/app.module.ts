@@ -59,6 +59,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 import { ChatterBoxComponent } from './comments/chatter-box.component';
+import { PlaylistComponent } from './views/playlist.component';
 
 
 @NgModule({

@@ -1,6 +1,6 @@
 <div *ngIf="song" fxLayout="column">
   <gd-header *ngIf="song" title="{{ song.name }}"
-    subtitle="{{ subtitle }}"></gd-header>
+    subtitle="{{ subtitle }}" userId='{{ currentUser.userId }}'></gd-header>
   <div fxLayout="column" class="gd-container">
     
     <div fxLayout="column" fxFlex class="gd-container">

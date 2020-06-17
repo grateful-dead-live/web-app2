@@ -28,7 +28,7 @@
 
 <div *ngIf="recordinginfo" fxLayout="column">
   <gd-header title='{{ recordinginfo.etree_id }}'
-    subtitle=' – {{ recordinginfo.location_name }}'>
+    subtitle=' – {{ recordinginfo.location_name }}' userId='{{ currentUser.userId }}'>
   </gd-header>
 
       <div class="gd-container" fxLayout="column" class="topmargin" >
