@@ -2,3 +2,13 @@
   <gd-header title='Playlist '
     subtitle=' – "{{ playlist.name }}"' userId='{{ currentUser.userId }}'>
   </gd-header>
+
+  <div><br></div>
+    the playlist "{{ playlist.name }}" has been loaded in the audio player:
+    <div><br></div>
+    <div *ngFor="let t of playlist.playlist; index as i">
+        <small>{{i+1}}. {{ t.title }}</small>
+    </div>
+
+
+</div>

@@ -55,10 +55,20 @@
       <div> {{ p.timestamp }} "{{ p.name }}"
         <button mat-icon-button (click)="loadPlaylist(p.playlist)"><mat-icon>library_music</mat-icon></button> 
         <button mat-icon-button (click)="delPlaylist(p.id, p.name)"><mat-icon>clear</mat-icon></button>   
+        
       </div>
       <div *ngFor="let t of p.playlist; index as i">
         <small>{{i+1}}. {{ t.title }}</small>
       </div>
+      <share-buttons [theme]="'default'"
+        [include]="['facebook','twitter','pinterest','reddit','tumblr','mix','copy']"
+        url = "{{domain + 'playlist/' + p.id}}"
+        [show]="7"
+        [size]="-7"
+        [title]="'Grateful Dead Concert Explorer Playlist'"
+        [tags]="'Grateful Dead, Live Music, Jerry Garcia'"
+        >
+      </share-buttons>
     <br>
     </div>
   </div>

@@ -5,6 +5,7 @@ import { APIResolver } from '../auth.resolve';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
+import { DOMAIN } from '../config';
 
 declare let gtag: Function;
 
@@ -15,22 +16,22 @@ declare let gtag: Function;
 })
 export class ProfileComponent implements OnInit {
   constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute,
-    private dialog: DialogService, public player: PlayerService) { 
+    private dialog: DialogService, private player: PlayerService) { 
 
       
     }
 
-  currentUser: any;
+  public currentUser: any;
   //protected authenticated: boolean;
   protected userProfile: any;
   protected bookmarks: any;
   protected likes: any;
   protected comments: any;
+  public domain = DOMAIN;
   //protected playlists: any;
-
-
-  ngOnInit() {
     
+
+  ngOnInit() {  
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.userProfile = userProfile;

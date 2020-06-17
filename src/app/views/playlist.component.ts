@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
-//import { CommonModule } from "@angular/common";
 
 declare let gtag: Function;
 
