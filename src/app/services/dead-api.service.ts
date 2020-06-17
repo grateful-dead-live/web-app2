@@ -160,6 +160,10 @@ export class DeadApiService {
     return this.getJsonFromApi('getPlaylists?userid='+userid);
   }
 
+  async getPlaylist(playlistid: string): Promise<any> {
+    return this.getJsonFromApi('getPlaylist?playlistid='+playlistid);
+  }
+
   async delPlaylist(userid: string, playlistid: string): Promise<any> {
     return this.getTextFromApi('delPlaylist?userid='+userid+'&playlistid='+playlistid);
   }

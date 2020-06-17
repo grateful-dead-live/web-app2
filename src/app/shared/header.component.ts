@@ -5,7 +5,7 @@ import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
-//import { AuthService } from '../auth.service';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 //import { CookieService } from 'ngx-cookie-service';
 
@@ -40,7 +40,7 @@ export class HeaderComponent {
 
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    private router: Router) {
+    private router: Router, public auth: AuthService) {
 
       
     }

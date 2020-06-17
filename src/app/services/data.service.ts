@@ -254,6 +254,10 @@ export class DataService {
     return this.apiService.getPlaylists(userid);
   }
 
+  async getPlaylist(playlistid: string): Promise<any> {
+    return this.apiService.getPlaylist(playlistid);
+  }
+
   async delPlaylist(userid: string, playlistid: string): Promise<any> {
     return this.apiService.delPlaylist(userid, playlistid);
   }

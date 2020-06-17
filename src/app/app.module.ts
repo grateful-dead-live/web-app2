@@ -89,7 +89,8 @@ import { PlaylistComponent } from './views/playlist.component';
     CookieBannerComponent,
     PrivacyPolicyComponent,
     ShareButtonsComponent,
-    ChatterBoxComponent
+    ChatterBoxComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,
