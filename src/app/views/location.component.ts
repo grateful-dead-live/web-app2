@@ -14,7 +14,7 @@ declare let gtag: Function;
 })
 export class LocationComponent {
   public location: Location;
-  protected currentUser: any = { userName: '', userId:'' };;
+  public currentUser: any = { userName: '', userId:'' };;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {

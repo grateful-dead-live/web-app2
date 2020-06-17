@@ -12,7 +12,9 @@ declare let gtag: Function;
 })
 export class PlaylistComponent {
 
-  protected currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId:'' };
+  public playlist: any;
+  protected playlistId: string;
 
   constructor(private data: DataService,  private router: Router, private route: ActivatedRoute,
     private player: PlayerService, public auth: AuthService) {}
@@ -31,13 +33,13 @@ export class PlaylistComponent {
     
       this.route.paramMap.subscribe(async params => {
         if (params.has('id')) {
-          const playlistid = params.get('id');
-
-  
+          this.getPlaylist(params.get('id'));
         }
       });
 
+    }
 
-    
+    async getPlaylist(playlistId){
+      console.log(playlistId)
     }
   }

@@ -22,7 +22,7 @@ export class SongComponent {
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
-  protected currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,

@@ -14,7 +14,7 @@ declare let gtag: Function;
 export class ArtistComponent {
   
   public artist: ArtistDetails;
-  protected currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {

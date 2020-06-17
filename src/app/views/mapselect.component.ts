@@ -13,7 +13,7 @@ declare let gtag: Function;
 })
 
 export class MapSelectComponent {
-  protected currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId:'' };
   protected venues: VenueDetails[];
   protected test: number;
 

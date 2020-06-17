@@ -1,0 +1,6 @@
+<div *ngIf="playlist" fxLayout="column">
+    <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{playlist.name}}, {{currentUser.userName}' subtitle='{{formatDate}}'
+      imageUrl="{{eventImage}}" userId='{{ currentUser.userId }}'>
+      <gd-weather [weather]="event.weather"></gd-weather>
+    </gd-header>
+</div>

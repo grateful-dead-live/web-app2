@@ -21,7 +21,7 @@ export class ShowComponent {
   protected photos: Artifact[];
   protected artifacts: Artifact[];
   protected eventImage: string;
-  protected currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId:'' };
   protected formatDate: string;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
