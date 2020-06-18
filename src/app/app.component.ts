@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './auth.service';
 import { TRACKINGID, TRACKING } from './config';
 import { DOCUMENT } from '@angular/common';
+import { PlayerService } from './services/player.service';
 
 declare let gtag: Function;
 
@@ -18,7 +19,7 @@ export class AppComponent {
   //private cookieValue: string;
   protected currentUser: any = { userName: '', userId: '' };
 
-  constructor(public router:Router, public auth: AuthService, @Inject(DOCUMENT) private doc: any) {
+  constructor(public router:Router, public auth: AuthService, @Inject(DOCUMENT) private doc: any, private player: PlayerService) {
     //router.events.forEach((event) => {
     //  if (router.url.includes('/about')) {  
     //    this.start = true; 
@@ -84,7 +85,9 @@ export class AppComponent {
         var oneYearFromNow = new Date();
         oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
         document.cookie = 'gd-cookieconsent=allow; expires="' + oneYearFromNow.toGMTString() + '"';
+        
         window[disableStr] = false;
+        //document.getElementById("cookiebanner").remove();
         window.location.reload()
       }
   

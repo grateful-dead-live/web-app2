@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+// import { CookieService } from 'ngx-cookie-service';
 
 declare let gtag: Function;
 
@@ -16,9 +17,14 @@ export class PlayerComponent {
   public currentUser: any = { userName: '', userId: '' };
   public loaded = false;
   public minimized = false;
-  constructor(public player: PlayerService, private data: DataService, private dialog: DialogService, public auth: AuthService, public router: Router) {}
+  constructor(public player: PlayerService, private data: DataService, private dialog: DialogService, public auth: AuthService, 
+              public router: Router) {} //, private cookieService: CookieService) {}
   
   ngOnInit() {
+    //if (!this.cookieService.get('auth0.is.authenticated')) { 
+    //  this.player.removePlaylistFromStorage() ;
+    //};
+    
     //if (this.currentUser.userId != '') gtag('set', {'user_id': this.currentUser.userId});
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
@@ -29,7 +35,15 @@ export class PlayerComponent {
         gtag('set', {'user_id': this.currentUser.userId});
         this.player.getPlaylists(this.currentUser.userId);
       }
+      if (!this.router.url.startsWith('/playlist')) {
+        var p = JSON.parse(atob(localStorage.getItem('playlist')));
+        if (p) this.player.playlist = p;
+      };
+      
     });
+
+    
+    
   }
 
   async addRandomTrack() {
@@ -42,8 +56,7 @@ export class PlayerComponent {
 
 
   async delTrack(i){
-    this.player.playlist.splice(i, 1);
-    console.log(i);
+    this.player.deleteFromPlaylist(i);
   }
 
   async onSavePlaylist() {
@@ -55,7 +68,6 @@ export class PlayerComponent {
   }
 
   async onLoadPlaylist() {
-    console.log('load playlist')
     this.loadPlaylist()
   }
 
@@ -86,11 +98,16 @@ protected openOptionsDialog(event: DeadEventInfo) {
   */
  
   private loadPlaylist() {
+    console.log('load playlist');
     this.dialog.openMultiFunction(
       'Your current playlist will be lost',
       this.player.playlists.map(r => r.name),
-      this.player.playlists.map(r => () => {this.player.playlist = [...r.playlist]})
+      this.player.playlists.map(r => () => {
+        this.player.playlist = [...r.playlist];
+        this.player.storePlaylist();
+      })
     );
+    
   }
 
   private makeid() {

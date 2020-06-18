@@ -7,6 +7,7 @@ import { SearchDialogComponent } from '../shared/search-dialog.component';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { PlayerService } from '../services/player.service';
 //import { CookieService } from 'ngx-cookie-service';
 
 //declare var require: any;
@@ -40,7 +41,7 @@ export class HeaderComponent {
 
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    private router: Router, public auth: AuthService) {
+    private router: Router, public auth: AuthService, private player: PlayerService) {
 
       
     }
@@ -75,6 +76,12 @@ ngOnInit() {
     */
   }
 
+  //       else { this.player.removePlaylistFromStorage() }
+
+  logout(){
+    this.auth.logout();
+    this.player.removePlaylistFromStorage();
+  }
 
   async onSubmit(e){
     console.log(e);

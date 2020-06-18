@@ -117,7 +117,10 @@ export class ProfileComponent implements OnInit {
     this.dialog.openMultiFunction(
       'Your current playlist will be lost',
       ["ok", "cancel"],
-      [() => { this.player.playlist = [...playlist] },
+      [() => { 
+        this.player.playlist = [...playlist];
+        this.player.storePlaylist();
+      },
         () => {}]
     );
     

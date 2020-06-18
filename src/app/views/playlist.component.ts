@@ -46,5 +46,6 @@ export class PlaylistComponent {
       this.playlist = res.playlists[0];
       console.log(this.playlist);
       this.player.playlist = [...this.playlist.playlist];
+      this.player.storePlaylist();
     }
   }

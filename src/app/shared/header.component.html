@@ -10,7 +10,8 @@
           <button mat-menu-item routerLink="/mapselect">Concert Map</button>
           <button mat-menu-item routerLink="/profile" *ngIf="userId">Profile Page</button>
           <button mat-menu-item (click)="auth.login()" *ngIf="!userId">Log In</button>
-          <button mat-menu-item (click)="auth.logout()" *ngIf="userId">Log Out</button>
+          <button mat-menu-item (click)="logout()" *ngIf="userId">Log Out</button>
+          <!--button mat-menu-item (click)="auth.logout()" *ngIf="userId">Log Out</button-->
           <button mat-menu-item routerLink="/about">About</button>
           <button mat-menu-item routerLink="/dataprivacy">Privacy</button>
         </mat-menu>

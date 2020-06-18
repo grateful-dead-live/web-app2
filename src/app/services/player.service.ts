@@ -31,6 +31,12 @@ export class PlayerService {
   addToPlaylist(track: Track) {
     //console.log(track);
     this.playlist.push(track);
+    this.storePlaylist();
+  }
+
+  deleteFromPlaylist(i){
+    this.playlist.splice(i, 1);
+    this.storePlaylist();
   }
   
   getCurrentTrack() {
@@ -170,6 +176,13 @@ export class PlayerService {
     function z(n){return (n<10?'0':'')+n}
     return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
   }
+
+  storePlaylist(){
+    localStorage.setItem('playlist', btoa(JSON.stringify(this.playlist)));
+  }
   
+  removePlaylistFromStorage(){
+    localStorage.removeItem('playlist');
+  }
 
 }
