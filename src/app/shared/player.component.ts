@@ -36,8 +36,7 @@ export class PlayerComponent {
         this.player.getPlaylists(this.currentUser.userId);
       }
       if (!this.router.url.startsWith('/playlist')) {
-        var p = JSON.parse(atob(localStorage.getItem('playlist')));
-        if (p) this.player.playlist = p;
+        this.player.loadPlaylistFromsStorage();
       };
       
     });
