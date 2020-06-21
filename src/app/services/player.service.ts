@@ -186,8 +186,8 @@ export class PlayerService {
   }
 
   loadPlaylistFromsStorage(){
-    var p = JSON.parse(atob(localStorage.getItem('playlist')));
-    if (p) this.playlist = p;
+    var p = localStorage.getItem('playlist');
+    if (p) this.playlist = JSON.parse(atob(p));
   }
 
 }
