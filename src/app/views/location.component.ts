@@ -44,7 +44,7 @@ export class LocationComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.location = await this.data.getLocation(params.get('id'));
-        this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
+        // this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
       }
       if (!this.location) {
         this.router.navigate(['/location',
