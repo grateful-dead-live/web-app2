@@ -144,7 +144,7 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
     state: '',
     venue: this.event.venue.name,
     recordings: this.event.recordings,
-    artifacts: this.artifacts
+    artifacts: null //this.artifacts
   }
   var songDetails = await this.data.getSong(song.id);
   this.data.getTracks(songDetails, eventInfo, recordingEtreeId, recordingId)
