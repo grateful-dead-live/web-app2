@@ -180,4 +180,9 @@ export class DeadApiService {
     return this.getJsonFromApi('getTracklist?recordingid='+recordingid);
   }
 
+  async getYoutubeList(id: string, searcharray: string[]): Promise<any> {
+    const s = encodeURIComponent(JSON.stringify(searcharray));
+    return this.getTextFromApi('youtube?id='+id+'&searcharray='+s);
+  }
+
 }

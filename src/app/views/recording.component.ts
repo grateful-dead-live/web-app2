@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { RecordingDetails, DeadEventInfo, AudioTrack, RecordingInfo } from '../services/types';
+import { RecordingDetails, DeadEventInfo, AudioTrack, RecordingInfo, Recording } from '../services/types';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
@@ -109,5 +109,10 @@ export class RecordingComponent {
                                           
     this.player.addToPlaylist(track);
   }
-  
+
+
+  public addAllToPlaylist() {
+    if (this.tracklist) this.tracklist.forEach(t => this.addTrackToPlaylist(t));
+  }
+
 }

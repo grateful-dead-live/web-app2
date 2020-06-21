@@ -290,6 +290,8 @@ export class DataService {
     };
   }
 
-
+  async getYoutubeList(id: string, searchArray: string[]){
+    return this.apiService.getYoutubeList(id, searchArray);
+  }
 
 }
