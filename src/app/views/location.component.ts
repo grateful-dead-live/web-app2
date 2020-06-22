@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
 
+
 declare let gtag: Function;
 
 @Component({
@@ -14,7 +15,9 @@ declare let gtag: Function;
 })
 export class LocationComponent {
   public location: Location;
-  public currentUser: any = { userName: '', userId:'' };;
+  public currentUser: any = { userName: '', userId:'' };
+  public videos: any;
+  public currentVideoId: string;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {
@@ -44,7 +47,9 @@ export class LocationComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.location = await this.data.getLocation(params.get('id'));
-        // this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
+        this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
+        this.currentVideoId = this.videos[0].videoId;
+        //console.log(this.videos);
       }
       if (!this.location) {
         this.router.navigate(['/location',
@@ -68,6 +73,10 @@ export class LocationComponent {
       event.recordings.map(r => r.etreeId),
       event.recordings.map(r => () => this.router.navigate(['/recording', r.id]) )
     );
+  }
+
+  selectVideo(e){
+    this.currentVideoId = e.target.value;
   }
 
 }

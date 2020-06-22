@@ -14,7 +14,17 @@
       <gd-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
         latitude="{{ location.geoloc.lat }}" longitude="{{ location.geoloc.long }}"></gd-map>
     </div>
+    <div class="gd-container" fxLayout="column">
+      <div *ngIf="videos">
+        <gd-youtube videoId="{{ currentVideoId }}"></gd-youtube>
+        <select (change)="selectVideo($event)">
+          <option *ngFor="let v of videos" [value]="v.videoId">{{v.title}}</option>
+        </select>
+
+      </div>
+    </div>
   </div>
+
   
   <p class="gd-section">All shows in {{ location.name }}:</p>
   

@@ -60,6 +60,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 import { ChatterBoxComponent } from './comments/chatter-box.component';
 import { PlaylistComponent } from './views/playlist.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { YoutubeComponent } from './shared/youtube.component';
 
 
 @NgModule({
@@ -90,7 +92,8 @@ import { PlaylistComponent } from './views/playlist.component';
     PrivacyPolicyComponent,
     ShareButtonsComponent,
     ChatterBoxComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    YoutubeComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ import { PlaylistComponent } from './views/playlist.component';
     MatProgressSpinnerModule,
     //ChatterBoxModule,
     ShareButtonsModule,
-    ShareIconsModule
+    ShareIconsModule,
+    YouTubePlayerModule
   ],
   providers: [
     DeadApiService,

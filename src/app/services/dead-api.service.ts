@@ -182,7 +182,7 @@ export class DeadApiService {
 
   async getYoutubeList(id: string, searcharray: string[]): Promise<any> {
     const s = encodeURIComponent(JSON.stringify(searcharray));
-    return this.getTextFromApi('youtube?id='+id+'&searcharray='+s);
+    return this.getJsonFromApi('youtube?id='+id+'&searcharray='+s);
   }
 
 }
