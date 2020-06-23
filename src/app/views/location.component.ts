@@ -11,8 +11,8 @@ declare let gtag: Function;
 
 @Component({
   selector: 'gd-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.sass']
+  templateUrl: './location.component.html'//,
+  //styleUrls: ['./location.component.sass']
 })
 export class LocationComponent {
   public location: Location;
