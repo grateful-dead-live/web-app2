@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import{GoogleAnalyticsService} from './google-analytics.service';
 import { DataService } from '../services/data.service';
+import { DialogService } from '../services/dialog.service';
 
 export interface Track {
   title: string,
@@ -26,12 +27,16 @@ export class PlayerService {
   public playlists = [];
   public playlistsLoaded = false;
   
-  constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService) {}
+  constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService, private dialog: DialogService) {}
   
   addToPlaylist(track: Track) {
-    //console.log(track);
-    this.playlist.push(track);
-    this.storePlaylist();
+    if (this.playlist.length < 100) {
+      this.playlist.push(track);
+      this.storePlaylist();
+    }
+    else {
+      this.dialog.openSingleFunction( 'Playlist is limited to 100 tracks.', ["ok"], () => null );
+    }
   }
 
   deleteFromPlaylist(i){
