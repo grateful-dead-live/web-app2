@@ -24,8 +24,7 @@
                  [clearable]="false"
                  (change)="selectVideo()"
                  [searchable]="false"
-                 [(ngModel)]="currentVideoId"
-      >         
+                 [(ngModel)]="currentVideoId">         
         <ng-option [value]="v.videoId" *ngFor="let v of videos">
             <img src="{{v.thumbnail}}" height="40px"/>
             {{v.title}}

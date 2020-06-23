@@ -16,6 +16,8 @@ declare let gtag: Function;
 export class VenueComponent {
   public venue: Venue;
   protected location: string;
+  public videos: any;
+  public currentVideoId: string;
 
   protected currentUser: any = { userName: '', userId: ''};
   
@@ -37,6 +39,11 @@ export class VenueComponent {
       if (params.has('id')) {
         this.venue = await this.data.getVenue(params.get('id'));
         this.location = (await this.data.getEventInfo(this.venue.eventIds[0])).location;
+        if (this.venue) {
+          this.videos = await this.data.getYoutubeList(this.venue.id, ['Grateful Dead', this.location, this.venue.name]);
+          this.currentVideoId = this.videos[0].videoId;
+          console.log(this.videos);
+        }
       }
       if (!this.venue) {
         this.router.navigate(['/venue', (await this.data.getRandomVenue()).id],
@@ -61,4 +68,9 @@ export class VenueComponent {
       event.recordings.map(r => () => this.router.navigate(['/recording', r.id]) )
     );
   }
+
+  selectVideo(){
+    console.log(this.currentVideoId);
+  }
+
 }

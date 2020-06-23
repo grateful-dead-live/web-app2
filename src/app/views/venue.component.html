@@ -15,6 +15,22 @@
         latitude="{{ venue.geoloc.lat }}" longitude="{{ venue.geoloc.long }}"></gd-map>
     </div>
   </div>
+
+  <div *ngIf="videos">
+    <div class="gd-container" fxLayout="column" fxFlex="50">
+      <gd-youtube videoId="{{ currentVideoId }}" width="100%"></gd-youtube>
+      <ng-select bindLabel="title"
+                 [clearable]="false"
+                 (change)="selectVideo()"
+                 [searchable]="false"
+                 [(ngModel)]="currentVideoId">         
+        <ng-option [value]="v.videoId" *ngFor="let v of videos">
+            <img src="{{v.thumbnail}}" height="40px"/>
+            {{v.title}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
   
   <p class="gd-section">All shows at the {{ venue.name }}:</p>
   
