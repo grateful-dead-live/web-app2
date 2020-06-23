@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export class YoutubeComponent implements OnInit {
   @Input() videoId: string;
+  @Input() width: string;
 
   ngOnInit() {
     //this.videoId = 'PRQCAL_RMVo';

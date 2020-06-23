@@ -63,6 +63,8 @@ import { PlaylistComponent } from './views/playlist.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YoutubeComponent } from './shared/youtube.component';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -112,7 +114,8 @@ import { YoutubeComponent } from './shared/youtube.component';
     //ChatterBoxModule,
     ShareButtonsModule,
     ShareIconsModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    NgSelectModule
   ],
   providers: [
     DeadApiService,

@@ -11,7 +11,8 @@ declare let gtag: Function;
 
 @Component({
   selector: 'gd-location',
-  templateUrl: './location.component.html'
+  templateUrl: './location.component.html',
+  styleUrls: ['./location.component.sass']
 })
 export class LocationComponent {
   public location: Location;
@@ -47,9 +48,11 @@ export class LocationComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.location = await this.data.getLocation(params.get('id'));
-        this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
-        this.currentVideoId = this.videos[0].videoId;
-        //console.log(this.videos);
+        if (this.location.state) {
+          this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
+          this.currentVideoId = this.videos[0].videoId;
+          console.log(this.videos);
+        }
       }
       if (!this.location) {
         this.router.navigate(['/location',
@@ -75,8 +78,8 @@ export class LocationComponent {
     );
   }
 
-  selectVideo(e){
-    this.currentVideoId = e.target.value;
+  selectVideo(){
+    console.log(this.currentVideoId);
   }
 
 }

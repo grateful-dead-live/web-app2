@@ -14,14 +14,23 @@
       <gd-map fxFlex="1 1 auto" [style.height]="'100%'" zoom="15"
         latitude="{{ location.geoloc.lat }}" longitude="{{ location.geoloc.long }}"></gd-map>
     </div>
-    <div class="gd-container" fxLayout="column">
-      <div *ngIf="videos">
-        <gd-youtube videoId="{{ currentVideoId }}"></gd-youtube>
-        <select (change)="selectVideo($event)">
-          <option *ngFor="let v of videos" [value]="v.videoId">{{v.title}}</option>
-        </select>
+  </div>
 
-      </div>
+  
+  <div *ngIf="videos">
+    <div class="gd-container" fxLayout="column" fxFlex="50">
+      <gd-youtube videoId="{{ currentVideoId }}" width="100%"></gd-youtube>
+      <ng-select bindLabel="title"
+                 [clearable]="false"
+                 (change)="selectVideo()"
+                 [searchable]="false"
+                 [(ngModel)]="currentVideoId"
+      >         
+        <ng-option [value]="v.videoId" *ngFor="let v of videos">
+            <img src="{{v.thumbnail}}" height="40px"/>
+            {{v.title}}
+        </ng-option>
+      </ng-select>
     </div>
   </div>
 
