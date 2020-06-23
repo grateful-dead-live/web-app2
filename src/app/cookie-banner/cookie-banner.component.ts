@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular-8-how-to-use-cookies-14ab3f2e93fc
 
 @Component({
@@ -8,8 +8,7 @@ import { CookieService } from 'ngx-cookie-service'; // https://itnext.io/angular
 })
 export class CookieBannerComponent implements OnInit {
 
-public constructor(private cookieService: CookieService,
-            @Inject('window') private window) {
+public constructor(private cookieService: CookieService) { //, @Inject('window')  private window) {
 }
 
 public showBanner: Boolean;
@@ -31,7 +30,7 @@ public ngOnInit() {
 
   public agreeToShare() {
     this.setCookie('gd-cookieconsent', 'allow', 365);
-    this.window.location.reload();
+    //this.window.location.reload();
   }
 
 }
