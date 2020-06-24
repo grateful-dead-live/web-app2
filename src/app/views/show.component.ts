@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { DeadEventDetails, Artifact, SongInfo, ArtifactType, Recording, AudioTrack } from '../services/types';
@@ -26,9 +26,8 @@ export class ShowComponent {
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, private player: PlayerService, public auth: AuthService) {
+    private dialog: DialogService, private player: PlayerService, public auth: AuthService, private changeDetectorRef: ChangeDetectorRef) {
 
-      
     }
 
     async ngOnInit() {
@@ -70,6 +69,8 @@ export class ShowComponent {
         this.eventImage = this.photos.length ? this.photos[0].image
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
+        this.changeDetectorRef.detectChanges();
+        //if (this.photos.length) this.makeGalleryPhotos();
         
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
@@ -78,6 +79,7 @@ export class ShowComponent {
       
     });
   }
+
   /*
   protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
     this.dialog.openMultiFunction(

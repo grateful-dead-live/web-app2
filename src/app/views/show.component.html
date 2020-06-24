@@ -74,8 +74,40 @@
 -->
   
 
+
+
+
+
 <h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos</span></h2>
-  <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap"
+
+<div id="galleryContainer">
+  <div style="width: 70%; margin: auto;"
+    ng2-carouselamos
+    class="slides-wrapper"
+    [items]="photos"
+    [width]="500"
+    [$prev]="prev"
+    [$next]="next"
+    [$item]="item"
+  >
+  </div>
+
+  <ng-template #prev>
+    <img src="assets/arrow_left.png" id="left" height="40" />
+  </ng-template>
+  <ng-template #next>
+    <img src="assets/arrow_right.png" id="right" height="40"/>
+  </ng-template>
+  <ng-template #item let-item let-i="index">
+
+  <div class="slide-items">
+    <img src="{{ item.thumbnail }}">
+  </div>
+</ng-template>
+</div>
+
+
+  <!--div *ngIf="photos.length" class="gd-container" fxLayout="row wrap"
       fxLayout.xs="column" fxLayoutAlign="start start">
     <div *ngFor="let s of photos" class="gd-artifact" fxLayout="column" fxFlex>
         <figure>
@@ -89,7 +121,7 @@
           <figcaption class="p1">({{ s.collection }})</figcaption>
         </figure>
     </div>
-  </div>
+  </div-->
 
 
 

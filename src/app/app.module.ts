@@ -64,6 +64,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YoutubeComponent } from './shared/youtube.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 
 
 @NgModule({
@@ -115,7 +116,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ShareButtonsModule,
     ShareIconsModule,
     YouTubePlayerModule,
-    NgSelectModule
+    NgSelectModule,
+    Ng2CarouselamosModule
   ],
   providers: [
     DeadApiService,
@@ -133,7 +135,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
       provide: 'document',
       useValue: document,
     },
-    GoogleAnalyticsService
+    GoogleAnalyticsService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 
