@@ -122,7 +122,7 @@
 
 <div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
   <p [style.margin-bottom]="'25px'"></p>
-  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox2(photosLightbox, currentPhoto.index)"> 
+  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox(photosLightbox, currentPhoto.index)"> 
 </div>
 
 
