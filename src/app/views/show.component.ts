@@ -11,7 +11,8 @@ declare let gtag: Function;
 
 @Component({
   selector: 'gd-show',
-  templateUrl: './show.component.html'
+  templateUrl: './show.component.html',
+  styleUrls: ['./show.component.sass']
 })
 export class ShowComponent {
   
@@ -23,6 +24,7 @@ export class ShowComponent {
   protected eventImage: string;
   public currentUser: any = { userName: '', userId:'' };
   protected formatDate: string;
+  public currentPhoto: Artifact;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -70,6 +72,7 @@ export class ShowComponent {
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
         this.changeDetectorRef.detectChanges();
+        if (this.photos.length>0) this.currentPhoto = this.photos[0];
         
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
@@ -186,5 +189,9 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
     this.player.addToPlaylist(track);
   }
   
+  onClickPhoto(p){
+    console.log(p.image);
+    this.currentPhoto = p;
+  }
 
 }

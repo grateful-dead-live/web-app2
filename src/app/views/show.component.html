@@ -86,7 +86,7 @@
       ng2-carouselamos
       class="slides-wrapper"
       [items]="photos"
-      [width]="510"
+     
       [$prev]="prev"
       [$next]="next"
       [$item]="item"
@@ -94,20 +94,29 @@
     </div>
 
     <ng-template #prev>
-      <img src="assets/arrow_left.png" id="left" height="30" />
+      <img *ngIf="photos.length>1" src="assets/arrow_left.png" id="left" height="30" />
     </ng-template>
     <ng-template #next>
-      <img src="assets/arrow_right.png" id="right" height="30"/>
+      <img *ngIf="photos.length>1" src="assets/arrow_right.png" id="right" height="30"/>
     </ng-template>
     <ng-template #item let-item let-i="index">
 
     <div class="slide-items">
-      <img src="{{ item.thumbnail }}">
-      <div>{{ item.description }}</div>
-      <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u>
+      <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item)">
+      <!--div>{{ item.description }}</div>
+      <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
     </div>
   </ng-template>
   </div>
+  <div *ngIf="currentPhoto" class="photo-text">
+    <i>{{'Description: '}}</i> {{ currentPhoto.description }} <br>
+    <i>{{'Source: '}}</i> <u><a href="{{ currentPhoto.source }}" target="_blank">{{ currentPhoto.collection }}</a></u>
+  </div>
+</div>
+
+<div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
+  <p [style.margin-bottom]="'25px'"></p>
+  <img class="current-photo" src="{{ currentPhoto.image }}"> 
 </div>
 
 
