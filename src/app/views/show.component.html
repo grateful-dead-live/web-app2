@@ -94,10 +94,10 @@
     </div>
 
     <ng-template #prev>
-      <img *ngIf="photos.length>1" src="assets/arrow_left.png" id="left" height="30" />
+      <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_left.png" id="left" height="30" />
     </ng-template>
     <ng-template #next>
-      <img *ngIf="photos.length>1" src="assets/arrow_right.png" id="right" height="30"/>
+      <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_right.png" id="right" height="30"/>
     </ng-template>
     <ng-template #item let-item let-i="index">
 
@@ -122,7 +122,7 @@
 
 <div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
   <p [style.margin-bottom]="'25px'"></p>
-  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox(photosLightbox, currentPhoto.index)"> 
+  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox2(photosLightbox, currentPhoto.index)"> 
 </div>
 
 
