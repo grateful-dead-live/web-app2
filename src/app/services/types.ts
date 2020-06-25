@@ -38,6 +38,7 @@ export interface Artifact {
   description: string,
   collection: string,
   source: string
+  index?: number,
 }
 
 export type Venue = GdEventsObject;

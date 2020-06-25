@@ -65,6 +65,7 @@ import { YoutubeComponent } from './shared/youtube.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+import { LightboxModule } from 'ngx-lightbox';
 
 
 @NgModule({
@@ -117,7 +118,8 @@ import { Ng2CarouselamosModule } from 'ng2-carouselamos';
     ShareIconsModule,
     YouTubePlayerModule,
     NgSelectModule,
-    Ng2CarouselamosModule
+    Ng2CarouselamosModule,
+    LightboxModule
   ],
   providers: [
     DeadApiService,

@@ -42,6 +42,7 @@
     "ng-lazyload-image": "^5.1.2",
     "ng2-carouselamos": "^4.1.0",
     "ngx-cookie-service": "^2.4.0",
+    "ngx-lightbox": "^2.1.2",
     "ngx-sharebuttons": "^8.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",

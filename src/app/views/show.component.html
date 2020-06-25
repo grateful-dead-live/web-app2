@@ -109,15 +109,23 @@
   </ng-template>
   </div>
   <div *ngIf="currentPhoto" class="photo-text">
-    <i>{{'Description: '}}</i> {{ currentPhoto.description }} <br>
-    <i>{{'Source: '}}</i> <u><a href="{{ currentPhoto.source }}" target="_blank">{{ currentPhoto.collection }}</a></u>
+    {{ currentPhoto.description }} <br>
+    <a href="{{ currentPhoto.source }}" target="_blank">
+      <img *ngIf="currentPhoto.collection=='GDAO'" src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto">
+      <div *ngIf="!(currentPhoto.collection=='GDAO')">
+        <i>{{'Source: '}}</i> <u><a href="{{ currentPhoto.source }}" target="_blank">{{ currentPhoto.collection }}</a></u>
+      </div>
+    </a>
+    
   </div>
 </div>
 
 <div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
   <p [style.margin-bottom]="'25px'"></p>
-  <img class="current-photo" src="{{ currentPhoto.image }}"> 
+  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox(photosLightbox, currentPhoto.index)"> 
 </div>
+
+
 
 
   <!--div *ngIf="photos.length" class="gd-container" fxLayout="row wrap"

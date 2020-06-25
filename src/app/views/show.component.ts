@@ -6,6 +6,7 @@ import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
+import { Lightbox } from 'ngx-lightbox';
 
 declare let gtag: Function;
 
@@ -25,10 +26,12 @@ export class ShowComponent {
   public currentUser: any = { userName: '', userId:'' };
   protected formatDate: string;
   public currentPhoto: Artifact;
+  public photosLightbox: any;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, private player: PlayerService, public auth: AuthService, private changeDetectorRef: ChangeDetectorRef) {
+    private dialog: DialogService, private player: PlayerService, public auth: AuthService, 
+    private changeDetectorRef: ChangeDetectorRef, private lightbox: Lightbox) {
 
     }
 
@@ -71,6 +74,9 @@ export class ShowComponent {
         this.eventImage = this.photos.length ? this.photos[0].image
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
+        var gl = this.makeGallery(this.photos);
+        this.photosLightbox = gl[0];
+        this.photos = gl[1];
         this.changeDetectorRef.detectChanges();
         if (this.photos.length>0) this.currentPhoto = this.photos[0];
         
@@ -93,6 +99,25 @@ export class ShowComponent {
     );
   }
 */
+
+  public makeGallery(a){
+    var carousel = [];
+    var lightboxa = [];
+    a.forEach(function (value, i){
+      var t = value;
+      t['index'] = i;
+      carousel.push(t);
+      lightboxa.push({
+        src: value.image,
+        caption: value.description
+      });
+    });
+    return [lightboxa, carousel];
+  }
+
+  openLightbox(lightboxArray, index: number): void {
+    this.lightbox.open(lightboxArray, index);
+  }
 
   protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
     this.dialog.openMultiFunction(
@@ -190,7 +215,7 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
   }
   
   onClickPhoto(p){
-    console.log(p.image);
+    //console.log(p.image);
     this.currentPhoto = p;
   }
 
