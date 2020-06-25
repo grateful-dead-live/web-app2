@@ -215,7 +215,6 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
   }
   
   onClickPhoto(p){
-    //console.log(p.image);
     this.currentPhoto = p;
   }
 
