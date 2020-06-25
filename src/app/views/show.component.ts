@@ -70,7 +70,6 @@ export class ShowComponent {
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
         this.changeDetectorRef.detectChanges();
-        //if (this.photos.length) this.makeGalleryPhotos();
         
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],

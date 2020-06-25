@@ -78,34 +78,36 @@
 
 
 
-<h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos</span></h2>
 
-<div id="galleryContainer">
-  <div style="width: 70%; margin: auto;"
-    ng2-carouselamos
-    class="slides-wrapper"
-    [items]="photos"
-    [width]="500"
-    [$prev]="prev"
-    [$next]="next"
-    [$item]="item"
-  >
-  </div>
+<div *ngIf="photos.length>0" class="gd-container" fxLayout="column" fxFlex="50">
+  <h2 class="gd-section"><span class="titlef">Photos</span></h2>
+  <div id="galleryContainer">
+    <div style="width: 100%;"
+      ng2-carouselamos
+      class="slides-wrapper"
+      [items]="photos"
+      [width]="510"
+      [$prev]="prev"
+      [$next]="next"
+      [$item]="item"
+    >
+    </div>
 
-  <ng-template #prev>
-    <img src="assets/arrow_left.png" id="left" height="40" />
+    <ng-template #prev>
+      <img src="assets/arrow_left.png" id="left" height="30" />
+    </ng-template>
+    <ng-template #next>
+      <img src="assets/arrow_right.png" id="right" height="30"/>
+    </ng-template>
+    <ng-template #item let-item let-i="index">
+
+    <div class="slide-items">
+      <img src="{{ item.thumbnail }}">
+      <div>{{ item.description }}</div>
+      <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u>
+    </div>
   </ng-template>
-  <ng-template #next>
-    <img src="assets/arrow_right.png" id="right" height="40"/>
-  </ng-template>
-  <ng-template #item let-item let-i="index">
-
-  <div class="slide-items">
-    <img src="{{ item.thumbnail }}">
-    <div>{{ item.description }}</div>
-    <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u>
   </div>
-</ng-template>
 </div>
 
 
