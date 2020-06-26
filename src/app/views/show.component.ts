@@ -27,6 +27,8 @@ export class ShowComponent {
   protected formatDate: string;
   public currentPhoto: Artifact;
   public photosLightbox: any;
+  public currentArtifact: Artifact;
+  public artifactsLightbox: any;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -74,12 +76,23 @@ export class ShowComponent {
         this.eventImage = this.photos.length ? this.photos[0].image
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
-        var gl = this.lightbox.makeGallery(this.photos);
-        this.photosLightbox = gl[0];
-        this.photos = gl[1];
+        var gl;
+        if (this.photos.length>0) {
+          gl = this.lightbox.makeGallery(this.photos);
+          this.photosLightbox = gl[0];
+          this.photos = gl[1];
+          this.currentPhoto = this.photos[0];
+        } 
+        if (this.artifacts.length) {
+          gl = this.lightbox.makeGallery(this.artifacts);
+          this.artifactsLightbox = gl[0];
+          this.artifacts = gl[1];
+          this.currentArtifact = this.artifacts[0];
+          console.log(this.currentArtifact);
+        }
         this.changeDetectorRef.detectChanges();
-        if (this.photos.length>0) this.currentPhoto = this.photos[0];
-        
+
+
       } else {
         this.router.navigate(['/show', await this.data.getRandomEventId()],
           { replaceUrl: true });
@@ -99,27 +112,6 @@ export class ShowComponent {
     );
   }
 */
-
-/*
-  makeGallery(a){
-    var carousel = [];
-    var lightboxa = [];
-    a.forEach(function (value, i){
-      var t = value;
-      t['index'] = i;
-      carousel.push(t);
-      lightboxa.push({
-        src: value.image,
-        caption: value.description
-      });
-    });
-    return [lightboxa, carousel];
-  }
-
-  openLightbox(lightboxArray, index: number): void {
-    this.lightbox.open(lightboxArray, index);
-  }
-  */
 
   protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
     this.dialog.openMultiFunction(
@@ -218,6 +210,10 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
   
   onClickPhoto(p){
     this.currentPhoto = p;
+  }
+
+  onClickArtifact(a){
+    this.currentArtifact = a;
   }
 
 }
