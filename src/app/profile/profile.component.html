@@ -2,7 +2,7 @@
 <!--<div *ngIf="auth.userProfile$ | async as profile">
 <gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>-->
 <div *ngIf="currentUser">
-  <gd-header title='Profile' subtitle='{{ currentUser.userName }}'></gd-header>
+  <gd-header title='Profile' subtitle='{{ currentUser.userName }}' userId='{{ currentUser.userId }}'></gd-header>
   <br><b>User Info</b><br>
   <!--pre>
     <code>{{ userProfile | json }}</code>
@@ -13,6 +13,9 @@
 
 
   <br><br><b>Bookmarks</b><br>
+  <div *ngIf="!bookmarks" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
   <div *ngIf="bookmarks">
       <div *ngFor="let b of bookmarks">
             {{b.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="b.route">{{ b.title }}</u>
@@ -20,23 +23,52 @@
       </div>
   </div>
 
-  <br><b>Commented on</b><br>
-  <div *ngIf="comments"> 
-    <div *ngFor="let c of comments">
-      <u class="field" style="cursor:pointer" [routerLink]="c.route">{{ c.title }}</u>
+  <br><b>Likes</b><br>
+  <div *ngIf="!likes || likes.length==0" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
+
+  <div *ngIf="likes">
+      <div *ngFor="let l of likes">
+          {{l.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="l.route">{{ l.title }}</u>
+          <button mat-icon-button (click)="onUnlike(l)"><mat-icon>clear</mat-icon></button>  
       </div>
   </div>
 
+  <br><b>Commented on</b><br>
+  <div *ngIf="!comments" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
+  <div *ngIf="comments"> 
+    <div *ngFor="let c of comments">
+      <u class="field" style="cursor:pointer" [routerLink]="c.route">{{ c.title }}</u>
+    </div>
+  </div>
+
   <br><b>Playlists</b><br>
-  <div *ngIf="playlists">
-    <div *ngFor="let p of playlists">
+  
+  <div *ngIf="player.playlists">
+    <div *ngIf="!player.playlistsLoaded" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+    <div *ngFor="let p of player.playlists">
       <div> {{ p.timestamp }} "{{ p.name }}"
         <button mat-icon-button (click)="loadPlaylist(p.playlist)"><mat-icon>library_music</mat-icon></button> 
         <button mat-icon-button (click)="delPlaylist(p.id, p.name)"><mat-icon>clear</mat-icon></button>   
+        
       </div>
       <div *ngFor="let t of p.playlist; index as i">
         <small>{{i+1}}. {{ t.title }}</small>
       </div>
+      <share-buttons [theme]="'default'"
+        [include]="['facebook','twitter','pinterest','reddit','tumblr','mix','copy']"
+        url = "{{domain + 'playlist/' + p.id}}"
+        [show]="7"
+        [size]="-7"
+        [title]="'Grateful Dead Concert Explorer Playlist'"
+        [tags]="'Grateful Dead, Live Music, Jerry Garcia'"
+        >
+      </share-buttons>
     <br>
     </div>
   </div>

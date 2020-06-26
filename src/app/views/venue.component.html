@@ -1,6 +1,6 @@
 <div *ngIf="venue" fxLayout="column">
   <gd-header *ngIf="venue" title='{{ venue.name }}'
-    subtitle='{{ location }}' imageUrl="{{ venue.image }}">
+    subtitle='{{ location }}' imageUrl="{{ venue.image }}" userId='{{ currentUser.userId }}'>
   </gd-header>
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
     <div class="gd-container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%">
@@ -15,11 +15,28 @@
         latitude="{{ venue.geoloc.lat }}" longitude="{{ venue.geoloc.long }}"></gd-map>
     </div>
   </div>
+
+  <div *ngIf="videos">
+    <div class="gd-container" fxLayout="column" fxFlex="50">
+      <gd-youtube videoId="{{ currentVideoId }}" width="100%"></gd-youtube>
+      <ng-select bindLabel="title"
+                 [clearable]="false"
+                 (change)="selectVideo()"
+                 [searchable]="false"
+                 [(ngModel)]="currentVideoId">         
+        <ng-option [value]="v.videoId" *ngFor="let v of videos">
+            <img src="{{v.thumbnail}}" height="40px"/>
+            {{v.title}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
   
   <p class="gd-section">All shows at the {{ venue.name }}:</p>
   
-  <gd-shows [eventIds]="venue.eventIds"></gd-shows>
+  <gd-shows [eventIds]="venue.eventIds" [onOptions]="openOptionsDialog.bind(this)"></gd-shows>
   <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="venue.name+', '+location"></gd-comments>
   <br>
+  <gd-sharebuttons></gd-sharebuttons>
 </div>
 <p [style.margin-bottom]="'75px'"></p>

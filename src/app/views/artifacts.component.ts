@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-artifacts',
@@ -11,19 +12,34 @@ import { APIResolver } from '../auth.resolve';
 })
 export class ArtifactsComponent {
   
-  protected artifacts: Artifact[];
+  public artifacts: Artifact[];
   protected types: ArtifactType[];
-  protected currentUser: any;
+  protected currentUser: any = { userName: '', userId:''};
   
-  constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
+  constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService) {
+
+   
+  }
   
   async ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+      }
+      
+    });
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
+    */
 
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {

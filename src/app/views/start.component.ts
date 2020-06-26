@@ -1,48 +1,47 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
 import { EMAILADDRESS } from '../config'
+
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-start',
   templateUrl: './start.component.html'
 })
 export class StartComponent {
-  part1: String;
-  part2: String;
-  part3: String;
-  part4: String;
-  part5: String;
-  part6: String;
-  part7: String;
 
-  protected currentUser: any;
-  protected email: string;
+  public currentUser: any = { userName: '', userId: ''};
+  public email: string;
   
   constructor(private sanitizer: DomSanitizer,
-    private router: Router, private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
+    public auth: AuthService) {
+
+      
+
+    }
 
   ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+      }
+    });
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
+    */
 
     this.email = EMAILADDRESS;
- 
-  
-    this.part1 = "gdc";
-    this.part2 = "oncert";
-    this.part3 = "explo";
-    this.part4 = "rer";
-    var at = Math.pow(2,6);
-    this.part5 = String.fromCharCode(at);
-    this.part6 = "gmai";
-    this.part7 = "l.com";
+
   }
 
 }

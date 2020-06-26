@@ -22,18 +22,18 @@ export class ShowMapComponent {
   @Input() zoom: number;
   //@Input() venues: VenueDetails[];
   protected venues: VenueDetails[];
-  protected mapOptions: L.MapOptions;
+  public mapOptions: L.MapOptions;
   protected map: L.Map;
   protected selectLayers: {};
-  protected layerNames: string[];
+  public layerNames: string[];
   protected searchCtrl: any;
   protected geoJsons: {};
   protected currentLayer: string;
-  protected selectedTour: string;
+  public selectedTour: string;
   protected tourLine: any;
   protected lineDecorator: any;
-  protected loaded: boolean;
-  protected timeOut: boolean;
+  public loaded: boolean;
+  public timeOut: boolean;
   
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer) {}

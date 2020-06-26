@@ -4,7 +4,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 
 export interface DialogData {
   title: string,
-  options: string[]
+  options: string[],
+  input: string
 }
 
 @Component({
@@ -13,7 +14,7 @@ export interface DialogData {
 })
 export class InputDialogComponent {
   constructor(private dialogRef: MatDialogRef<InputDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) protected data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onCancelClick(): void {
     this.dialogRef.close();

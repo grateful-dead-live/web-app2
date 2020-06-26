@@ -6,9 +6,10 @@
   <gd-showmap [venues]="venues" fxFlex="1 1 auto" [style.height]="'100%'" zoom="2.5"></gd-showmap>
 </div>
 -->
-<gd-header title='Map' subtitle="Selector"></gd-header>
+<gd-header title='Map' subtitle="Selector" userId='{{ currentUser.userId }}'></gd-header>
  
 <div class="gd-container" fxLayout="row" fxFlex="1 1 100%" fxFlex.sm="1 1 100%"> 
     <gd-showmap style="z-index:0;" fxFlex="1 1 auto" [style.height]="'100%'" zoom="2.5"></gd-showmap>
   </div>
+  <gd-sharebuttons></gd-sharebuttons>
 </div>

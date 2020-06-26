@@ -1,8 +1,9 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxFlex><router-outlet></router-outlet></div>
+  <div fxFlex><router-outlet></router-outlet>
+  </div>
   <!--<footer *ngIf="!start"><gd-player></gd-player></footer>-->
   <footer>
-    <gd-player [currentUser]="currentUser"></gd-player>
+    <gd-player></gd-player>
     <app-cookie-banner></app-cookie-banner>
   </footer>
 </div>

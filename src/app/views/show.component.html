@@ -1,6 +1,6 @@
 <div *ngIf="event" fxLayout="column">
-  <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{event.date}}'
-    imageUrl="{{eventImage}}">
+  <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{formatDate}}'
+    imageUrl="{{eventImage}}" userId='{{ currentUser.userId }}'>
     <gd-weather [weather]="event.weather"></gd-weather>
   </gd-header>
   <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin" >
@@ -74,8 +74,61 @@
 -->
   
 
-<h2 *ngIf="photos.length" class="gd-section"><span class="titlef">Photos</span></h2>
-  <div *ngIf="photos.length" class="gd-container" fxLayout="row wrap"
+
+
+
+
+
+<div *ngIf="photos.length>0" class="gd-container" fxLayout="column" fxFlex="50">
+  <h2 class="gd-section"><span class="titlef">Photos</span></h2>
+  <div id="galleryContainer">
+    <div style="width: 100%;"
+      ng2-carouselamos
+      class="slides-wrapper"
+      [items]="photos"
+      [width] = 500
+      [$prev]="prev"
+      [$next]="next"
+      [$item]="item"
+    >
+    </div>
+
+    <ng-template #prev>
+      <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_left.png" id="left" height="30" />
+    </ng-template>
+    <ng-template #next>
+      <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_right.png" id="right" height="30"/>
+    </ng-template>
+    <ng-template #item let-item let-i="index">
+
+    <div class="slide-items">
+      <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item)" width="210px">
+      <!--div>{{ item.description }}</div>
+      <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
+    </div>
+  </ng-template>
+  </div>
+  <div *ngIf="currentPhoto" class="photo-text">
+    {{ currentPhoto.description }} <br>
+    <a href="{{ currentPhoto.source }}" target="_blank">
+      <img *ngIf="currentPhoto.collection=='GDAO'" src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto">
+      <div *ngIf="!(currentPhoto.collection=='GDAO')">
+        <i>{{'Source: '}}</i> <u><a href="{{ currentPhoto.source }}" target="_blank">{{ currentPhoto.collection }}</a></u>
+      </div>
+    </a>
+    
+  </div>
+</div>
+
+<div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
+  <p [style.margin-bottom]="'25px'"></p>
+  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox(photosLightbox, currentPhoto.index)"> 
+</div>
+
+
+
+
+  <!--div *ngIf="photos.length" class="gd-container" fxLayout="row wrap"
       fxLayout.xs="column" fxLayoutAlign="start start">
     <div *ngFor="let s of photos" class="gd-artifact" fxLayout="column" fxFlex>
         <figure>
@@ -89,7 +142,7 @@
           <figcaption class="p1">({{ s.collection }})</figcaption>
         </figure>
     </div>
-  </div>
+  </div-->
 
 
 
@@ -114,5 +167,6 @@
   </div>
   <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="event.location.name+', '+event.location.state+' – '+event.date"></gd-comments>
   <br>
+  <gd-sharebuttons></gd-sharebuttons>
 </div>
 <p [style.margin-bottom]="'75px'"></p>

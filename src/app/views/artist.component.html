@@ -1,6 +1,6 @@
 <div *ngIf="artist" fxLayout="column">
   <gd-header *ngIf="artist" title="{{ artist.name }}"
-    subtitle="{{ artist.instruments.join(', ').split('_').join(' ') }}">
+    subtitle="{{ artist.instruments.join(', ').split('_').join(' ') }}" userId='{{ currentUser.userId }}'>
   </gd-header>
   
   <div class="gd-container" fxLayout="row" fxLayout.xs="column">
@@ -19,9 +19,9 @@
     <div class="gd-container" fxLayout="column">
       <div *ngFor="let song of artist.compositions" fxLayout="row" fxLayoutAlign="space-between center">
         <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
-        <button mat-icon-button (click)="openSongOptionsDialog(song)">
+        <!--button mat-icon-button (click)="openSongOptionsDialog(song)">
           <mat-icon>more_horiz</mat-icon>
-        </button>
+        </button-->
       </div>
     </div>
   </div>
@@ -31,5 +31,6 @@
   <gd-shows [eventIds]="artist.eventIds"></gd-shows>
   <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="artist.name+', '+artist.instruments.join(', ').split('_').join(' ')"></gd-comments>
   <br>
+  <gd-sharebuttons></gd-sharebuttons>
 </div>
 <p [style.margin-bottom]="'75px'"></p>

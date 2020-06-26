@@ -5,25 +5,42 @@ import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
 
+declare let gtag: Function;
+
 @Component({
   selector: 'gd-artist',
   templateUrl: './artist.component.html',
 })
 export class ArtistComponent {
   
-  protected artist: ArtistDetails;
-  protected currentUser: any;
+  public artist: ArtistDetails;
+  public currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private router: Router,
-    private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {}
+    private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {
+
+      
+    }
 
   async ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+      }
+    });
+
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
+    */
 
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
@@ -31,10 +48,12 @@ export class ArtistComponent {
         console.log(this.artist);
       }
     });
+    /* // not working
     if (!this.artist) {
       this.router.navigate(['/artist', (await this.data.getRandomArtistId())],
         { replaceUrl: true });
     }
+    */
   }
 
 }

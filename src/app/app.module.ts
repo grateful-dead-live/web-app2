@@ -3,7 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatButtonModule, MatIconModule, MatSliderModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
@@ -39,15 +43,30 @@ import { DialogService } from './services/dialog.service';
 //import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
-import { ButtonDirective } from './button.directive';
+//import { ButtonDirective } from './button.directive';
 import { ProfileComponent } from './profile/profile.component';
 
 import { APIResolver } from './auth.resolve';
-import { ChatterBoxModule } from './chatter-box';
+//import { ChatterBoxModule } from './chatter-box';
 import { CommentsComponent } from './comments/comments.component';
 import { InputDialogComponent } from './shared/input-dialog.component';
 import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
 import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
+import {GoogleAnalyticsService} from './services/google-analytics.service';
+
+import { ShareButtonsComponent } from './shared/sharebuttons.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+
+import { ChatterBoxComponent } from './comments/chatter-box.component';
+import { PlaylistComponent } from './views/playlist.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { YoutubeComponent } from './shared/youtube.component';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+import { LightboxModule } from 'ngx-lightbox';
+
 
 @NgModule({
   declarations: [
@@ -69,12 +88,16 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     ShowMapComponent,
     MapSelectComponent,
     StartComponent,
-    ButtonDirective,
+    //ButtonDirective,
     ProfileComponent,
     CommentsComponent,
     InputDialogComponent,
     CookieBannerComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    ShareButtonsComponent,
+    ChatterBoxComponent,
+    PlaylistComponent,
+    YoutubeComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +113,13 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     LeafletModule.forRoot(),
     MatSliderModule,
     MatProgressSpinnerModule,
-    ChatterBoxModule
+    //ChatterBoxModule,
+    ShareButtonsModule,
+    ShareIconsModule,
+    YouTubePlayerModule,
+    NgSelectModule,
+    Ng2CarouselamosModule,
+    LightboxModule
   ],
   providers: [
     DeadApiService,
@@ -107,7 +136,8 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
     {
       provide: 'document',
       useValue: document,
-    }
+    },
+    GoogleAnalyticsService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 

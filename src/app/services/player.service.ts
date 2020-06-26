@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
+import{GoogleAnalyticsService} from './google-analytics.service';
+import { DataService } from '../services/data.service';
+import { DialogService } from '../services/dialog.service';
 
 export interface Track {
   title: string,
   uri: string,
-  waveform: string
+  waveform: string,
+  show_id: string,
+  etree_id: string,
+  recording_id: string,
+  song_id: string,
+  track: string
 }
 
 @Injectable()
@@ -14,12 +22,26 @@ export class PlayerService {
   private currentAudio: HTMLAudioElement;
   public playlist: Track[] = [];
   private currentTrackIndex = 0;
-  private muted = false;
+  public muted = false;
+  public paused = true;
+  public playlists = [];
+  public playlistsLoaded = false;
   
-  constructor() {}
+  constructor(protected googleAnalyticsService: GoogleAnalyticsService, private data: DataService, private dialog: DialogService) {}
   
   addToPlaylist(track: Track) {
-    this.playlist.push(track);
+    if (this.playlist.length < 100) {
+      this.playlist.push(track);
+      this.storePlaylist();
+    }
+    else {
+      this.dialog.openSingleFunction( 'Playlist is limited to 100 tracks.', ["ok"], () => null );
+    }
+  }
+
+  deleteFromPlaylist(i){
+    this.playlist.splice(i, 1);
+    this.storePlaylist();
   }
   
   getCurrentTrack() {
@@ -31,19 +53,30 @@ export class PlayerService {
     this.skipToTrackAtIndex(this.playlist.indexOf(track));
   }
 
-  play() {
-    if (this.currentAudio) {
-      this.currentAudio.paused ? this.pause() : null;
-    } else {
-      this.playPlaylist();
-    }
+
+/*
+    eventName: string, 
+    eventCategory: string, 
+    eventAction: string, 
+    eventLabel: string = null,  
+    eventValue: number = null ){ 
+      */
+
+
+  playPause() {
+    if (this.playlist.length > 0){
+      if (this.currentAudio) {
+        if (this.currentAudio.paused) {
+          this.currentAudio.play();
+          this.paused = false;
+        } else {
+          this.currentAudio.pause();
+          this.paused = true;
+        }
+      } else {
+        this.playPlaylist();
+      }
   }
-  
-  pause() {
-    if (this.currentAudio) {
-      this.currentAudio.paused ?
-        this.currentAudio.play() : this.currentAudio.pause();
-    }
   }
   
   stop() {
@@ -85,15 +118,17 @@ export class PlayerService {
     this.currentTrackIndex = index;
     if (this.currentAudio) {
       this.stop();
-      this.play();
+      this.playPause();
     }
   }
   
   private async playPlaylist() {
     if (this.currentTrackIndex < this.playlist.length) {
+      console.log('Google Analytics')
+      this.googleAnalyticsService.eventEmitter("play", "audio_player", "play", this.getCurrentTrack().uri);
       await this.playCurrentTrack();
       this.currentTrackIndex++;
-      this.playPlaylist();
+      //this.playPlaylist();  // why was this here?
     } else {
       this.reset();
     }
@@ -103,6 +138,7 @@ export class PlayerService {
     const audio = new Audio(this.playlist[this.currentTrackIndex].uri);
     audio.muted = this.muted;
     audio.play();
+    this.paused = false;
     this.currentAudio = audio;
     audio.ontimeupdate = () => {
       this.maxTime = audio.duration;
@@ -116,12 +152,47 @@ export class PlayerService {
     this.currentAudio.pause();
     this.currentAudio = null;
     this.currentTime = 0;
+    this.paused = true;
   }
 
   volume(v) {
     if (this.currentAudio) {
       this.currentAudio.volume = v / 100;
     }
+  }
+
+  async getPlaylists(userId){
+    var result = await this.data.getPlaylists(userId);
+    if (result[0].playlists){
+      var p = result[0].playlists;
+      p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
+      this.playlists = p;
+      this.playlistsLoaded = true;      
+    }
+  }
+
+  async deletePlaylist(userid, playlistid){
+    await this.data.delPlaylist(userid, playlistid);
+    this.getPlaylists(userid);
+  }
+  
+  formatTime(d) {
+    function z(n){return (n<10?'0':'')+n}
+    return z(d.getMonth()+1) + '-' + z(d.getDate()) + '-' + (d.getYear()+1900) + ' ' +  d.getHours() + ':' + z(d.getMinutes());
+  }
+
+  storePlaylist(){
+    localStorage.setItem('playlist', btoa(JSON.stringify(this.playlist)));
+  }
+  
+  removePlaylistFromStorage(){
+    localStorage.removeItem('playlist');
+  }
+
+  loadPlaylistFromsStorage(){
+    var p = localStorage.getItem('playlist');
+    if (p) this.playlist = JSON.parse(atob(p));
   }
 
 }

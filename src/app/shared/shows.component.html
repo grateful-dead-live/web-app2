@@ -20,7 +20,7 @@
         [routerLink]="['/show', e.id]">
       {{ e.location }}
     </span>
-    <button mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%"
+    <button *ngIf="onOptions" mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%"
       (click)="onOptions(e)"><mat-icon>more_horiz</mat-icon>
     </button>
 

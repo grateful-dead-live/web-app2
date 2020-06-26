@@ -55,6 +55,10 @@ export class DeadApiService {
   getRecordingTracks(recordingId: string): Promise<AudioTrack[]> {
     return this.getJsonFromApi('tracks?id='+encodeURIComponent(recordingId));
   }
+
+  getRecordingId(eventId: string): Promise<any> {
+    return this.getJsonFromApi('recordingid?id='+encodeURIComponent(eventId));
+  }
   
   getArtistDetails(artistId: string): Promise<ArtistDetails> {
     return this.getJsonFromApi('artist?id='+encodeURIComponent(artistId));
@@ -106,12 +110,37 @@ export class DeadApiService {
     return this.getJsonFromApi('getComments?route='+route);
   }
 
+
+
+  async like(userid: string, route: string, time: number, title: string): Promise<any> {
+    return this.getTextFromApi('like?userid='+userid+'&route='+route+'&time='+time+'&title='+title);
+  }
+
+  async unlike(userid: string, route: string): Promise<any> {
+    return this.getTextFromApi('unlike?userid='+userid+'&route='+route);
+  }
+
+  async checkLike(userid: string, route: string): Promise<any> {
+    return this.getTextFromApi('checkLike?userid='+userid+'&route='+route);
+  }
+
+  async countLikes(route: string): Promise<any> {
+    return this.getTextFromApi('countLikes?route='+route);
+  }
+
+  async getLikes(userid: string): Promise<any> {
+    return this.getJsonFromApi('getLikes?userid='+userid);
+  }
+  
+
+
+
   async addComment(comment: any, route: string, userid: string, title: string): Promise<any> {
     const cmt = encodeURIComponent(JSON.stringify(comment));
     return this.getTextFromApi('addComment?comment='+cmt+'&route='+route+'&userid='+userid+'&title='+title);
   }
 
-  async checkComment(msgId: Number): Promise<any> {
+  async checkComment(msgId: string): Promise<any> {
     return this.getJsonFromApi('checkComment?msgId='+msgId);
   }
 
@@ -131,12 +160,29 @@ export class DeadApiService {
     return this.getJsonFromApi('getPlaylists?userid='+userid);
   }
 
+  async getPlaylist(playlistid: string): Promise<any> {
+    return this.getJsonFromApi('getPlaylist?playlistid='+playlistid);
+  }
+
   async delPlaylist(userid: string, playlistid: string): Promise<any> {
     return this.getTextFromApi('delPlaylist?userid='+userid+'&playlistid='+playlistid);
   }
 
-  async deleteComment(msgid: number, userid: string): Promise<any> {
+  async deleteComment(msgid: string, userid: string): Promise<any> {
     return this.getTextFromApi('deleteComment?msgid='+msgid+'&userid='+userid);
+  }
+
+  async getRecordingInfo(recordingid: string): Promise<any> {
+    return this.getJsonFromApi('getRecordingInfo?recordingid='+recordingid);
+  }
+
+  async getTracklist(recordingid: string): Promise<any> {
+    return this.getJsonFromApi('getTracklist?recordingid='+recordingid);
+  }
+
+  async getYoutubeList(id: string, searcharray: string[]): Promise<any> {
+    const s = encodeURIComponent(JSON.stringify(searcharray));
+    return this.getJsonFromApi('youtube?id='+id+'&searcharray='+s);
   }
 
 }

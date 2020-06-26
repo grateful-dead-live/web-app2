@@ -11,7 +11,7 @@ export class MapComponent {
   @Input() latitude: number;
   @Input() longitude: number;
   @Input() zoom: number;
-  protected options: MapOptions;
+  public options: MapOptions;
   
   ngOnInit() {
     this.options = {

@@ -1,15 +1,17 @@
 <div fxLayout="column" [style.height]="loaded && !minimized ? '120px' : '20px'">
   <img *ngIf="player.getCurrentTrack().waveform" class="image"
     [lazyLoad]="player.getCurrentTrack().waveform" [style.height]="'100px'"
-    [class.flashy]="loaded" (load)="loaded = true" [hidden]="minimized">
+    [class.flashy]="loaded" (load)="loaded = true" [hidden]="minimized" class="waveform">
   <input type="range" min="0" max="{{player.maxTime}}"
     [(ngModel)]="player.currentTime" (ngModelChange)="player.setTime($event)"/>
 </div>
-<div fxLayout="row">
-  <button mat-flat-button fxFlex (click)="player.play()" [eventTracker]='{"category":"user","action":"play"}'>
-    <mat-icon>play_arrow</mat-icon></button>
-  <button mat-flat-button fxFlex (click)="player.pause()">
-    <mat-icon>pause</mat-icon></button>
+<div fxLayout="row" style="margin-top: 10px; margin-left: 3px; margin-right: 3px;">
+  <button mat-flat-button fxFlex (click)="player.playPause()"> 
+    <mat-icon *ngIf="!player.paused">pause</mat-icon>
+    <mat-icon *ngIf="player.paused">play_arrow</mat-icon>
+  </button>
+  <!--button mat-flat-button fxFlex (click)="player.pause()">
+    <mat-icon>pause</mat-icon></button-->
   <button mat-flat-button fxFlex (click)="player.stop()">
     <mat-icon>stop</mat-icon></button>
   <button mat-flat-button fxFlex (click)="player.previousTrack()">
@@ -23,15 +25,37 @@
   <button mat-flat-button fxFlex (click)="minimized = !minimized">
     <mat-icon>{{minimized ? 'visibility' : 'visibility_off'}}</mat-icon></button>
   <mat-slider type="range" min="0" max="100" value="100" step="1" (input)="volumeChange($event.value)"></mat-slider>
-  <button mat-flat-button fxFlex *ngIf="player.playlist.length>0 && currentUser" (click)="onSavePlaylist()">save playlist</button>
+
+  <button *ngIf="currentUser.userId && player.playlist.length==0" mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex (click)="onSavePlaylist()">
+    save playlist
+  </button>
+  <button *ngIf="currentUser.userId && player.playlist.length>0" mat-flat-button fxFlex (click)="onSavePlaylist()">
+    save playlist
+  </button>
+  <button *ngIf="currentUser.userId && (!player.playlists || player.playlists.length==0)" mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex (click)="onLoadPlaylist()">
+    load playlist
+  </button>
+  <button *ngIf="currentUser.userId && (!player.playlists || player.playlists.length>0)"mat-flat-button fxFlex (click)="onLoadPlaylist()">
+    load playlist
+  </button>
+
 </div>
 
 <div fxLayout="column">
-  <div class="playlist" *ngFor="let s of player.playlist; index as i"
-      [hidden]="minimized && s !== player.getCurrentTrack()"
-      [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'"
-      (click)="player.skipToTrack(s)">
-    {{s.title}} 
-    <button mat-icon-button color="" (click)="delTrack(i)"><mat-icon>clear</mat-icon></button>
+
+  <div class="playlist" *ngFor="let s of player.playlist; index as i" [hidden]="minimized && s !== player.getCurrentTrack()" style="text-align:left; margin-left: 3px;">
+    <span [style.color]="s === player.getCurrentTrack() ? '#3d3d3d' : 'grey'" (click)="player.skipToTrack(s)">
+      {{s.track + '. ' + s.title + ' [' + s.etree_id + ']'}} 
+    </span>
+    <span style="float:right; margin-right: 3px;">
+      <button [matMenuTriggerFor]="menu">>></button>        
+        <mat-menu #menu="matMenu">
+          <button *ngIf="s.song_id" (click)="router.navigate(['/song', s.song_id])">song</button>
+          <button *ngIf="s.show_id" (click)="router.navigate(['/show', s.show_id])">show</button>
+          <button *ngIf="s.recording_id" (click)="router.navigate(['/recording', s.recording_id])">recording</button>
+        </mat-menu>
+        <button (click)="delTrack(i)">X</button>
+    </span>
   </div>
+
 </div>

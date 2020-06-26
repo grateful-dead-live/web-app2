@@ -6,7 +6,8 @@ import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-song',
@@ -14,26 +15,41 @@ import { APIResolver } from '../auth.resolve';
 })
 export class SongComponent {
   
-  protected song: SongDetails;
+  public song: SongDetails;
   protected subtitle: string;
   protected firstPlayed: string;
   protected lastPlayed: string;
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
-  protected currentUser: any;
+  public currentUser: any = { userName: '', userId: ''};
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
-    private dialog: DialogService, public auth: AuthService, public resolve: APIResolver) {}
+    private dialog: DialogService, public auth: AuthService) {
+
+      
+
+    }
 
   async ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+      }
+    });
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
+    */
 
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
@@ -65,15 +81,15 @@ export class SongComponent {
   }
 
   private openRecordingsDialog(event: DeadEventInfo) {
-    this.dialog.openSingleFunction(
+    this.dialog.openMultiFunction(
       "Recordings of '"+this.song.name+"', "+event.venue+", "+event.date,
       event.recordings.map(r => r.etreeId),
-      r => this.addRecordingToPlaylist(r, event)
+      event.recordings.map(r => () => this.addRecordingToPlaylist(r.etreeId, event, r.id))
     );
   }
 
-  private addRecordingToPlaylist(recordingId: string, event: DeadEventInfo) {
-    this.data.getTracks(this.song, event, recordingId)
+  private addRecordingToPlaylist(recordingEtreeId: string, event: DeadEventInfo, recordingId: string) {
+    this.data.getTracks(this.song, event, recordingEtreeId, recordingId)
       .forEach(t => this.player.addToPlaylist(t));
   }
 

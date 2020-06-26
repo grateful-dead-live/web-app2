@@ -1,9 +1,10 @@
+
 <div  style="height: auto; width: auto;">
-  <vis-chatterBox *ngIf='heading != ""'
+  <gd-chatterbox *ngIf='heading != ""'
       [heading]=heading
       [headerImage]=headerImage
       [allComments]=allComments
-      [inputMaxLength]=250
+      [inputMaxLength]=1000
       [currentUserId]=currentUserId
       [showErrorDiv]=showErrorDiv
       [errorMsg]=errorMsg
@@ -11,10 +12,11 @@
       (onKeyupEnter)=sendMessage($event)
       (emitReport)=onReportComment($event)
       (emitDelete)=onDeleteComment($event)
+      (emitRefresh)=getComments()
   >
-  </vis-chatterBox>
+  </gd-chatterbox>
 
-  <vis-chatterBox *ngIf='heading == ""'
+  <gd-chatterbox *ngIf='heading == ""'
       heading=""
       [headerImage]=headerImage
       [allComments]=allComments
@@ -23,7 +25,8 @@
       [errorMsg]=errorMsg
       placeholderText="please log in to comment"
   >
-  </vis-chatterBox>
+  </gd-chatterbox>
 </div>
+
 
 

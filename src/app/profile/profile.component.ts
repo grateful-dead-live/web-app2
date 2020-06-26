@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DataService } from '../services/data.service';
 import { APIResolver } from '../auth.resolve';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
+import { DOMAIN } from '../config';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-profile',
@@ -12,27 +15,41 @@ import { PlayerService } from '../services/player.service';
   styleUrls: ['./profile.component.sass']
 })
 export class ProfileComponent implements OnInit {
-  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute, 
-    private dialog: DialogService, private player: PlayerService) { }
+  constructor(public auth: AuthService, private data: DataService, public resolve: APIResolver, private route: ActivatedRoute,
+    private dialog: DialogService, private player: PlayerService) { 
 
-  protected currentUser: any;
+      
+    }
+
+  public currentUser: any;
   //protected authenticated: boolean;
   protected userProfile: any;
   protected bookmarks: any;
+  protected likes: any;
   protected comments: any;
-  protected playlists: any;
-  protected showPlaylistInfo: boolean = false;
+  public domain = DOMAIN;
+  //protected playlists: any;
+    
 
-  ngOnInit() {
+  ngOnInit() {  
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.userProfile = userProfile;
         this.currentUser = this.resolve.getUser(userProfile);
+        gtag('set', {'user_id': this.currentUser.userId});
         this.getBookmarks();
-        this.getComments()
-        this.getPlaylists();
+        this.getLikes();
+        this.getComments();
       });
     }
+
+    /*
+    if (this.currentUser){
+      this.getBookmarks();
+        this.getComments();
+        this.getPlaylists();
+    }
+    */
 
 /*
     if (this.authenticated == true) {
@@ -48,12 +65,23 @@ export class ProfileComponent implements OnInit {
   async getBookmarks(){
     var result = await this.data.getBookmarks(this.currentUser.userId);
     if (result[0].bookmarks) {
-      var b = result[0].bookmarks;
-      b.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
-      b.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
-      this.bookmarks = b;
+      var m = result[0].bookmarks;
+      m.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      m.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
+      this.bookmarks = m;
     };
   }
+
+  async getLikes(){
+    var result = await this.data.getLikes(this.currentUser.userId);
+    if (result[0].likes) {
+      var l = result[0].likes;
+      l.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
+      l.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
+      this.likes = l;
+    };
+  }
+
 
   async getComments(){
     var result = await this.data.getUserComments(this.currentUser.userId);
@@ -78,31 +106,24 @@ export class ProfileComponent implements OnInit {
     this.dialog.openMultiFunction(
       'Are you sure you want to delete playlist "' + name + '"?',
       ["yes", "no"],
-      [() => {
-        this.data.delPlaylist(this.currentUser.userId, playlistid);
-        this.getPlaylists();
+      [async () => {
+        await this.player.deletePlaylist(this.currentUser.userId, playlistid);
       },
         () => null]
     );
   } 
 
-  async getPlaylists(){
-    var result = await this.data.getPlaylists(this.currentUser.userId);
-    if (result[0].playlists){
-      var p = result[0].playlists;
-      p.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
-      p.forEach(i => i.timestamp = this.formatTime(new Date(Number(i.timestamp))));
-      this.playlists = p; 
-    }
-  }
-
-  async loadPlaylist(playlist) {
+  loadPlaylist(playlist) {
     this.dialog.openMultiFunction(
       'Your current playlist will be lost',
       ["ok", "cancel"],
-      [() => this.player.playlist = [...playlist],
+      [() => { 
+        this.player.playlist = [...playlist];
+        this.player.storePlaylist();
+      },
         () => {}]
     );
+    
   }
 
   protected onDeleteBookmark(bookmark) {
@@ -118,5 +139,20 @@ export class ProfileComponent implements OnInit {
     await this.data.delBookmark(this.currentUser.userId, bookmark.route);
     this.getBookmarks();
   }
+
+  protected onUnlike(like) {
+    this.dialog.openMultiFunction(
+      "Are you sure you want to unlike?",
+      ["yes", "no"],
+      [() => this.unlike(like), 
+        () => null]
+    );
+  }
+
+  async unlike(like){
+    await this.data.unlike(this.currentUser.userId, like.route);
+    this.getLikes();
+  }
+
 
 }

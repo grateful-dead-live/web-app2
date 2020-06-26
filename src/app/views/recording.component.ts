@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { RecordingDetails, DeadEventInfo, SongInfo, AudioTrack } from '../services/types';
+import { RecordingDetails, DeadEventInfo, AudioTrack, RecordingInfo, Recording } from '../services/types';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
-import { APIResolver } from '../auth.resolve';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'gd-recording',
@@ -14,46 +15,104 @@ import { APIResolver } from '../auth.resolve';
 export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
-  protected currentUser: any;
+  public currentUser: any = { userName: '', userId: ''};
+  protected tracklist: any[];
+  public recordinginfo: RecordingInfo;
+  protected _array = Array;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
-    private player: PlayerService, public auth: AuthService, public resolve: APIResolver) {}
+    private player: PlayerService, public auth: AuthService) {
+
+      
+
+    }
 
   ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+      }
+    });
+    /*
     if (this.route.snapshot.data['loggedIn']) {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
       console.log(this.currentUser);
     }
+    */
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
-        this.recording = await this.data.getRecording(params.get('id'));
-        this.event = await this.data.getEventInfoForRecording(this.recording.id);
-        console.log(this.recording)
-        console.log(this.event)
+        //this.recording = await this.data.getRecording(params.get('id'));
+        //this.event = await this.data.getEventInfoForRecording(this.recording.id);
+
+        //const rec_id = params.get('id');
+        this.recordinginfo = await this.data.getRecordingInfo(params.get('id'));
+        var tracklist = await this.data.getTracklist(params.get('id'));
+        tracklist.forEach(t =>{  // format to Audiotrack, take first song_id for now
+          if (t.song) {
+            t['id'] = t.song[0].song_id;
+            delete t.song;
+          }
+          t.track = t.track.toString();
+        })
+        this.tracklist = tracklist;
+        //console.log(this.recordinginfo)
+        //console.log(this.tracklist);
       }
+
+      /*
       if (!this.recording) {
         this.router.navigate(['/recording', (await this.data.getRandomRecording()).id],
           { replaceUrl: true });
-      }
+      } */
     });
   }
   
-  protected openTrackOptionsDialog(audio: AudioTrack) {
-    this.recording.tracks
-    this.dialog.openMultiFunction(
-      //song.name+"', "+this.event.venue.name+", "+this.event.date,
-      audio.track + " " + audio.title,
-      ["add to playlist"],
-      [() => this.addTrackToPlaylist(audio)]
-    );
+  protected openTrackOptionsDialog(audio: AudioTrack) {    
+    if (audio.id) {
+      this.dialog.openMultiFunction(
+        audio.track + " " + audio.title,
+        ["add to playlist", "go to song"], [() => this.addTrackToPlaylist(audio), 
+          () => this.router.navigate(['/song', audio.id])]);
+    }
+    else {
+      this.dialog.openMultiFunction(
+        audio.track + " " + audio.title,
+        ["add to playlist"], [() => this.addTrackToPlaylist(audio)]);
+    }
   }
   
+  
+  /*
   private async addTrackToPlaylist(audio: AudioTrack) {
+    console.log(audio.id)
     const info = await this.data.getEventInfo(this.event.id);
     const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
     if (track) this.player.addToPlaylist(track);
   }
+  */
+
+  private async addTrackToPlaylist(audio: AudioTrack) {
+    const track = this.data.toPlayerTrack(this.recordinginfo.venue_name, 
+                                          this.recordinginfo.location_name, 
+                                          this.recordinginfo.date, 
+                                          this.recordinginfo.show_id,
+                                          this.recordinginfo.etree_id,
+                                          audio,
+                                          this.recordinginfo.recording_id);
+                                          
+    this.player.addToPlaylist(track);
+  }
+
+
+  public addAllToPlaylist() {
+    if (this.tracklist) this.tracklist.forEach(t => this.addTrackToPlaylist(t));
+  }
+
 }

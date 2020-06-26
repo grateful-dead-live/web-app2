@@ -3,7 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
   title: string,
-  options: string[]
+  options: string[],
+  items: any
 }
 
 @Component({
@@ -12,7 +13,7 @@ export interface DialogData {
 })
 export class ListDialogComponent {
   constructor(private dialogRef: MatDialogRef<ListDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) protected data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onCancelClick(): void {
     this.dialogRef.close();

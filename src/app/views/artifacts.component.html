@@ -1,6 +1,6 @@
 <div *ngIf="artifacts" fxLayout="column">
   <gd-header *ngIf="artifacts" title='Artifacts'
-    [subtitle]='types' imageUrl="{{ artifacts[0] }}">
+    [subtitle]='types' imageUrl="{{ artifacts[0] }}" userId='{{ currentUser.userId }}'>
   </gd-header>
   <div *ngIf="artifacts.length" class="gd-container" fxLayout="row wrap" fxLayout.xs="column">
     <div *ngFor="let a of artifacts" class="gd-container" fxLayout="column" fxFlex="33" fxFlex.xs="100">

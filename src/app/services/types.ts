@@ -38,6 +38,7 @@ export interface Artifact {
   description: string,
   collection: string,
   source: string
+  index?: number,
 }
 
 export type Venue = GdEventsObject;
@@ -77,9 +78,10 @@ export interface Recording {
 
 export interface AudioTrack {
   filename: string,
-  format: string,
+  //format: string,
   title: string,
-  track: string
+  track: string,
+  id: string
 }
 
 export interface ArtistDetails extends Artist, GdEventsObject {
@@ -147,4 +149,29 @@ export interface VenueDetails {
   lat: number,
   shows: [],
   georss: string
+}
+
+export interface RecordingInfo {
+  date: string,
+  description: string,
+  etree_id: string,
+  lineage: string,
+  location_id: string,
+  location_name: string,
+  notes: string,
+  recording_id: string,
+  show_id: string,
+  source: string,
+  subject: string[],
+  venue_id: string,
+  venue_name: string
+}
+
+export interface CommentPayload {
+  msgId: string,
+  userId?: number | string,
+  msg: string,
+  timestamp: string,
+  userName: string,
+  userImagePath?: string
 }
