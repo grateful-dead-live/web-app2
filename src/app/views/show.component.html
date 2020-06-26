@@ -78,53 +78,53 @@
 
 
 
-
-<div *ngIf="photos.length>0" class="gd-container" fxLayout="column" fxFlex="50">
-  <h2 class="gd-section"><span class="titlef">Photos</span></h2>
-  <div id="galleryContainer">
-    <div style="width: 100%;"
-      ng2-carouselamos
-      class="slides-wrapper"
-      [items]="photos"
-      [width] = 500
-      [$prev]="prev"
-      [$next]="next"
-      [$item]="item"
-    >
-    </div>
-
-    <ng-template #prev>
-      <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_left.png" id="left" height="30" />
-    </ng-template>
-    <ng-template #next>
-      <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_right.png" id="right" height="30"/>
-    </ng-template>
-    <ng-template #item let-item let-i="index">
-
-    <div class="slide-items">
-      <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item)" width="210px">
-      <!--div>{{ item.description }}</div>
-      <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
-    </div>
-  </ng-template>
-  </div>
-  <div *ngIf="currentPhoto" class="photo-text">
-    {{ currentPhoto.description }} <br>
-    <a href="{{ currentPhoto.source }}" target="_blank">
-      <img *ngIf="currentPhoto.collection=='GDAO'" src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto">
-      <div *ngIf="!(currentPhoto.collection=='GDAO')">
-        <i>{{'Source: '}}</i> <u><a href="{{ currentPhoto.source }}" target="_blank">{{ currentPhoto.collection }}</a></u>
+<div *ngIf="photos.length>0">
+  <div class="gd-container" fxLayout="column" fxFlex="50">
+    <h2 class="gd-section"><span class="titlef">Photos</span></h2>
+    <div id="galleryContainer">
+      <div style="width: 100%;"
+        ng2-carouselamos
+        class="slides-wrapper"
+        [items]="photos"
+        [width] = 500
+        [$prev]="prev"
+        [$next]="next"
+        [$item]="item"
+      >
       </div>
-    </a>
-    
+
+      <ng-template #prev>
+        <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_left.png" id="left" height="30" />
+      </ng-template>
+      <ng-template #next>
+        <img style="cursor: pointer;" *ngIf="photos.length>1" src="assets/arrow_right.png" id="right" height="30"/>
+      </ng-template>
+      <ng-template #item let-item let-i="index">
+
+      <div class="slide-items">
+        <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item)" width="210px">
+        <!--div>{{ item.description }}</div>
+        <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
+      </div>
+    </ng-template>
+    </div>
+    <div *ngIf="currentPhoto" class="photo-text">
+      {{ currentPhoto.description }} <br>
+      <a href="{{ currentPhoto.source }}" target="_blank">
+        <img *ngIf="currentPhoto.collection=='GDAO'" src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto">
+        <div *ngIf="!(currentPhoto.collection=='GDAO')">
+          <i>{{'Source: '}}</i> <u><a href="{{ currentPhoto.source }}" target="_blank">{{ currentPhoto.collection }}</a></u>
+        </div>
+      </a>
+      
+    </div>
+  </div>
+
+  <div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
+    <p [style.margin-bottom]="'25px'"></p>
+    <img class="current-photo" src="{{ currentPhoto.image }}" (click)="lightbox.openLightboxArray(photosLightbox, currentPhoto.index)"> 
   </div>
 </div>
-
-<div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
-  <p [style.margin-bottom]="'25px'"></p>
-  <img class="current-photo" src="{{ currentPhoto.image }}" (click)="openLightbox(photosLightbox, currentPhoto.index)"> 
-</div>
-
 
 
 
