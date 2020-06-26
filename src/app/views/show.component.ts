@@ -12,8 +12,7 @@ declare let gtag: Function;
 
 @Component({
   selector: 'gd-show',
-  templateUrl: './show.component.html',
-  styleUrls: ['./show.component.sass']
+  templateUrl: './show.component.html'
 })
 export class ShowComponent {
   
