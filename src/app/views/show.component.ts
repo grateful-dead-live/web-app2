@@ -6,7 +6,7 @@ import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
-import { Lightbox } from 'ngx-lightbox';
+import { LightboxService } from '../services/lightbox.service';
 
 declare let gtag: Function;
 
@@ -31,7 +31,7 @@ export class ShowComponent {
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
     private dialog: DialogService, private player: PlayerService, public auth: AuthService, 
-    private changeDetectorRef: ChangeDetectorRef, private lightbox: Lightbox) {
+    private changeDetectorRef: ChangeDetectorRef, private lightbox: LightboxService) {
 
     }
 
@@ -74,7 +74,7 @@ export class ShowComponent {
         this.eventImage = this.photos.length ? this.photos[0].image
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
-        var gl = this.makeGallery(this.photos);
+        var gl = this.lightbox.makeGallery(this.photos);
         this.photosLightbox = gl[0];
         this.photos = gl[1];
         this.changeDetectorRef.detectChanges();
@@ -100,7 +100,8 @@ export class ShowComponent {
   }
 */
 
-  public makeGallery(a){
+/*
+  makeGallery(a){
     var carousel = [];
     var lightboxa = [];
     a.forEach(function (value, i){
@@ -118,6 +119,7 @@ export class ShowComponent {
   openLightbox(lightboxArray, index: number): void {
     this.lightbox.open(lightboxArray, index);
   }
+  */
 
   protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
     this.dialog.openMultiFunction(

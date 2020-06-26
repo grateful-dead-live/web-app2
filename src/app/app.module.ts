@@ -66,6 +66,7 @@ import { YoutubeComponent } from './shared/youtube.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { LightboxModule } from 'ngx-lightbox';
+import { LightboxService } from './services/lightbox.service'
 
 
 @NgModule({
@@ -138,6 +139,7 @@ import { LightboxModule } from 'ngx-lightbox';
       useValue: document,
     },
     GoogleAnalyticsService,
+    LightboxService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 
