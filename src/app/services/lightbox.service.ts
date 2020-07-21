@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Lightbox } from 'ngx-lightbox';
+import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LightboxService {
 
-  constructor(private lightbox: Lightbox) { }
+  constructor(private lightbox: Lightbox, private lightboxConfig: LightboxConfig) {
+    lightboxConfig.wrapAround = true;
+    //lightboxConfig.showZoom = true;
+   }
 
+   
 
   makeGallery(a) {
     var carousel = [];
