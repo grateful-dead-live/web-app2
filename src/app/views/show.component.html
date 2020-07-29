@@ -114,10 +114,11 @@
     </div>
   </div>
 
-  <div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
+  
+  <!--div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
     <p [style.margin-bottom]="'25px'"></p>
     <img class="current-photo" src="{{ currentPhoto.image }}" (click)="lightbox.openLightboxArray(photosLightbox, currentPhoto.index)"> 
-  </div>
+  </div-->
 </div>
 
 
@@ -129,7 +130,7 @@
         ng2-carouselamos
         class="slides-wrapper"
         [items]="artifacts"
-        [width] = 500
+        [width] = auto
         [$prev]="prev"
         [$next]="next"
         [$item]="item"
@@ -163,10 +164,10 @@
     </div>
   </div>
 
-  <div *ngIf="currentArtifact" class="gd-container" fxLayout="column" fxFlex="50">
+  <!--div *ngIf="currentArtifact" class="gd-container" fxLayout="column" fxFlex="50">
     <p [style.margin-bottom]="'25px'"></p>
     <img class="current-photo" src="{{ currentArtifact.image }}" (click)="lightbox.openLightboxArray(artifactsLightbox, currentArtifact.index)"> 
-  </div>
+  </div-->
 </div>
 
 
