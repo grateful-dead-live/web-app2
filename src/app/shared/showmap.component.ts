@@ -116,7 +116,7 @@ export class ShowMapComponent {
       var dates = s.map(e => [e.date, e.id])
       dates.sort()
       dates.forEach(e => {
-        htmlstring += '<a style="color: black;" href="/show/' + e[1] + '">' + e[0] + '</a><br>' ; // removed #/ url
+        htmlstring += '<a style="color: black;" href="/#/show/' + e[1] + '">' + e[0] + '</a><br>' ; // removed #/ url
         datestring += e[0] + ' '
       });
     return [datestring, htmlstring];
