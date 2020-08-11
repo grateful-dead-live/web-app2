@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DeadEventInfo, DeadEventDetails, Location, Venue, Set,
   SongDetails, ArtistDetails, VenueDetails, RecordingDetails, AudioTrack } from './types';
+import { API_URL } from '../config';
+
 
 export interface Recording {
   id: string,
@@ -12,7 +14,8 @@ export interface Recording {
 export class DeadApiService {
 
   //private API_URL = "https://grateful-dead-api.herokuapp.com/";
-  private API_URL = "http://localhost:8060/";
+  //private API_URL = "http://localhost:8060/";
+  private api_url = API_URL;
 
   constructor() {}
 
@@ -74,14 +77,14 @@ export class DeadApiService {
   }
 
   async getJsonFromApi(path: string): Promise<any> {
-    return fetch(this.API_URL+path)
+    return fetch(this.api_url+path)
       .then(r => r.text())
       .then(t => JSON.parse(t))
       .catch(e => console.log(e));
   }
 
   async getTextFromApi(path: string): Promise<any> {
-    return fetch(this.API_URL+path)
+    return fetch(this.api_url+path)
       .then(r => r.text())
       .catch(e => console.log(e));
   }

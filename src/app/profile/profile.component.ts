@@ -5,7 +5,7 @@ import { APIResolver } from '../auth.resolve';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
-import { DOMAIN } from '../config';
+import { FRONTEND_URL } from '../config';
 
 declare let gtag: Function;
 
@@ -27,7 +27,8 @@ export class ProfileComponent implements OnInit {
   protected bookmarks: any;
   protected likes: any;
   protected comments: any;
-  public domain = DOMAIN;
+  public frontend_url = FRONTEND_URL;
+  //public domain = DOMAIN;
   //protected playlists: any;
     
 
