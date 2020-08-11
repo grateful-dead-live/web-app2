@@ -210,7 +210,7 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
   
   onClickPhoto(p){
     this.currentPhoto = p;
-    this.lightbox.openLightboxArray(this.artifactsLightbox, p.index)
+    this.lightbox.openLightboxArray(this.photosLightbox, p.index)
   }
 
   onClickArtifact(a){
