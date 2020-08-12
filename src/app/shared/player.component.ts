@@ -54,6 +54,10 @@ export class PlayerComponent {
   }
 
 
+  async onClearPlaylist(){
+    this.player.clearPlaylist();
+  }
+
   async delTrack(i){
     this.player.deleteFromPlaylist(i);
   }

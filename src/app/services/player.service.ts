@@ -43,6 +43,11 @@ export class PlayerService {
     this.playlist.splice(i, 1);
     this.storePlaylist();
   }
+
+  clearPlaylist(){
+    this.playlist = [];
+    this.storePlaylist();
+  }
   
   getCurrentTrack() {
     return this.playlist[this.currentTrackIndex]
