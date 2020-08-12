@@ -53,9 +53,9 @@ export class PlayerComponent {
     this.player.volume(v);
   }
 
-
   async onClearPlaylist(){
     this.player.clearPlaylist();
+    this.minimized = true;
   }
 
   async delTrack(i){
