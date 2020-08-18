@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

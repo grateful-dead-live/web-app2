@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

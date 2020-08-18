@@ -6,6 +6,9 @@ import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

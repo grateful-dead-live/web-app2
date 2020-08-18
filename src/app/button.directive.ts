@@ -1,4 +1,7 @@
 import { Directive,HostListener,Input } from '@angular/core';
+import { DEBUG } from './config';
+
+if (DEBUG) {console.log = function(){}};
 
 
 @Directive({

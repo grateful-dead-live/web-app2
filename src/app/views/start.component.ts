@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
-import { EMAILADDRESS } from '../config'
+import { EMAILADDRESS, DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
+
 
 declare let gtag: Function;
 

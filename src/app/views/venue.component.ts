@@ -5,7 +5,9 @@ import { Venue } from '../services/types';
 import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
+import { DEBUG } from '../config';
 
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

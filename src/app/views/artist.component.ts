@@ -4,6 +4,9 @@ import { ArtistDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

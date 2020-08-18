@@ -5,7 +5,9 @@ import { APIResolver } from '../auth.resolve';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
-import { FRONTEND_URL } from '../config';
+import { FRONTEND_URL, DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

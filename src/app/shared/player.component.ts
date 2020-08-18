@@ -5,6 +5,9 @@ import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 // import { CookieService } from 'ngx-cookie-service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 
@@ -54,6 +57,7 @@ export class PlayerComponent {
   }
 
   async onClearPlaylist(){
+    this.player.stop();
     this.player.clearPlaylist();
     this.minimized = true;
   }

@@ -7,6 +7,9 @@ import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
 import { LightboxService } from '../services/lightbox.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

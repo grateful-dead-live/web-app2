@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DeadEventInfo, DeadEventDetails, Location, Venue, Set,
   SongDetails, ArtistDetails, VenueDetails, RecordingDetails, AudioTrack } from './types';
-import { API_URL } from '../config';
+import { API_URL, DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 
 export interface Recording {

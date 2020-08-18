@@ -9,6 +9,9 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { PlayerService } from '../services/player.service';
 //import { CookieService } from 'ngx-cookie-service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");

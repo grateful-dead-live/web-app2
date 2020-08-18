@@ -4,6 +4,9 @@ import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import * as Fuse from 'fuse.js'; // imported in angular.json
 import * as _ from 'lodash';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare const L: any;
 import 'leaflet';

@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 export interface DialogData {
   title: string,

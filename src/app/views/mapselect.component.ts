@@ -3,6 +3,9 @@ import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { VenueDetails } from '../services/types';
 import { AuthService } from '../auth.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 declare let gtag: Function;
 

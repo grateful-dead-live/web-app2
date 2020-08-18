@@ -5,6 +5,9 @@ import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
   Location, Venue, VenueDetails, ArtifactType, Artifact, Set, Recording,
   RecordingDetails } from './types';
 import { Track } from './player.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 const ARCHIVE_URI = 'https://archive.org/download/';
 

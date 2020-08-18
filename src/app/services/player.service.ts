@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import{GoogleAnalyticsService} from './google-analytics.service';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
+import { DEBUG } from '../config';
+
+if (DEBUG) {console.log = function(){}};
 
 export interface Track {
   title: string,
