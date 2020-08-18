@@ -6,7 +6,11 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import * as _ from 'lodash';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 declare const L: any;
 import 'leaflet';

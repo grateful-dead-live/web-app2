@@ -4,7 +4,11 @@ import { DeadEventInfo, DeadEventDetails, Location, Venue, Set,
   SongDetails, ArtistDetails, VenueDetails, RecordingDetails, AudioTrack } from './types';
 import { API_URL, DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 
 export interface Recording {

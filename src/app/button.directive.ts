@@ -1,7 +1,11 @@
 import { Directive,HostListener,Input } from '@angular/core';
 import { DEBUG } from './config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 
 @Directive({

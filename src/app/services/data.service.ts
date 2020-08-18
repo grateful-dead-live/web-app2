@@ -7,7 +7,11 @@ import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
 import { Track } from './player.service';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 const ARCHIVE_URI = 'https://archive.org/download/';
 

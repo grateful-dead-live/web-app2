@@ -7,7 +7,11 @@ import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 declare let gtag: Function;
 

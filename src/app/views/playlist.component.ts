@@ -5,7 +5,11 @@ import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 declare let gtag: Function;
 

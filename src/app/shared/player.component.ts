@@ -7,7 +7,11 @@ import { Router } from '@angular/router';
 // import { CookieService } from 'ngx-cookie-service';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 declare let gtag: Function;
 

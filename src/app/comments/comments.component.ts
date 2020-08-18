@@ -5,7 +5,11 @@ import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 @Component({
   selector: 'gd-comments',

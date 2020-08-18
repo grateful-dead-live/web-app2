@@ -5,7 +5,11 @@ import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 declare let gtag: Function;
 

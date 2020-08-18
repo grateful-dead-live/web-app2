@@ -6,7 +6,11 @@ import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
 import { DEBUG } from '../config';
 
-if (DEBUG) {console.log = function(){}};
+console.log = function(s){
+  if (!DEBUG) {
+    console.warn(s);
+  }; 
+};
 
 declare let gtag: Function;
 
