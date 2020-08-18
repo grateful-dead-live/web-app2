@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service';
 import { EMAILADDRESS, DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };

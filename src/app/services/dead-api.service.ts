@@ -5,7 +5,7 @@ import { DeadEventInfo, DeadEventDetails, Location, Venue, Set,
 import { API_URL, DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };

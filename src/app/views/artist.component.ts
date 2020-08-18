@@ -7,7 +7,7 @@ import { APIResolver } from '../auth.resolve';
 import { DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };

@@ -5,7 +5,7 @@ import { DialogService } from '../services/dialog.service';
 import { DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };

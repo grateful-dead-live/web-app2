@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };

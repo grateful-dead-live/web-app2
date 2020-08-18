@@ -8,7 +8,7 @@ import { PlayerService } from '../services/player.service';
 import { FRONTEND_URL, DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };

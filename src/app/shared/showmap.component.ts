@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import { DEBUG } from '../config';
 
 console.log = function(s){
-  if (!DEBUG) {
+  if (DEBUG) {
     console.warn(s);
   }; 
 };
