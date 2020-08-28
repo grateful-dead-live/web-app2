@@ -32,13 +32,13 @@
                 </div> -->
 
                 <div class="comment-bubble col-10" [ngClass]="(comment.userId !== null || comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'comment-bubble-currentUser col-10' : 'comment-bubble col-10') :'comment-bubble col-10'">
-                    <div [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'user-name' : 'user-name color-gray') :'user-name color-gray'">
+                    <div [ngClass]="(comment.userId !== null || comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'user-name' : 'user-name color-gray') :'user-name color-gray'">
                         {{comment.userName}}
                     </div>
-                    <div [ngClass]="(comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'user-comment' : 'user-comment color-gray') :'user-comment color-gray'">
+                    <div [ngClass]="(comment.userId !== null || comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'user-comment' : 'user-comment color-gray') :'user-comment color-gray'">
                         {{comment.msg}}
                     </div>
-                    <div [ngClass]="!comment.userId !== null && comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'timestamp' : 'timestamp color-gray') :'timestamp color-gray'">
+                    <div [ngClass]="(comment.userId !== null || comment.userId !== undefined) ? ((comment.userId == currentUserId) ? 'timestamp' : 'timestamp color-gray') :'timestamp color-gray'">
                         {{comment.timestamp}} 
                         <button *ngIf="comment.userId == currentUserId" (click)="onDeleteButton(comment)">delete</button>
                         <button *ngIf="comment.userId != currentUserId"(click)="onReportButton(comment)">report</button>
