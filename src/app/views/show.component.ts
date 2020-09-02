@@ -67,9 +67,14 @@ export class ShowComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.event = await this.data.getEventDetails(params.get('id'));
-        this.event.date = this.event.date;
-        this.formatDate = this.data.formatDate(this.event.date);
+      }
+      else {
+        this.router.navigate(['/mapselect'],
+          { replaceUrl: true });
+      }
 
+      if (this.event.date) {
+        this.formatDate = this.data.formatDate(this.event.date);
         this.recordingUrls = this.event.recordings.map(r => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
@@ -101,8 +106,8 @@ export class ShowComponent {
 
 
       } else {
-        this.router.navigate(['/show', await this.data.getRandomEventId()],
-          { replaceUrl: true });
+        //this.router.navigate(['/show', await this.data.getRandomEventId()],
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
       }
       
     });
