@@ -69,8 +69,7 @@ export class ShowComponent {
         this.event = await this.data.getEventDetails(params.get('id'));
       }
       else {
-        this.router.navigate(['/mapselect'],
-          { replaceUrl: true });
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
       }
 
       if (this.event.date) {

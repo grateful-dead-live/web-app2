@@ -55,15 +55,20 @@ export class LocationComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.location = await this.data.getLocation(params.get('id'));
-        if (this.location.state) {
-          this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
-          this.currentVideoId = this.videos[0].videoId;
-          console.log(this.videos);
-        }
+        console.log(this.location);
       }
-      if (!this.location) {
-        this.router.navigate(['/location',
-          (await this.data.getRandomLocation()).id], { replaceUrl: true });
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+
+
+      if (params.has('id') && this.location.state) {
+        this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
+        this.currentVideoId = this.videos[0].videoId;
+        console.log(this.videos);
+        }
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
       }
     });
   }
