@@ -55,7 +55,6 @@ export class LocationComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.location = await this.data.getLocation(params.get('id'));
-        console.log(this.location);
       }
       else {
         this.router.navigate(['/mapselect'], { replaceUrl: true });
