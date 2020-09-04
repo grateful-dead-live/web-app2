@@ -8,9 +8,7 @@ export class LightboxService {
 
   constructor(private lightbox: Lightbox, private lightboxConfig: LightboxConfig) {
     lightboxConfig.wrapAround = true;
-    //lightboxConfig.showZoom = true;  
-    // results in ExpressionChangedAfterItHasBeenCheckedError
-    // workaround: set [hidden]=\"!ui.showZoomButton\"> to [hidden]=\"ui.showZoomButton\"> in lightbox.component.metadata.json
+    lightboxConfig.showZoom = true;  
    }
 
   makeGallery(a) {
