@@ -41,6 +41,34 @@ export class VenueComponent {
       }
     });
 
+
+    this.route.paramMap.subscribe(async params => {
+      if (params.has('id')) {
+        this.venue = await this.data.getVenue(params.get('id'));
+      }
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+
+
+      if (params.has('id') && this.venue.name) {
+        console.log(this.venue)
+        //this.venue = await this.data.getVenue(params.get('id'));
+        this.location = (await this.data.getEventInfo(this.venue.eventIds[0])).location;
+        if (this.venue) {
+          this.videos = await this.data.getYoutubeList(this.venue.id, ['Grateful Dead', this.location, this.venue.name]);
+          this.currentVideoId = this.videos[0].videoId;
+          console.log(this.videos);
+        }
+      }
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+    });
+
+
+
+    /*
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.venue = await this.data.getVenue(params.get('id'));
@@ -55,7 +83,7 @@ export class VenueComponent {
         this.router.navigate(['/venue', (await this.data.getRandomVenue()).id],
           { replaceUrl: true });
       }
-    });
+    }); */
   }
 
   protected openOptionsDialog(event: DeadEventInfo) {
