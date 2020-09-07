@@ -52,8 +52,16 @@ export class ArtistComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.artist = await this.data.getArtistDetails(params.get('id'));
-        console.log(this.artist);
+        //console.log(this.artist);
       }
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+
+      if (params.has('id') && !this.artist.name) {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+
     });
     /* // not working
     if (!this.artist) {
