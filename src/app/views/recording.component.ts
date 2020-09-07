@@ -60,6 +60,13 @@ export class RecordingComponent {
 
         //const rec_id = params.get('id');
         this.recordinginfo = await this.data.getRecordingInfo(params.get('id'));
+      }
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+
+
+      if (params.has('id') && this.recordinginfo) {
         var tracklist = await this.data.getTracklist(params.get('id'));
         tracklist.forEach(t =>{  // format to Audiotrack, take first song_id for now
           if (t.song) {
@@ -72,6 +79,10 @@ export class RecordingComponent {
         //console.log(this.recordinginfo)
         //console.log(this.tracklist);
       }
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+      }
+
 
       /*
       if (!this.recording) {
