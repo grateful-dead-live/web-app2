@@ -32,8 +32,8 @@
         <button *ngIf="userId" mat-icon-button color="" (click)="onLikeButton()">
           <mat-icon>{{liked ? 'thumb_up_alt' : 'thumb_up_off_alt'}}</mat-icon>
         </button>
-        <button *ngIf="!userId" mat-icon-button color="">
-          <mat-icon>thumb_up_off_alt</mat-icon>
+        <button *ngIf="!userId" mat-icon-button color="" style="cursor: default;">
+          <mat-icon >thumb_up_off_alt</mat-icon>
         </button>
         {{likes}}
       </span>
