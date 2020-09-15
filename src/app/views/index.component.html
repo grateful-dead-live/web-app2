@@ -1,0 +1,26 @@
+<gd-header title="Index"></gd-header>
+
+<div>
+<button mat-flat-button fxFlex (click)="onSelectButton('shows')">Shows</button>
+<button mat-flat-button fxFlex (click)="onSelectButton('venues')">Venues</button>
+<button mat-flat-button fxFlex (click)="onSelectButton('cities')">Cities</button>
+<button mat-flat-button fxFlex (click)="onSelectButton('songs')">Songs</button>
+</div>
+
+<div *ngIf="selected=='venues'">
+    not implemented yet
+</div>
+<div *ngIf="selected=='cities'">
+    not implemented yet
+</div>
+<div *ngIf="selected=='songs'">
+    not implemented yet
+</div>
+
+<div *ngIf="selected=='shows'">
+    <div *ngFor="let s of shows" >
+        <span [routerLink]="['/show', s.showId]" style="cursor:pointer">
+        {{ s.date }} -- {{ s.locationName }} -- {{ s.venueName }}
+    </span>
+    </div>
+</div>
