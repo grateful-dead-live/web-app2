@@ -194,4 +194,8 @@ export class DeadApiService {
     return this.getJsonFromApi('youtube?id='+id+'&searcharray='+s);
   }
 
+  async getShowIndex(): Promise<any> {   // TODO: define type
+    return this.getJsonFromApi('showindex');
+  }
+
 }

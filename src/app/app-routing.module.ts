@@ -15,6 +15,7 @@ import { APIResolver } from './auth.resolve';
 import { CommentsComponent } from './comments/comments.component';
 import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component';
 import { PlaylistComponent } from './views/playlist.component';
+import { IndexComponent } from './views/index.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mapselect', pathMatch: 'full' },
@@ -38,7 +39,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} },
   { path: 'comments', component: CommentsComponent },
   { path: 'dataprivacy', component: PrivacyPolicyComponent },
-  { path: 'playlist/:id', component: PlaylistComponent }
+  { path: 'playlist/:id', component: PlaylistComponent },
+  { path: 'index', component: IndexComponent }
 ];
 
 @NgModule({

@@ -24,7 +24,7 @@ import { ArtistComponent } from './views/artist.component';
 import { ArtifactsComponent } from './views/artifacts.component';
 import { MapSelectComponent} from './views/mapselect.component';
 import { StartComponent} from './views/start.component';
-
+import { IndexComponent } from './views/index.component';
 
 import { HeaderComponent } from './shared/header.component';
 import { MapComponent } from './shared/map.component';
@@ -66,7 +66,7 @@ import { YoutubeComponent } from './shared/youtube.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { LightboxModule } from 'ngx-lightbox';
-import { LightboxService } from './services/lightbox.service'
+import { LightboxService } from './services/lightbox.service';
 
 
 @NgModule({
@@ -98,7 +98,8 @@ import { LightboxService } from './services/lightbox.service'
     ShareButtonsComponent,
     ChatterBoxComponent,
     PlaylistComponent,
-    YoutubeComponent
+    YoutubeComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

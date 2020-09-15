@@ -301,4 +301,8 @@ export class DataService {
     return this.apiService.getYoutubeList(id, searchArray);
   }
 
+  async getShowIndex(){
+    return this.apiService.getShowIndex();
+  }
+
 }
