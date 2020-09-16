@@ -67,6 +67,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { LightboxModule } from 'ngx-lightbox';
 import { LightboxService } from './services/lightbox.service';
+import { SocketioService } from './services/socketio.service';
 
 
 @NgModule({
@@ -140,7 +141,8 @@ import { LightboxService } from './services/lightbox.service';
       useValue: document,
     },
     GoogleAnalyticsService,
-    LightboxService
+    LightboxService,
+    SocketioService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 

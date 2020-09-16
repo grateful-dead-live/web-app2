@@ -3,6 +3,7 @@ import { CommentPayload } from '../services/types';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
+import { SocketioService } from '../services/socketio.service';
 import { DEBUG } from '../config';
 
 console.log = function(s){
@@ -17,7 +18,8 @@ console.log = function(s){
   styleUrls: ['./comments.component.sass']
 })
 export class CommentsComponent implements OnInit {
-  constructor(private data: DataService, private router: Router,  private dialog: DialogService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private data: DataService, private router: Router,  private dialog: DialogService, private changeDetectorRef: ChangeDetectorRef,
+      private socket: SocketioService) { }
 
   @Input() title: string;
   @Input() userName: string;
@@ -81,6 +83,7 @@ export class CommentsComponent implements OnInit {
 
 
   async addComment(p){
+    //let sp = this.socket.postComment('test');
     await this.data.addComment(p, this.router.url, this.currentUserId, this.title);
   }
 
