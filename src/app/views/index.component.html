@@ -1,26 +1,53 @@
-<gd-header title="Index"></gd-header>
 
-<div>
-<button mat-flat-button fxFlex (click)="onSelectButton('shows')">Shows</button>
-<button mat-flat-button fxFlex (click)="onSelectButton('venues')">Venues</button>
-<button mat-flat-button fxFlex (click)="onSelectButton('cities')">Cities</button>
-<button mat-flat-button fxFlex (click)="onSelectButton('songs')">Songs</button>
-</div>
 
-<div *ngIf="selected=='venues'">
-    not implemented yet
-</div>
-<div *ngIf="selected=='cities'">
-    not implemented yet
-</div>
-<div *ngIf="selected=='songs'">
-    not implemented yet
-</div>
+<gd-header style="position: fixed; width: 100%" title="Index"></gd-header>
 
-<div *ngIf="selected=='shows'">
-    <div *ngFor="let s of shows" >
-        <span [routerLink]="['/show', s.showId]" style="cursor:pointer">
-        {{ s.date }} -- {{ s.locationName }} -- {{ s.venueName }}
-    </span>
+<p [style.margin-bottom]="'50px'"></p>
+    <div class="topmargin">
+    <button mat-flat-button fxFlex [color]="selected=='shows' ? 'warn' : 'primary'" (click)="onSelectButton('shows')">Shows</button>
+    <button mat-flat-button fxFlex [color]="selected=='venues' ? 'warn' : 'primary'" (click)="onSelectButton('venues')">Venues</button>
+    <button mat-flat-button fxFlex [color]="selected=='locations' ? 'warn' : 'primary'" (click)="onSelectButton('locations')">Locations</button>
+    <button mat-flat-button fxFlex [color]="selected=='songs' ? 'warn' : 'primary'" (click)="onSelectButton('songs')">Songs</button>
     </div>
-</div>
+
+
+    <div *ngIf="selected=='venues'">
+        <div *ngFor="let v of venues" >
+            <span [routerLink]="['/venue', v.venueId]" style="cursor:pointer">
+            {{ v.venueName }} ({{ v.locationName }})
+        </span>
+        </div>
+    </div>
+
+
+    <div *ngIf="selected=='locations'">
+        <div *ngFor="let l of locations" >
+            <span [routerLink]="['/location', l.locationId]" style="cursor:pointer">
+            {{ l.locationName }} ({{ l.country }})
+        </span>
+        </div>
+    </div>
+
+
+
+
+    <div *ngIf="selected=='songs'">
+        <div *ngFor="let s of songs" >
+            <span [routerLink]="['/song', s.songId]" style="cursor:pointer">
+            {{ s.songName }}
+        </span>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="selected=='shows'">
+        <div *ngFor="let s of shows" >
+            <span [routerLink]="['/show', s.showId]" style="cursor:pointer">
+            {{ s.date }} {{ s.venueName }}, {{ s.locationName }}
+        </span>
+        </div>
+    </div>
+
+
+<p [style.margin-bottom]="'150px'"></p>

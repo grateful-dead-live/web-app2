@@ -11,9 +11,16 @@ export class IndexComponent implements OnInit {
 
   public selected: String;
   public shows: any;
+  public venues: any;
+  public locations: any;
+  public songs: any;
+  public test: string;
+
   constructor(private data: DataService) { }
 
   ngOnInit(): void {
+    this.selected = 'shows';
+    this.onSelectButton('shows');
   }
 
   public onSelectButton(s) {
@@ -25,10 +32,10 @@ export class IndexComponent implements OnInit {
       case 'venues':
         this.getVenues();
         break;
-      case 'cities':
-        this.getCities();
+      case 'locations':
+        this.getLocations();
         break;
-      case 'venues':
+      case 'songs':
         this.getSongs();
     }
   }
@@ -37,10 +44,16 @@ export class IndexComponent implements OnInit {
     this.shows = await this.data.getShowIndex();
   }
 
-  protected getVenues(){}
+  protected async getVenues(){
+    this.venues = await this.data.getVenueIndex();
+  }
 
-  protected getCities(){}
+  protected async getLocations(){
+    this.locations = await this.data.getLocationIndex();
+  }
 
-  protected getSongs(){}
+  protected async getSongs(){
+    this.songs = await this.data.getSongIndex();
+  }
 
 }

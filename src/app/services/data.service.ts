@@ -305,4 +305,16 @@ export class DataService {
     return this.apiService.getShowIndex();
   }
 
+  async getVenueIndex(){
+    return this.apiService.getVenueIndex();
+  }
+
+  async getLocationIndex(){
+    return this.apiService.getLocationIndex();
+  }
+
+  async getSongIndex(){
+    return this.apiService.getSongIndex();
+  }
+
 }

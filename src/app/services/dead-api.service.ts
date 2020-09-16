@@ -198,4 +198,16 @@ export class DeadApiService {
     return this.getJsonFromApi('showindex');
   }
 
+  async getVenueIndex(): Promise<any> {   // TODO: define type
+    return this.getJsonFromApi('venueindex');
+  }
+
+  async getLocationIndex(): Promise<any> {   // TODO: define type
+    return this.getJsonFromApi('locationindex');
+  }
+
+  async getSongIndex(): Promise<any> {   // TODO: define type
+    return this.getJsonFromApi('songindex');
+  }
+
 }

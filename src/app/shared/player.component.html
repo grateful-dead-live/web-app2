@@ -41,7 +41,7 @@
   <button *ngIf="currentUser.userId && player.playlist.length==0" mat-flat-button disabled=true style="color: rgb(194, 192, 192)" fxFlex>
     clear
   </button>
-  <button *ngIf="currentUser.userId && player.playlist.length>0" mat-flat-button fxFlex (click)="onClearPlaylist()">
+  <button *ngIf="player.playlist.length>0" mat-flat-button fxFlex (click)="onClearPlaylist()">
     clear
   </button>
 
