@@ -317,4 +317,8 @@ export class DataService {
     return this.apiService.getSongIndex();
   }
 
+  connectSocket(nsp: string){
+    this.apiService.connectSocket(nsp);
+  }
+
 }

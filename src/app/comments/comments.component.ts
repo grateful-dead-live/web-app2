@@ -19,7 +19,7 @@ console.log = function(s){
 })
 export class CommentsComponent implements OnInit {
   constructor(private data: DataService, private router: Router,  private dialog: DialogService, private changeDetectorRef: ChangeDetectorRef,
-      private socket: SocketioService) { }
+      private socket: SocketioService ) { }
 
   @Input() title: string;
   @Input() userName: string;
@@ -32,8 +32,30 @@ export class CommentsComponent implements OnInit {
   @Input() currentUserId:  string;
   allComments:  Array<CommentPayload>;
 
-
   ngOnInit() { 
+
+    this.socket.newComment().subscribe((msg: any) => {
+      console.log(msg);
+      this.allComments.push(msg.payload);
+    }, err => {
+      console.log(err);
+    });
+
+
+    this.socket.deleteComment().subscribe((msg: any) => {
+      //console.log(this.allComments.map(x => x.msgId).indexOf(msg.msgId));
+      //console.log(msg.msg)
+      //console.log(this.allComments)
+      const i = this.allComments.map(x => x.msgId).indexOf(msg.msgId);
+      if (i > -1) {
+        this.allComments.splice(i, 1);
+        this.changeDetectorRef.detectChanges();
+      }
+
+    }, err => {
+      console.log(err);
+    });
+
    this.getComments();
   }
 
@@ -58,6 +80,9 @@ export class CommentsComponent implements OnInit {
       if (await this.checkComment(msgId)){
         payload.timestamp = this.formatTime(timestamp);
         this.allComments.push(payload);
+        //this.socket.postComment({ room: this.router.url, comment: msgPayload });
+        //this.socket.postComment(this.router.url);
+        this.socket.postAddComment({ room: this.router.url, payload: payload });
       }
     }
   }
@@ -132,10 +157,12 @@ export class CommentsComponent implements OnInit {
     var d = await this.data.deleteComment(msg.msgId, this.currentUserId);
     if (!(await this.checkComment(msg.msgId))){
       console.log('comment '+msg.msgId+' deleted');
-      const i = this.allComments.indexOf(msg);
+      //const i = this.allComments.indexOf(msg);
+      const i = this.allComments.map(x => x.msgId).indexOf(msg.msgId);
       if (i > -1) {
         this.allComments.splice(i, 1);
         this.changeDetectorRef.detectChanges();
+        this.socket.postDeleteComment({ room: this.router.url, msgId: msg.msgId });
       }
     }
   }

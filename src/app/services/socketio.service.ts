@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { API_URL} from '../config'
+import { API_URL} from '../config';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ import { API_URL} from '../config'
 export class SocketioService {
   public socket;
   constructor() {   }
+
+
   setupSocketConnection() {
     this.socket = io(API_URL);
     //this.socket.emit('comment', 'socket comment!');
@@ -16,11 +19,41 @@ export class SocketioService {
     //});
   }
 
-  postComment(msg){
-    this.socket.emit('comment', msg);
-    return this.socket.on('broadcast comment', (comment: string) => {
-      return comment;
-    })
+
+  postAddComment(msg){
+    this.socket.emit('postAddComment', msg);
+  }
+
+  newComment() {
+    return new Observable((observer) => {
+        this.socket.on('addcomment', (msg) => {
+          observer.next(msg);
+          //observer.complete();
+        });
+    });
+  }
+
+ postDeleteComment(msg) {
+   this.socket.emit('postDeleteComment', msg);
+ } 
+
+ deleteComment() {
+  return new Observable((observer) => {
+      this.socket.on('deletecomment', (msg) => {
+        observer.next(msg);
+        //observer.complete();
+      });
+  });
+}
+
+
+
+  joinRoom(room){
+    this.socket.emit('joinroom', room);
+  }
+
+  leaveRoom(room){
+    this.socket.emit('leaveroom', room);
   }
 
 

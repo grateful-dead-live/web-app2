@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit, ViewChild, Inject } from '@angular/core';
+import { Component, Input, ElementRef, AfterViewInit, ViewChild, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Title, DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import { VIEWS } from '../globals';
 //import * as Fuse from 'fuse.js';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { PlayerService } from '../services/player.service';
 //import { CookieService } from 'ngx-cookie-service';
 import { DEBUG } from '../config';
+import { SocketioService } from '../services/socketio.service';
 
 console.log = function(s){
   if (DEBUG) {
@@ -46,14 +47,19 @@ export class HeaderComponent {
   protected likes: number;
   //protected number_liked: number;
 
+  protected room: string;
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    private router: Router, public auth: AuthService, private player: PlayerService) {
+    private router: Router, public auth: AuthService, private player: PlayerService, public socketservice: SocketioService) {
 
       
     }
   
 ngOnInit() {
+
+  this.room = this.router.url;
+  this.socketservice.joinRoom(this.room);
+
   this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
 
   if (this.userId) {
@@ -88,6 +94,10 @@ ngOnInit() {
   logout(){
     this.auth.logout();
     this.player.removePlaylistFromStorage();
+  }
+
+  ngOnDestroy(){
+    //this.socketservice.leaveRoom(this.room);
   }
 
   async onSubmit(e){

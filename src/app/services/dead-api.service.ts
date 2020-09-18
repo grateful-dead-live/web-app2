@@ -210,4 +210,9 @@ export class DeadApiService {
     return this.getJsonFromApi('songindex');
   }
 
+  connectSocket(nsp: string) {
+    fetch(API_URL+'socket')
+
+  }
+
 }
