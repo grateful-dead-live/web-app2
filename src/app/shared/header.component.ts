@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { PlayerService } from '../services/player.service';
 //import { CookieService } from 'ngx-cookie-service';
-import { DEBUG } from '../config';
+import { DEBUG, SOCKETIO } from '../config';
 import { SocketioService } from '../services/socketio.service';
 
 console.log = function(s){
@@ -58,7 +58,7 @@ export class HeaderComponent {
 ngOnInit() {
 
   this.room = this.router.url;
-  this.socketservice.joinRoom(this.room);
+  if (SOCKETIO) this.socketservice.joinRoom(this.room);
 
   this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
 

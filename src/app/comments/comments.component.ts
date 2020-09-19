@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { SocketioService } from '../services/socketio.service';
-import { DEBUG } from '../config';
+import { DEBUG, SOCKETIO } from '../config';
 
 console.log = function(s){
   if (DEBUG) {
@@ -33,29 +33,24 @@ export class CommentsComponent implements OnInit {
   allComments:  Array<CommentPayload>;
 
   ngOnInit() { 
+    if (SOCKETIO) {
+      this.socket.newComment().subscribe((msg: any) => {
+        console.log(msg);
+        this.allComments.push(msg.payload);
+        }, err => {
+          console.log(err);
+      });
 
-    this.socket.newComment().subscribe((msg: any) => {
-      console.log(msg);
-      this.allComments.push(msg.payload);
-    }, err => {
-      console.log(err);
-    });
-
-
-    this.socket.deleteComment().subscribe((msg: any) => {
-      //console.log(this.allComments.map(x => x.msgId).indexOf(msg.msgId));
-      //console.log(msg.msg)
-      //console.log(this.allComments)
-      const i = this.allComments.map(x => x.msgId).indexOf(msg.msgId);
-      if (i > -1) {
-        this.allComments.splice(i, 1);
-        this.changeDetectorRef.detectChanges();
-      }
-
-    }, err => {
-      console.log(err);
-    });
-
+      this.socket.deleteComment().subscribe((msg: any) => {
+        const i = this.allComments.map(x => x.msgId).indexOf(msg.msgId);
+        if (i > -1) {
+          this.allComments.splice(i, 1);
+          this.changeDetectorRef.detectChanges();
+        }
+      }, err => {
+        console.log(err);
+      });
+    }
    this.getComments();
   }
 
@@ -82,7 +77,7 @@ export class CommentsComponent implements OnInit {
         this.allComments.push(payload);
         //this.socket.postComment({ room: this.router.url, comment: msgPayload });
         //this.socket.postComment(this.router.url);
-        this.socket.postAddComment({ room: this.router.url, payload: payload });
+        if (SOCKETIO) this.socket.postAddComment({ room: this.router.url, payload: payload });
       }
     }
   }
@@ -104,8 +99,6 @@ export class CommentsComponent implements OnInit {
     }
     this.changeDetectorRef.detectChanges();
   }
-
-
 
   async addComment(p){
     //let sp = this.socket.postComment('test');
@@ -162,7 +155,7 @@ export class CommentsComponent implements OnInit {
       if (i > -1) {
         this.allComments.splice(i, 1);
         this.changeDetectorRef.detectChanges();
-        this.socket.postDeleteComment({ room: this.router.url, msgId: msg.msgId });
+        if (SOCKETIO) this.socket.postDeleteComment({ room: this.router.url, msgId: msg.msgId });
       }
     }
   }

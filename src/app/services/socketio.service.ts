@@ -12,7 +12,15 @@ export class SocketioService {
 
 
   setupSocketConnection() {
-    this.socket = io(API_URL);
+
+    var connectionOptions =  {
+      //"force new connection" : true,
+      //"reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
+      //"timeout" : 10000,                  //before connect_error and connect_timeout are emitted.
+      //"transports" : ["websocket"]
+  };
+
+    this.socket = io('http://82.5.176.6:8080', connectionOptions);
     //this.socket.emit('comment', 'socket comment!');
     //this.socket.on('my broadcast', (data: string) => {
     //  console.log(data);

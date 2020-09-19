@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './auth.service';
-import { TRACKINGID, TRACKING } from './config';
+import { TRACKINGID, TRACKING, SOCKETIO } from './config';
 import { DOCUMENT } from '@angular/common';
 import { PlayerService } from './services/player.service';
 import { SocketioService } from './services/socketio.service';
@@ -54,7 +54,7 @@ export class AppComponent {
   }
 
   public ngOnInit() {
-    this.socketService.setupSocketConnection();
+    if (SOCKETIO) this.socketService.setupSocketConnection();
     this.googleAnalytics();
   }
 
