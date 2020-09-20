@@ -34,15 +34,15 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() { 
     if (SOCKETIO) {
-      this.socket.newComment().subscribe((msg: any) => {
-        console.log(msg);
-        this.allComments.push(msg.payload);
+      this.socket.newComment().subscribe((payload: any) => {
+        console.log(payload);
+        this.allComments.push(payload);
         }, err => {
           console.log(err);
       });
 
-      this.socket.deleteComment().subscribe((msg: any) => {
-        const i = this.allComments.map(x => x.msgId).indexOf(msg.msgId);
+      this.socket.deleteComment().subscribe((msgId: any) => {
+        const i = this.allComments.map(x => x.msgId).indexOf(msgId);
         if (i > -1) {
           this.allComments.splice(i, 1);
           this.changeDetectorRef.detectChanges();

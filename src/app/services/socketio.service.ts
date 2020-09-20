@@ -54,6 +54,18 @@ export class SocketioService {
   });
 }
 
+postLike(msg) {
+  this.socket.emit('postLike', msg);
+} 
+
+like() {
+ return new Observable((observer) => {
+     this.socket.on('like', (msg) => {
+       observer.next(msg);
+       //observer.complete();
+     });
+ });
+}
 
 
   joinRoom(room){

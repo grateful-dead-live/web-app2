@@ -50,15 +50,31 @@ export class HeaderComponent {
   protected room: string;
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    private router: Router, public auth: AuthService, private player: PlayerService, public socketservice: SocketioService) {
+    private router: Router, public auth: AuthService, private player: PlayerService, public socket: SocketioService) {
 
       
     }
   
 ngOnInit() {
 
+  this.bookmarked = false;
+  this.liked = false;
+  this.searchState = 0;
+  this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
+
   this.room = this.router.url;
-  if (SOCKETIO) this.socketservice.joinRoom(this.room);
+  if (SOCKETIO) {
+    this.socket.joinRoom(this.room);
+
+    this.socket.like().subscribe((msg: number) => {
+      console.log(msg);
+      this.countLikes;
+      }, err => {
+        console.log(err);
+    });
+  }
+
+
 
   this.titleService.setTitle('Grateful Live - '+this.title+', '+this.subtitle);
 
@@ -71,10 +87,7 @@ ngOnInit() {
           };
   }
   
-  this.bookmarked = false;
-  this.liked = false;
-  this.searchState = 0;
-  this.image = this.sanitizer.bypassSecurityTrustStyle('url('+this.imageUrl+')');
+  
   
   if (!( (this.router.url == '/about') || (this.router.url == '/mapselect') || (this.router.url == '/profile') ))
     this.countLikes();
@@ -97,7 +110,7 @@ ngOnInit() {
   }
 
   ngOnDestroy(){
-    //this.socketservice.leaveRoom(this.room);
+    //this.socket.leaveRoom(this.room);
   }
 
   async onSubmit(e){
@@ -145,19 +158,23 @@ ngOnInit() {
     } else {
       await this.data.unlike(this.userId, this.router.url);
     }
-    this.checkLike();
+    this.checkLike(true);
+    
   }
 
-  async checkLike(){
+  async checkLike(click=false){
     var b = await this.data.checkLike(this.userId, this.router.url);
     this.liked = Boolean(JSON.parse(b));
-    this.countLikes()
+    this.countLikes();
+    if (SOCKETIO && click) this.socket.postLike({ room: this.router.url, msg: 1 });
     console.log("like: "+this.liked)
   }
 
   async countLikes(){
     this.likes  = await this.data.countLikes(this.router.url);
-    console.log("likes: "+this.likes)
+    console.log("likes: "+this.likes);
+    
+    
   }
 
 }
