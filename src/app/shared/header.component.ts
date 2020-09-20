@@ -68,7 +68,7 @@ ngOnInit() {
 
     this.socket.like().subscribe((msg: number) => {
       console.log(msg);
-      this.countLikes;
+      this.countLikes();
       }, err => {
         console.log(err);
     });
