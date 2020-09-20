@@ -56,7 +56,7 @@
                 (keyup)="onKeyUp(commentText)"
                 maxlength="{{inputMaxLength}}"></textarea>
           <button *ngIf="currentUserId" type="button" (click)="addComment(commentText)">send</button> 
-          <button style="float: right; margin-right: 16px;" (click)="onRefreshButton()">refresh</button>
+          <button *ngIf="!socketIo" style="float: right; margin-right: 16px;" (click)="onRefreshButton()">refresh</button>
         </div>
         <div *ngIf="currentUserId" class="character-count">
             {{typedCommentTextLength}} / {{inputMaxLength}} characters

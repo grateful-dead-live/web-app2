@@ -21,6 +21,7 @@ import { CommentPayload } from '../services/types'
     @Input() inputMaxLength: number;
     @Input() placeholderText: string;
     @Input() currentUserId: string;
+    @Input() socketIo: boolean;
 
     @Output() valueChange = new EventEmitter();
     @Output() onKeyupEnter = new EventEmitter();

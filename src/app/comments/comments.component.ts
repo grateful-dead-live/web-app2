@@ -26,16 +26,18 @@ export class CommentsComponent implements OnInit {
   @Input() heading = 'comments';
   //headerImage  =  '../assets/logo.png';
   showErrorDiv:  boolean;
-  errorMsg  =  'This is an error';
-  inputMaxLength  =  100;
+  errorMsg = 'This is an error';
+  inputMaxLength = 100;
   placeholderText=  'Write a comment!';
-  @Input() currentUserId:  string;
+  @Input() currentUserId: string;
   allComments:  Array<CommentPayload>;
+  socketIo = SOCKETIO;
+
 
   ngOnInit() { 
     if (SOCKETIO) {
       this.socket.newComment().subscribe((payload: any) => {
-        console.log(payload);
+        console.log('add comment');
         this.allComments.push(payload);
         }, err => {
           console.log(err);
