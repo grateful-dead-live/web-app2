@@ -20,7 +20,7 @@ export class SocketioService {
       //"transports" : ["websocket"]
   };
 
-    this.socket = io('http://82.5.176.6:8080', connectionOptions);
+    this.socket = io(API_URL, connectionOptions);
     //this.socket.emit('comment', 'socket comment!');
     //this.socket.on('my broadcast', (data: string) => {
     //  console.log(data);
