@@ -30,6 +30,8 @@ export class SongComponent {
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
   public currentUser: any = { userName: '', userId: ''};
+  public videos: any;
+  public currentVideoId: string;
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
@@ -61,8 +63,12 @@ export class SongComponent {
     this.route.paramMap.subscribe(async params => {
       if (params.has('id')) {
         this.song = await this.data.getSong(params.get('id'));
+      }
+      if (params.has('id') && this.song) {
+
         this.subtitle = _.uniq(this.song.composedBy.concat(this.song.lyricsBy)
           .map(a => a.name)).join(', ');
+          
         this.events = await this.data.getEventInfos(this.song.eventIds);
         if (this.events.length) {
           this.firstPlayed = this.events[0].date;
@@ -70,10 +76,14 @@ export class SongComponent {
           this.timesPlayed = this.events.length;
           this.totalRecordings = _.sum(this.events.map(e => e.recordings.length));
         }
+        
+        this.videos = await this.data.getYoutubeList(this.song.id, ['Grateful Dead', this.song.name]);
+        this.currentVideoId = this.videos[0].videoId;
+        console.log(this.videos);
       }
-      if (!this.song) {
-        this.router.navigate(['/song', (await this.data.getRandomSong()).id],
-          { replaceUrl: true });
+      else {
+        this.router.navigate(['/mapselect'], { replaceUrl: true });
+        //this.router.navigate(['/song', (await this.data.getRandomSong()).id], { replaceUrl: true });
       }
     });
   }
