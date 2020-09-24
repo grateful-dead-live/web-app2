@@ -68,7 +68,7 @@ import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { LightboxModule } from 'ngx-lightbox';
 import { LightboxService } from './services/lightbox.service';
 import { SocketioService } from './services/socketio.service';
-
+import { AnchorScrollService } from './services/anchor-scroll.service';
 
 @NgModule({
   declarations: [

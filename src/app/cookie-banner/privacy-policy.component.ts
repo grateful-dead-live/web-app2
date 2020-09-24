@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service'; 
-import { TRACKINGID } from '../config'
+import { TRACKINGID } from '../config';
+import { AnchorScrollService } from '../services/anchor-scroll.service';
 
 @Component({
   selector: 'privacy-policy',
@@ -9,7 +10,7 @@ import { TRACKINGID } from '../config'
 })
 export class PrivacyPolicyComponent implements OnInit {
 
-  public constructor(private cookieService: CookieService,
+  public constructor(private cookieService: CookieService, public anchor: AnchorScrollService, 
               @Inject('window') private window) {
   }
 
@@ -17,6 +18,7 @@ export class PrivacyPolicyComponent implements OnInit {
 
 
   public ngOnInit() {
+    this.anchor.listen();
   }
 
   public removeCookie() {

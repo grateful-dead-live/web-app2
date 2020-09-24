@@ -26,6 +26,8 @@ a.disabled {
     <p style="cursor:pointer" class="w3-opacity"><i><u routerLink="/mapselect">click to enter</u></i></p>
       </div>
 
+
+      
   <div class="w3-container w3-content w3-center" style="max-width:800px" id="overviewstart">
       <p class="w3-justify">
           The Grateful Dead Concert Explorer is a Web application that enables user to navigate and explore digital libraries of live music recordings and discover and share associated artifacts that are dynamically linked within the application. It aims to demonstrate how Semantic Audio and Linked Data technologies can produce an improved user experience for browsing and exploring live music collections, by collecting information from a variety of different Web sources and employing Music Information Retrieval (MIR) techniques. 
@@ -46,7 +48,7 @@ a.disabled {
           <li>Audio alignment of different user-generated recordings of live-music performances</li>
       </ul>
       <p class="w3-justify">
-      The main functions of the current version are described in the following. Clicking on the top left logo opens a menu with links to this start page and the <a href="#mapstart"><u><i>Map View</i></u></a>.
+      The main functions of the current version are described in the following. Clicking on the top left logo opens a menu with links to this start page and the <a routerLink="." fragment="mapstart"><u><i>Map View</i></u></a>.
     </p>
   </div>
 
@@ -54,7 +56,7 @@ a.disabled {
       <h3 class="w3-wide">Map View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_map.png" alt="map view" style="width:90%">
       <p class="w3-justify">
-        The <i>Map View</i> shows the world map with markers indicating the locations of concerts. Clicking on a marker opens a menu with links to the pages for the venue (<a href="#venuestart"><u><i>Venue View</i></u></a>), and to the pages for the concerts at that location (<a href="#showstart"><u><i>Show View</i></u></a>). While by default all concert locations are displayed, specific tours can be selected from the pull-down menu on the top left. When selecting a tour, only the concerts from the tour are displayed on the map and connected by arrows indicating the order of concerts. The map also has a separate search function covering the concerts on the map.
+        The <i>Map View</i> shows the world map with markers indicating the locations of concerts. Clicking on a marker opens a menu with links to the pages for the venue (<a routerLink="." fragment="venuestart"><u><i>Venue View</i></u></a>), and to the pages for the concerts at that location (<a routerLink="." fragment="showstart"><u><i>Show View</i></u></a>). While by default all concert locations are displayed, specific tours can be selected from the pull-down menu on the top left. When selecting a tour, only the concerts from the tour are displayed on the map and connected by arrows indicating the order of concerts. The map also has a separate search function covering the concerts on the map.
       </p>
   </div>
 
@@ -62,7 +64,7 @@ a.disabled {
       <h3 class="w3-wide">Show View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_show.png" alt="show view" style="width:90%">
       <p class="w3-justify">
-        The <i>Show View</i>&nbsp; shows information about a specific concert, including the location, venue, the setlist, the lineup and the additional recordings available in the archive. The button next to the recording IDs opens a dialogue to either go to the <a href="#recordingstart"><u><i>Recording View</i></u></a>&nbsp; for the selected recording, or add all songs of the concert recording to the playlist of the <a href="#playerstart"><u>audio player</u></a>. One can navigate to other pages by clicking on any item, for instance, clicking on the venue opens the <a href="#venuestart"><u><i>Venue View</i></u></a>&nbsp; for the respective venue. Clicking on the button next to a song opens a dialogue to either go to the <a href="#songstart"><u><i>Song View</i></u></a>&nbsp; or add the song to the playlist of the <a href="#playerstart"><u>audio player</u></a>. Clicking on photos or other artifacts either opens a higher resolution image or opens the source page at the <a href="https://www.gdao.org/" target="_blank"><u>Grateful Dead Archive Online (GDAO)</u></a> in a new tab.
+        The <i>Show View</i>&nbsp; shows information about a specific concert, including the location, venue, the setlist, the lineup and the additional recordings available in the archive. The button next to the recording IDs opens a dialogue to either go to the <a routerLink="." fragment="recordingstart"><u><i>Recording View</i></u></a>&nbsp; for the selected recording, or add all songs of the concert recording to the playlist of the <a routerLink="." fragment="playerstart"><u>audio player</u></a>. One can navigate to other pages by clicking on any item, for instance, clicking on the venue opens the <a routerLink="." fragment="venuestart"><u><i>Venue View</i></u></a>&nbsp; for the respective venue. Clicking on the button next to a song opens a dialogue to either go to the <a routerLink="." fragment="songstart"><u><i>Song View</i></u></a>&nbsp; or add the song to the playlist of the <a routerLink="." fragment="playerstart"><u>audio player</u></a>. Clicking on photos or other artifacts either opens a higher resolution image or opens the source page at the <a href="https://www.gdao.org/" target="_blank"><u>Grateful Dead Archive Online (GDAO)</u></a> in a new tab.
       </p>
   </div>
 
@@ -70,7 +72,7 @@ a.disabled {
       <h3 class="w3-wide">Song View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_song.png" alt="song view" style="width:90%">
       <p class="w3-justify">
-        The <i>Song View</i> shows information about a selected song. This includes the composers at the top of the page and the number of performances and recordings available. Clicking on an item in the list of shows opens the <a href="#showstart"><u><i>Show View</i></u></a>. The button next to the location opens a dialogue which additionally lets the user add the song from the respective show to the playlist of the <a href="#playerstart"><u>audio player</u></a>. The dialogue shows all available recordings from the selected concert.
+        The <i>Song View</i> shows information about a selected song. This includes the composers at the top of the page and the number of performances and recordings available. Clicking on an item in the list of shows opens the <a routerLink="." fragment="showstart"><u><i>Show View</i></u></a>. The button next to the location opens a dialogue which additionally lets the user add the song from the respective show to the playlist of the <a routerLink="." fragment="playerstart"><u>audio player</u></a>. The dialogue shows all available recordings from the selected concert.
       </p>
   </div>
 
@@ -78,7 +80,7 @@ a.disabled {
       <h3 class="w3-wide">Location View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_location.png" alt="location view" style="width:90%">
       <p class="w3-justify">
-        The <i>Location View</i> shows information about a city where concerts were held. The list of shows provides links to the <a href="#showstart"><u><i>Show View</i></u></a>&nbsp; for all shows at that location.
+        The <i>Location View</i> shows information about a city where concerts were held. The list of shows provides links to the <a routerLink="." fragment="showstart"><u><i>Show View</i></u></a>&nbsp; for all shows at that location.
       </p>
   </div>
 
@@ -86,7 +88,7 @@ a.disabled {
       <h3 class="w3-wide">Venue View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_venue.png" alt="venue view" style="width:90%">
       <p class="w3-justify">
-          The <i>Venue View</i> shows information about a venue where concerts were held. The list of shows provides links to the <a href="#showstart"><u><i>Show View</i></u></a>&nbsp; for all shows at that venue.
+          The <i>Venue View</i> shows information about a venue where concerts were held. The list of shows provides links to the <a routerLink="." fragment="showstart"><u><i>Show View</i></u></a>&nbsp; for all shows at that venue.
       </p>
   </div>
 
@@ -94,7 +96,7 @@ a.disabled {
       <h3 class="w3-wide">Recording View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_recording.png" alt="recording view" style="width:90%">
       <p class="w3-justify">
-        The <i>Recording View</i> shows information about a specific recording from the <a href="https://archive.org/details/etree" target="_blank"><u>Live Music Archive</u></a> at the <a href="https://archive.org/" target="_blank"><u>Internet Archive</u></a>. The information includes source and lineage information of the recording, as well as the list of songs. Clicking on the button next to a song opens a dialogue to add the selected song to the playlist of the <a href="#playerstart"><u>audio player</u></a>. Clicking on the logo under the track list opens the page for the recording at the <a href="https://archive.org/" target="_blank"><u>Internet Archive</u></a> in a new tab.
+        The <i>Recording View</i> shows information about a specific recording from the <a href="https://archive.org/details/etree" target="_blank"><u>Live Music Archive</u></a> at the <a href="https://archive.org/" target="_blank"><u>Internet Archive</u></a>. The information includes source and lineage information of the recording, as well as the list of songs. Clicking on the button next to a song opens a dialogue to add the selected song to the playlist of the <a routerLink="." fragment="playerstart"><u>audio player</u></a>. Clicking on the logo under the track list opens the page for the recording at the <a href="https://archive.org/" target="_blank"><u>Internet Archive</u></a> in a new tab.
       </p>
   </div>
 
@@ -102,7 +104,7 @@ a.disabled {
       <h3 class="w3-wide">Audio Player</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_player.png" alt="audio player" style="width:90%">
       <p class="w3-justify">
-        The audio player at the bottom of the page streams audio directly from the <a href="https://archive.org/details/etree" target="_blank"><u>Live Music Archive</u></a>. Songs can be added to the playlist from the Web application where songs are listed, for instance in the <a href="#showstart"><u><i>Show View</i></u></a>, <a href="#recordingstart"><u><i>Recording View</i></u></a>&nbsp; or <a href="#songstart"><u><i>Song View</i></u></a>. In addition to the standard functions (play, stop, volume, etc.), the button with the eye symbol expands/hides the waveform view and playlist.
+        The audio player at the bottom of the page streams audio directly from the <a href="https://archive.org/details/etree" target="_blank"><u>Live Music Archive</u></a>. Songs can be added to the playlist from the Web application where songs are listed, for instance in the <a routerLink="." fragment="showstart"><u><i>Show View</i></u></a>, <a routerLink="." fragment="recordingstart"><u><i>Recording View</i></u></a>&nbsp; or <a routerLink="." fragment="songstart"><u><i>Song View</i></u></a>. In addition to the standard functions (play, stop, volume, etc.), the button with the eye symbol expands/hides the waveform view and playlist.
       </p>
   </div>
 

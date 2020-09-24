@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
 import { EMAILADDRESS, DEBUG } from '../config';
+import { AnchorScrollService } from '../services/anchor-scroll.service';
 
 console.log = function(s){
   if (DEBUG) {
@@ -22,13 +23,15 @@ export class StartComponent {
   public email: string;
   
   constructor(private sanitizer: DomSanitizer,
-    public auth: AuthService) {
+    public auth: AuthService, public anchor: AnchorScrollService) {
 
       
 
     }
 
   ngOnInit() {
+
+    this.anchor.listen();
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {
