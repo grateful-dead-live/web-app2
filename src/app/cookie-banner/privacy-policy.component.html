@@ -55,14 +55,16 @@
  <gd-header title="Privacy Policy" subtitle="">
 </gd-header>
     <br>
+    <div style="margin-right: 75px; margin-left: 75px;">
     <div>
-        scroll down to agree/revoke
+        <button onclick="gaOptIn()">Agree</button>
+    <button onclick="gaOptOut()">Revoke</button>
     </div>
     <!--button (click)="agreeToShare()">Agree</button-->
     <!--button (click)="removeCookie()">Revoke</button-->
     <br>
     
-
+    
     <div data-custom-class="body">
         <div>
           <strong><span style="font-size: 26px;"><span data-custom-class="title">PRIVACY
@@ -1547,7 +1549,7 @@
                                                 "color: rgb(89, 89, 89); font-size: 15px;"><span data-custom-class="body_text">
                                                 email us at <span class=
                                                 "question">gdconcertexplorer@gmail.com</span>
-                                                </span></span>. 
+                                                </span></span> 
                                             </span></span></span>
                                             </div>
                                                 <!--
@@ -1672,14 +1674,11 @@
           </div>
         </div>
       </div>
-    
+    </div>
 
-</div>
+
 
 <br>
-<button onclick="gaOptIn()">Agree</button>
-    <button onclick="gaOptOut()">Revoke</button>
-
     <div style=
     "color: #595959;font-size: 10px;font-family: Arial;padding-top:16px;">
     This privacy policy was created using <a style=
@@ -1687,4 +1686,5 @@
     "https://termly.io/products/privacy-policy-generator/?ftseo">
       Termly&rsquo;s Privacy Policy Generator</a>.
     </div>
+</div>
 <p [style.margin-bottom]="'150px'"></p>
