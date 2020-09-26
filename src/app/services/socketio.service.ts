@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { API_URL} from '../config';
+import { WSS_URL} from '../config';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,12 +17,12 @@ export class SocketioService {
       //"force new connection" : true,
       //"reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
       //"timeout" : 10000,                  //before connect_error and connect_timeout are emitted.
-      //"transports" : ['websocket'],
+      "transports" : ['websocket'],
       //path: '/dead/socket.io',
       //secure: true
   };
 
-    this.socket = io(API_URL, connectionOptions);
+    this.socket = io(WSS_URL, connectionOptions);
     //this.socket.emit('comment', 'socket comment!');
     //this.socket.on('my broadcast', (data: string) => {
     //  console.log(data);

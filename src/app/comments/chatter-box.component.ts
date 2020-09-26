@@ -45,6 +45,7 @@ import { CommentPayload } from '../services/types'
     addComment(comment){
         this.onKeyupEnter.emit(comment);
         this.commentText = '';
+        this.typedCommentTextLength = 0;
     }
 
     onKeyUp(input){
