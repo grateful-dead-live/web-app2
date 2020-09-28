@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { AuthService } from '../auth.service';
+
+
+declare let gtag: Function;
 
 @Component({
   selector: 'app-index',
@@ -15,10 +18,22 @@ export class IndexComponent implements OnInit {
   public locations: any;
   public songs: any;
   public test: string;
+  public currentUser: any = { userName: '', userId: ''};
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, public auth: AuthService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+      }
+    });
+    
     this.selected = 'shows';
     this.onSelectButton('shows');
   }
