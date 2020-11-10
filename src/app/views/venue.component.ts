@@ -57,7 +57,7 @@ export class VenueComponent {
         this.location = (await this.data.getEventInfo(this.venue.eventIds[0])).location;
         if (this.venue) {
           this.videos = await this.data.getYoutubeList(this.venue.id, ['Grateful Dead', this.location, this.venue.name]);
-          this.currentVideoId = this.videos[0].videoId;
+          if (this.videos) this.currentVideoId = this.videos[0].videoId;
           console.log(this.videos);
         }
       }

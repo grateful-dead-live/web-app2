@@ -63,7 +63,7 @@ export class LocationComponent {
 
       if (params.has('id') && this.location.state) {
         this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
-        this.currentVideoId = this.videos[0].videoId;
+        if (this.videos) this.currentVideoId = this.videos[0].videoId;
         console.log(this.videos);
         }
       else {
