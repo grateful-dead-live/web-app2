@@ -55,11 +55,12 @@ export class ShowMapComponent {
       this.mapOptions = {
         layers: [
           //L.tileLayer('https://a.tiles.mapbox.com/v3/villeda.c4c63d13/{z}/{x}/{y}.png',
-          //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           //L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p4an0/{z}/{x}/{y}.png',
-          L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p72bl/{z}/{x}/{y}.png',
+          //L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p72bl/{z}/{x}/{y}.png',
           //L.tileLayer('https://a.tiles.mapbox.com/v3/smmaurer.k59p92aj/{z}/{x}/{y}.png',
           //L.tileLayer('https://a.tiles.mapbox.com/v3/aj.03e9e12d/{z}/{x}/{y}.png',
+
             { maxZoom: 18, attribution: '...' })],
         zoom: this.zoom,
         center: L.latLng(45, -70)
