@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -70,6 +70,8 @@ import { LightboxService } from './services/lightbox.service';
 import { SocketioService } from './services/socketio.service';
 import { AnchorScrollService } from './services/anchor-scroll.service';
 
+import {NgxPaginationModule} from 'ngx-pagination'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,6 +109,7 @@ import { AnchorScrollService } from './services/anchor-scroll.service';
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
@@ -122,7 +125,8 @@ import { AnchorScrollService } from './services/anchor-scroll.service';
     YouTubePlayerModule,
     NgSelectModule,
     Ng2CarouselamosModule,
-    LightboxModule
+    LightboxModule,
+    NgxPaginationModule
   ],
   providers: [
     DeadApiService,

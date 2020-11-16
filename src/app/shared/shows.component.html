@@ -1,5 +1,5 @@
 <div fxLayout="column" class="gd-container">
-  <div *ngFor="let e of events" fxLayout="row" fxLayoutAlign=" center">
+  <div *ngFor="let e of events | paginate: { itemsPerPage: 10, currentPage: p }" fxLayout="row" fxLayoutAlign=" center">
     <img fxLayout="column" class="image field" fxFlex="1 1 15%"
       [style.width]="'80px'" [style.height]="'60px'"
       [defaultImage]="'assets/gd_placeholder.png'"
@@ -46,6 +46,11 @@
     </button>
     -->
   </div>
-</div>
+  <div *ngIf="pages > 1">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>  
 
+    <input type="text" [formControl]="pageNum" (keypress)="keyPress($event)" (keyup.enter)="goToPage(pageNum)" style="width: 25px; float: right">
+    <button (click)="goToPage(pageNum)" style="width: 100px;">go to page</button>
+  </div>
+</div>
 <p [style.margin-bottom]="'75px'"></p>

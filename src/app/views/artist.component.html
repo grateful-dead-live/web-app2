@@ -19,9 +19,7 @@
     <div class="gd-container" fxLayout="column">
       <div *ngFor="let song of artist.compositions" fxLayout="row" fxLayoutAlign="space-between center">
         <span [routerLink]="['/song', song.id]">{{ song.name }}</span>
-        <!--button mat-icon-button (click)="openSongOptionsDialog(song)">
-          <mat-icon>more_horiz</mat-icon>
-        </button-->
+
       </div>
     </div>
   </div>
@@ -29,6 +27,7 @@
   <p *ngIf="artist.eventIds.length" class="gd-section">{{artist.name}} played with the Dead on:</p>
   
   <gd-shows [eventIds]="artist.eventIds"></gd-shows>
+  
   <gd-comments [userName]="currentUser.userName" [currentUserId]="currentUser.userId" [title]="artist.name+', '+artist.instruments.join(', ').split('_').join(' ')"></gd-comments>
   <br>
   <gd-sharebuttons></gd-sharebuttons>
