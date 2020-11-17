@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { DeadEventInfo } from '../services/types';
 import { FormControl } from '@angular/forms';
@@ -18,9 +18,26 @@ export class ShowsComponent {
   
   constructor(private data: DataService) {}
   
-  async ngOnInit() {
+  ngOnInit() {
+    //this.events = await this.data.getEventInfos(this.eventIds);
+    //this.pages = Math.ceil(this.events.length/10)
+  }
+
+  async refresh() {
     this.events = await this.data.getEventInfos(this.eventIds);
     this.pages = Math.ceil(this.events.length/10)
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'eventIds': {
+            this.refresh();
+          }
+        }
+      }
+    }
   }
 
   goToPage(n){

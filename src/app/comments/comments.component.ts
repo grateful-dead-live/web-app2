@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { CommentPayload } from '../services/types';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
@@ -53,7 +53,22 @@ export class CommentsComponent implements OnInit {
         console.log(err);
       });
     }
-   this.getComments();
+  }
+
+  refresh() {
+    this.getComments();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'title': {
+            this.refresh();
+          }
+        }
+      }
+    }
   }
 
   async sendMessage(msgPayload:  string) {
