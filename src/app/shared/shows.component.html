@@ -49,7 +49,7 @@
   <div *ngIf="pages > 1">
     <pagination-controls (pageChange)="p = $event"></pagination-controls>  
 
-    <input type="text" [formControl]="pageNum" (keypress)="keyPress($event)" (keyup.enter)="goToPage(pageNum)" style="width: 25px; float: right">
+    <input type="text" [formControl]="pageNum" (keypress)="keyPress($event)" (keyup.enter)="goToPage(pageNum)" style="width: 25px;">
     <button (click)="goToPage(pageNum)" style="width: 100px;">go to page</button>
   </div>
 </div>
