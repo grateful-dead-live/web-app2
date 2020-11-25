@@ -6,11 +6,13 @@ import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AUTH0DOMAIN, AUTH0CLIENTID} from './config';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   // Create an observable of Auth0 instance of client
+  private urlFromAuth0: string;
   auth0Client$ = (from(
     createAuth0Client({
       domain: AUTH0DOMAIN,
@@ -32,7 +34,8 @@ export class AuthService {
     tap(res => this.loggedIn = res)
   );
   handleRedirectCallback$ = this.auth0Client$.pipe(
-    concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
+    //concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
+    concatMap((client: Auth0Client) => from(client.handleRedirectCallback(this.urlFromAuth0)))
   );
   // Create subject and public observable of user profile data
   private userProfileSubject$ = new BehaviorSubject<any>(null);
@@ -89,6 +92,7 @@ export class AuthService {
 
   private handleAuthCallback() {
     // Call when app reloads after user logs in with Auth0
+    this.urlFromAuth0 = window.location.href;
     const params = window.location.search;
     if (params.includes('code=') && params.includes('state=')) {
       let targetRoute: string; // Path to redirect to after login processsed
