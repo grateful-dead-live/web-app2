@@ -2,6 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service'; 
 import { TRACKINGID } from '../config';
 import { AnchorScrollService } from '../services/anchor-scroll.service';
+import { AuthService } from '../auth.service';
+
+declare let gtag: Function
 
 @Component({
   selector: 'privacy-policy',
@@ -10,14 +13,26 @@ import { AnchorScrollService } from '../services/anchor-scroll.service';
 })
 export class PrivacyPolicyComponent implements OnInit {
 
-  public constructor(private cookieService: CookieService, public anchor: AnchorScrollService, 
+  public constructor(private cookieService: CookieService, public anchor: AnchorScrollService, public auth: AuthService,
               @Inject('window') private window) {
   }
 
   public showBanner: Boolean;
+  public currentUser: any = { userName: '', userId: ''};
 
 
-  public ngOnInit() {
+  async ngOnInit() {
+    this.auth.userProfile$.subscribe(userProfile => {
+      if (userProfile){
+        this.currentUser = {
+          userId: userProfile.sub.split("|")[1],
+          userName: userProfile['http://example.com/username']
+        }
+        gtag('set', {'user_id': this.currentUser.userId});
+        
+      }
+    });
+
     this.anchor.listen();
   }
 
