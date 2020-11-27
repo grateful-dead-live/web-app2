@@ -19,7 +19,7 @@ declare let gtag: Function;
 })
 export class StartComponent {
 
-  public currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: 'None' };
   public email: string;
   
   constructor(private sanitizer: DomSanitizer,

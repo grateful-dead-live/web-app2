@@ -29,7 +29,7 @@ export class SongComponent {
   protected timesPlayed: number;
   protected totalRecordings: number;
   protected events: DeadEventInfo[];
-  public currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: 'None' };
   public videos: any;
   public currentVideoId: string;
 

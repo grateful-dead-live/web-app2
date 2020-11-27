@@ -25,7 +25,7 @@ export class VenueComponent {
   public videos: any;
   public currentVideoId: string;
 
-  protected currentUser: any = { userName: '', userId: ''};
+  protected currentUser: any = { userName: '', userId: 'None' };
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {}

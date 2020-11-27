@@ -18,7 +18,7 @@ export class IndexComponent implements OnInit {
   public locations: any;
   public songs: any;
   public test: string;
-  public currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: 'None' };
 
   constructor(private data: DataService, public auth: AuthService) { }
 

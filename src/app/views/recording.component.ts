@@ -22,7 +22,7 @@ declare let gtag: Function;
 export class RecordingComponent {
   protected recording: RecordingDetails;
   protected event: DeadEventInfo;
-  public currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: 'None' };
   protected tracklist: any[];
   public recordinginfo: RecordingInfo;
   protected _array = Array;

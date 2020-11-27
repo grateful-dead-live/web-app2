@@ -19,7 +19,7 @@ declare let gtag: Function;
 export class AppComponent {
   //protected start: Boolean;
   //private cookieValue: string;
-  protected currentUser: any = { userName: '', userId: '' };
+  protected currentUser: any = { userName: '', userId: 'None' };
 
   constructor(public router:Router, public auth: AuthService, @Inject(DOCUMENT) private doc: any, private player: PlayerService,
     private socketService: SocketioService, private title: Title) {
@@ -53,16 +53,17 @@ export class AppComponent {
           //console.log('cached: ' + cached_title);
         }
         if(event instanceof NavigationEnd){
-          while (this.title.getTitle() === cached_title){  // wait for new page title
+          while (this.title.getTitle() === cached_title){  // wait for new page title (needs to be unique for each URL)
             await this.sleep(50);
             console.log('waiting for page title')
           }
           console.log('title: ' + this.title.getTitle());
+          gtag('set', {'user_id': this.currentUser.userId});
           gtag('config', TRACKINGID, 
-                {
-                  'page_path': event.urlAfterRedirects
-                }
-                );
+            {
+              'page_path': event.urlAfterRedirects
+            }
+          );
         }
       }); 
     }

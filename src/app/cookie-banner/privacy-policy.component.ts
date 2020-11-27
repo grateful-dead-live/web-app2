@@ -18,7 +18,7 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   public showBanner: Boolean;
-  public currentUser: any = { userName: '', userId: ''};
+  public currentUser: any = { userName: '', userId: 'None' };
 
 
   async ngOnInit() {
