@@ -1,10 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { AuthService } from './auth.service';
 import { TRACKINGID, TRACKING, SOCKETIO } from './config';
 import { DOCUMENT } from '@angular/common';
 import { PlayerService } from './services/player.service';
 import { SocketioService } from './services/socketio.service';
+import { Title } from '@angular/platform-browser';
 
 declare let gtag: Function;
 
@@ -21,7 +22,8 @@ export class AppComponent {
   protected currentUser: any = { userName: '', userId: '' };
 
   constructor(public router:Router, public auth: AuthService, @Inject(DOCUMENT) private doc: any, private player: PlayerService,
-    private socketService: SocketioService) {
+    private socketService: SocketioService, private title: Title) {
+    
     //router.events.forEach((event) => {
     //  if (router.url.includes('/about')) {  
     //    this.start = true; 
@@ -40,24 +42,39 @@ export class AppComponent {
       }
     });
     
-    this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd && TRACKING){
+  }
+
+  public ngOnInit() {
+    var cached_title;
+    if (TRACKING) {
+      this.router.events.subscribe(async(event) => {
+        if(event instanceof NavigationStart){
+          cached_title = this.title.getTitle();
+          //console.log('cached: ' + cached_title);
+        }
+        if(event instanceof NavigationEnd){
+          while (this.title.getTitle() === cached_title){  // wait for new page title
+            await this.sleep(50);
+            console.log('waiting for page title')
+          }
+          console.log('title: ' + this.title.getTitle());
           gtag('config', TRACKINGID, 
                 {
                   'page_path': event.urlAfterRedirects
                 }
-               );
-       }
-    }); 
+                );
+          cached_title = this.title.getTitle()
+        }
+      }); 
+    }
 
-
-  }
-
-  public ngOnInit() {
     if (SOCKETIO) this.socketService.setupSocketConnection();
     this.googleAnalytics();
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms || 10));
+  }
 
   private scriptHtml(html, src){
     const s = this.doc.createElement('script');
