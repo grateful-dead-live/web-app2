@@ -63,7 +63,6 @@ export class AppComponent {
                   'page_path': event.urlAfterRedirects
                 }
                 );
-          cached_title = this.title.getTitle()
         }
       }); 
     }
