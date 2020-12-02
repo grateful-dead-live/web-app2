@@ -45,6 +45,7 @@ export class AppComponent {
   }
 
   public ngOnInit() {
+    this.googleAnalytics();
     var cached_title;
     if (TRACKING) {
       this.router.events.subscribe(async(event) => {
@@ -53,7 +54,7 @@ export class AppComponent {
           //console.log('cached: ' + cached_title);
         }
         if(event instanceof NavigationEnd){
-          while (this.title.getTitle() === cached_title){  // wait for new page title (needs to be unique for each URL)
+          while (this.title.getTitle() === cached_title){  // wait for new page title
             await this.sleep(50);
             console.log('waiting for page title')
           }
@@ -69,7 +70,7 @@ export class AppComponent {
     }
 
     if (SOCKETIO) this.socketService.setupSocketConnection();
-    this.googleAnalytics();
+    
   }
 
   sleep(ms) {

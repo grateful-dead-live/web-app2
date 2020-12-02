@@ -5,6 +5,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import * as Fuse from 'fuse.js'; // imported in angular.json
 import * as _ from 'lodash';
 import { DEBUG } from '../config';
+import { GoogleAnalyticsService } from '../services/google-analytics.service';
 
 console.log = function(s){
   if (DEBUG) {
@@ -43,7 +44,7 @@ export class ShowMapComponent {
   public timeOut: boolean;
   
 
-  constructor(protected data: DataService, private sanitizer: DomSanitizer) {}
+  constructor(protected data: DataService, private sanitizer: DomSanitizer, protected googleAnalyticsService: GoogleAnalyticsService) {}
 
 
   ngOnInit() {
@@ -240,7 +241,8 @@ export class ShowMapComponent {
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
     if (e != 'all shows' && this.geoJsons[e].length > 1){
-      this.connectTheDots(this.geoJsons[e])
+      this.googleAnalyticsService.eventEmitter("select tour", "map", "select tour", e);
+      this.connectTheDots(this.geoJsons[e]);
     }
     this.fitZoom();
   }

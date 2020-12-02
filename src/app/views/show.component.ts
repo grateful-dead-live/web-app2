@@ -30,7 +30,7 @@ export class ShowComponent {
   protected photos: Artifact[];
   protected artifacts: Artifact[];
   protected eventImage: string;
-  public currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId: 'None' };
   protected formatDate: string;
   public currentPhoto: Artifact;
   public photosLightbox: any;

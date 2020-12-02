@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
 import { DEBUG } from '../config';
+import { GoogleAnalyticsService } from '../services/google-analytics.service';
 
 console.log = function(s){
   if (DEBUG) {
@@ -23,12 +24,14 @@ declare let gtag: Function;
 })
 export class LocationComponent {
   public location: Location;
-  public currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId: 'None' };
   public videos: any;
   public currentVideoId: string;
+  protected currentVideoIndex: number = 0;
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {
+    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService,
+    protected googleAnalyticsService: GoogleAnalyticsService) {
 
       
 
@@ -90,7 +93,12 @@ export class LocationComponent {
   }
 
   selectVideo(){
-    console.log(this.currentVideoId);
+    this.videos.forEach((v, i) => {
+      if (v.videoId === this.currentVideoId){
+        this.currentVideoIndex = i
+      }
+    })
+   this.googleAnalyticsService.eventEmitter("youtube select", "youtube", ''+this.currentVideoIndex+' ('+this.currentVideoId+')', this.router.url);
   }
 
 }

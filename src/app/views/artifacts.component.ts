@@ -21,7 +21,7 @@ export class ArtifactsComponent {
   
   public artifacts: Artifact[];
   protected types: ArtifactType[];
-  protected currentUser: any = { userName: '', userId:''};
+  protected currentUser: any = { userName: '', userId: 'None'};
   
   constructor(protected data: DataService, private route: ActivatedRoute, public auth: AuthService) {
 

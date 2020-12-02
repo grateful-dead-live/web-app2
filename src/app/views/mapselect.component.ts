@@ -20,7 +20,7 @@ declare let gtag: Function;
 })
 
 export class MapSelectComponent {
-  public currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId: 'None' };
   protected venues: VenueDetails[];
   protected test: number;
 

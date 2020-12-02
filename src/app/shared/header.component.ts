@@ -11,6 +11,7 @@ import { PlayerService } from '../services/player.service';
 //import { CookieService } from 'ngx-cookie-service';
 import { DEBUG, SOCKETIO } from '../config';
 import { SocketioService } from '../services/socketio.service';
+import { GoogleAnalyticsService } from '../services/google-analytics.service';
 
 console.log = function(s){
   if (DEBUG) {
@@ -41,7 +42,7 @@ export class HeaderComponent {
   //protected fuse: any;
   protected result: any;
   protected searchState: any;
-  //protected currentUser: any = { userName: '', userId:''};
+  //protected currentUser: any = { userName: '', userId: 'None'};
   protected bookmarked: boolean;
   protected liked: boolean;
   protected likes: number;
@@ -50,7 +51,8 @@ export class HeaderComponent {
   protected room: string;
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
-    private router: Router, public auth: AuthService, private player: PlayerService, public socket: SocketioService) {
+    private router: Router, public auth: AuthService, private player: PlayerService, public socket: SocketioService,
+    protected googleAnalyticsService: GoogleAnalyticsService) {
 
       
     }
@@ -117,6 +119,7 @@ ngOnInit() {
     console.log(e);
     this.searchState = 1;
     var result = await this.data.getSearchResult(e);
+    this.googleAnalyticsService.eventEmitter("search", "header", "search", e);
     if (result.length > 0){
       this.openDialog(result, e)
     }

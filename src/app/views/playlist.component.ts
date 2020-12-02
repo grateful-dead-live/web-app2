@@ -19,7 +19,7 @@ declare let gtag: Function;
 })
 export class PlaylistComponent {
 
-  public currentUser: any = { userName: '', userId:'' };
+  public currentUser: any = { userName: '', userId: 'None' };
   public playlist: any;
   public shareUsername: string;
   protected playlistId: string;
