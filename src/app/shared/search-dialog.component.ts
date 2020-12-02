@@ -1,12 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DEBUG } from '../config';
+import { logger } from '../globals';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 export interface DialogData {
   title: string,
@@ -46,7 +41,7 @@ export class SearchDialogComponent {
     Object.keys(s).forEach(k => {
       s[k].sort();
     })
-    console.log(s)
+    logger(s)
     return s
   }
 }

@@ -6,13 +6,7 @@ import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
-import { DEBUG } from '../config';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 declare let gtag: Function;
 
@@ -56,7 +50,7 @@ export class SongComponent {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.currentUser);
+      logger(this.currentUser);
     }
     */
 
@@ -79,7 +73,7 @@ export class SongComponent {
         
         this.videos = await this.data.getYoutubeList(this.song.id, ['Grateful Dead', this.song.name]);
         this.currentVideoId = this.videos[0].videoId;
-        console.log(this.videos);
+        logger(this.videos);
       }
       else {
         this.router.navigate(['/mapselect'], { replaceUrl: true });

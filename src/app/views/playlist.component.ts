@@ -3,13 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
-import { DEBUG } from '../config';
+import { logger } from '../globals';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 declare let gtag: Function;
 
@@ -51,7 +46,7 @@ export class PlaylistComponent {
       //playlistId = '6181aba048dc0b94d09e8664';
       const res = await this.data.getPlaylist(playlistId);
       this.playlist = res.playlists[0];
-      console.log(this.playlist);
+      logger(this.playlist);
       this.player.playlist = [...this.playlist.playlist];
       this.player.storePlaylist();
     }

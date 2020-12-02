@@ -5,13 +5,7 @@ import { RecordingDetails, DeadEventInfo, AudioTrack, RecordingInfo, Recording }
 import { PlayerService } from '../services/player.service';
 import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
-import { DEBUG } from '../config';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 declare let gtag: Function;
 
@@ -50,7 +44,7 @@ export class RecordingComponent {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.currentUser);
+      loggerthis.currentUser);
     }
     */
     this.route.paramMap.subscribe(async params => {
@@ -76,8 +70,8 @@ export class RecordingComponent {
           t.track = t.track.toString();
         })
         this.tracklist = tracklist;
-        //console.log(this.recordinginfo)
-        //console.log(this.tracklist);
+        //loggerthis.recordinginfo)
+        //loggerthis.tracklist);
       }
       else {
         this.router.navigate(['/mapselect'], { replaceUrl: true });
@@ -109,7 +103,7 @@ export class RecordingComponent {
   
   /*
   private async addTrackToPlaylist(audio: AudioTrack) {
-    console.log(audio.id)
+    loggeraudio.id)
     const info = await this.data.getEventInfo(this.event.id);
     const track = await this.data.getTrackFromAudio(audio, info, this.recording.etreeId);
     if (track) this.player.addToPlaylist(track);

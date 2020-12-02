@@ -3,13 +3,7 @@ import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { VenueDetails } from '../services/types';
 import { AuthService } from '../auth.service';
-import { DEBUG } from '../config';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 declare let gtag: Function;
 
@@ -46,13 +40,13 @@ export class MapSelectComponent {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.currentUser);
+      loggerthis.currentUser);
     }
     */
 
 
     //this.venues = await this.data.getVenueCoordinates();
-    //console.log(this.venues);
+    //loggerthis.venues);
 
 
 

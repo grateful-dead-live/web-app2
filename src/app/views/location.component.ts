@@ -5,14 +5,8 @@ import { Location } from '../services/types';
 import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
-import { DEBUG } from '../config';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 
 declare let gtag: Function;
@@ -52,7 +46,7 @@ export class LocationComponent {
         this.auth.userProfile$.subscribe(userProfile => {
           this.currentUser = this.resolve.getUser(userProfile);
         });
-        console.log(this.currentUser);
+        logger(this.currentUser);
       } */
    
     this.route.paramMap.subscribe(async params => {
@@ -67,7 +61,7 @@ export class LocationComponent {
       if (params.has('id') && this.location.state) {
         this.videos = await this.data.getYoutubeList(this.location.id, ['Grateful Dead', this.location.name]);
         if (this.videos) this.currentVideoId = this.videos[0].videoId;
-        console.log(this.videos);
+        logger(this.videos);
         }
       else {
         this.router.navigate(['/mapselect'], { replaceUrl: true });

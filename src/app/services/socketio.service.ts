@@ -25,7 +25,7 @@ export class SocketioService {
     this.socket = io(WSS_URL, connectionOptions);
     //this.socket.emit('comment', 'socket comment!');
     //this.socket.on('my broadcast', (data: string) => {
-    //  console.log(data);
+    //  loggerdata);
     //});
   }
 

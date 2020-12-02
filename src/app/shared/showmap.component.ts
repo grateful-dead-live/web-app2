@@ -4,14 +4,9 @@ import { DataService } from '../services/data.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 //import * as Fuse from 'fuse.js'; // imported in angular.json
 import * as _ from 'lodash';
-import { DEBUG } from '../config';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
+import { logger } from '../globals';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 declare const L: any;
 import 'leaflet';
@@ -77,13 +72,13 @@ export class ShowMapComponent {
     this.map = map
     let i = 0;
     while (this.venues == undefined || this.venues.length == 0) {    // retry heroku fetch
-      console.log("retry " + i);
+      logger("retry " + i);
       this.venues = await this.data.getVenueCoordinates();
-      console.log(this.venues)
+      logger(this.venues)
       i++;
     }
     var tours = await this.data.getTourCoordinates();
-    console.log(tours)
+    logger(tours)
     var geoJsonData = this.getGeoJson(this.venues);
     var tourGeoJsonData = this.getTourJson(tours);
     var all = this.groupLayers(geoJsonData);
@@ -260,7 +255,7 @@ export class ShowMapComponent {
     var c = [];
     e.forEach( i => c.push(_.clone(i.geometry.coordinates).reverse()));
     this.tourLine = L.polyline(c, {color: '#1D3A87', weight: 3}).addTo(this.map);
-    console.log(this.tourLine)
+    logger(this.tourLine)
     this.lineDecorator = L.polylineDecorator(this.tourLine, {
     patterns: [
       {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead(

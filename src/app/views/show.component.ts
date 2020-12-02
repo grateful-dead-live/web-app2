@@ -7,13 +7,7 @@ import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
 import { AuthService } from '../auth.service';
 import { LightboxService } from '../services/lightbox.service';
-import { DEBUG } from '../config';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 declare let gtag: Function;
 
@@ -61,7 +55,7 @@ export class ShowComponent {
         this.auth.userProfile$.subscribe(userProfile => {
           this.currentUser = this.resolve.getUser(userProfile);
         });
-        console.log(this.currentUser);
+        logger(this.currentUser);
       }*/
       
     this.route.paramMap.subscribe(async params => {
@@ -77,7 +71,7 @@ export class ShowComponent {
         this.recordingUrls = this.event.recordings.map(r => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
         );
-        console.log(this.event)
+        logger(this.event)
         this.photos = this.event.artifacts
           .filter(a => a.type === ArtifactType.Photo)//.map(a => a.image);
         this.artifacts = this.event.artifacts.filter(a => a.type !== ArtifactType.Photo);
@@ -99,7 +93,7 @@ export class ShowComponent {
           this.artifactsLightbox = gl[0];
           this.artifacts = gl[1];
           this.currentArtifact = this.artifacts[0];
-          console.log(this.currentArtifact);
+          logger(this.currentArtifact);
         }
         this.changeDetectorRef.detectChanges();
 
@@ -202,12 +196,12 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
       }
       t.track = t.track.toString();
     })
-    //console.log(tracklist)
+    //logger(tracklist)
     if (tracklist) tracklist.forEach(t => this.addRecordingTrackToPlaylist(t, recording));
   }
 
   private async addRecordingTrackToPlaylist(audio: AudioTrack, recording: Recording) {
-    //console.log(audio)
+    //logger(audio)
     const track = this.data.toPlayerTrack(this.event.venue.name, 
                                           this.event.location.name, 
                                           this.event.date, 

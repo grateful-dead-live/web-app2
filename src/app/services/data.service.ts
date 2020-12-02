@@ -5,13 +5,7 @@ import { DeadEventInfo, DeadEventDetails, SongInfo, SongDetails, AudioTrack,
   Location, Venue, VenueDetails, ArtifactType, Artifact, Set, Recording,
   RecordingDetails } from './types';
 import { Track } from './player.service';
-import { DEBUG } from '../config';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 const ARCHIVE_URI = 'https://archive.org/download/';
 
@@ -147,7 +141,7 @@ export class DataService {
   
   async getRandomSong(): Promise<SongDetails> {
     const randomSong = _.sample(_.sample(await this.getRandomSetlist()).songs);
-    console.log(randomSong)
+    logger(randomSong)
     return this.apiService.getSong(randomSong.id);
   }
   

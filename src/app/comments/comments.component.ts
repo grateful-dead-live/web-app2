@@ -4,13 +4,9 @@ import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
 import { SocketioService } from '../services/socketio.service';
-import { DEBUG, SOCKETIO } from '../config';
+import { SOCKETIO } from '../config';
+import { logger } from '../globals';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 @Component({
   selector: 'gd-comments',
@@ -37,10 +33,10 @@ export class CommentsComponent implements OnInit {
   ngOnInit() { 
     if (SOCKETIO) {
       this.socket.newComment().subscribe((payload: any) => {
-        console.log('add comment');
+        logger('add comment');
         this.allComments.push(payload);
         }, err => {
-          console.log(err);
+          logger(err);
       });
 
       this.socket.deleteComment().subscribe((msgId: any) => {
@@ -50,7 +46,7 @@ export class CommentsComponent implements OnInit {
           this.changeDetectorRef.detectChanges();
         }
       }, err => {
-        console.log(err);
+        logger(err);
       });
     }
   }
@@ -100,7 +96,7 @@ export class CommentsComponent implements OnInit {
   }
       
   onKeyUp(msgPayload:  string) {
-      //console.log(msgPayload);  // doesn't work
+      //logger(msgPayload);  // doesn't work
   }
 
   async getComments(){
@@ -123,9 +119,9 @@ export class CommentsComponent implements OnInit {
   }
 
   async checkComment(msgId) {
-    //console.log(msgId)
+    //logger(msgId)
     var b = Boolean(Number(await this.data.checkComment(msgId)));
-    //console.log(b);
+    //logger(b);
     return b
   }
 
@@ -163,10 +159,10 @@ export class CommentsComponent implements OnInit {
   }
 
   async deleteComment(msg) {
-    //console.log(msg.msgId)
+    //logger(msg.msgId)
     var d = await this.data.deleteComment(msg.msgId, this.currentUserId);
     if (!(await this.checkComment(msg.msgId))){
-      console.log('comment '+msg.msgId+' deleted');
+      logger('comment '+msg.msgId+' deleted');
       //const i = this.allComments.indexOf(msg);
       const i = this.allComments.map(x => x.msgId).indexOf(msg.msgId);
       if (i > -1) {

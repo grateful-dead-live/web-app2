@@ -1,3 +1,6 @@
+
+import { DEBUG } from './config'
+
 export const VIEWS: View[] = [
   {name: "Shows", url: "/show"},
   {name: "Locations", url: "/location"},
@@ -14,3 +17,10 @@ interface View {
   name: string,
   url: string
 }
+
+
+export function logger(s) {
+    if (DEBUG) {
+        console.log(s);
+    }
+  }

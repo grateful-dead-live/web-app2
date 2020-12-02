@@ -4,13 +4,6 @@ import { ArtistDetails } from '../services/types';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../auth.service';
 import { APIResolver } from '../auth.resolve';
-import { DEBUG } from '../config';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 declare let gtag: Function;
 
@@ -45,7 +38,7 @@ export class ArtistComponent {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.currentUser);
+      loggerthis.currentUser);
     }
     */
 

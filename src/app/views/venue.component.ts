@@ -5,14 +5,8 @@ import { Venue } from '../services/types';
 import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
-import { DEBUG } from '../config';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 declare let gtag: Function;
 
@@ -55,13 +49,13 @@ export class VenueComponent {
 
 
       if (params.has('id') && this.venue.name) {
-        console.log(this.venue)
+        logger(this.venue)
         //this.venue = await this.data.getVenue(params.get('id'));
         this.location = (await this.data.getEventInfo(this.venue.eventIds[0])).location;
         if (this.venue) {
           this.videos = await this.data.getYoutubeList(this.venue.id, ['Grateful Dead', this.location, this.venue.name]);
           if (this.videos) this.currentVideoId = this.videos[0].videoId;
-          console.log(this.videos);
+          logger(this.videos);
         }
       }
       else {
@@ -79,7 +73,7 @@ export class VenueComponent {
         if (this.venue) {
           this.videos = await this.data.getYoutubeList(this.venue.id, ['Grateful Dead', this.location, this.venue.name]);
           this.currentVideoId = this.videos[0].videoId;
-          console.log(this.videos);
+          logger(this.videos);
         }
       }
       if (!this.venue) {

@@ -6,6 +6,7 @@ import { DOCUMENT } from '@angular/common';
 import { PlayerService } from './services/player.service';
 import { SocketioService } from './services/socketio.service';
 import { Title } from '@angular/platform-browser';
+import { logger } from './globals';
 
 declare let gtag: Function;
 
@@ -51,14 +52,14 @@ export class AppComponent {
       this.router.events.subscribe(async(event) => {
         if(event instanceof NavigationStart){
           cached_title = this.title.getTitle();
-          //console.log('cached: ' + cached_title);
+          //logger('cached: ' + cached_title);
         }
         if(event instanceof NavigationEnd){
           while (this.title.getTitle() === cached_title){  // wait for new page title
             await this.sleep(50);
-            console.log('waiting for page title')
+            logger('waiting for page title')
           }
-          console.log('title: ' + this.title.getTitle());
+          logger('title: ' + this.title.getTitle());
           gtag('set', {'user_id': this.currentUser.userId});
           gtag('config', TRACKINGID, 
             {

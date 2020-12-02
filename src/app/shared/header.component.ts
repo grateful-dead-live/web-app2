@@ -9,15 +9,11 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { PlayerService } from '../services/player.service';
 //import { CookieService } from 'ngx-cookie-service';
-import { DEBUG, SOCKETIO } from '../config';
+import { SOCKETIO } from '../config';
 import { SocketioService } from '../services/socketio.service';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
+import { logger } from '../globals';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
@@ -69,10 +65,10 @@ ngOnInit() {
     this.socket.joinRoom(this.room);
 
     this.socket.like().subscribe((msg: number) => {
-      console.log(msg);
+      logger(msg);
       this.countLikes();
       }, err => {
-        console.log(err);
+        logger(err);
     });
   }
 
@@ -116,7 +112,7 @@ ngOnInit() {
   }
 
   async onSubmit(e){
-    console.log(e);
+    logger(e);
     this.searchState = 1;
     var result = await this.data.getSearchResult(e);
     this.googleAnalyticsService.eventEmitter("search", "header", "search", e);
@@ -152,7 +148,7 @@ ngOnInit() {
   async checkBookmark(){
     var b = await this.data.checkBookmark(this.userId, this.router.url);
     this.bookmarked = Boolean(JSON.parse(b));
-    console.log("bookmark: "+this.bookmarked)
+    logger("bookmark: "+this.bookmarked)
   }
 
   async onLikeButton(){
@@ -170,12 +166,12 @@ ngOnInit() {
     this.liked = Boolean(JSON.parse(b));
     this.countLikes();
     if (SOCKETIO && click) this.socket.postLike({ room: this.router.url, msg: 1 });
-    console.log("like: "+this.liked)
+    logger("like: "+this.liked)
   }
 
   async countLikes(){
     this.likes  = await this.data.countLikes(this.router.url);
-    console.log("likes: "+this.likes);
+    logger("likes: "+this.likes);
     
     
   }

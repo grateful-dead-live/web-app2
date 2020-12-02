@@ -5,13 +5,9 @@ import { APIResolver } from '../auth.resolve';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
-import { FRONTEND_URL, DEBUG } from '../config';
+import { FRONTEND_URL } from '../config';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+
 
 declare let gtag: Function;
 
@@ -65,7 +61,7 @@ export class ProfileComponent implements OnInit {
         this.userId = this.currentUser.sub.split("|")[1];
         this.userName = this.currentUser['http://example.com/username'];
       });
-    console.log(this.userId)
+    loggerthis.userId)
     }*/
   }
 

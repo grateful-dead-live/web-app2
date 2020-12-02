@@ -2,13 +2,9 @@ import { Injectable } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DeadEventInfo, DeadEventDetails, Location, Venue, Set,
   SongDetails, ArtistDetails, VenueDetails, RecordingDetails, AudioTrack } from './types';
-import { API_URL, DEBUG } from '../config';
+import { API_URL } from '../config';
+import { logger } from '../globals';
 
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 
 export interface Recording {
@@ -86,13 +82,13 @@ export class DeadApiService {
     return fetch(this.api_url+path)
       .then(r => r.text())
       .then(t => JSON.parse(t))
-      .catch(e => console.log(e));
+      .catch(e => logger(e));
   }
 
   async getTextFromApi(path: string): Promise<any> {
     return fetch(this.api_url+path)
       .then(r => r.text())
-      .catch(e => console.log(e));
+      .catch(e => logger(e));
   }
 
   async getSearchResult(q: string): Promise<any> {

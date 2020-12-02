@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
-import { EMAILADDRESS, DEBUG } from '../config';
+import { EMAILADDRESS } from '../config';
 import { AnchorScrollService } from '../services/anchor-scroll.service';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
 
 
 declare let gtag: Function;
@@ -46,7 +40,7 @@ export class StartComponent {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.currentUser);
+      loggerthis.currentUser);
     }
     */
 

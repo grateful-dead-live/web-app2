@@ -3,13 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Artifact, ArtifactType } from '../services/types';
 import { AuthService } from '../auth.service';
-import { DEBUG } from '../config';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 declare let gtag: Function;
 
@@ -44,7 +38,7 @@ export class ArtifactsComponent {
       this.auth.userProfile$.subscribe(userProfile => {
         this.currentUser = this.resolve.getUser(userProfile);
       });
-      console.log(this.currentUser);
+      logger(this.currentUser);
     }
     */
 
@@ -56,7 +50,7 @@ export class ArtifactsComponent {
         this.artifacts = await this.data.getRandomArtifacts(this.types, 6);
       } else {
         this.artifacts = await this.data.getRandomArtifacts(null, 6);
-        console.log(this.artifacts)
+        logger(this.artifacts)
       }
     });
   }

@@ -6,14 +6,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 // import { CookieService } from 'ngx-cookie-service';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
-import { DEBUG } from '../config';
-
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 declare let gtag: Function;
 
@@ -86,7 +79,7 @@ export class PlayerComponent {
   }
 
   async savePlaylist(name){
-    console.log('saving playlist');
+    logger('saving playlist');
     const id = this.makeid();
     await this.data.addPlaylist(name, this.player.playlist, id, this.currentUser.userId, new Date().getTime());
     await this.player.getPlaylists(this.currentUser.userId);
@@ -118,7 +111,7 @@ protected openOptionsDialog(event: DeadEventInfo) {
   */
  
   private loadPlaylist() {
-    console.log('load playlist');
+    logger('load playlist');
     this.dialog.openMultiFunction(
       'Your current playlist will be lost',
       this.player.playlists.map(r => r.name),

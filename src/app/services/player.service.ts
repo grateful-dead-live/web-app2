@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { GoogleAnalyticsService } from './google-analytics.service';
 import { DataService } from '../services/data.service';
 import { DialogService } from '../services/dialog.service';
-import { DEBUG } from '../config';
-
-console.log = function(s){
-  if (DEBUG) {
-    console.warn(s);
-  }; 
-};
+import { logger } from '../globals';
 
 export interface Track {
   title: string,
@@ -85,7 +79,7 @@ export class PlayerService {
   stop() {
     if (this.currentAudio) {
       this.reset();
-      console.log('Google Analytics')
+      logger('Google Analytics')
       this.googleAnalyticsService.eventEmitter("stop", "audio_player", "stop", this.getCurrentTrack().uri);
     }
   }
@@ -129,7 +123,7 @@ export class PlayerService {
   
   private async playPlaylist() {
     if (this.currentTrackIndex < this.playlist.length) {
-      console.log('Google Analytics')
+      logger('Google Analytics')
       this.googleAnalyticsService.eventEmitter("play", "audio_player", "play", this.getCurrentTrack().uri);
       await this.playCurrentTrack();
       this.currentTrackIndex++;
