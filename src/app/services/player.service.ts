@@ -40,6 +40,7 @@ export class PlayerService {
     if (this.playlist.length < 100) {
       this.playlist.push(track);
       this.storePlaylist();
+      this.googleAnalyticsService.eventEmitter("add_to_playlist", "audio_player", "add_to_playlist", track.uri);
     }
     else {
       this.dialog.openSingleFunction( 'Playlist is limited to 100 tracks.', ["ok"], () => null );
@@ -64,16 +65,6 @@ export class PlayerService {
   skipToTrack(track: Track) {
     this.skipToTrackAtIndex(this.playlist.indexOf(track));
   }
-
-
-/*
-    eventName: string, 
-    eventCategory: string, 
-    eventAction: string, 
-    eventLabel: string = null,  
-    eventValue: number = null ){ 
-      */
-
 
   playPause() {
     if (this.playlist.length > 0){

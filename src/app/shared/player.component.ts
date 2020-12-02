@@ -5,7 +5,7 @@ import { DialogService } from '../services/dialog.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 // import { CookieService } from 'ngx-cookie-service';
-import {GoogleAnalyticsService} from '../services/google-analytics.service';
+import { GoogleAnalyticsService } from '../services/google-analytics.service';
 import { DEBUG } from '../config';
 
 
@@ -66,6 +66,7 @@ export class PlayerComponent {
     this.player.stop();
     this.player.clearPlaylist();
     this.minimized = true;
+    this.googleAnalyticsService.eventEmitter("clear_playlist", "audio_player", "clear_playlist");
   }
 
   async delTrack(i){
@@ -89,6 +90,12 @@ export class PlayerComponent {
     const id = this.makeid();
     await this.data.addPlaylist(name, this.player.playlist, id, this.currentUser.userId, new Date().getTime());
     await this.player.getPlaylists(this.currentUser.userId);
+    this.googleAnalyticsService.eventEmitter("save_playlist", "audio_player", "save_playlist", name);
+  }
+
+  onMinimize(){
+    this.minimized = !this.minimized;
+    this.googleAnalyticsService.eventEmitter("minimize", "audio_player", "minimize", ''+this.minimized);
   }
 /*
 

@@ -22,7 +22,8 @@
     <mat-icon>{{player.muted ? 'volume_up' : 'volume_off'}}</mat-icon></button>
   <!-- <button mat-flat-button fxFlex (click)="addRandomTrack()">
     <mat-icon>playlist_add</mat-icon></button> -->
-  <button mat-flat-button fxFlex (click)="minimized = !minimized">
+  <!--button mat-flat-button fxFlex (click)="minimized = !minimized-->
+  <button mat-flat-button fxFlex (click)="onMinimize()">
     <mat-icon>{{minimized ? 'visibility' : 'visibility_off'}}</mat-icon></button>
   <mat-slider type="range" min="0" max="100" value="100" step="1" (input)="volumeChange($event.value)"></mat-slider>
 
