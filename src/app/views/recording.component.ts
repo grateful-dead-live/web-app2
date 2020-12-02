@@ -70,8 +70,8 @@ export class RecordingComponent {
           t.track = t.track.toString();
         })
         this.tracklist = tracklist;
-        //loggerthis.recordinginfo)
-        //loggerthis.tracklist);
+        //logger(this.recordinginfo)
+        //logger(this.tracklist);
       }
       else {
         this.router.navigate(['/mapselect'], { replaceUrl: true });

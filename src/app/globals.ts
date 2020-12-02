@@ -1,5 +1,5 @@
 
-import { DEBUG } from './config'
+import { DEBUG } from './config';
 
 export const VIEWS: View[] = [
   {name: "Shows", url: "/show"},
@@ -24,3 +24,4 @@ export function logger(s) {
         console.log(s);
     }
   }
+  

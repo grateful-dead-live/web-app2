@@ -46,7 +46,7 @@ export class MapSelectComponent {
 
 
     //this.venues = await this.data.getVenueCoordinates();
-    //loggerthis.venues);
+    //logger(this.venues);
 
 
 
