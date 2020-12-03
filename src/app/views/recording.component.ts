@@ -19,7 +19,7 @@ export class RecordingComponent {
   public currentUser: any = { userName: '', userId: 'None' };
   protected tracklist: any[];
   public recordinginfo: RecordingInfo;
-  protected _array = Array;
+  public _array = Array;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
@@ -71,7 +71,7 @@ export class RecordingComponent {
         })
         this.tracklist = tracklist;
         //logger(this.recordinginfo)
-        //logger(this.tracklist);
+        //loggerthis.tracklist);
       }
       else {
         this.router.navigate(['/mapselect'], { replaceUrl: true });

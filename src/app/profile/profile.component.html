@@ -18,8 +18,8 @@
   </div>
   <div *ngIf="bookmarks">
       <div *ngFor="let b of bookmarks">
-            {{b.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="b.route">{{ b.title }}</u>
-            <button mat-icon-button (click)="onDeleteBookmark(b)"><mat-icon>clear</mat-icon></button>  
+            {{b.timestamp}} <span class="link" [routerLink]="b.route" matTooltip="go to item">{{ b.title }}</span>
+            <button mat-icon-button (click)="onDeleteBookmark(b)" matTooltip="delete bookmark"><mat-icon>clear</mat-icon></button>  
       </div>
   </div>
 
@@ -30,8 +30,8 @@
 
   <div *ngIf="likes">
       <div *ngFor="let l of likes">
-          {{l.timestamp}} <u class="field" style="cursor:pointer" [routerLink]="l.route">{{ l.title }}</u>
-          <button mat-icon-button (click)="onUnlike(l)"><mat-icon>clear</mat-icon></button>  
+          {{l.timestamp}} <span class="link" [routerLink]="l.route" matTooltip="go to item">{{ l.title }}</span>
+          <button mat-icon-button (click)="onUnlike(l)" matTooltip="delete like"><mat-icon>clear</mat-icon></button>  
       </div>
   </div>
 
@@ -41,7 +41,7 @@
   </div>
   <div *ngIf="comments"> 
     <div *ngFor="let c of comments">
-      <u class="field" style="cursor:pointer" [routerLink]="c.route">{{ c.title }}</u>
+      <span class="link" [routerLink]="c.route" matTooltip="go to item">{{ c.title }}</span>
     </div>
   </div>
 
@@ -53,8 +53,8 @@
     </div>
     <div *ngFor="let p of player.playlists">
       <div> {{ p.timestamp }} "{{ p.name }}"
-        <button mat-icon-button (click)="loadPlaylist(p.playlist)"><mat-icon>library_music</mat-icon></button> 
-        <button mat-icon-button (click)="delPlaylist(p.id, p.name)"><mat-icon>clear</mat-icon></button>   
+        <button mat-icon-button (click)="loadPlaylist(p.playlist)" matTooltip="load playlist"><mat-icon>library_music</mat-icon></button> 
+        <button mat-icon-button (click)="delPlaylist(p.id, p.name)" matTooltip="delete playlist"><mat-icon>clear</mat-icon></button>   
         
       </div>
       <div *ngFor="let t of p.playlist; index as i">

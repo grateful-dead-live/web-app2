@@ -71,6 +71,8 @@ import { SocketioService } from './services/socketio.service';
 import { AnchorScrollService } from './services/anchor-scroll.service';
 
 import {NgxPaginationModule} from 'ngx-pagination'; 
+import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -126,7 +128,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     NgSelectModule,
     Ng2CarouselamosModule,
     LightboxModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatTooltipModule
   ],
   providers: [
     DeadApiService,
@@ -146,7 +149,16 @@ import {NgxPaginationModule} from 'ngx-pagination';
     },
     GoogleAnalyticsService,
     LightboxService,
-    SocketioService
+    SocketioService,
+    AnchorScrollService,
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: {
+          showDelay: 750,
+          hideDelay: 200,
+          position: 'left'
+      }
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 

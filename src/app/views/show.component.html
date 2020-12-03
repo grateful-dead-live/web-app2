@@ -5,14 +5,16 @@
   </gd-header>
   <div class="gd-container" fxLayout="row wrap" fxLayout.xs="column" class="topmargin" >
     
-    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]">
+    <div class="gd-container link" fxLayout="column" fxFlex="50" [routerLink]="['/location', event.location.id]" matTooltip="go to location">
       <h2 class="titlef">Location: <span class="normweight">{{ event.location.name }}</span></h2>
-      <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto"  [style.object-fit]="'contain'">
+      <img class="image" *ngIf="event.location.thumbnail" [lazyLoad]="event.location.thumbnail" fxFlex="1 1 auto" 
+        [style.object-fit]="'contain'">
     </div>
     
-    <div class="gd-container" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]">
+    <div class="gd-container link" fxLayout="column" fxFlex="50" [routerLink]="['/venue', event.venue.id]" matTooltip="go to venue">
       <h2 class="titlef">Venue: <span class="normweight">{{ event.venue.name }}</span></h2>
-      <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto"  [style.object-fit]="'contain'">
+      <img class="image" *ngIf="event.venue.thumbnail" [lazyLoad]="event.venue.thumbnail" fxFlex="1 1 auto" 
+        [style.object-fit]="'contain'">
     </div>
     
     <div class="gd-container" fxLayout="column" fxFlex="50">
@@ -21,8 +23,8 @@
         <h3>{{ set.name }}</h3>
         <!-- <div *ngFor="let song of set.songs" fxLayout="row" fxLayoutAlign="space-between center"> -->
         <div *ngFor="let song of set.songs, let i = index" fxLayout="row">
-          <span [routerLink]="['/song', song.id]">{{( "0"+(i+1)).slice(-2) }} {{ song.name }}</span>
-          <button mat-icon-button (click)="openSongOptionsDialog(song, set.name, i+1)">
+          <span [routerLink]="['/song', song.id]" matTooltip="go to song" class="link">{{( "0"+(i+1)).slice(-2) }} {{ song.name }}</span>
+          <button mat-icon-button (click)="openSongOptionsDialog(song, set.name, i+1)" matTooltip="song options">
             <mat-icon>more_horiz</mat-icon>
           </button>
         </div>
@@ -31,7 +33,7 @@
     
     <div class="gd-container" fxLayout="column" fxFlex="50">
       <h2 class="titlef">Lineup</h2>
-        <div *ngFor="let p of event.performers" [routerLink]="['/artist', p.id]"> 
+        <div *ngFor="let p of event.performers" [routerLink]="['/artist', p.id]" matTooltip="go to artist" class="link"> 
           <img class="image" [lazyLoad]="p.thumbnail"
           [style.width]="'70px'" [style.height]="'70px'"> 
           <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ p.name }} ({{ p.instruments.join(', ') }})</span>
@@ -45,7 +47,7 @@
   
   <div class="gd-container" fxLayout="column" fxFlex="50">
     <h2 class="titlef">News of the week</h2>
-    <div *ngFor="let n of event.news">
+    <div *ngFor="let n of event.news" matTooltip="open article" class="link">
       <a [href]="n.url" target="_blank" [style.text-decoration]="'none'">
         {{ n.date+": "+n.title+" ("+n.source+")" }}
       </a>
@@ -55,8 +57,8 @@
   <div class="gd-container" fxLayout="column" fxFlex="50">
     <h2 class="titlef">Available recordings</h2>
     <div *ngFor="let r of event.recordings">
-      <span [routerLink]="['/recording', r.id]">{{ r.etreeId }}</span>
-      <button mat-icon-button (click)="openRecordingOptionsDialog(r)">
+      <span [routerLink]="['/recording', r.id]" matTooltip="go to recording" class="link">{{ r.etreeId }}</span>
+      <button mat-icon-button (click)="openRecordingOptionsDialog(r)" matTooltip="recording options">
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
@@ -96,7 +98,7 @@
       </ng-template>
       <ng-template #item let-item let-i="index">
 
-      <div class="slide-items">
+      <div class="slide-items" matTooltip="view image">
         <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item)" height="200px" width="auto">
         <!--div>{{ item.description }}</div>
         <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
@@ -156,10 +158,10 @@
       {{ currentArtifact.type }} <br>
       <span *ngIf="currentArtifact.description">{{ currentArtifact.description }} <br> </span>
       <a *ngIf="currentArtifact.collection=='GDAO'" href="{{ currentArtifact.source }}" target="_blank">
-        <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto">
+        <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto" matTooltip="go to the Grateful Dead Archive Online">
       </a>
       <a *ngIf="currentArtifact.collection=='Psilo'" href="https://www.deadstubs.com/" target="_blank">
-        <img src="assets/logo_deadstubs.jpg" height="50px" width="auto">
+        <img src="assets/logo_deadstubs.jpg" height="50px" width="auto" matTooltip="go to deadstubs.com">
       </a>
     </div>
   </div>

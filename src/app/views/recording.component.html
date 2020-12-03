@@ -35,9 +35,12 @@
         <div fxLayout="column" fxFlex class="gd-container">
           <ng-container>
             <i>Recorded at:</i> 
-            <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]">{{ recordinginfo.venue_name }}, </span>
-            <span class="link" [routerLink]="['/location', recordinginfo.location_id]">{{ recordinginfo.location_name }}, </span>
-            <span class="link" [routerLink]="['/show', recordinginfo.show_id]">{{ recordinginfo.date }} </span>
+            <span class="link" [routerLink]="['/venue', recordinginfo.venue_id]" matTooltip="go to venue">
+              {{ recordinginfo.venue_name }}, </span>
+            <span class="link" [routerLink]="['/location', recordinginfo.location_id]" matTooltip="go to location">
+              {{ recordinginfo.location_name }}, </span>
+            <span class="link" [routerLink]="['/show', recordinginfo.show_id]" matTooltip="go to recording">
+              {{ recordinginfo.date }} </span>
           </ng-container><div><br></div>
 
           <ng-container *ngIf="recordinginfo.lineage">
@@ -52,7 +55,7 @@
             Tracks:
             <div *ngFor="let t of tracklist">
               <span> {{ t.track }}: {{ t.title }}</span>
-              <button mat-icon-button (click)="openTrackOptionsDialog(t)">
+              <button mat-icon-button (click)="openTrackOptionsDialog(t)" matTooltip="open track options menu">
                 <mat-icon>more_horiz</mat-icon>
               </button>
             </div>
@@ -60,7 +63,8 @@
           </ng-container><div><br></div>
           
 
-     <a href="{{ 'https://archive.org/details/' + recordinginfo.etree_id }}" target="_blank">  <img src="https://archive.org/images/glogo.png" [style.object-fit]="'contain'"></a>
+    <a href="{{ 'https://archive.org/details/' + recordinginfo.etree_id }}" target="_blank">
+      <img src="https://archive.org/images/glogo.png" [style.object-fit]="'contain'" matTooltip="go to recording at the Internet Archive"></a>
      
     </div>
   </div>

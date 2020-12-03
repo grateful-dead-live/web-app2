@@ -5,23 +5,23 @@
       [defaultImage]="'assets/gd_placeholder.png'"
       [lazyLoad]="e.artifacts[0] ? e.artifacts[0].thumbnail || e.artifacts[0].image: null"
       [style.object-fit]="'cover'"
-      [routerLink]="['/show', e.id]">
+      [routerLink]="['/show', e.id]" matTooltip="go to show" class='link'>>
       <div fxLayout="column" fxFlex="1 1 10%" fxLayoutAlign="center"
       [ngStyle.xs]="{'font-size': '80%'}" class="field"
-        [routerLink]="['/show', e.id]">
+        [routerLink]="['/show', e.id]" matTooltip="go to show" class='link'>
         {{ e.date }}
       </div>
       <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
       [ngStyle.xs]="{'font-size': '80%'}" class="field"
-        [routerLink]="['/show', e.id]">
+        [routerLink]="['/show', e.id]" matTooltip="go to venue" class='link'>
         {{ e.venue }} 
       </div>
       <span class="field"
-        [routerLink]="['/show', e.id]">
+        [routerLink]="['/show', e.id]" matTooltip="go to location" class='link'>
       {{ e.location }}
     </span>
     <button *ngIf="onOptions" mat-icon-button fxLayout="column" class="field" fxFlex="1 1 10%"
-      (click)="onOptions(e)"><mat-icon>more_horiz</mat-icon>
+      (click)="onOptions(e)" matTooltip="show options"><mat-icon>more_horiz</mat-icon>
     </button>
 
 
