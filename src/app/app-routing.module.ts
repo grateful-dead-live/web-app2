@@ -18,7 +18,7 @@ import { PlaylistComponent } from './views/playlist.component';
 import { IndexComponent } from './views/index.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/mapselect', pathMatch: 'full' },
+  { path: '', redirectTo: '/about', pathMatch: 'full' },
   //{ path: '', component: MapSelectComponent, resolve: { loggedIn: APIResolver} },
   { path: 'show', component: ShowComponent },
   { path: 'show/:id', component: ShowComponent },
