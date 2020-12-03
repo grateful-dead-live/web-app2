@@ -87,6 +87,7 @@
         [$prev]="prev"
         [$next]="next"
         [$item]="item"
+        (onSelectedItem)="selectedPhoto = $event.item;"
       >
       </div>
 
@@ -105,22 +106,19 @@
       </div>
     </ng-template>
     </div>
-    <div *ngIf="currentPhoto" class="photo-text">
-      <span *ngIf="currentPhoto.description">{{ currentPhoto.description }} <br> </span>
-      <a *ngIf="currentPhoto.collection=='GDAO'" href="{{ currentPhoto.source }}" target="_blank">
+    <div *ngIf="selectedPhoto" class="photo-text">
+      <span *ngIf="selectedPhoto.description">{{ selectedPhoto.description }} <br> </span>
+      <a *ngIf="selectedPhoto.collection=='GDAO'" href="{{ selectedPhoto.source }}" target="_blank">
         <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto">
       </a>
-      <a *ngIf="currentPhoto.collection=='Psilo'" href="https://www.deadstubs.com/" target="_blank">
+      <a *ngIf="selectedPhoto.collection=='Psilo'" href="https://www.deadstubs.com/" target="_blank">
         <img src="assets/logo_deadstubs.jpg" height="50px" width="auto">
       </a>
     </div>
-  </div>
 
+    <!--ng-image-slider [images]="imageObject" (imageClick)="onClickImage($event)" #nav></ng-image-slider-->
+  </div>
   
-  <!--div *ngIf="currentPhoto" class="gd-container" fxLayout="column" fxFlex="50">
-    <p [style.margin-bottom]="'25px'"></p>
-    <img class="current-photo" src="{{ currentPhoto.image }}" (click)="lightbox.openLightboxArray(photosLightbox, currentPhoto.index)"> 
-  </div-->
 </div>
 
 
@@ -136,6 +134,7 @@
         [$prev]="prev"
         [$next]="next"
         [$item]="item"
+        (onSelectedItem)="selectedArtifact = $event.item;"
       >
       </div>
 
@@ -148,28 +147,23 @@
       <ng-template #item let-item let-i="index">
 
       <div class="slide-items">
-        <img src="{{ item.thumbnail }}" (click)="onClickArtifact(item)" height="200px" width="auto">
+        <img src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" height="200px" width="auto">
         <!--div>{{ item.description }}</div>
         <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
       </div>
     </ng-template>
     </div>
-    <div *ngIf="currentArtifact" class="photo-text">
+    <div *ngIf="selectedArtifact" class="photo-text">
       {{ currentArtifact.type }} <br>
-      <span *ngIf="currentArtifact.description">{{ currentArtifact.description }} <br> </span>
-      <a *ngIf="currentArtifact.collection=='GDAO'" href="{{ currentArtifact.source }}" target="_blank">
+      <span *ngIf="selectedArtifact.description">{{ selectedArtifact.description }} <br> </span>
+      <a *ngIf="selectedArtifact.collection=='GDAO'" href="{{ selectedArtifact.source }}" target="_blank">
         <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" height="50px" width="auto" matTooltip="go to the Grateful Dead Archive Online">
       </a>
-      <a *ngIf="currentArtifact.collection=='Psilo'" href="https://www.deadstubs.com/" target="_blank">
+      <a *ngIf="selectedArtifact.collection=='Psilo'" href="https://www.deadstubs.com/" target="_blank">
         <img src="assets/logo_deadstubs.jpg" height="50px" width="auto" matTooltip="go to deadstubs.com">
       </a>
     </div>
   </div>
-
-  <!--div *ngIf="currentArtifact" class="gd-container" fxLayout="column" fxFlex="50">
-    <p [style.margin-bottom]="'25px'"></p>
-    <img class="current-photo" src="{{ currentArtifact.image }}" (click)="lightbox.openLightboxArray(artifactsLightbox, currentArtifact.index)"> 
-  </div-->
 </div>
 
 

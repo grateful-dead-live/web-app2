@@ -26,10 +26,10 @@ export class ShowComponent {
   protected eventImage: string;
   public currentUser: any = { userName: '', userId: 'None' };
   protected formatDate: string;
-  public currentPhoto: Artifact;
   public photosLightbox: any;
   public currentArtifact: Artifact;
   public artifactsLightbox: any;
+  public imageObject: any;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -86,7 +86,9 @@ export class ShowComponent {
           gl = this.lightbox.makeGallery(this.photos);
           this.photosLightbox = gl[0];
           this.photos = gl[1];
-          this.currentPhoto = this.photos[0];
+
+        //this.imageObject = this.lightbox.makeGallery2(this.photos);
+
         } 
         if (this.artifacts.length) {
           gl = this.lightbox.makeGallery(this.artifacts);
@@ -212,15 +214,14 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
                                           );
     this.player.addToPlaylist(track);
   }
-  
-  onClickPhoto(p){
-    this.currentPhoto = p;
-    this.lightbox.openLightboxArray(this.photosLightbox, p.index)
-  }
+
 
   onClickArtifact(a){
-    this.currentArtifact = a;
     this.lightbox.openLightboxArray(this.artifactsLightbox, a.index)
+  }
+
+  onClickPhoto(p){
+    this.lightbox.openLightboxArray(this.photosLightbox, p.index)
   }
 
 }
