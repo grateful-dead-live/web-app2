@@ -8,9 +8,9 @@
         <mat-menu #menu="matMenu">
           <!-- <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button> -->
           <button mat-menu-item routerLink="/mapselect">Concert Map</button>
-          <button mat-menu-item routerLink="/profile" *ngIf="userId">Profile Page</button>
-          <button mat-menu-item (click)="auth.login()" *ngIf="!userId">Log In</button>
-          <button mat-menu-item (click)="logout()" *ngIf="userId">Log Out</button>
+          <button mat-menu-item routerLink="/profile" *ngIf="userId != 'None'">Profile Page</button>
+          <button mat-menu-item (click)="auth.login()" *ngIf="userId == 'None'">Log In</button>
+          <button mat-menu-item (click)="logout()" *ngIf="userId != 'None'">Log Out</button>
           <!--button mat-menu-item (click)="auth.logout()" *ngIf="userId">Log Out</button-->
           <button mat-menu-item routerLink="/index">Index</button>
           <button mat-menu-item routerLink="/about">About</button>
