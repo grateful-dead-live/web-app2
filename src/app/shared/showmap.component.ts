@@ -61,7 +61,7 @@ export class ShowMapComponent {
         zoom: this.zoom,
         center: L.latLng(45, -70)
       };
-
+    
      
   }
 
@@ -122,7 +122,7 @@ export class ShowMapComponent {
       var dates = s.map(e => [e.date, e.id])
       dates.sort()
       dates.forEach(e => {
-        htmlstring += '<a style="color: black;" href="/#/show/' + e[1] + '">' + e[0] + '</a><br>' ; // removed #/ url
+        htmlstring += '<a style="color: black;" href="/#/show/' + e[1] + '">' + e[0] + '</a><br>' ;
         datestring += e[0] + ' '
       });
     return [datestring, htmlstring];
@@ -130,6 +130,7 @@ export class ShowMapComponent {
 
 
   onEachFeature(feature, layer) {
+    
     if (feature.properties && feature.properties.popupContent) {
       layer.bindPopup(feature.properties.popupContent, { maxHeight: 160 }).bindTooltip(feature.properties.name);
 
@@ -146,9 +147,10 @@ export class ShowMapComponent {
       layer.on('click', e => {
         var mytooltip = layer.getTooltip();
         mytooltip.setOpacity(0.0);
+        this.googleAnalyticsService.eventEmitter("click_marker", "map_select", "click_marker", mytooltip._content);
       });
     }
-
+    
     feature.layer = layer;
   }
 
@@ -174,7 +176,7 @@ export class ShowMapComponent {
           'properties': {
             'name': v.name,
             'dates': datestring,
-            'popupContent': '<b><a style="color: black;" href="/#/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml // removed #/ url
+            'popupContent': '<b><a style="color: black;" href="/#/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml 
           },
           'geometry': {
             'type': 'Point',
@@ -195,7 +197,7 @@ export class ShowMapComponent {
     });
     g.forEach(v => {
       var g = L.geoJSON(v, {
-        onEachFeature: this.onEachFeature,
+        onEachFeature: this.onEachFeature.bind(this),
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {icon: myIcon, riseOnHover: true});
         } })
