@@ -122,12 +122,11 @@ export class ShowMapComponent {
       var dates = s.map(e => [e.date, e.id])
       dates.sort()
       dates.forEach(e => {
-        htmlstring += '<a style="color: black;" href="/#/show/' + e[1] + '">' + e[0] + '</a><br>' ;
+        htmlstring += '<a style="color: black;" href="/#/show/' + e[1] + `" onclick="gtag('event', 'click_date', {'event_category': 'map_select', 'event_label': ` + `'`+e[1]+`'` + '});">' + e[0] + '</a><br>' ;
         datestring += e[0] + ' '
       });
     return [datestring, htmlstring];
   }}
-
 
   onEachFeature(feature, layer) {
     
@@ -154,7 +153,6 @@ export class ShowMapComponent {
     feature.layer = layer;
   }
 
-
   getGeoJson(shows){
     var geoJsonData = [];
     var latlongs = [];
@@ -176,7 +174,7 @@ export class ShowMapComponent {
           'properties': {
             'name': v.name,
             'dates': datestring,
-            'popupContent': '<b><a style="color: black;" href="/#/venue/' + v.id + '">' + v.name + '</a></b>' + venuehtml 
+            'popupContent': '<b><a style="color: black;" href="/#/venue/' + v.id + `" onclick="gtag('event', 'click_venue', {'event_category': 'map_select', 'event_label': ` + `'`+v.id+`'` + '});">' + v.name + '</a></b>' + venuehtml 
           },
           'geometry': {
             'type': 'Point',
@@ -256,7 +254,7 @@ export class ShowMapComponent {
     this.searchCtrl.indexFeatures(this.geoJsons[e], ['name', 'dates']); 
     this.currentLayer = e;
     if (e != 'all shows' && this.geoJsons[e].length > 1){
-      this.googleAnalyticsService.eventEmitter("select tour", "map", "select tour", e);
+      this.googleAnalyticsService.eventEmitter("select_tour", "map_select", "select_tour", e);
       this.connectTheDots(this.geoJsons[e]);
     }
     this.fitZoom();
