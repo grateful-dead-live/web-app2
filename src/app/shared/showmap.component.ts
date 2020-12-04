@@ -61,6 +61,8 @@ export class ShowMapComponent {
         zoom: this.zoom,
         center: L.latLng(45, -70)
       };
+
+     
   }
 
 
@@ -129,8 +131,24 @@ export class ShowMapComponent {
 
   onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.popupContent) {
-      layer.bindPopup(feature.properties.popupContent, { maxHeight: 160 });
+      layer.bindPopup(feature.properties.popupContent, { maxHeight: 160 }).bindTooltip(feature.properties.name);
+
+      layer.on('mouseover', e => {
+        var mytooltip = layer.getTooltip();
+        if (layer.isPopupOpen()){
+          mytooltip.setOpacity(0.0);
+        }
+        else {
+          mytooltip.setOpacity(0.9);
+        } 
+      });
+
+      layer.on('click', e => {
+        var mytooltip = layer.getTooltip();
+        mytooltip.setOpacity(0.0);
+      });
     }
+
     feature.layer = layer;
   }
 
@@ -261,7 +279,7 @@ export class ShowMapComponent {
       {offset: '0%', repeat: 40, symbol: L.Symbol.arrowHead(
         {pixelSize: 9, polygon: false, pathOptions: {weight: 3, color: '#1D3A87', stroke: true}})
       } ] }).addTo(this.map);
-}
+  }
 
 
   dateSort() {
@@ -269,7 +287,7 @@ export class ShowMapComponent {
       var result = (a.properties.dates < b.properties.dates) ? -1 : (a.properties.dates > b.properties.dates) ? 1 : 0;
       return result;
     }
-}
+  }
 
 
   searchForArray(haystack, needle){
@@ -281,8 +299,8 @@ export class ShowMapComponent {
         if(j === needle.length)
           return i;
       }
+    }
+    return -1;
   }
-  return -1;
-}
 
 }
