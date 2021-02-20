@@ -176,8 +176,7 @@ ngOnInit() {
 
   buyMeACoffee() {
     const dialogConfig = new MatDialogConfig();
-    // The user can't close the dialog by clicking outside its body
-    dialogConfig.disableClose = false;
+    //dialogConfig.disableClose = false;
     //dialogConfig.id = "modal-component";
     dialogConfig.height = "580px";
     dialogConfig.width = "450px";
