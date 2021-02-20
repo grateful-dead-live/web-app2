@@ -72,7 +72,7 @@ import { AnchorScrollService } from './services/anchor-scroll.service';
 
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
-
+import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +104,8 @@ import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material
     ChatterBoxComponent,
     PlaylistComponent,
     YoutubeComponent,
-    IndexComponent
+    IndexComponent,
+    BuyMeACoffeeComponent
   ],
   imports: [
     BrowserModule,
@@ -161,7 +162,7 @@ import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent], 
+  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent, BuyMeACoffeeComponent], 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

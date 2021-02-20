@@ -38,13 +38,20 @@
         </button>
         {{likes}}
       </span>
-
+     
 
     </span>
+
+    
+    
+    
     
   </div>
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
+
+
+  <button mat-button style="margin-bottom: 0px;"><img src="/assets/buymeacoffee.png" height="32" width="135" (click)="buyMeACoffee()"/></button>
 
   <p *ngIf="!searchState" [style.margin-right]="'25px'"></p>
   <div *ngIf="searchState" [style.margin-top]="'8px'" [style.margin-right]="'5px'"><mat-spinner diameter="20"></mat-spinner></div>

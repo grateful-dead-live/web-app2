@@ -13,7 +13,7 @@ import { SOCKETIO } from '../config';
 import { SocketioService } from '../services/socketio.service';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
 import { logger } from '../globals';
-
+import { BuyMeACoffeeComponent } from '../buymeacoffee/buymeacoffee.component';
 
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
@@ -48,7 +48,7 @@ export class HeaderComponent {
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
     private router: Router, public auth: AuthService, private player: PlayerService, public socket: SocketioService,
-    protected googleAnalyticsService: GoogleAnalyticsService) {
+    protected googleAnalyticsService: GoogleAnalyticsService, public matDialog: MatDialog) {
 
       
     }
@@ -172,8 +172,19 @@ ngOnInit() {
   async countLikes(){
     this.likes  = await this.data.countLikes(this.router.url);
     logger("likes: "+this.likes);
-    
-    
   }
+
+  buyMeACoffee() {
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = false;
+    //dialogConfig.id = "modal-component";
+    dialogConfig.height = "580px";
+    dialogConfig.width = "450px";
+    // https://material.angular.io/components/dialog/overview
+    const modalDialog = this.matDialog.open(BuyMeACoffeeComponent, dialogConfig);
+  }
+
+
 
 }
