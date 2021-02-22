@@ -178,8 +178,8 @@ ngOnInit() {
     const dialogConfig = new MatDialogConfig();
     //dialogConfig.disableClose = false;
     //dialogConfig.id = "modal-component";
-    dialogConfig.height = "580px";
-    dialogConfig.width = "450px";
+    dialogConfig.height = "550px";
+    dialogConfig.width = "435px";
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(BuyMeACoffeeComponent, dialogConfig);
   }
