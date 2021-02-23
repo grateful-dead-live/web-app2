@@ -5,6 +5,7 @@ import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AUTH0DOMAIN, AUTH0CLIENTID} from './config';
+import { CookieService } from 'ngx-cookie-service'; 
 
 
 @Injectable({
@@ -43,7 +44,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cookieService: CookieService) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -115,6 +116,14 @@ export class AuthService {
       authComplete$.subscribe(([user, loggedIn]) => {
         // Redirect to target route after callback processing
         this.router.navigate([targetRoute]);
+        console.log('LOGGED IN');
+        const d = new Date();
+        d.setTime(d.getTime() + (180 * 24 * 60 * 60 * 1000));
+        var now = new Date();
+        var time = now.getTime();
+        var expireTime = time + 1000*36000;
+        now.setTime(expireTime);
+        document.cookie = 'gd_logged_in=c30hed92dusy7b8d;expires='+now.toUTCString();
       });
     }
   }
@@ -127,6 +136,8 @@ export class AuthService {
         client_id: AUTH0CLIENTID,
         returnTo: `${window.location.origin}`
       });
+      console.log("LOGGED OUT");
+      document.cookie = "gd_logged_in= ; expires=Thu, 01 Jan 1970 12:00:00 UTC"; 
     });
   }
 
