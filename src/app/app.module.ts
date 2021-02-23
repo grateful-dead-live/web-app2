@@ -73,6 +73,9 @@ import { AnchorScrollService } from './services/anchor-scroll.service';
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
+import { RegisterModalComponent } from './auth/register-modal.component';
+
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -105,7 +108,8 @@ import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
     PlaylistComponent,
     YoutubeComponent,
     IndexComponent,
-    BuyMeACoffeeComponent
+    BuyMeACoffeeComponent,
+    RegisterModalComponent
   ],
   imports: [
     BrowserModule,
@@ -133,6 +137,7 @@ import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
     MatTooltipModule
   ],
   providers: [
+    AuthGuard,
     DeadApiService,
     DataService,
     PlayerService,
@@ -162,7 +167,7 @@ import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent, BuyMeACoffeeComponent], 
+  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent, BuyMeACoffeeComponent, RegisterModalComponent], 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

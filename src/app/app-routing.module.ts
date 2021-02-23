@@ -17,30 +17,32 @@ import { PrivacyPolicyComponent } from './cookie-banner/privacy-policy.component
 import { PlaylistComponent } from './views/playlist.component';
 import { IndexComponent } from './views/index.component';
 
+import { AuthGuard } from './auth/auth.guard';
+
 const routes: Routes = [
   { path: '', redirectTo: '/about', pathMatch: 'full' },
   //{ path: '', component: MapSelectComponent, resolve: { loggedIn: APIResolver} },
-  { path: 'show', component: ShowComponent },
-  { path: 'show/:id', component: ShowComponent },
-  { path: 'location', component: LocationComponent },
-  { path: 'location/:id', component: LocationComponent },
-  { path: 'venue', component: VenueComponent },
-  { path: 'venue/:id', component: VenueComponent },
-  { path: 'song', component: SongComponent },
-  { path: 'song/:id', component: SongComponent },
-  { path: 'recording', component: RecordingComponent },
-  { path: 'recording/:id', component: RecordingComponent },
-  { path: 'artist', component: ArtistComponent },
-  { path: 'artist/:id', component: ArtistComponent },
-  { path: 'artifacts', component: ArtifactsComponent },
-  { path: 'artifacts/:types', component: ArtifactsComponent },
-  { path: 'mapselect', component: MapSelectComponent },
+  { path: 'show', component: ShowComponent, canActivate : [AuthGuard] },
+  { path: 'show/:id', component: ShowComponent, canActivate : [AuthGuard] },
+  { path: 'location', component: LocationComponent, canActivate : [AuthGuard] },
+  { path: 'location/:id', component: LocationComponent, canActivate : [AuthGuard] },
+  { path: 'venue', component: VenueComponent, canActivate : [AuthGuard] },
+  { path: 'venue/:id', component: VenueComponent, canActivate : [AuthGuard] },
+  { path: 'song', component: SongComponent, canActivate : [AuthGuard] },
+  { path: 'song/:id', component: SongComponent, canActivate : [AuthGuard] },
+  { path: 'recording', component: RecordingComponent, canActivate : [AuthGuard] },
+  { path: 'recording/:id', component: RecordingComponent, canActivate : [AuthGuard] },
+  { path: 'artist', component: ArtistComponent, canActivate : [AuthGuard] },
+  { path: 'artist/:id', component: ArtistComponent, canActivate : [AuthGuard] },
+  { path: 'artifacts', component: ArtifactsComponent, canActivate : [AuthGuard] },
+  { path: 'artifacts/:types', component: ArtifactsComponent, canActivate : [AuthGuard] },
+  { path: 'mapselect', component: MapSelectComponent, canActivate : [AuthGuard] },
   { path: 'about', component: StartComponent },
-  { path: 'profile', component: ProfileComponent, resolve: { loggedIn: APIResolver} },
-  { path: 'comments', component: CommentsComponent },
+  { path: 'profile', component: ProfileComponent, canActivate : [AuthGuard], resolve: { loggedIn: APIResolver} },
+  //{ path: 'comments', component: CommentsComponent },
   { path: 'dataprivacy', component: PrivacyPolicyComponent },
   { path: 'playlist/:id', component: PlaylistComponent },
-  { path: 'index', component: IndexComponent }
+  { path: 'index', component: IndexComponent, canActivate : [AuthGuard] }
 ];
 
 @NgModule({
