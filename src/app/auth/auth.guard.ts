@@ -24,9 +24,9 @@ canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<
   console.log(state)
    const cookie = this.getCookie(); 
    return this.authService.isAuthenticated$.toPromise().then(auth => {
-        if (auth && !cookie) {
-          location.reload();
-        }
+        //if (auth && !cookie) {
+        //  location.reload();
+        //}
         if (!auth && cookie) {
           location.reload();
         }
@@ -34,7 +34,7 @@ canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<
         if (auth && cookie) { 
           return true;
         }
-        if (!auth && !cookie) {
+        if (!cookie) {
           this.registerModal();
           this.router.navigate(['/about']);  
           return false        
