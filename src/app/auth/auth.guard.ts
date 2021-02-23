@@ -4,7 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTr
 import { AuthService } from '../auth.service';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { RegisterModalComponent } from './register-modal.component';
-import { CookieService } from 'ngx-cookie-service';
+//import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
   protected loggedIn: boolean;
   private route: ActivatedRoute;
 
-  constructor(private router:Router, private authService: AuthService, public matDialog: MatDialog, private cookieService: CookieService ) {
+  constructor(private router:Router, private authService: AuthService, public matDialog: MatDialog) { //}, private cookieService: CookieService ) {
   }
   
   
