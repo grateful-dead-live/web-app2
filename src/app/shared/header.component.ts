@@ -176,7 +176,7 @@ ngOnInit() {
 
   buyMeACoffee() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    //dialogConfig.disableClose = true;
     //dialogConfig.id = "modal-component";
     dialogConfig.autoFocus = false;
     dialogConfig.height = "550px";
