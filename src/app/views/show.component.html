@@ -99,11 +99,14 @@
       </ng-template>
       <ng-template #item let-item let-i="index">
 
-      <div class="slide-items" matTooltip="view image">
-        <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item)" height="200px" width="auto">
-        <!--div>{{ item.description }}</div>
-        <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
-      </div>
+        <div class="slide-items" let>
+          <div *ngVar="tilt(i, 'photo') as degVar">
+          <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" height="200px" width="auto"
+            [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-image">
+          <!--div>{{ item.description }}</div>
+          <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
+          </div>
+        </div>
     </ng-template>
     </div>
     <div *ngIf="selectedPhoto" class="photo-text">
@@ -146,10 +149,13 @@
       </ng-template>
       <ng-template #item let-item let-i="index">
 
-      <div class="slide-items">
-        <img src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" height="200px" width="auto">
+      <div class="slide-items" let>
+        <div *ngVar="tilt(i, 'artifact') as degVar">
+        <img src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" height="200px" width="auto"
+          [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-image">
         <!--div>{{ item.description }}</div>
         <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
+        </div>
       </div>
     </ng-template>
     </div>

@@ -76,6 +76,7 @@ import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
 import { RegisterModalComponent } from './auth/register-modal.component';
 
 import { AuthGuard } from './auth/auth.guard';
+import { NgVarDirective } from './ng-var.directive';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { AuthGuard } from './auth/auth.guard';
     YoutubeComponent,
     IndexComponent,
     BuyMeACoffeeComponent,
-    RegisterModalComponent
+    RegisterModalComponent,
+    NgVarDirective
   ],
   imports: [
     BrowserModule,

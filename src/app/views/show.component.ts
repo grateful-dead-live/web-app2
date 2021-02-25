@@ -30,6 +30,7 @@ export class ShowComponent {
   public currentArtifact: Artifact;
   public artifactsLightbox: any;
   public imageObject: any;
+  protected tilts: Number[] = [];
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -99,6 +100,8 @@ export class ShowComponent {
         }
         this.changeDetectorRef.detectChanges();
 
+        
+        this.tilts = this.getTilts();
 
       } else {
         //this.router.navigate(['/show', await this.data.getRandomEventId()],
@@ -107,6 +110,22 @@ export class ShowComponent {
       
     });
   }
+
+
+  private getTilts(){
+    var tilts = [];
+    for (var i = -30; i <= 30; i++) {
+      tilts.push(i);
+    }
+
+   const shuffle = arr => 
+    [...arr].reduceRight((res,_,__,s) => 
+    (res.push(s.splice(0|Math.random()*s.length,1)[0]), res),[]);
+
+   return shuffle(tilts);
+
+  }
+
 
   /*
   protected openSongOptionsDialog(song: SongInfo, set: string, idx: number) {
@@ -222,6 +241,21 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
 
   onClickPhoto(p){
     this.lightbox.openLightboxArray(this.photosLightbox, p.index)
+  }
+
+
+  tilt(i, t){
+    var tl = this.tilts.length;
+    if (tl > 0) {
+      while (i > tl){
+        i = i - tl + 1
+      }
+    }
+    if (t == 'artifact') {
+      i = tl - i
+    }
+    return this.tilts[i];
+    
   }
 
 }
