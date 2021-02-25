@@ -102,7 +102,7 @@
         <div class="slide-items" let>
           <div *ngVar="tilt(i, 'photo') as degVar">
           <img src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" height="200px" width="auto"
-            [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-image">
+            [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-photo">
           <!--div>{{ item.description }}</div>
           <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
           </div>
@@ -152,7 +152,7 @@
       <div class="slide-items" let>
         <div *ngVar="tilt(i, 'artifact') as degVar">
         <img src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" height="200px" width="auto"
-          [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-image">
+          [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}">
         <!--div>{{ item.description }}</div>
         <u><a href="{{ item.source }}" target="_blank">({{ item.collection }})</a></u-->
         </div>
