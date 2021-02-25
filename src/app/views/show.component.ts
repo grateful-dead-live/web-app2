@@ -30,7 +30,7 @@ export class ShowComponent {
   public currentArtifact: Artifact;
   public artifactsLightbox: any;
   public imageObject: any;
-  protected tilts: Number[] = [];
+  protected tilts: Number[];
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -68,6 +68,7 @@ export class ShowComponent {
       }
 
       if (this.event.date) {
+        this.tilts = this.getTilts();
         this.formatDate = this.data.formatDate(this.event.date);
         this.recordingUrls = this.event.recordings.map(r => 
           this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.etreeId+"&playlist=1")
@@ -101,7 +102,7 @@ export class ShowComponent {
         this.changeDetectorRef.detectChanges();
 
         
-        this.tilts = this.getTilts();
+        
 
       } else {
         //this.router.navigate(['/show', await this.data.getRandomEventId()],
@@ -113,17 +114,16 @@ export class ShowComponent {
 
 
   private getTilts(){
-    var tilts = [];
+    var t = [];
     for (var i = -30; i <= 30; i++) {
-      tilts.push(i);
+      t.push(i);
     }
 
-   const shuffle = arr => 
-    [...arr].reduceRight((res,_,__,s) => 
-    (res.push(s.splice(0|Math.random()*s.length,1)[0]), res),[]);
+    const shuffle = arr => 
+      [...arr].reduceRight((res,_,__,s) => 
+      (res.push(s.splice(0|Math.random()*s.length,1)[0]), res),[]);
 
-   return shuffle(tilts);
-
+    return shuffle(t);
   }
 
 
@@ -246,13 +246,15 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
 
   tilt(i, t){
     var tl = this.tilts.length;
-    if (tl > 0) {
-      while (i > tl){
-        i = i - tl + 1
-      }
-    }
+    //if (tl > 0) {
+    //  while (i > tl){
+    //    i = i - tl + 1
+    //  }
+    //}  
+    i = (i%tl-1 + tl-1)%tl-1; // wrap index around list length
+
     if (t == 'artifact') {
-      i = tl - i
+      i = tl - i - 1
     }
     return this.tilts[i];
     
