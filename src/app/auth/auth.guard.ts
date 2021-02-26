@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
 
 
 canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-  console.log(state)
+   //console.log(state)
    const cookie = this.getCookie(); 
    return this.authService.isAuthenticated$.toPromise().then(auth => {
         //if (auth && !cookie) {
@@ -47,7 +47,7 @@ canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = false;
-      console.log('modal')
+      //console.log('modal')
       this.matDialog.open(RegisterModalComponent, dialogConfig);
     }
 
