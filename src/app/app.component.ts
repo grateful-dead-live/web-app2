@@ -56,7 +56,7 @@ export class AppComponent {
         }
         if(event instanceof NavigationEnd){
           while (this.title.getTitle() === cached_title){  // wait for new page title
-            await this.sleep(50);
+            await this.sleep(250);
             logger('waiting for page title')
           }
           logger('title: ' + this.title.getTitle());
