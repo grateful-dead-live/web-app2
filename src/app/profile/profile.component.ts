@@ -5,7 +5,7 @@ import { APIResolver } from '../auth.resolve';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from '../services/dialog.service';
 import { PlayerService } from '../services/player.service';
-import { FRONTEND_URL } from '../config';
+import { DOMAIN } from '../config';
 
 
 
@@ -29,13 +29,14 @@ export class ProfileComponent implements OnInit {
   protected bookmarks: any;
   protected likes: any;
   protected comments: any;
-  public frontend_url = FRONTEND_URL;
-  //public domain = DOMAIN;
+  //public frontend_url = FRONTEND_URL;
+  public domain: string;
   //protected playlists: any;
     
 
   ngOnInit() {  
     if (this.route.snapshot.data['loggedIn']) {
+      this.domain = 'https://' + DOMAIN;
       this.auth.userProfile$.subscribe(userProfile => {
         this.userProfile = userProfile;
         this.currentUser = this.resolve.getUser(userProfile);
