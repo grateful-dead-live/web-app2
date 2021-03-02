@@ -1,13 +1,13 @@
 
 <p [style.margin-bottom]="'5px'"></p>
 
-<share-buttons *ngVar="url as u"
+<share-buttons
  [theme]="'default'"
  [include]="['facebook','twitter','pinterest','reddit','tumblr','mix','copy']"
  [show]="7"
  [size]="-4"
  [title]="'Grateful Dead Concert Explorer'"
  [tags]="'GratefulDeadExplorer,GratefulDead'"
- [url]="u"
+ url = "{{url}}"
 ></share-buttons>
 <p [style.margin-bottom]="'5px'"></p>
