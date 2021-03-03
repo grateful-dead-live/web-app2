@@ -246,6 +246,11 @@ export class DataService {
     return this.apiService.sendCommentReport(comment, userid);
   }
 
+  async sendFeedback(msg: any, userid: string): Promise<any> {
+    const comment = encodeURIComponent(JSON.stringify(msg));
+    return this.apiService.sendFeedback(comment, userid);
+  }
+
   async addPlaylist(name: string, playlist: Track[], playlistid: string, userid: string, time: number): Promise<any> {
     const p = encodeURIComponent(JSON.stringify(playlist));
     return this.apiService.addPlaylist(name, p, playlistid, userid, time);

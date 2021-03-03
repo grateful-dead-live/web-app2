@@ -30,12 +30,12 @@
         </button>
 
       <!--span *ngIf="auth.loggedIn && !((router.url == '/about') || (router.url == '/mapselect') || (router.url == '/profile') || (router.url == '/dataprivacy'))"-->
-        <button *ngIf="userId" mat-icon-button color="" (click)="onLikeButton()">
+        <button *ngIf="userId != None" mat-icon-button color="" (click)="onLikeButton()">
           <mat-icon>{{liked ? 'thumb_up_alt' : 'thumb_up_off_alt'}}</mat-icon>
         </button>
-        <button *ngIf="!userId" mat-icon-button color="" style="pointer-events: none;">
+        <!--button *ngIf="!userId" mat-icon-button color="" style="pointer-events: none;">
           <mat-icon >thumb_up_off_alt</mat-icon>
-        </button>
+        </button-->
         {{likes}}
       </span>
      
@@ -50,7 +50,7 @@
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
 
-
+  <button *ngIf="userId != 'None'" mat-button style="margin-bottom: 0px;" (click)="sendFeedback()">send feedback</button>
   <button mat-button style="margin-bottom: 0px;"><img src="/assets/buymeacoffee.png" height="32" width="129" (click)="buyMeACoffee()"/></button>
 
   <p *ngIf="!searchState" [style.margin-right]="'25px'"></p>

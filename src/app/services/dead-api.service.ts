@@ -157,6 +157,10 @@ export class DeadApiService {
     return this.getTextFromApi('sendCommentReport?comment='+comment+'&userid='+userid);
   }
 
+  async sendFeedback(comment: string, userid: string): Promise<any> {
+    return this.getTextFromApi('sendFeedback?comment='+comment+'&userid='+userid);
+  }
+
   async addPlaylist(name: string, playlist: string, playlistid: string, userid: string, time: number): Promise<any> {
     return this.getTextFromApi('addPlaylist?name='+name+'&playlist='+playlist+'&playlistid='+playlistid+'&userid='+userid+'&time='+time);
   }

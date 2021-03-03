@@ -74,6 +74,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { BuyMeACoffeeComponent } from './buymeacoffee/buymeacoffee.component';
 import { RegisterModalComponent } from './auth/register-modal.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { NgVarDirective } from './ng-var.directive';
@@ -110,6 +111,7 @@ import { NgVarDirective } from './ng-var.directive';
     YoutubeComponent,
     IndexComponent,
     BuyMeACoffeeComponent,
+    FeedbackComponent,
     RegisterModalComponent,
     NgVarDirective
   ],
@@ -169,7 +171,7 @@ import { NgVarDirective } from './ng-var.directive';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent, BuyMeACoffeeComponent, RegisterModalComponent], 
+  entryComponents: [ListDialogComponent, SearchDialogComponent, InputDialogComponent, BuyMeACoffeeComponent, RegisterModalComponent, FeedbackComponent], 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

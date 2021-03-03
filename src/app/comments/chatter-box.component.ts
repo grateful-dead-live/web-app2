@@ -40,6 +40,7 @@ import { CommentPayload } from '../services/types'
 
     protected showImageOrDiv(comment){
         return isUndefined(comment.userImagePath);
+        // return comment.userImagePath === undefined;
     }
 
     addComment(comment){

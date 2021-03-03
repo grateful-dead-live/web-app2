@@ -1,0 +1,11 @@
+
+
+<input type="text" class="form-control" [(ngModel)]="feedback">
+
+<button *ngIf="feedback==''" mat-flat-button disabled=true style="color: rgb(194, 192, 192)">send</button>
+<button *ngIf="feedback!=''" mat-flat-button style="color: rgb(194, 192, 192)" (click)="onClick()">send</button>
+
+
+
+
+
