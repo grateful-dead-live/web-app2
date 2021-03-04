@@ -14,6 +14,8 @@ import { SocketioService } from '../services/socketio.service';
 import { GoogleAnalyticsService } from '../services/google-analytics.service';
 import { logger } from '../globals';
 import { BuyMeACoffeeComponent } from '../buymeacoffee/buymeacoffee.component';
+import { FeedbackComponent } from '../feedback/feedback.component';
+import { DialogService } from '../services/dialog.service';
 
 //declare var require: any;
 //const searchjson = require("../../assets/search.json");
@@ -48,7 +50,7 @@ export class HeaderComponent {
   
   constructor(private sanitizer: DomSanitizer, private titleService: Title, private dialog: MatDialog, private data: DataService, 
     private router: Router, public auth: AuthService, private player: PlayerService, public socket: SocketioService,
-    protected googleAnalyticsService: GoogleAnalyticsService, public matDialog: MatDialog) {
+    protected googleAnalyticsService: GoogleAnalyticsService, public matDialog: MatDialog, private dialogservice: DialogService) {
 
       
     }
@@ -183,6 +185,29 @@ ngOnInit() {
     dialogConfig.width = '435px';
     // https://material.angular.io/components/dialog/overview
     this.matDialog.open(BuyMeACoffeeComponent, dialogConfig);
+  }
+
+  async sendFeedback() {
+    const dialogConfig = new MatDialogConfig();
+    //dialogConfig.disableClose = true;
+    //dialogConfig.id = "feedback-modal";
+    dialogConfig.autoFocus = false;
+    dialogConfig.height = '550px';
+    dialogConfig.width = '435px';
+    dialogConfig.data = {
+      userid: this.userId
+    };
+    this.matDialog.open(FeedbackComponent, dialogConfig);
+    
+    /*
+    var m = await this.data.sendFeedback('hello', this.userId);
+    if (m.startsWith('250')) {
+      var dm = 'Feedback sent';
+    } else {
+      var dm = 'Error sending feedback';
+    }
+    this.dialogservice.openSingleFunction( dm, ["ok"], () => null );
+    */
   }
 
 

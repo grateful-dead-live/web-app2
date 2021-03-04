@@ -13,7 +13,7 @@ export class ShareButtonsComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.url = 'https://' + DOMAIN + this.router.url+ '/';
+    this.url = 'https://' + DOMAIN + this.router.url + '/';
   }
 
 }
