@@ -1,11 +1,17 @@
 
+<div>
+    Send feedback/suggestions/bug reports
+</div>
 
-<input type="text" class="form-control" [(ngModel)]="feedback">
+<textarea id="textbox" 
+    [(ngModel)]="feedback" 
+    maxlength="{{inputMaxLength}}"
+    (keyup)="onKeyUp(feedback)">
+</textarea>
+<div class="chars">
+    {{inputMaxLength - typedLength + " characters left"}}
+</div>
 
-<button *ngIf="feedback==''" mat-flat-button disabled=true style="color: rgb(194, 192, 192)">send</button>
-<button *ngIf="feedback!=''" mat-flat-button style="color: rgb(194, 192, 192)" (click)="onClick()">send</button>
-
-
-
-
-
+<button mat_flat-button *ngIf="feedback==''" mat-flat-button disabled=true style="color: rgb(194, 192, 192)">send</button>
+<button mat_flat-button *ngIf="feedback!=''" mat-flat-button style="color: rgb(194, 192, 192)" (click)="onClick()">Send</button>
+<button mat_flat-button [mat-dialog-close]="true" mat-flat-button style="color: rgb(194, 192, 192)">Cancel</button>

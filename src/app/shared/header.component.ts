@@ -189,11 +189,11 @@ ngOnInit() {
 
   async sendFeedback() {
     const dialogConfig = new MatDialogConfig();
-    //dialogConfig.disableClose = true;
+    dialogConfig.disableClose = true;
     //dialogConfig.id = "feedback-modal";
     dialogConfig.autoFocus = false;
-    dialogConfig.height = '550px';
-    dialogConfig.width = '435px';
+    dialogConfig.height = '330px';
+    dialogConfig.width = '450px';
     dialogConfig.data = {
       userid: this.userId
     };
