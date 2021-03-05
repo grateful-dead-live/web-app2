@@ -42,6 +42,7 @@
     "ng-lazyload-image": "^5.1.2",
     "ng2-carouselamos": "^4.1.0",
     "ngx-cookie-service": "^2.4.0",
+    "ngx-drag-scroll": "^9.0.0-beta.4",
     "ngx-lightbox": "^2.2.2",
     "ngx-pagination": "^5.0.0",
     "ngx-sharebuttons": "^8.0.5",

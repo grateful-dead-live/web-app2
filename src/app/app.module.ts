@@ -69,6 +69,7 @@ import { LightboxModule } from 'ngx-lightbox';
 import { LightboxService } from './services/lightbox.service';
 import { SocketioService } from './services/socketio.service';
 import { AnchorScrollService } from './services/anchor-scroll.service';
+import { DragScrollModule } from 'ngx-drag-scroll';
 
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import { MatTooltipModule, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
@@ -138,7 +139,8 @@ import { NgVarDirective } from './ng-var.directive';
     Ng2CarouselamosModule,
     LightboxModule,
     NgxPaginationModule,
-    MatTooltipModule
+    MatTooltipModule,
+    DragScrollModule
   ],
   providers: [
     AuthGuard,
