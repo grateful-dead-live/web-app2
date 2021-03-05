@@ -12,6 +12,5 @@
     {{inputMaxLength - typedLength + " characters left"}}
 </div>
 
-<button mat_flat-button *ngIf="feedback==''" mat-flat-button disabled=true style="color: rgb(194, 192, 192)">send</button>
-<button mat_flat-button *ngIf="feedback!=''" mat-flat-button style="color: rgb(194, 192, 192)" (click)="onClick()">Send</button>
+<button mat_flat-button [disabled]="feedback == ''" mat-flat-button style="color: rgb(194, 192, 192)" (click)="onClick()">Send</button>
 <button mat_flat-button [mat-dialog-close]="true" mat-flat-button style="color: rgb(194, 192, 192)">Cancel</button>
