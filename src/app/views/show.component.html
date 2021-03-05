@@ -83,7 +83,7 @@
       <div drag-scroll-item *ngFor="let item of photos; let i = index;">
         <div *ngVar="tilt(i, 'photo') as degVar">
         <img 
-          src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" height="200px" width="auto"
+          src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" height="200px" width="auto"
           [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-photo">
       </div>
       </div>
