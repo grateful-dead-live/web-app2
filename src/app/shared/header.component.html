@@ -50,7 +50,7 @@
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
 
-  <button *ngIf="userId != 'None'" mat-button style="margin-bottom: 0px;" (click)="sendFeedback()">send feedback</button>
+  <button *ngIf="userId != 'None'" mat-button style="margin-bottom: 0px; background-color: #ea7076;" (click)="sendFeedback()">send feedback</button>
   <button mat-button style="margin-bottom: 0px;"><img src="/assets/buymeacoffee.png" height="32" width="129" (click)="buyMeACoffee()"/></button>
 
   <p *ngIf="!searchState" [style.margin-right]="'25px'"></p>

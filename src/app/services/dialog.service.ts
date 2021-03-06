@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ListDialogComponent } from '../shared/list-dialog.component';
 import { InputDialogComponent } from '../shared/input-dialog.component';
-import { DataService } from '../services/data.service';
+//import { DataService } from '../services/data.service';
 
 @Injectable()
 export class DialogService {
-  constructor(private dialog: MatDialog, private data: DataService) {}
+  constructor(private dialog: MatDialog) {}
   
   async openMultiFunction(title: string, options: string[], funcs: Function[]) {
     this.open(title, options).subscribe(result => {
