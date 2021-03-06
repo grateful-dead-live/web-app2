@@ -9,7 +9,7 @@
     (keyup)="onKeyUp(feedback)">
 </textarea>
 <div class="chars">
-    {{inputMaxLength - typedLength + " characters left"}}
+    {{typedLength + " / " + inputMaxLength + " characters"}}
 </div>
 
 <button mat_flat-button [disabled]="feedback == ''" mat-flat-button style="color: rgb(194, 192, 192)" (click)="onClick()">Send</button>
