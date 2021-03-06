@@ -14,6 +14,7 @@
           <!--button mat-menu-item (click)="auth.logout()" *ngIf="userId">Log Out</button-->
           <button mat-menu-item routerLink="/index">Index</button>
           <button mat-menu-item routerLink="/about">About</button>
+          <button mat-menu-item (click)="sendFeedback()" *ngIf="userId != 'None'">Send feedback</button>
           <button mat-menu-item routerLink="/dataprivacy">Privacy</button>
         </mat-menu>
     </span>
@@ -50,8 +51,7 @@
   <!--<div fxFlex="5 1 auto"></div>-->
   <ng-content></ng-content>
 
-  <button *ngIf="userId != 'None'" mat-button style="margin-bottom: 0px; background-color: #ea7076;" (click)="sendFeedback()">send feedback</button>
-  <button mat-button style="margin-bottom: 0px;"><img src="/assets/buymeacoffee.png" height="32" width="129" (click)="buyMeACoffee()"/></button>
+  <button mat-button style="margin-bottom: 0px;"><img src="/assets/buymeacoffee.png" height="32px" width="129px" (click)="buyMeACoffee()"/></button>
 
   <p *ngIf="!searchState" [style.margin-right]="'25px'"></p>
   <div *ngIf="searchState" [style.margin-top]="'8px'" [style.margin-right]="'5px'"><mat-spinner diameter="20"></mat-spinner></div>

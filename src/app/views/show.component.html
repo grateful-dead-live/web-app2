@@ -81,10 +81,10 @@
     <h2 class="gd-section"><span class="titlef">Photos</span></h2>
     <drag-scroll style="width: 100%; height: 310px;">
       <div drag-scroll-item *ngFor="let item of photos; let i = index;" style="margin-top: 30px;">
-        <div *ngVar="tilt(i, 'photo') as degVar">
+        <div *ngVar="tilt(i, 'photo') as degVar" [ngStyle]="{'transform': 'rotate('+degVar+'deg)', '-webkit-transform': 'rotate('+degVar+'deg)'}" >
         <img 
-          src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" height="200px" width="auto"
-          [ngStyle]="{'transform': 'rotate('+degVar+'deg)', '-webkit-transform': 'rotate('+degVar+'deg)'}" class="carousel-photo">
+          src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" height="200px" width="auto" class="carousel-photo">
+          <div class="photo-text">text</div>
       </div>
       </div>
     </drag-scroll>
