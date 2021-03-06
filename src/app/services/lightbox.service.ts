@@ -17,11 +17,16 @@ export class LightboxService {
     a.forEach(function (value, i){
       var t = value;
       t['index'] = i;
-      if (!value.thumbnail) t['thumbnail'] = t.image;
+      if (!value.thumbnail) t['thumbnail'] = t.image; 
       carousel.push(t);
+      var collection = value.collection;
+      if (collection == 'Psilo') {
+        collection = 'Deadstubs';
+        value.source = 'https://deadstubs.com';
+      }
       lightboxa.push({
         src: value.image,
-        caption: value.description
+        caption: (value.description || value.type) + '  (source: <a href="' + value.source + '" target="_blank">' + collection + '</a>)'
       });
     });
     return [lightboxa, carousel];
