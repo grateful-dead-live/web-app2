@@ -138,10 +138,9 @@
     
     <drag-scroll style="height: 310px;">
       <div drag-scroll-item *ngFor="let item of artifacts; let i = index;" style="margin-top: 40px;">
-        <div *ngVar="tilt(i, 'artifact') as degVar">
+        <div *ngVar="tilt(i, 'artifact') as degVar" [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}">
         <img 
-          src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" width="auto" height="200px"
-          [ngStyle]="{'transform': 'rotate(deg'+degVar+')', '-webkit-transform': 'rotate('+degVar+'deg)'}">
+          src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" width="auto" height="200px">
       </div>
       </div>
     </drag-scroll>

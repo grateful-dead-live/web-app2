@@ -65,10 +65,11 @@ ngOnInit() {
   this.room = this.router.url;
   if (SOCKETIO) {
     this.socket.joinRoom(this.room);
-
     this.socket.like().subscribe((msg: number) => {
       logger(msg);
       this.countLikes();
+      this.checkLike();
+      this.checkBookmark();
       }, err => {
         logger(err);
     });
