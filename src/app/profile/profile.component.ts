@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit {
 
   async getBookmarks(){
     var result = await this.data.getBookmarks(this.currentUser.userId);
+
     if (result[0].bookmarks) {
       var m = result[0].bookmarks;
       m.sort(function(a, b) { return a.timestamp - b.timestamp }).reverse();
@@ -97,8 +98,7 @@ export class ProfileComponent implements OnInit {
         }        
       })
       this.comments = res;
-      //this.comments = result[0].comments;
-    };
+    }
   }
 
   formatTime(d) {

@@ -13,10 +13,10 @@
 
 
   <br><br><b>Bookmarks</b><br>
-  <div *ngIf="!bookmarks" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+  <div *ngIf="bookmarks === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
     <mat-spinner diameter="30"></mat-spinner>
   </div>
-  <div *ngIf="bookmarks">
+  <div *ngIf="bookmarks !== undefined">
       <div *ngFor="let b of bookmarks">
             {{b.timestamp}} <span class="link" [routerLink]="b.route" matTooltip="go to item">{{ b.title }}</span>
             <button mat-icon-button (click)="onDeleteBookmark(b)" matTooltip="delete bookmark"><mat-icon>clear</mat-icon></button>  
@@ -24,11 +24,11 @@
   </div>
 
   <br><b>Likes</b><br>
-  <div *ngIf="!likes || likes.length==0" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+  <div *ngIf="likes === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
     <mat-spinner diameter="30"></mat-spinner>
   </div>
 
-  <div *ngIf="likes">
+  <div *ngIf="likes !== undefined">
       <div *ngFor="let l of likes">
           {{l.timestamp}} <span class="link" [routerLink]="l.route" matTooltip="go to item">{{ l.title }}</span>
           <button mat-icon-button (click)="onUnlike(l)" matTooltip="delete like"><mat-icon>clear</mat-icon></button>  
@@ -36,10 +36,10 @@
   </div>
 
   <br><b>Commented on</b><br>
-  <div *ngIf="!comments" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+  <div *ngIf="comments === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
     <mat-spinner diameter="30"></mat-spinner>
   </div>
-  <div *ngIf="comments"> 
+  <div *ngIf="comments !== undefined"> 
     <div *ngFor="let c of comments">
       <span class="link" [routerLink]="c.route" matTooltip="go to item">{{ c.title }}</span>
     </div>
