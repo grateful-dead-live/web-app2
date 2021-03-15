@@ -257,6 +257,7 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
       i = tl - i - 1
     }
     //console.log(i +' ' + this.tilts[i]);
+    console.log(this.tilts)
     return this.tilts[i];
     
   }

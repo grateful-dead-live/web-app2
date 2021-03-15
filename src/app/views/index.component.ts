@@ -56,19 +56,27 @@ export class IndexComponent implements OnInit {
   }
 
   protected async getShows(){
-    this.shows = await this.data.getShowIndex();
+    if (!this.shows){
+      this.shows = await this.data.getShowIndex();
+    }
   }
 
   protected async getVenues(){
-    this.venues = await this.data.getVenueIndex();
+    if (!this.venues){
+      this.venues = await this.data.getVenueIndex();
+    }
   }
 
   protected async getLocations(){
-    this.locations = await this.data.getLocationIndex();
+    if (!this.locations){
+      this.locations = await this.data.getLocationIndex();
+    }
   }
 
   protected async getSongs(){
-    this.songs = await this.data.getSongIndex();
+    if (!this.songs){
+      this.songs = await this.data.getSongIndex();
+    }
   }
 
 }
