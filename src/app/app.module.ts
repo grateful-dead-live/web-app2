@@ -64,7 +64,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { YoutubeComponent } from './shared/youtube.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
-import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+//import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { LightboxModule } from 'ngx-lightbox';
 import { LightboxService } from './services/lightbox.service';
 import { SocketioService } from './services/socketio.service';
@@ -136,7 +136,7 @@ import { NgVarDirective } from './ng-var.directive';
     ShareIconsModule,
     YouTubePlayerModule,
     NgSelectModule,
-    Ng2CarouselamosModule,
+    //Ng2CarouselamosModule,
     LightboxModule,
     NgxPaginationModule,
     MatTooltipModule,
