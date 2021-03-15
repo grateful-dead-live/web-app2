@@ -42,8 +42,7 @@
             ],
             "scripts": [
               "./node_modules/fuse.js/dist/fuse.js"
-            ],
-            "es5BrowserSupport": true
+            ]
           },
           "configurations": {
             "production": {

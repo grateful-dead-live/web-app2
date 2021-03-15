@@ -128,7 +128,7 @@ import { NgVarDirective } from './ng-var.directive';
     MatIconModule,
     MatMenuModule,
     LazyLoadImageModule,
-    LeafletModule.forRoot(),
+    LeafletModule,
     MatSliderModule,
     MatProgressSpinnerModule,
     //ChatterBoxModule,
