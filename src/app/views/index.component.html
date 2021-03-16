@@ -12,41 +12,78 @@
 
 
     <div *ngIf="selected=='venues'">
-        <div *ngFor="let v of venues" >
-            <span [routerLink]="['/venue', v.venueId]" style="cursor:pointer">
-            {{ v.venueName }} ({{ v.locationName }})
-        </span>
-        </div>
+        <table>
+            <tr>
+                <th (click)="onClickTitle('venues', 'venueName')" style="cursor:pointer">Venue</th>
+                <th (click)="onClickTitle('venues', 'locationName')" style="cursor:pointer">Location</th>
+                <th (click)="onClickTitle('venues', 'numEvents')" style="cursor:pointer">Events</th>
+                <th (click)="onClickTitle('venues', 'numPhotos')" style="cursor:pointer">Photos</th>
+                <th (click)="onClickTitle('venues', 'numArtefacts')" style="cursor:pointer">Photos</th>
+                <th>Artifacts</th>
+            </tr>
+            <tr *ngFor="let s of venues">
+                <td [routerLink]="['/venue', s.venueId]" style="cursor:pointer">{{ s.venueName }}</td>
+                <td [routerLink]="['/venue', s.venueId]" style="cursor:pointer">{{ s.locationName }}</td>
+                <td [routerLink]="['/venue', s.venueId]" style="cursor:pointer">{{ s.numEvents }}</td>
+                <td [routerLink]="['/venue', s.venueId]" style="cursor:pointer">{{ s.numPhotos }}</td>
+                <td [routerLink]="['/venue', s.venueId]" style="cursor:pointer">{{ s.numArtefacts }}</td>
+            </tr>
+        </table>
     </div>
+
 
 
     <div *ngIf="selected=='locations'">
-        <div *ngFor="let l of locations" >
-            <span [routerLink]="['/location', l.locationId]" style="cursor:pointer">
-            {{ l.locationName }} ({{ l.country }})
-        </span>
-        </div>
+        <table>
+            <tr>
+                <th (click)="onClickTitle('locations', 'locationName')" style="cursor:pointer">Location</th>
+                <th (click)="onClickTitle('locations', 'country')" style="cursor:pointer">State/Country</th>
+                <th (click)="onClickTitle('locations', 'numEvents')" style="cursor:pointer">Events</th>
+                <th (click)="onClickTitle('locations', 'numPhotos')" style="cursor:pointer">Photos</th>
+                <th (click)="onClickTitle('locations', 'numArtefacts')" style="cursor:pointer">Artifacts</th>
+            </tr>
+            <tr *ngFor="let s of locations">
+                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.locationName }}</td>
+                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.country }}</td>
+                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.numEvents }}</td>
+                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.numPhotos }}</td>
+                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.numArtefacts }}</td>
+            </tr>
+        </table>
     </div>
-
-
 
 
     <div *ngIf="selected=='songs'">
-        <div *ngFor="let s of songs" >
-            <span [routerLink]="['/song', s.songId]" style="cursor:pointer">
-            {{ s.songName }}
-        </span>
-        </div>
+        <table>
+            <tr>
+                <th (click)="onClickTitle('songs', 'songName')" style="cursor:pointer">Song</th>
+                <th (click)="onClickTitle('songs', 'numEvents')" style="cursor:pointer">Events</th>
+            </tr>
+            <tr *ngFor="let s of songs">
+                <td [routerLink]="['/song', s.songId]" style="cursor:pointer">{{ s.songName }}</td>
+                <td [routerLink]="['/song', s.songId]" style="cursor:pointer">{{ s.numEvents }}</td>
+            </tr>
+        </table>
     </div>
 
 
-
     <div *ngIf="selected=='shows'">
-        <div *ngFor="let s of shows" >
-            <span [routerLink]="['/show', s.showId]" style="cursor:pointer">
-            {{ s.date }} {{ s.venueName }}, {{ s.locationName }}
-        </span>
-        </div>
+        <table>
+            <tr>
+                <th (click)="onClickTitle('shows', 'date')" style="cursor:pointer">Date</th>
+                <th (click)="onClickTitle('shows', 'venueName')" style="cursor:pointer">Venue</th>
+                <th (click)="onClickTitle('shows', 'locationName')" style="cursor:pointer">Location</th>
+                <th (click)="onClickTitle('shows', 'photos')" style="cursor:pointer">Photos</th>
+                <th (click)="onClickTitle('shows', 'artefacts')" style="cursor:pointer">Artifacts</th>
+            </tr>
+            <tr *ngFor="let s of shows">
+                <td [routerLink]="['/show', s.showId]" style="cursor:pointer">{{ s.date }}</td>
+                <td [routerLink]="['/show', s.showId]" style="cursor:pointer">{{ s.venueName }}</td>
+                <td [routerLink]="['/show', s.showId]" style="cursor:pointer">{{ s.locationName }}</td>
+                <td [routerLink]="['/show', s.showId]" style="cursor:pointer">{{ s.photos }}</td>
+                <td [routerLink]="['/show', s.showId]" style="cursor:pointer">{{ s.artefacts }}</td>
+            </tr>
+        </table>
     </div>
 
 

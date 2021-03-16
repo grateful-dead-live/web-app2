@@ -19,6 +19,10 @@ export class IndexComponent implements OnInit {
   public songs: any;
   public test: string;
   public currentUser: any = { userName: '', userId: 'None' };
+  protected venuesSort: String = 'venueName';
+  protected showsSort: String = 'date';
+  protected locationsSort: String = 'locationName';
+  protected songsSort: String = 'songName';
 
   constructor(private data: DataService, public auth: AuthService) { }
 
@@ -77,6 +81,37 @@ export class IndexComponent implements OnInit {
     if (!this.songs){
       this.songs = await this.data.getSongIndex();
     }
+  }
+
+  public onClickTitle(selection, column) {
+    switch(selection) {
+      case 'shows':
+        if (this.showsSort == column) this.shows.reverse();
+        else this.shows = this.sortByKey(this.shows, column);
+        this.showsSort = column;
+        break;
+      case 'venues':
+        if (this.venuesSort == column) this.venues.reverse();
+        else this.venues = this.sortByKey(this.venues, column);
+        this.venuesSort = column;
+        break;
+      case 'locations':
+        if (this.locationsSort == column) this.locations.reverse();
+        else this.locations = this.sortByKey(this.locations, column);
+        this.locationsSort = column;
+        break;
+      case 'songs':
+        if (this.songsSort == column) this.songs.reverse();
+        else this.songs = this.sortByKey(this.songs, column);
+        this.songsSort = column;
+    }
+  }
+
+  protected sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
   }
 
 }
