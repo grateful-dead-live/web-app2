@@ -1,3 +1,5 @@
+<div *ngIf="!location" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+
 <div *ngIf="location" fxLayout="column">
   <gd-header *ngIf="location" title='{{ location.name }}'
     subtitle='{{ location.state }}' imageUrl="{{ location.image }}" userId='{{ currentUser.userId }}'>

@@ -26,6 +26,8 @@
         </div><br/>
       </ng-container-->
 
+<div *ngIf="!recordinginfo" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+
 <div *ngIf="recordinginfo" fxLayout="column">
   <gd-header title='{{ recordinginfo.etree_id }}'
     subtitle=' – {{ recordinginfo.location_name }}' userId='{{ currentUser.userId }}'>

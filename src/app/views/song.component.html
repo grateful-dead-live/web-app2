@@ -1,3 +1,5 @@
+<div *ngIf="!song" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+
 <div *ngIf="song" fxLayout="column">
   <gd-header *ngIf="song" title="{{ song.name }}"
     subtitle="{{ subtitle }}" userId='{{ currentUser.userId }}'></gd-header>
