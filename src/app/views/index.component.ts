@@ -23,11 +23,11 @@ export class IndexComponent implements OnInit {
   protected showsSort: String = 'date';
   protected locationsSort: String = 'locationName';
   protected songsSort: String = 'songName';
+  public loaded: boolean = false;
 
   constructor(private data: DataService, public auth: AuthService) { }
 
-  ngOnInit() {
-
+  async ngOnInit() {
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {
@@ -40,10 +40,18 @@ export class IndexComponent implements OnInit {
     
     this.selected = 'shows';
     this.onSelectButton('shows');
+    var index = await this.data.getIndex();
+    this.loaded = true;
+
+    this.shows = index.shows;
+    this.venues = index.venues;
+    this.songs = index.songs;
+    this.locations = index.locations;
   }
 
   public onSelectButton(s) {
     this.selected = s;
+    /*
     switch(s) {
       case 'shows':
         this.getShows();
@@ -57,8 +65,10 @@ export class IndexComponent implements OnInit {
       case 'songs':
         this.getSongs();
     }
+    */
   }
 
+  /*
   protected async getShows(){
     if (!this.shows){
       this.shows = await this.data.getShowIndex();
@@ -82,6 +92,7 @@ export class IndexComponent implements OnInit {
       this.songs = await this.data.getSongIndex();
     }
   }
+  */
 
   public onClickTitle(selection, column) {
     switch(selection) {

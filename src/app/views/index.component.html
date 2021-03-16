@@ -10,16 +10,18 @@
     <button mat-flat-button fxFlex [color]="selected=='songs' ? 'warn' : 'primary'" (click)="onSelectButton('songs')">Songs</button>
     </div>
 
+    
+ <div *ngIf="loaded==false" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
 
+ <div *ngIf="loaded==true">
     <div *ngIf="selected=='venues'">
         <table>
             <tr>
                 <th (click)="onClickTitle('venues', 'venueName')" style="cursor:pointer">Venue</th>
                 <th (click)="onClickTitle('venues', 'locationName')" style="cursor:pointer">Location</th>
-                <th (click)="onClickTitle('venues', 'numEvents')" style="cursor:pointer">Events</th>
+                <th (click)="onClickTitle('venues', 'numEvents')" style="cursor:pointer">Shows</th>
                 <th (click)="onClickTitle('venues', 'numPhotos')" style="cursor:pointer">Photos</th>
-                <th (click)="onClickTitle('venues', 'numArtefacts')" style="cursor:pointer">Photos</th>
-                <th>Artifacts</th>
+                <th (click)="onClickTitle('venues', 'numArtefacts')" style="cursor:pointer">Artifacts</th>
             </tr>
             <tr *ngFor="let s of venues">
                 <td [routerLink]="['/venue', s.venueId]" style="cursor:pointer">{{ s.venueName }}</td>
@@ -38,7 +40,7 @@
             <tr>
                 <th (click)="onClickTitle('locations', 'locationName')" style="cursor:pointer">Location</th>
                 <th (click)="onClickTitle('locations', 'country')" style="cursor:pointer">State/Country</th>
-                <th (click)="onClickTitle('locations', 'numEvents')" style="cursor:pointer">Events</th>
+                <th (click)="onClickTitle('locations', 'numEvents')" style="cursor:pointer">Shows</th>
                 <th (click)="onClickTitle('locations', 'numPhotos')" style="cursor:pointer">Photos</th>
                 <th (click)="onClickTitle('locations', 'numArtefacts')" style="cursor:pointer">Artifacts</th>
             </tr>
@@ -57,7 +59,7 @@
         <table>
             <tr>
                 <th (click)="onClickTitle('songs', 'songName')" style="cursor:pointer">Song</th>
-                <th (click)="onClickTitle('songs', 'numEvents')" style="cursor:pointer">Events</th>
+                <th (click)="onClickTitle('songs', 'numEvents')" style="cursor:pointer">Performances</th>
             </tr>
             <tr *ngFor="let s of songs">
                 <td [routerLink]="['/song', s.songId]" style="cursor:pointer">{{ s.songName }}</td>
@@ -85,6 +87,6 @@
             </tr>
         </table>
     </div>
-
+</div>
 
 <p [style.margin-bottom]="'150px'"></p>

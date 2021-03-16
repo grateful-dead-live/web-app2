@@ -256,8 +256,6 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
     if (t == 'artifact') {
       i = tl - i - 1
     }
-    //console.log(i +' ' + this.tilts[i]);
-    console.log(this.tilts)
     return this.tilts[i];
     
   }

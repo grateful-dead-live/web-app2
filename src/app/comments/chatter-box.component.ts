@@ -1,5 +1,5 @@
 import { EventEmitter, Component, Input, Output } from '@angular/core';
-import { isUndefined } from 'util';
+//import { isUndefined } from 'util';
 import { CommentPayload } from '../services/types'
 
 
@@ -39,8 +39,8 @@ import { CommentPayload } from '../services/types'
     ngOnInit() { }
 
     protected showImageOrDiv(comment){
-        return isUndefined(comment.userImagePath);
-        // return comment.userImagePath === undefined;
+        //return isUndefined(comment.userImagePath);
+        return comment.userImagePath === undefined;
     }
 
     addComment(comment){
