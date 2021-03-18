@@ -23,7 +23,7 @@ export class IndexComponent implements OnInit {
   protected showsSort: String = 'date';
   protected locationsSort: String = 'locationName';
   protected songsSort: String = 'songName';
-  public loaded: boolean = false;
+  public index: any;
 
   constructor(private data: DataService, public auth: AuthService) { }
 
@@ -40,13 +40,12 @@ export class IndexComponent implements OnInit {
     
     this.selected = 'shows';
     this.onSelectButton('shows');
-    var index = await this.data.getIndex();
-    this.loaded = true;
 
-    this.shows = index.shows;
-    this.venues = index.venues;
-    this.songs = index.songs;
-    this.locations = index.locations;
+    this.index = await this.data.getIndex();
+    this.shows = this.index.shows;
+    this.venues = this.index.venues;
+    this.songs = this.index.songs;
+    this.locations = this.index.locations;
   }
 
   public onSelectButton(s) {
