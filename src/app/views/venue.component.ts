@@ -20,6 +20,7 @@ export class VenueComponent {
   public videos: any;
   public currentVideoId: string;
   protected currentVideoIndex: number = 0;
+  public spinTime: boolean;
 
   protected currentUser: any = { userName: '', userId: 'None' };
   
@@ -28,6 +29,9 @@ export class VenueComponent {
     protected googleAnalyticsService: GoogleAnalyticsService) {}
   
   async ngOnInit() {
+    setTimeout(() => {
+      this.spinTime = true;
+    }, 2000);
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {

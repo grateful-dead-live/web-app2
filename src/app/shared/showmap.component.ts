@@ -37,12 +37,18 @@ export class ShowMapComponent {
   protected lineDecorator: any;
   public loaded: boolean;
   public timeOut: boolean;
-  
+  public spinTime: boolean;
 
   constructor(protected data: DataService, private sanitizer: DomSanitizer, protected googleAnalyticsService: GoogleAnalyticsService) {}
 
 
   ngOnInit() {
+    setTimeout(() => {
+      this.timeOut = true;
+    }, 35000);
+    setTimeout(() => {
+      this.spinTime = true;
+    }, 2000);
     this.loaded = false;
     this.timeOut = false;
     this.selectLayers = {};
@@ -67,19 +73,24 @@ export class ShowMapComponent {
 
 
   async onMapReady(map: L.Map) {
-    setTimeout(() => {
-      this.timeOut = true;
-    }, 35000);
+    
     //this.document.getElementById("maploaded").style.visibility = "hidden";
     this.map = map
     let i = 0;
+    /*
     while (this.venues == undefined || this.venues.length == 0) {    // retry heroku fetch
       logger("retry " + i);
       this.venues = await this.data.getVenueCoordinates();
       logger(this.venues)
       i++;
-    }
-    var tours = await this.data.getTourCoordinates();
+    }*/
+
+    const coordinates = await this.data.getCoordinates()
+    this.venues = coordinates.venue_coordinates;
+    var tours = coordinates.tour_coordinates;
+    //var tours = await this.data.getTourCoordinates();
+
+
     logger(tours)
     var geoJsonData = this.getGeoJson(this.venues);
     var tourGeoJsonData = this.getTourJson(tours);
@@ -113,6 +124,8 @@ export class ShowMapComponent {
     this.fitZoom();
    
   }
+
+
 
   
   dateStrings(s) {

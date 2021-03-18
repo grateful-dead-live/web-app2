@@ -1,4 +1,7 @@
-<div *ngIf="!song" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+<div *ngIf="!song && spinTime" class="wait">
+  <div class="loader"></div>
+</div>
+<div *ngIf="!song && spinTime" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
 
 <div *ngIf="song" fxLayout="column">
   <gd-header *ngIf="song" title="{{ song.name }}"

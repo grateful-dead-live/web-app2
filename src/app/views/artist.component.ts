@@ -15,6 +15,7 @@ export class ArtistComponent {
   
   public artist: ArtistDetails;
   public currentUser: any = { userName: '', userId: 'None' };
+  public spinTime: boolean;
 
   constructor(private data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, public resolve: APIResolver) {
@@ -23,6 +24,9 @@ export class ArtistComponent {
     }
 
   async ngOnInit() {
+    setTimeout(() => {
+      this.spinTime = true;
+    }, 2000);
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {

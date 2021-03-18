@@ -19,10 +19,13 @@ export class DataService {
   private loading: Promise<any>;
   private events: DeadEventInfo[];
   public event: DeadEventDetails;
-  public shows: any;
-  public venues: any;
-  public locations: any;
-  public songs: any; 
+  private shows: any;
+  private venues: any;
+  private locations: any;
+  private songs: any; 
+  private tourCoordinates: any;
+  private venueCoordinates: any;
+
 
   constructor(private apiService: DeadApiService) {
     this.loading = this.initEvents();
@@ -178,6 +181,14 @@ export class DataService {
     this.events = await this.apiService.getEvents();
     this.events.sort((a, b) => parseFloat(a.date.replace(/-/g, ''))
       - parseFloat(b.date.replace(/-/g, '')));
+  }
+
+  async getCoordinates() {
+    if (!this.venueCoordinates){
+      this.venueCoordinates = await this.getVenueCoordinates();
+      this.tourCoordinates = await this.getTourCoordinates();
+    }
+    return {'venue_coordinates': this.venueCoordinates, 'tour_coordinates': this.tourCoordinates}
   }
 
   async getIndex() {

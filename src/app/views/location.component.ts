@@ -22,6 +22,7 @@ export class LocationComponent {
   public videos: any;
   public currentVideoId: string;
   protected currentVideoIndex: number = 0;
+  public spinTime: boolean;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService,
@@ -32,6 +33,9 @@ export class LocationComponent {
     }
 
     ngOnInit() {
+      setTimeout(() => {
+        this.spinTime = true;
+      }, 2000);
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
           this.currentUser = {

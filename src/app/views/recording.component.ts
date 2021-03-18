@@ -20,6 +20,7 @@ export class RecordingComponent {
   protected tracklist: any[];
   public recordinginfo: RecordingInfo;
   public _array = Array;
+  public spinTime: boolean;
   
   constructor(protected data: DataService, private router: Router,
     private route: ActivatedRoute, private dialog: DialogService,
@@ -30,6 +31,9 @@ export class RecordingComponent {
     }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.spinTime = true;
+    }, 2000);
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {

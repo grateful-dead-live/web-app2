@@ -31,6 +31,7 @@ export class ShowComponent {
   public artifactsLightbox: any;
   public imageObject: any;
   protected tilts: Number[];
+  public spinTime: boolean;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -40,6 +41,9 @@ export class ShowComponent {
     }
 
     async ngOnInit() {
+      setTimeout(() => {
+        this.spinTime = true;
+      }, 2000);
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
           this.currentUser = {

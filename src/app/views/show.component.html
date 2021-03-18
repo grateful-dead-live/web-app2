@@ -1,5 +1,8 @@
 
- <div *ngIf="!event" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+<div *ngIf="!event && spinTime" class="wait">
+  <div class="loader"></div>
+</div>
+<div *ngIf="!event && spinTime" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
 
 <div *ngIf="event" fxLayout="column">
   <gd-header style="position: fixed; width: 100%" *ngIf="event" title='{{event.location.name}}, {{event.location.state}}' subtitle='{{formatDate}}'

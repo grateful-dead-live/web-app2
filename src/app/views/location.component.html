@@ -1,4 +1,7 @@
-<div *ngIf="!location" class="wait"><img src="/assets/bearsanimated.webp" width="160"></div>
+<div *ngIf="!location && spinTime" class="wait">
+  <div class="loader"></div>
+</div>
+<div *ngIf="!location && spinTime" class="wait && spinTime"><img src="/assets/bearsanimated.webp" width="160"></div>
 
 <div *ngIf="location" fxLayout="column">
   <gd-header *ngIf="location" title='{{ location.name }}'
