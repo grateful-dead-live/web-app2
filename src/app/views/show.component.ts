@@ -43,7 +43,7 @@ export class ShowComponent {
     async ngOnInit() {
       setTimeout(() => {
         this.spinTime = true;
-      }, 2000);
+      }, 0);
       this.auth.userProfile$.subscribe(userProfile => {
         if (userProfile){
           this.currentUser = {

@@ -24,10 +24,14 @@ export class IndexComponent implements OnInit {
   protected locationsSort: String = 'locationName';
   protected songsSort: String = 'songName';
   public index: any;
+  public spinTime: boolean;
 
   constructor(private data: DataService, public auth: AuthService) { }
 
   async ngOnInit() {
+    setTimeout(() => {
+      this.spinTime = true;
+    }, 2000);
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {
