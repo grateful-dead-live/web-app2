@@ -26,6 +26,8 @@
         </div><br/>
       </ng-container-->
 
+
+<gd-header *ngIf="!recordinginfo" style="position: fixed; width: 100%" title=" " userId='{{ currentUser.userId }}'></gd-header>
 <div *ngIf="!recordinginfo && spinTime" class="wait">
   <div class="loader"></div>
 </div>

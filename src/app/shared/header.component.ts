@@ -32,7 +32,7 @@ export class HeaderComponent {
   
   @Input() imageUrl: string;
   @Input() title: string;
-  @Input() subtitle: string;
+  @Input() subtitle: string = "";
   @Input() userId: string;
   //@ViewChild('input') input: ElementRef;
   protected image: SafeStyle;

@@ -1,3 +1,4 @@
+<gd-header *ngIf="!song" style="position: fixed; width: 100%" title=" " userId='{{ currentUser.userId }}'></gd-header>
 <div *ngIf="!song && spinTime" class="wait">
   <div class="loader"></div>
 </div>

@@ -26,6 +26,7 @@ export class SongComponent {
   public currentUser: any = { userName: '', userId: 'None' };
   public videos: any;
   public currentVideoId: string;
+  public spinTime: boolean;
 
   constructor(private data: DataService, private player: PlayerService,
     private router: Router, private route: ActivatedRoute,
@@ -36,6 +37,9 @@ export class SongComponent {
     }
 
   async ngOnInit() {
+    setTimeout(() => {
+      this.spinTime = true;
+    }, 2000);
     this.auth.userProfile$.subscribe(userProfile => {
       if (userProfile){
         this.currentUser = {

@@ -1,3 +1,5 @@
+
+<gd-header *ngIf="!venue" style="position: fixed; width: 100%" title=" " userId='{{ currentUser.userId }}'></gd-header>
 <div *ngIf="!venue && spinTime" class="wait">
   <div class="loader"></div>
 </div>
