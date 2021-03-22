@@ -15,6 +15,7 @@ export class StartComponent {
 
   public currentUser: any = { userName: '', userId: 'None' };
   public email: string;
+  public showNote: boolean;
   
   constructor(private sanitizer: DomSanitizer,
     public auth: AuthService, public anchor: AnchorScrollService) {
@@ -24,6 +25,7 @@ export class StartComponent {
     }
 
   ngOnInit() {
+    this.showNote = true;
 
     this.anchor.listen();
     this.auth.userProfile$.subscribe(userProfile => {
@@ -46,6 +48,10 @@ export class StartComponent {
 
     this.email = EMAILADDRESS;
 
+  }
+
+  closeNote(){
+    this.showNote = false;
   }
 
 }

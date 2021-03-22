@@ -1,5 +1,5 @@
 <gd-header title='{{ "About" }}'
-    subtitle='{{ "" }}' userId='{{ currentUser.userId }}'>
+    subtitle='{{ "" }}' userId='{{ currentUser.userId }}' menu='"off"'>
   </gd-header>
 
 <meta charset="UTF-8">
@@ -13,44 +13,73 @@ a.disabled {
   pointer-events: none;
   cursor: default;
 }
+hr.rounded {
+  border-top: 2px solid rgb(131, 131, 131);
+  border-radius: 1px;
+}
+#note {
+        position: relative;
+    }
+    #note img.close {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        cursor: pointer;
+    }
 </style>
 
 
 <!-- Page content -->
+  
 <div class="w3-content" style="max-width:2000px;margin-top:32px">
+  
+  <div *ngIf="showNote" class="w3-container w3-content w3-center" style="max-width:800px">
+    <p class="w3-justify" style="background-color: rgb(255, 251, 0); padding: 10px; border-radius: 10px;" id="note">
+      <img class="close" src="/assets/preview/close.png" height="12px" (click)="closeNote()">
+      <img src="/assets/preview/warning-32.gif" height="16px"> Please note that the current website is in its early stages and not yet optimzed for mobile devices and the site designs have not been implemented yet. You can see a preview of what we envision the site to look like here: <u><a href="/assets/preview/ConcertMap4.png" target="_blank">1</a></u> <u style="padding-left: 6px;"><a href="/assets/preview/VenueView1.png" target="_blank">2</a></u> <u style="padding-left: 6px;"><a href="/assets/preview/ShowView.png" target="_blank">3</a></u>. We are also planning more functionality based on <a routerLink="." fragment="technology"><u>audio analysis</u></a>.
+  </p>
+</div>
 
   <!-- The Band Section -->
-  <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="top">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px;" id="top">
     <!-- <h2 class="w3-wide" [routerLink]="['/mapselect']">THE GRATEFUL DEAD CONCERT EXPLORER</h2> -->
-    <img src="/assets/gd_logo1_start.png" class="w3-round w3-margin-bottom" alt="grateful dead explorer logo" style="width:65%" [routerLink]="['/mapselect']">
-    <p style="cursor:pointer" class="w3-opacity"><i><u routerLink="/mapselect">click to enter</u></i></p>
+    <div style="cursor:pointer"><img src="/assets/gd_logo1_start.png" alt="grateful dead explorer logo" style="width:65%" [routerLink]="['/mapselect']"></div>
+    <p style="cursor:pointer" class="w3-opacity" style="font-size: small;"><u routerLink="/mapselect">click to enter</u></p>
       </div>
 
 
       
-  <div class="w3-container w3-content w3-center" style="max-width:800px" id="overviewstart">
-      <p class="w3-justify">
-          The Grateful Dead Concert Explorer is a Web application that enables user to navigate and explore digital libraries of live music recordings and discover and share associated artifacts that are dynamically linked within the application. It aims to demonstrate how Semantic Audio and Linked Data technologies can produce an improved user experience for browsing and exploring live music collections, by collecting information from a variety of different Web sources and employing Music Information Retrieval (MIR) techniques. 
-        </p>
-          <p class="w3-justify">
-          This prototype demonstrator focuses on the concerts of the Grateful Dead, motivated by the ongoing interest in detailed descriptions of their performances, evidenced by the large amount of information available on the Web detailing various aspects of those events. The application links the large number of concert recordings by the Grateful Dead available in the Internet Archive with audio analysis data and retrieves additional information and artifacts (e.g. band lineup, photos, scans of tickets and posters, reviews) from existing Web sources, to explore and visualize the collection. The project demonstrates mechanisms for musicians and the music industry to provide services for consumers to enjoy live music performances recognizing the social and cultural value of live music and fan communities.
+  <div class="w3-container w3-content w3-center" style="max-width:800px" style="padding-bottom: 32px;" id="overviewstart">
+      <p class="w3-center">
+          The Grateful Dead Concert Explorer is a Web application that enables user to navigate and explore digital libraries of live music recordings and discover and share associated artifacts that are dynamically linked within the application. 
       </p>
-      <p class="w3-justify">
-        This is an ongoing project in its early stages and not yet optimzed for mobile devices. 
+
+      <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="logostart">
+        <a href="https://archive.org" target="_blank"> <img src="https://archive.org/images/glogo.png" class="w3-round w3-margin-right" alt="internet archive logo" style="width:8%;"></a><span style="padding-right: 10%;"></span>
+        <a href="https://www.gdao.org" target="_blank"> <img src="https://www.gdao.org/themes/gdao-theme/images/logo-gdao.png" class="w3-round w3-margin-left" alt="gdao logo" style="width:8%"></a>
+    </div>
+
+      
+      <p class="w3-center">
+        Archival resources in this web app have been generously provided by the The Internet Archive and the Grateful Dead Online Archive.
       </p>
-      <p class="w3-justify">
-        The technologies exploited in this work that were developed in the <a href="http://www.semanticaudio.ac.uk/" target="_blank"><u>EPSRC FAST IMPACt</u></a> project include:
+
+      
+
+      <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/home_artifacts.jpg" style="width:50%">
+
+      <p class="w3-center">
+        This web application is developed to demonstrate how Semantic Audio and Linked Data technologies can produce an improved user experience for browsing and exploring live music collections, by aggregating information from a variety of different Web sources and employing Music Information Retrieval (MIR) techniques. 
       </p>
-      <ul class="w3-justify">
-          <li>Ontological data models for the representation of performed music as cultural artifacts, and its linkage to associated non-musical artifacts</li>
-          <li>Music information retrieval and processing algorithms for the automatic generation of playlists and audio mixes based on user-selected criteria</li>
-          <li>Music-structure analysis for the comparison of performances</li>
-          <li>Audio alignment of different user-generated recordings of live-music performances</li>
-      </ul>
-      <p class="w3-justify">
-      The main functions of the current version are described in the following. Clicking on the top left logo opens a menu with links to this start page and the <a routerLink="." fragment="mapstart"><u><i>Map View</i></u></a>.
-    </p>
-  </div>
+
+      <p class="w3-center" style="padding-top: 10px; color:rgb(131, 131, 131)">
+        ↓ learn about the explorer's functions ↓
+      </p>
+    </div>
+      <hr class="rounded">
+
+
+
 
   <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="mapstart">
       <h3 class="w3-wide">Map View</h3>
@@ -60,7 +89,7 @@ a.disabled {
       </p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="showstart">
+  <div class="w3-container w3-content w3-center" style="max-width:800px" id="showstart">
       <h3 class="w3-wide">Show View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_show.png" alt="show view" style="width:90%">
       <p class="w3-justify">
@@ -76,7 +105,7 @@ a.disabled {
       </p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="locationstart">
+  <div class="w3-container w3-content w3-center" style="max-width:800px" id="locationstart">
       <h3 class="w3-wide">Location View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_location.png" alt="location view" style="width:90%">
       <p class="w3-justify">
@@ -92,7 +121,7 @@ a.disabled {
       </p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="recordingstart">
+  <div class="w3-container w3-content w3-center" style="max-width:800px" id="recordingstart">
       <h3 class="w3-wide">Recording View</h3>
       <img class="image w3-round w3-margin-bottom" lazyLoad="/assets/screens/scr_recording.png" alt="recording view" style="width:90%">
       <p class="w3-justify">
@@ -108,8 +137,26 @@ a.disabled {
       </p>
   </div>
 
-  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="additionalstart">
-      <h3 class="w3-wide">Additional Functions</h3>
+  <hr class="rounded">
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px">
+    <h3 class="w3-wide">Why the Grateful Dead?</h3>
+    <p class="w3-justify">
+      First of all, because we think they are great! But this prototype demonstrator also focuses on the concerts of the Grateful Dead because of the ongoing interest in detailed descriptions of their performances, evidenced by the large amount of information available on the Web detailing various aspects of those events. The application links the large number of concert recordings available in the Internet Archive with audio analysis data and retrieves additional information and artifacts (e.g. band lineup, photos, scans of tickets and posters, reviews) from existing Web sources, to explore and visualize the collection. The project demonstrates mechanisms for musicians and the music industry to provide services for consumers to enjoy live music performances recognizing the social and cultural value of live music and fan communities.
+    </p>
+  </div>
+
+  <div class="w3-container w3-content w3-center w3-padding-32" style="max-width:800px" id="technology">
+    <h3 class="w3-wide">Which Technologies are you using?</h3>
+    <p class="w3-justify">
+      The technologies we employ in this work that were developed in the <a href="http://www.semanticaudio.ac.uk/" target="_blank"><u>EPSRC FAST IMPACt</u></a> project include:
+    </p>
+    <ul class="w3-justify">
+        <li>Ontological data models for the representation of performed music as cultural artifacts, and its linkage to associated non-musical artifacts</li>
+        <li>Music information retrieval and processing algorithms for the automatic generation of playlists and audio mixes based on user-selected criteria</li>
+        <li>Music-structure analysis for the comparison of performances</li>
+        <li>Audio alignment of different user-generated recordings of live-music performances</li>
+    </ul>
+  
       <p class="w3-justify">
         Not all functions of the demo application are listed here, and there are more functions planned to be implemented in the near future including social media aspects and MIR, e.g. user discussions of concerts and the automatic generation of playlist mixes based on user-defined parameters and audio feature analysis results. 
       </p>
@@ -123,6 +170,8 @@ a.disabled {
         <iframe src="https://www.youtube.com/embed/M-zvJYRhnL8" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
       </div>
   </div>
+
+  <hr class="rounded">
 
   <div class="w3-container w3-content w3-center w3-padding-16" style="max-width:800px" id="logostart">
       <a href="https://archive.org" target="_blank"> <img src="https://archive.org/images/glogo.png" class="w3-round w3-margin-right" alt="internet archive logo" style="width:8%"></a>
