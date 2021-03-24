@@ -117,7 +117,7 @@ export class ShowComponent {
   }
 
   private getTickerTime(n) {
-    return (n.join() + n.length * 16).length * 0.75
+    return (n.join() + n.length * 18).length * 0.75
   }
 
   private getTilts(){
