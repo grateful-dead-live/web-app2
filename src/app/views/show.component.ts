@@ -32,6 +32,7 @@ export class ShowComponent {
   public imageObject: any;
   protected tilts: Number[];
   public spinTime: boolean;
+  public tickerTime: number;
   
   constructor(private data: DataService, private sanitizer: DomSanitizer,
     private router: Router, private route: ActivatedRoute,
@@ -88,13 +89,13 @@ export class ShowComponent {
           : poster ? poster.image : pass ? pass.image : ticket ? ticket.image
           : this.event.location.thumbnail;
         var gl;
+        if (this.event.news) {
+          this.tickerTime = this.getTickerTime(this.event.news);
+        }
         if (this.photos.length>0) {
           gl = this.lightbox.makeGallery(this.photos);
           this.photosLightbox = gl[0];
           this.photos = gl[1];
-
-        //this.imageObject = this.lightbox.makeGallery2(this.photos);
-
         } 
         if (this.artifacts.length) {
           gl = this.lightbox.makeGallery(this.artifacts);
@@ -116,6 +117,9 @@ export class ShowComponent {
     });
   }
 
+  private getTickerTime(n) {
+    return (n.join() + n.length * 16).length * 0.75
+  }
 
   private getTilts(){
     var t = [];
