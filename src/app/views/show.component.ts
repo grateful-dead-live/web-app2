@@ -92,6 +92,9 @@ export class ShowComponent {
         if (this.event.news) {
           this.tickerTime = this.getTickerTime(this.event.news);
         }
+        else {
+          this.tickerTime = 0;
+        }
         if (this.photos.length>0) {
           gl = this.lightbox.makeGallery(this.photos);
           this.photosLightbox = gl[0];
@@ -105,10 +108,6 @@ export class ShowComponent {
           logger(this.currentArtifact);
         }
         this.changeDetectorRef.detectChanges();
-
-        
-        
-
       } else {
         //this.router.navigate(['/show', await this.data.getRandomEventId()],
         this.router.navigate(['/mapselect'], { replaceUrl: true });
