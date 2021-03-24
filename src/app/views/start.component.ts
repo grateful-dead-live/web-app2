@@ -4,7 +4,8 @@ import { AuthService } from '../auth.service';
 import { EMAILADDRESS } from '../config';
 import { AnchorScrollService } from '../services/anchor-scroll.service';
 import { CookieService } from 'ngx-cookie-service'; 
-
+import { BuyMeACoffeeComponent } from '../buymeacoffee/buymeacoffee.component';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 
 declare let gtag: Function;
 
@@ -19,7 +20,7 @@ export class StartComponent {
   public showNote: boolean;
   
   constructor(private sanitizer: DomSanitizer,
-    public auth: AuthService, public anchor: AnchorScrollService, private cookieService: CookieService) {}
+    public auth: AuthService, public anchor: AnchorScrollService, private cookieService: CookieService, public matDialog: MatDialog) {}
 
   ngOnInit() {
     const note = this.cookieService.get('gd-note')
@@ -59,6 +60,18 @@ export class StartComponent {
     //const d = new Date();
     //d.setTime(d.getTime() + (24 * 60 * 60 * 1000));
     //this.cookieService.set('gd-note', 'false', d, '/');  // why no working?? :(
+  }
+
+  buyMeACoffee() {
+    const dialogConfig = new MatDialogConfig();
+    //dialogConfig.disableClose = true;
+    //dialogConfig.id = "modal-component";
+    dialogConfig.autoFocus = false;
+    dialogConfig.height = '500px';
+    dialogConfig.width = '400px';
+    dialogConfig.panelClass = 'no-padding-dialog-container';
+    // https://material.angular.io/components/dialog/overview
+    this.matDialog.open(BuyMeACoffeeComponent, dialogConfig);
   }
 
 
