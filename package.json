@@ -40,6 +40,7 @@
     "lodash.isequal": "^4.5.0",
     "material-design-icons": "^3.0.1",
     "ng-lazyload-image": "^9.1.0",
+    "ng-ticker": "^2.1.0",
     "ngx-cookie-service": "^11.0.2",
     "ngx-drag-scroll": "^11.0.0-beta.1",
     "ngx-lightbox": "^2.2.2",

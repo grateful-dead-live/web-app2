@@ -53,11 +53,18 @@
   
   <div class="gd-container" fxLayout="column" fxFlex="50">
     <h2 class="titlef">News of the week</h2>
-    <div *ngFor="let n of event.news" matTooltip="open article" class="link">
+    <!--div *ngFor="let n of event.news" matTooltip="open article" class="link">
       <a [href]="n.url" target="_blank" [style.text-decoration]="'none'">
         {{ n.date+": "+n.title+" ("+n.source+")" }}
       </a>
-    </div>
+    </div-->
+    <ng-ticker [stopOnHover]="true" [speed]="10 * event.news.length + 's'">
+      <span *ngFor="let n of event.news" matTooltip="open article" class="link">
+        <a [href]="n.url" target="_blank" [style.text-decoration]="'none'" [style.padding-right]="'25px'">
+          {{ n.date+": "+n.title+" ("+n.source+")" }}
+        </a>
+      </span>
+  </ng-ticker>
   </div>
   
   <div class="gd-container" fxLayout="column" fxFlex="50">

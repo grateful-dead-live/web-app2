@@ -79,6 +79,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { NgVarDirective } from './ng-var.directive';
+import { NgTickerModule } from 'ng-ticker';
+
 
 @NgModule({
   declarations: [
@@ -140,7 +142,8 @@ import { NgVarDirective } from './ng-var.directive';
     LightboxModule,
     NgxPaginationModule,
     MatTooltipModule,
-    DragScrollModule
+    DragScrollModule,
+    NgTickerModule
   ],
   providers: [
     AuthGuard,
