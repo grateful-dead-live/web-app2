@@ -58,7 +58,7 @@
         {{ n.date+": "+n.title+" ("+n.source+")" }}
       </a>
     </div-->
-    <ng-ticker [stopOnHover]="true" [speed]="10 * event.news.length + 's'">
+    <ng-ticker [stopOnHover]="true" [speed]="10 * event.news.length + 's'" class="ticker">
       <span *ngFor="let n of event.news" matTooltip="open article" class="link">
         <a [href]="n.url" target="_blank" [style.text-decoration]="'none'">
           {{ n.date+": "+n.title+" ("+n.source+")" }}
