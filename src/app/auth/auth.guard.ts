@@ -45,7 +45,7 @@ canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<
     
     registerModal() {
       const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
+      //dialogConfig.disableClose = true;
       dialogConfig.autoFocus = false;
       //console.log('modal')
       this.matDialog.open(RegisterModalComponent, dialogConfig);

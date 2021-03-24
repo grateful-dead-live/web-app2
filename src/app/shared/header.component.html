@@ -7,15 +7,15 @@
         <button mat-button [matMenuTriggerFor]="menu"><img src="assets/gd_logo2.png" height="25"></button>        
         <mat-menu #menu="matMenu">
           <!-- <button *ngFor="let v of views" mat-menu-item [routerLink]="[v.url]">{{v.name}}</button> -->
-          <button mat-menu-item routerLink="/mapselect">Concert Map</button>
+          <button mat-menu-item routerLink="/mapselect" *ngIf="userId != 'None'">Concert Map</button>
           <button mat-menu-item routerLink="/profile" *ngIf="userId != 'None'">Profile Page</button>
           <button mat-menu-item (click)="auth.login()" *ngIf="userId == 'None'">Log In</button>
           <button mat-menu-item (click)="logout()" *ngIf="userId != 'None'">Log Out</button>
           <!--button mat-menu-item (click)="auth.logout()" *ngIf="userId">Log Out</button-->
-          <button mat-menu-item routerLink="/index">Index</button>
+          <button mat-menu-item *ngIf="userId != 'None'" routerLink="/index">Index</button>
           <button mat-menu-item routerLink="/about">About</button>
           <button mat-menu-item routerLink="/dataprivacy">Privacy</button>
-          <button mat-menu-item (click)="sendFeedback()" *ngIf="userId != 'None'" class="donate-menu-button">Send feedback</button>
+          <button mat-menu-item (click)="sendFeedback()" class="donate-menu-button">Send feedback</button>
           <button mat-menu-item (click)="buyMeACoffee()" class="donate-menu-button">Donate</button>
         </mat-menu>
     </span>

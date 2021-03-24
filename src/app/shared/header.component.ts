@@ -182,8 +182,9 @@ ngOnInit() {
     //dialogConfig.disableClose = true;
     //dialogConfig.id = "modal-component";
     dialogConfig.autoFocus = false;
-    dialogConfig.height = '550px';
-    dialogConfig.width = '435px';
+    dialogConfig.height = '500px';
+    dialogConfig.width = '400px';
+    dialogConfig.panelClass = 'no-padding-dialog-container';
     // https://material.angular.io/components/dialog/overview
     this.matDialog.open(BuyMeACoffeeComponent, dialogConfig);
   }
