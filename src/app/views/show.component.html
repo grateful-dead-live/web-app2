@@ -60,11 +60,13 @@
     </div-->
     <ng-ticker [stopOnHover]="true" [speed]="10 * event.news.length + 's'" class="ticker">
       <span *ngFor="let n of event.news" matTooltip="open article" class="link">
-        <a [href]="n.url" target="_blank" [style.text-decoration]="'none'" style="color:black;">
-          {{ n.date+" "+n.title }} 
-        </a>
+        <span style="padding-right:12px;">{{n.date}}</span>
         <img class="news-logo" *ngIf="n.source=='The Guardian'" src="/assets/guardian_logo.png" height="11px">
         <img class="news-logo" *ngIf="n.source=='The New York Times'" src="/assets/nytimes_logo.png" height="11px">
+        <a [href]="n.url" target="_blank" [style.text-decoration]="'none'" style="color:black;">
+          {{ n.title }} 
+        </a>
+        
         <span style="padding-right:20px; padding-left:20px; "></span>
       </span>
   </ng-ticker>
