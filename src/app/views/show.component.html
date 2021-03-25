@@ -62,8 +62,8 @@
       <span *ngFor="let n of event.news" matTooltip="open article" class="link">
         <img class="news-logo" *ngIf="n.source=='The Guardian'" src="/assets/guardian_logo.png" height="11px">
         <img class="news-logo" *ngIf="n.source=='The New York Times'" src="/assets/nytimes_logo.png" height="11px">
-        <span style="color:rgb(88, 88, 88); cursor:default;">{{n.date}}</span>
-        <a [href]="n.url" target="_blank" [style.text-decoration]="'none'" style="color:black;">
+        <span class="ticker-date">{{n.date}}</span>
+        <a [href]="n.url" target="_blank" class="ticker-text">
           {{ n.title }} 
         </a>
         <span style="padding-right:30px;"></span>

@@ -243,11 +243,11 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
 
 
   onClickArtifact(a){
-    this.lightbox.openLightboxArray(this.artifactsLightbox, a.index)
+    this.lightbox.openLightboxArray(this.artifactsLightbox, a.index);
   }
 
   onClickPhoto(p){
-    this.lightbox.openLightboxArray(this.photosLightbox, p.index)
+    this.lightbox.openLightboxArray(this.photosLightbox, p.index);
   }
 
 
@@ -261,10 +261,9 @@ private async addTrackToPlaylist(song: SongInfo, recordingEtreeId: string, recor
     i = (i%tl-1 + tl-1)%tl-1; // wrap index around list length
 
     if (t == 'artifact') {
-      i = tl - i - 1
+      i = tl - i - 1;
     }
     return this.tilts[i];
-    
   }
 
 }
