@@ -14,7 +14,7 @@
         <option *ngFor="let l of layerNames" ngValue="{{l}}"> {{l}}</option>
     </select>
   </div>
-  <div id="MapContainer" 
+  <div id="MapContainer"
     leaflet
     [leafletOptions]="mapOptions"
     (leafletMapReady)="onMapReady($event)">

@@ -80,6 +80,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NgVarDirective } from './ng-var.directive';
 import { NgTickerModule } from 'ng-ticker';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -143,7 +144,8 @@ import { NgTickerModule } from 'ng-ticker';
     NgxPaginationModule,
     MatTooltipModule,
     DragScrollModule,
-    NgTickerModule
+    NgTickerModule,
+    ClipboardModule
   ],
   providers: [
     AuthGuard,
