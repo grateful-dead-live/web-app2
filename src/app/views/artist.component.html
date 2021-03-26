@@ -10,7 +10,7 @@
     subtitle="{{ artist.instruments.join(', ').split('_').join(' ') }}" userId='{{ currentUser.userId }}'>
   </gd-header>
   
-  <div class="gd-container" fxLayout="row" fxLayout.xs="column">
+  <div class="gd-container" fxLayout="row" fxLayout.xs="column" style="margin-top:10px;">
     <img *ngIf="artist.thumbnail" class="image gd-container"
       [defaultImage]="'assets/gd_placeholder.png'"
       [lazyLoad]="artist.thumbnail" [style.object-fit]="'contain'"

@@ -9,7 +9,7 @@
   <gd-header *ngIf="venue" title='{{ venue.name }}'
     subtitle='{{ location }}' imageUrl="{{ venue.image }}" userId='{{ currentUser.userId }}'>
   </gd-header>
-  <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100">
+  <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxFlex="100" style="margin-top:30px;">
     <div class="gd-container" fxLayout="column" fxFlex="1 1 33%" fxFlex.sm="1 1 50%">
       <p *ngIf="data.event">The Band played on {{ data.event.date }}</p>
       <p>{{ venue.comment }}</p>

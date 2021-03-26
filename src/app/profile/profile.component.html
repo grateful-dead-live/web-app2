@@ -1,84 +1,86 @@
 
 <!--<div *ngIf="auth.userProfile$ | async as profile">
 <gd-header title='Profile' subtitle='{{ profile["http://example.com/username"]}}'></gd-header>-->
-<div *ngIf="currentUser">
+<div *ngIf="currentUser" fxLayout="column">
   <gd-header title='Profile' subtitle='{{ currentUser.userName }}' userId='{{ currentUser.userId }}'></gd-header>
-  <br><b>User Info</b><br>
-  <!--pre>
-    <code>{{ userProfile | json }}</code>
-  </pre-->
 
-  <i>{{'Username:  '}} </i>{{ userProfile['http://example.com/username'] }}
-  <br><i>{{'Email:  '}} </i> {{ userProfile.email }}
+  <div class="gd-container" style="margin-top:10px;">
+    <br><b>User Info</b><br>
+    <!--pre>
+      <code>{{ userProfile | json }}</code>
+    </pre-->
+
+    <i>{{'Username:  '}} </i>{{ userProfile['http://example.com/username'] }}
+    <br><i>{{'Email:  '}} </i> {{ userProfile.email }}
 
 
-  <br><br><b>Bookmarks</b><br>
-  <div *ngIf="bookmarks === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
-    <mat-spinner diameter="30"></mat-spinner>
-  </div>
-  <div *ngIf="bookmarks !== undefined">
-      <div *ngFor="let b of bookmarks">
-            {{b.timestamp}} <span class="link" [routerLink]="b.route" matTooltip="go to item">{{ b.title }}</span>
-            <button mat-icon-button (click)="onDeleteBookmark(b)" matTooltip="delete bookmark"><mat-icon>clear</mat-icon></button>  
-      </div>
-  </div>
-
-  <br><b>Likes</b><br>
-  <div *ngIf="likes === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
-    <mat-spinner diameter="30"></mat-spinner>
-  </div>
-
-  <div *ngIf="likes !== undefined">
-      <div *ngFor="let l of likes">
-          {{l.timestamp}} <span class="link" [routerLink]="l.route" matTooltip="go to item">{{ l.title }}</span>
-          <button mat-icon-button (click)="onUnlike(l)" matTooltip="delete like"><mat-icon>clear</mat-icon></button>  
-      </div>
-  </div>
-
-  <br><b>Commented on</b><br>
-  <div *ngIf="comments === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
-    <mat-spinner diameter="30"></mat-spinner>
-  </div>
-  <div *ngIf="comments !== undefined"> 
-    <div *ngFor="let c of comments">
-      <span class="link" [routerLink]="c.route" matTooltip="go to item">{{ c.title }}</span>
-    </div>
-  </div>
-
-  <br><b>Playlists</b><br>
-  
-  <div *ngIf="player.playlists">
-    <div *ngIf="!player.playlistsLoaded" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+    <br><br><b>Bookmarks</b><br>
+    <div *ngIf="bookmarks === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
       <mat-spinner diameter="30"></mat-spinner>
     </div>
-    <div *ngFor="let p of player.playlists">
-      <div> {{ p.timestamp }} "{{ p.name }}"
-        <button mat-icon-button (click)="loadPlaylist(p.playlist)" matTooltip="load playlist"><mat-icon>library_music</mat-icon></button> 
-        <button mat-icon-button (click)="delPlaylist(p.id, p.name)" matTooltip="delete playlist"><mat-icon>clear</mat-icon></button>   
-        
+    <div *ngIf="bookmarks !== undefined">
+        <div *ngFor="let b of bookmarks">
+              {{b.timestamp}} <span class="link" [routerLink]="b.route" matTooltip="go to item">{{ b.title }}</span>
+              <button mat-icon-button (click)="onDeleteBookmark(b)" matTooltip="delete bookmark"><mat-icon>clear</mat-icon></button>  
+        </div>
+    </div>
+
+    <br><b>Likes</b><br>
+    <div *ngIf="likes === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+
+    <div *ngIf="likes !== undefined">
+        <div *ngFor="let l of likes">
+            {{l.timestamp}} <span class="link" [routerLink]="l.route" matTooltip="go to item">{{ l.title }}</span>
+            <button mat-icon-button (click)="onUnlike(l)" matTooltip="delete like"><mat-icon>clear</mat-icon></button>  
+        </div>
+    </div>
+
+    <br><b>Commented on</b><br>
+    <div *ngIf="comments === undefined" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+      <mat-spinner diameter="30"></mat-spinner>
+    </div>
+    <div *ngIf="comments !== undefined"> 
+      <div *ngFor="let c of comments">
+        <span class="link" [routerLink]="c.route" matTooltip="go to item">{{ c.title }}</span>
       </div>
-      <div *ngFor="let t of p.playlist; index as i">
-        <small>{{i+1}}. {{ t.title }}</small>
+    </div>
+
+    <br><b>Playlists</b><br>
+    
+    <div *ngIf="player.playlists">
+      <div *ngIf="!player.playlistsLoaded" [style.margin-top]="'8px'" [style.margin-right]="'5px'">
+        <mat-spinner diameter="30"></mat-spinner>
       </div>
-      <share-buttons [theme]="'default'"
-        [include]="['facebook','twitter','pinterest','reddit','tumblr','mix','copy']"
-        url = "{{domain + '/playlist/' + p.id}}"
-        [show]="7"
-        [size]="-7"
-        [title]="'Grateful Dead Concert Explorer Playlist'"
-        [tags]="'GratefulDeadExplorer,GratefulDead,playlist'"
-        >
-      </share-buttons>
-    <br>
+      <div *ngFor="let p of player.playlists">
+        <div> {{ p.timestamp }} "{{ p.name }}"
+          <button mat-icon-button (click)="loadPlaylist(p.playlist)" matTooltip="load playlist"><mat-icon>library_music</mat-icon></button> 
+          <button mat-icon-button (click)="delPlaylist(p.id, p.name)" matTooltip="delete playlist"><mat-icon>clear</mat-icon></button>   
+          
+        </div>
+        <div *ngFor="let t of p.playlist; index as i">
+          <small>{{i+1}}. {{ t.title }}</small>
+        </div>
+        <share-buttons [theme]="'default'"
+          [include]="['facebook','twitter','pinterest','reddit','tumblr','mix','copy']"
+          url = "{{domain + '/playlist/' + p.id}}"
+          [show]="7"
+          [size]="-7"
+          [title]="'Grateful Dead Concert Explorer Playlist'"
+          [tags]="'GratefulDeadExplorer,GratefulDead,playlist'"
+          >
+        </share-buttons>
+      <br>
+      </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="!currentUser">
-  <gd-header title='Profile'></gd-header>
-  <pre>you are not logged in</pre>
-</div>
-
+  <div *ngIf="!currentUser">
+    <gd-header title='Profile'></gd-header>
+    <pre>you are not logged in</pre>
+  </div>
+  </div>
 <p [style.margin-bottom]="'75px'"></p>
 
 
