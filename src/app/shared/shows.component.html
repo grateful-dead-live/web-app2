@@ -5,10 +5,10 @@
       [defaultImage]="'assets/gd_placeholder.png'"
       [lazyLoad]="e.artifacts[0] ? e.artifacts[0].thumbnail || e.artifacts[0].image: null"
       [style.object-fit]="'cover'"
-      [routerLink]="['/show', e.id]" matTooltip="go to show" class='link'>>
+      [routerLink]="['/show', e.id]" matTooltip="go to show" class='link'>
       <div fxLayout="column" fxFlex="1 1 10%" fxLayoutAlign="center"
       [ngStyle.xs]="{'font-size': '80%'}" class="field"
-        [routerLink]="['/show', e.id]" matTooltip="go to show" class='link'>
+        [routerLink]="['/show', e.id]" matTooltip="go to show" class='link' style="margin-left:12px;">
         {{ e.date }}
       </div>
       <div fxLayout="column" fxFlex="1 1 25%" fxLayoutAlign="center"
