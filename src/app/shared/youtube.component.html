@@ -1,1 +1,13 @@
-<youtube-player videoId="{{ videoId }}" width="{{ width }}"></youtube-player>
+<youtube-player videoId="{{ currentVideoId }}" width="{{ width }}"></youtube-player>
+<ng-select bindLabel="title"
+    [clearable]="false"
+    (change)="selectVideo()"
+    [searchable]="false"
+    [(ngModel)]="currentVideoId">         
+    <ng-option [value]="v.videoId" *ngFor="let v of videos">
+        <div class="video-select">
+            <img src="{{v.thumbnail}}" height="40px"/>
+            {{v.title}}
+        </div>
+    </ng-option>
+</ng-select>

@@ -37,17 +37,7 @@
 
   <div *ngIf="videos">
     <div class="gd-container" fxLayout="column" fxFlex="50">
-      <gd-youtube videoId="{{ currentVideoId }}" width="100%"></gd-youtube>
-      <ng-select bindLabel="title"
-                 [clearable]="false"
-                 (change)="selectVideo()"
-                 [searchable]="false"
-                 [(ngModel)]="currentVideoId">         
-        <ng-option [value]="v.videoId" *ngFor="let v of videos">
-            <img src="{{v.thumbnail}}" height="40px"/>
-            {{v.title}}
-        </ng-option>
-      </ng-select>
+      <gd-youtube currentVideoId="{{currentVideoId}}" [videos]="videos" width="100%"></gd-youtube>
     </div>
   </div>
 

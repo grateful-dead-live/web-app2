@@ -5,7 +5,6 @@ import { Location } from '../services/types';
 import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
-import { GoogleAnalyticsService } from '../services/google-analytics.service';
 import { logger } from '../globals';
 
 
@@ -21,12 +20,10 @@ export class LocationComponent {
   public currentUser: any = { userName: '', userId: 'None' };
   public videos: any;
   public currentVideoId: string;
-  protected currentVideoIndex: number = 0;
   public spinTime: boolean;
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService,
-    protected googleAnalyticsService: GoogleAnalyticsService) {
+    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {
 
       
 
@@ -88,15 +85,6 @@ export class LocationComponent {
       event.recordings.map(r => r.etreeId),
       event.recordings.map(r => () => this.router.navigate(['/recording', r.id]) )
     );
-  }
-
-  selectVideo(){
-    this.videos.forEach((v, i) => {
-      if (v.videoId === this.currentVideoId){
-        this.currentVideoIndex = i
-      }
-    })
-   this.googleAnalyticsService.eventEmitter("youtube select", "youtube", ''+this.currentVideoIndex+' ('+this.currentVideoId+')', this.router.url);
   }
 
 }

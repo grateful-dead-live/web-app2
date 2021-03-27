@@ -1,14 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GoogleAnalyticsService } from '../services/google-analytics.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   //template: '<youtube-player videoId="PRQCAL_RMVo"></youtube-player>',
   templateUrl: './youtube.component.html',
+  styleUrls: ['./youtube.component.sass'],
   selector: 'gd-youtube',
 })
 
 export class YoutubeComponent implements OnInit {
-  @Input() videoId: string;
+  @Input() currentVideoId: string;
+  @Input() videos: any[];
   @Input() width: string;
+  protected currentVideoIndex: number = 0;
+
+  constructor(protected googleAnalyticsService: GoogleAnalyticsService, private router: Router){}
 
   ngOnInit() {
     //this.videoId = 'PRQCAL_RMVo';
@@ -19,4 +26,14 @@ export class YoutubeComponent implements OnInit {
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
   }
+
+  selectVideo(){
+    this.videos.forEach((v, i) => {
+      if (v.videoId === this.currentVideoId){
+        this.currentVideoIndex = i
+      }
+    })
+   this.googleAnalyticsService.eventEmitter("youtube select", "youtube", ''+this.currentVideoIndex+' ('+this.currentVideoId+')', this.router.url);
+  }
+
 }

@@ -58,7 +58,7 @@
         {{ n.date+": "+n.title+" ("+n.source+")" }}
       </a>
     </div-->
-    <ng-ticker [stopOnHover]="true" [speed]="tickerTime+'s'" class="ticker">
+    <ng-ticker *ngIf="event.news.length!=0" [stopOnHover]="true" [speed]="tickerTime+'s'" class="ticker">
       <span *ngFor="let n of event.news" matTooltip="open article" class="link">
         <img class="news-logo" *ngIf="n.source=='The Guardian'" src="/assets/guardian_logo.png" height="11px">
         <img class="news-logo" *ngIf="n.source=='The New York Times'" src="/assets/nytimes_logo.png" height="11px">
@@ -98,7 +98,7 @@
     <drag-scroll>
       <div drag-scroll-item *ngFor="let item of photos; let i = index;" style="margin-top: 30px;">
         <div *ngVar="tilt(i, 'photo') as degVar" [ngStyle]="{'transform': 'rotate('+degVar+'deg)', '-webkit-transform': 'rotate('+degVar+'deg)'}" >
-          <img class="scroll-image" src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" class="carousel-photo">
+          <img class="scroll-image" src="{{ item.thumbnail }}" (click)="onClickPhoto(item);" class="carousel-photo" style="cursor:pointer;">
         </div>
       </div>
     </drag-scroll>
@@ -112,7 +112,7 @@
     <drag-scroll>
       <div drag-scroll-item *ngFor="let item of artifacts; let i = index;" style="margin-top: 40px;">
         <div *ngVar="tilt(i, 'artifact') as degVar" [ngStyle]="{'transform': 'rotate('+degVar+'deg)', '-webkit-transform': 'rotate('+degVar+'deg)'}">
-        <img class="scroll-image" src="{{ item.thumbnail }}" (click)="onClickArtifact(item);">
+        <img class="scroll-image" src="{{ item.thumbnail }}" (click)="onClickArtifact(item);" style="cursor:pointer;">
       </div>
       </div>
     </drag-scroll>

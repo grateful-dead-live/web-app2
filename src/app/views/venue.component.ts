@@ -5,7 +5,6 @@ import { Venue } from '../services/types';
 import { AuthService } from '../auth.service';
 import { DeadEventInfo } from '../services/types';
 import { DialogService } from '../services/dialog.service';
-import { GoogleAnalyticsService } from '../services/google-analytics.service';
 import { logger } from '../globals';
 
 declare let gtag: Function;
@@ -19,14 +18,12 @@ export class VenueComponent {
   protected location: string;
   public videos: any;
   public currentVideoId: string;
-  protected currentVideoIndex: number = 0;
   public spinTime: boolean;
 
   protected currentUser: any = { userName: '', userId: 'None' };
   
   constructor(protected data: DataService, private router: Router,
-    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService,
-    protected googleAnalyticsService: GoogleAnalyticsService) {}
+    private route: ActivatedRoute, public auth: AuthService, private dialog: DialogService) {}
   
   async ngOnInit() {
     setTimeout(() => {
@@ -104,12 +101,4 @@ export class VenueComponent {
     );
   }
 
-  selectVideo(){
-    this.videos.forEach((v, i) => {
-      if (v.videoId === this.currentVideoId){
-        this.currentVideoIndex = i
-      }
-    })
-   this.googleAnalyticsService.eventEmitter("youtube select", "youtube", ''+this.currentVideoIndex+' ('+this.currentVideoId+')', this.router.url);
-  }
 }
