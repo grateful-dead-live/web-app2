@@ -48,11 +48,11 @@
                 <th (click)="onClickTitle('locations', 'numArtefacts')" style="cursor:pointer">Artifacts</th>
             </tr>
             <tr *ngFor="let s of locations">
-                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.locationName }}</td>
-                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.country }}</td>
-                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.numEvents }}</td>
-                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.numPhotos }}</td>
-                <td [routerLink]="['/show', s.locationId]" style="cursor:pointer">{{ s.numArtefacts }}</td>
+                <td [routerLink]="['/location', s.locationId]" style="cursor:pointer">{{ s.locationName }}</td>
+                <td [routerLink]="['/location', s.locationId]" style="cursor:pointer">{{ s.country }}</td>
+                <td [routerLink]="['/location', s.locationId]" style="cursor:pointer">{{ s.numEvents }}</td>
+                <td [routerLink]="['/location', s.locationId]" style="cursor:pointer">{{ s.numPhotos }}</td>
+                <td [routerLink]="['/location', s.locationId]" style="cursor:pointer">{{ s.numArtefacts }}</td>
             </tr>
         </table>
     </div>
