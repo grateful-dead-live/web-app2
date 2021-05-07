@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { RegisterModalComponent } from './register-modal.component';
 //import { CookieService } from 'ngx-cookie-service';
+import { AUTHGUARD } from '../config';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,9 @@ canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<
    //console.log(state)
    const cookie = this.getCookie(); 
    return this.authService.isAuthenticated$.toPromise().then(auth => {
+        if (!AUTHGUARD) {  // bypass guard if AUTHGUARD flag set to false
+          return true;
+        }
         //if (auth && !cookie) {
         //  location.reload();
         //}
